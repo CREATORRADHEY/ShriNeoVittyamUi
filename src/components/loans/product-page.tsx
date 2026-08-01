@@ -10,6 +10,11 @@ import { EmiCalculator } from "./emi-calculator";
 import { OfferComparisonPreview } from "./offer-comparison-preview";
 import { Button } from "@/components/ui/button";
 import { FigureCard, MediaSplit, RelatedGuides } from "@/components/sections/blocks";
+import { EditorialHero, HeroPanel, StatementBand } from "@/components/sections/editorial";
+import photoProfessional from "@/assets/photo-professional.jpg";
+import photoBusiness from "@/assets/photo-business-owner.jpg";
+import photoFamily from "@/assets/photo-family.jpg";
+import photoAgent from "@/assets/photo-agent.jpg";
 import {
   CashFlowCycleArt,
   CoolingOffArt,
