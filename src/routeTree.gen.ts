@@ -11,11 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AccountAggregatorRouteImport } from './routes/account-aggregator'
+import { Route as CompareOffersRouteImport } from './routes/compare-offers'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
+import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as ForAgentsRouteImport } from './routes/for-agents'
 import { Route as ForBorrowersRouteImport } from './routes/for-borrowers'
 import { Route as GrievanceRedressalRouteImport } from './routes/grievance-redressal'
+import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as KeyFactStatementRouteImport } from './routes/key-fact-statement'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TrustCenterRouteImport } from './routes/trust-center'
@@ -38,6 +43,16 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountAggregatorRoute = AccountAggregatorRouteImport.update({
+  id: '/account-aggregator',
+  path: '/account-aggregator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompareOffersRoute = CompareOffersRouteImport.update({
+  id: '/compare-offers',
+  path: '/compare-offers',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -46,6 +61,11 @@ const ContactRoute = ContactRouteImport.update({
 const CookiePolicyRoute = CookiePolicyRouteImport.update({
   id: '/cookie-policy',
   path: '/cookie-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
+  id: '/emi-calculator',
+  path: '/emi-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForAgentsRoute = ForAgentsRouteImport.update({
@@ -61,6 +81,16 @@ const ForBorrowersRoute = ForBorrowersRouteImport.update({
 const GrievanceRedressalRoute = GrievanceRedressalRouteImport.update({
   id: '/grievance-redressal',
   path: '/grievance-redressal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HowItWorksRoute = HowItWorksRouteImport.update({
+  id: '/how-it-works',
+  path: '/how-it-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KeyFactStatementRoute = KeyFactStatementRouteImport.update({
+  id: '/key-fact-statement',
+  path: '/key-fact-statement',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
@@ -122,11 +152,16 @@ const LoansSachetRoute = LoansSachetRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account-aggregator': typeof AccountAggregatorRoute
+  '/compare-offers': typeof CompareOffersRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
+  '/emi-calculator': typeof EmiCalculatorRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
   '/grievance-redressal': typeof GrievanceRedressalRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/key-fact-statement': typeof KeyFactStatementRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
@@ -142,11 +177,16 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account-aggregator': typeof AccountAggregatorRoute
+  '/compare-offers': typeof CompareOffersRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
+  '/emi-calculator': typeof EmiCalculatorRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
   '/grievance-redressal': typeof GrievanceRedressalRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/key-fact-statement': typeof KeyFactStatementRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
@@ -163,11 +203,16 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account-aggregator': typeof AccountAggregatorRoute
+  '/compare-offers': typeof CompareOffersRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
+  '/emi-calculator': typeof EmiCalculatorRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
   '/grievance-redressal': typeof GrievanceRedressalRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/key-fact-statement': typeof KeyFactStatementRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
@@ -185,11 +230,16 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/account-aggregator'
+    | '/compare-offers'
     | '/contact'
     | '/cookie-policy'
+    | '/emi-calculator'
     | '/for-agents'
     | '/for-borrowers'
     | '/grievance-redressal'
+    | '/how-it-works'
+    | '/key-fact-statement'
     | '/privacy-policy'
     | '/terms'
     | '/trust-center'
@@ -205,11 +255,16 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/account-aggregator'
+    | '/compare-offers'
     | '/contact'
     | '/cookie-policy'
+    | '/emi-calculator'
     | '/for-agents'
     | '/for-borrowers'
     | '/grievance-redressal'
+    | '/how-it-works'
+    | '/key-fact-statement'
     | '/privacy-policy'
     | '/terms'
     | '/trust-center'
@@ -225,11 +280,16 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/account-aggregator'
+    | '/compare-offers'
     | '/contact'
     | '/cookie-policy'
+    | '/emi-calculator'
     | '/for-agents'
     | '/for-borrowers'
     | '/grievance-redressal'
+    | '/how-it-works'
+    | '/key-fact-statement'
     | '/privacy-policy'
     | '/terms'
     | '/trust-center'
@@ -246,11 +306,16 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AccountAggregatorRoute: typeof AccountAggregatorRoute
+  CompareOffersRoute: typeof CompareOffersRoute
   ContactRoute: typeof ContactRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
+  EmiCalculatorRoute: typeof EmiCalculatorRoute
   ForAgentsRoute: typeof ForAgentsRoute
   ForBorrowersRoute: typeof ForBorrowersRoute
   GrievanceRedressalRoute: typeof GrievanceRedressalRoute
+  HowItWorksRoute: typeof HowItWorksRoute
+  KeyFactStatementRoute: typeof KeyFactStatementRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   TermsRoute: typeof TermsRoute
   TrustCenterRoute: typeof TrustCenterRoute
@@ -280,6 +345,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/account-aggregator': {
+      id: '/account-aggregator'
+      path: '/account-aggregator'
+      fullPath: '/account-aggregator'
+      preLoaderRoute: typeof AccountAggregatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare-offers': {
+      id: '/compare-offers'
+      path: '/compare-offers'
+      fullPath: '/compare-offers'
+      preLoaderRoute: typeof CompareOffersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -292,6 +371,13 @@ declare module '@tanstack/react-router' {
       path: '/cookie-policy'
       fullPath: '/cookie-policy'
       preLoaderRoute: typeof CookiePolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/emi-calculator': {
+      id: '/emi-calculator'
+      path: '/emi-calculator'
+      fullPath: '/emi-calculator'
+      preLoaderRoute: typeof EmiCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/for-agents': {
@@ -313,6 +399,20 @@ declare module '@tanstack/react-router' {
       path: '/grievance-redressal'
       fullPath: '/grievance-redressal'
       preLoaderRoute: typeof GrievanceRedressalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-it-works': {
+      id: '/how-it-works'
+      path: '/how-it-works'
+      fullPath: '/how-it-works'
+      preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/key-fact-statement': {
+      id: '/key-fact-statement'
+      path: '/key-fact-statement'
+      fullPath: '/key-fact-statement'
+      preLoaderRoute: typeof KeyFactStatementRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy-policy': {
@@ -398,11 +498,16 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AccountAggregatorRoute: AccountAggregatorRoute,
+  CompareOffersRoute: CompareOffersRoute,
   ContactRoute: ContactRoute,
   CookiePolicyRoute: CookiePolicyRoute,
+  EmiCalculatorRoute: EmiCalculatorRoute,
   ForAgentsRoute: ForAgentsRoute,
   ForBorrowersRoute: ForBorrowersRoute,
   GrievanceRedressalRoute: GrievanceRedressalRoute,
+  HowItWorksRoute: HowItWorksRoute,
+  KeyFactStatementRoute: KeyFactStatementRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   TermsRoute: TermsRoute,
   TrustCenterRoute: TrustCenterRoute,

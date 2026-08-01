@@ -14,6 +14,14 @@ export function SiteFooter() {
     { to: "/contact", label: t("nav.contact") },
   ] as const;
 
+  const resources = [
+    { to: "/how-it-works", label: "How it works" },
+    { to: "/compare-offers", label: "Compare offers" },
+    { to: "/emi-calculator", label: "EMI calculator" },
+    { to: "/key-fact-statement", label: "Key Fact Statement" },
+    { to: "/account-aggregator", label: "Account Aggregator" },
+  ] as const;
+
   const legal = [
     { to: "/trust-center", label: t("nav.trust") },
     { to: "/privacy-policy", label: t("footer.privacy") },
@@ -24,7 +32,8 @@ export function SiteFooter() {
 
   return (
     <footer className="bg-surface">
-      <div className="container-page grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
+      <div className="container-page grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-5">
+
         <div>
           <div className="flex items-center gap-2.5">
             <img src={logo.url} alt="" width={36} height={36} className="size-9 object-contain" />
@@ -56,6 +65,16 @@ export function SiteFooter() {
             </li>
           ))}
         </FooterColumn>
+        <FooterColumn title="Guides">
+          {resources.map((item) => (
+            <li key={item.to}>
+              <Link to={item.to} className="hover:text-foreground hover:underline">
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </FooterColumn>
+
 
         <FooterColumn title={t("footer.legal")}>
           {legal.map((item) => (
