@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Award, BadgeCheck, GraduationCap, IndianRupee, ShieldCheck, Users } from "lucide-react";
+import { BadgeCheck, GraduationCap, IndianRupee, ShieldCheck, Users } from "lucide-react";
 import { PublicShell } from "@/components/layout/public-shell";
 import { Section, SectionHeading } from "@/components/design-system/section";
 import { Button } from "@/components/ui/button";
@@ -198,10 +198,6 @@ export function ForAgentsPage() {
         secondary={{ to: "/how-it-works", label: "See the full journey" }}
         note="Final approval and loan terms are determined by the participating lender."
       />
-
-      <p className="sr-only">
-        <Award aria-hidden /> ShriNeo agent programme
-      </p>
     </PublicShell>
   );
 }
