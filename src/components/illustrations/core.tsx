@@ -363,9 +363,10 @@ export function AgentAssistFigure({
       <path d="M168 96 a14 16 0 0 1 28 0" stroke={NAVY} strokeWidth="1.5" />
       <circle cx="196" cy="50" r="7" fill={GREEN} opacity="0.14" />
       <path d="M192 50 l3 3 l6 -6" stroke={GREEN} strokeWidth="1.5" />
-      <text x="160" y="118" style={microLabel} fill={NAVY}>
-        VERIFIED AGENT
+      <text x="156" y="118" textAnchor="middle" style={microLabel} fill={NAVY}>
+        AGENT
       </text>
+
 
       <rect x="228" y="42" width="76" height="96" rx="8" fill="#ffffff" stroke={NAVY} strokeWidth="1.25" />
       {[0, 1, 2].map((i) => (
@@ -376,8 +377,9 @@ export function AgentAssistFigure({
         </g>
       ))}
       <text x="240" y="152" style={microLabel} fill={MUTED}>
-        FILES STAY IN SHRINEO
+        SECURE FILES
       </text>
+
     </Frame>
   );
 }
