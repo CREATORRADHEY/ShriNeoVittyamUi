@@ -92,7 +92,7 @@ function HomePage() {
               id="hero-title"
               className="editorial mt-5 max-w-[16ch] text-[clamp(2.5rem,6vw,4.25rem)] leading-[1.02] tracking-tight"
             >
-              Your Dreams, Our Responsibility.
+              Bharat Ka Digital Lending Partner.
             </h1>
             <p className="mt-6 max-w-[46ch] text-lg text-muted-foreground">
               Compare eligible loan options, understand every cost, and complete your application
