@@ -77,19 +77,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ShriNeo Capital — Financial Services" },
+      { title: "ShriNeo Capital — Your Dreams, Our Responsibility" },
       {
         name: "description",
         content:
-          "Institutional treasury management, cross-border settlements, and programmable liquidity for modern enterprises.",
+          "ShriNeo Capital is a vernacular-first digital lending platform. Compare personal, business, home and mortgage loan offers from participating banks and NBFCs.",
       },
-      { name: "author", content: "ShriNeo Capital" },
-      { property: "og:title", content: "ShriNeo Capital — Financial Services" },
-      {
-        property: "og:description",
-        content:
-          "Institutional treasury management, cross-border settlements, and programmable liquidity for modern enterprises.",
-      },
+      { name: "author", content: "SHRINEO VITTIYAM PRIVATE LIMITED" },
+      { property: "og:site_name", content: "ShriNeo Capital" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -102,11 +97,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap",
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
   }),
+
 
   shellComponent: RootShell,
   component: RootComponent,
