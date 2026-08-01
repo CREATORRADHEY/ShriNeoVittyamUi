@@ -1,0 +1,100 @@
+export const en: Record<string, string> = {
+  "brand.name": "ShriNeo Capital",
+  "brand.tagline": "Your dreams, our responsibility.",
+  "brand.legal": "A brand of SHRINEO VITTIYAM PRIVATE LIMITED",
+
+  "nav.loans": "Loans",
+  "nav.personal": "Personal Loan",
+  "nav.business": "Business Loan",
+  "nav.home": "Home Loan",
+  "nav.mortgage": "Mortgage Loan",
+  "nav.sachet": "Sachet Loan",
+  "nav.forBorrowers": "For Borrowers",
+  "nav.forAgents": "For Agents",
+  "nav.about": "About",
+  "nav.trust": "Trust Center",
+  "nav.contact": "Contact",
+  "nav.login": "Log in",
+  "nav.apply": "Apply now",
+  "nav.menu": "Menu",
+  "nav.closeMenu": "Close menu",
+  "nav.openMenu": "Open menu",
+  "nav.skip": "Skip to main content",
+
+  "lang.label": "Language",
+  "lang.choose": "Choose your language",
+  "lang.help": "You can change this at any time. Your place on the page is kept.",
+
+  "home.eyebrow": "RBI-aligned Lending Service Provider",
+  "home.hero.title": "Your Dreams, Our Responsibility.",
+  "home.hero.body":
+    "Built for customers. Designed for agents. Supported by banks. Powered by trust.",
+  "home.hero.primary": "Apply for a loan",
+  "home.hero.secondary": "Ask Neo",
+  "home.hero.imageAlt":
+    "A family in a semi-urban Indian home reviewing loan options together on a phone",
+
+  "home.how.title": "How it works",
+  "home.how.body": "Four steps, in plain language. You stay in control at every stage.",
+  "home.how.s1": "Tell us what you need",
+  "home.how.s1b": "Share the amount, purpose and tenure you have in mind.",
+  "home.how.s2": "Complete your details",
+  "home.how.s2b": "Identity, income and documents — we explain why each is needed.",
+  "home.how.s3": "Compare eligible offers",
+  "home.how.s3b": "See rate, APR, EMI and fees for every matching lender.",
+  "home.how.s4": "Track your application",
+  "home.how.s4b": "Follow each status with timestamps and the next expected action.",
+
+  "home.transfer":
+    "Your loan is disbursed directly by the participating lender. ShriNeo never holds your loan funds.",
+
+  "home.products.title": "Loan products",
+  "home.products.body":
+    "All amounts shown are indicative ranges and are configured with participating lenders.",
+  "home.products.explore": "Explore loan",
+
+  "home.bharat.title": "Built for Bharat",
+  "home.bharat.f1": "Talk to Neo in your language",
+  "home.bharat.f1b": "Ask questions in English or Hindi, by text or voice, at any step.",
+  "home.bharat.f2": "Clear fees and loan terms",
+  "home.bharat.f2b": "Interest, APR, processing fees and total repayment shown before you sign.",
+  "home.bharat.f3": "Get help from a verified local agent",
+  "home.bharat.f3b": "Registered agents can assist you only after your OTP consent.",
+
+  "home.agent.title": "Are you a loan broker, or helping people apply for loans offline?",
+  "home.agent.body": "Become a registered agent on ShriNeo and get:",
+  "home.agent.b1": "Official ID",
+  "home.agent.b2": "Access to multiple banks and NBFCs",
+  "home.agent.b3": "Transparent commissions",
+  "home.agent.b4": "Training and certificate",
+  "home.agent.cta": "Join as an agent",
+
+  "home.trust.title": "Trust and compliance",
+  "home.trust.cta": "Visit the Trust Center",
+
+  "footer.products": "Products",
+  "footer.company": "Company",
+  "footer.legal": "Trust and legal",
+  "footer.grievance": "Grievance Redressal",
+  "footer.privacy": "Privacy Policy",
+  "footer.terms": "Terms and Conditions",
+  "footer.cookies": "Cookie Policy",
+  "footer.alignment": "Operated in alignment with applicable RBI Digital Lending Directions",
+
+  "emi.title": "EMI calculator",
+  "emi.principal": "Loan amount",
+  "emi.rate": "Annual interest rate (%)",
+  "emi.tenure": "Tenure (months)",
+  "emi.monthly": "Estimated monthly EMI",
+  "emi.interest": "Total estimated interest",
+  "emi.total": "Total estimated repayment",
+  "emi.note":
+    "This calculator provides an estimate. Final terms are determined by the participating lender.",
+
+  "common.indicative": "Indicative range",
+  "common.comingSoon": "Coming in Phase 2",
+  "common.demo": "Demonstration data",
+  "common.applyNow": "Apply for a loan",
+  "common.checkEligibility": "Check available loan options",
+  "common.finalDecision": "Final decision by the participating lender",
+};
