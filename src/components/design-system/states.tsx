@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 
 type StateProps = {
   title: string;
-  body?: string;
-  action?: ReactNode;
+  body?: string | undefined;
+  action?: ReactNode | undefined;
 };
 
 function Shell({
