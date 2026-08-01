@@ -170,18 +170,21 @@ function HomePage() {
           <div>
             <div className="mb-3 flex flex-wrap items-center gap-2">
               <Eyebrow>{t("home.eyebrow")}</Eyebrow>
-              <Tooltip>
-                <TooltipTrigger
-                  aria-label="What Lending Service Provider means"
-                  className="inline-grid size-6 place-items-center rounded-full text-muted-foreground hover:text-primary"
-                >
-                  <Info aria-hidden className="size-4" />
-                </TooltipTrigger>
-                <TooltipContent className="max-w-xs">
-                  ShriNeo Capital connects borrowers with participating lenders. The final lending
-                  decision is made by the lender.
-                </TooltipContent>
-              </Tooltip>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger
+                    aria-label="What Lending Service Provider means"
+                    className="inline-grid size-6 place-items-center rounded-full text-muted-foreground hover:text-primary"
+                  >
+                    <Info aria-hidden className="size-4" />
+                  </TooltipTrigger>
+                  <TooltipContent className="max-w-xs">
+                    ShriNeo Capital connects borrowers with participating lenders. The final lending
+                    decision is made by the lender.
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
             </div>
 
             <h1
