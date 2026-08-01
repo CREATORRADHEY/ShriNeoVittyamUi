@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { CircleHelp, FileText, ListChecks, MessagesSquare, ShieldCheck } from "lucide-react";
 import { PublicShell } from "@/components/layout/public-shell";
 import { Section, SectionHeading } from "@/components/design-system/section";
-import { EditorialHero, HeroPanel, NumberedLedger } from "@/components/sections/editorial";
+import { EditorialHero, HeroPanel, NumberedLedger, StatementBand } from "@/components/sections/editorial";
 import { FigureCard } from "@/components/sections/blocks";
 import { JourneyFigure } from "@/components/illustrations/core";
 import photoFamily from "@/assets/photo-family.jpg";
@@ -132,7 +132,7 @@ export function ForBorrowersPage() {
 
 
       <Section labelledBy="prepare-title">
-        <div className="grid gap-12 lg:grid-cols-2">
+        <div className="max-w-2xl">
           <div>
             <SectionHeading
               id="prepare-title"
