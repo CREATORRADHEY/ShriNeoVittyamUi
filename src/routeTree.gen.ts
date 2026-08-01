@@ -19,6 +19,8 @@ import { Route as GrievanceRedressalRouteImport } from './routes/grievance-redre
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TrustCenterRouteImport } from './routes/trust-center'
+import { Route as AuthSigninRouteImport } from './routes/auth.signin'
+import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as LoansIndexRouteImport } from './routes/loans.index'
 import { Route as LoansBusinessRouteImport } from './routes/loans.business'
 import { Route as LoansHomeRouteImport } from './routes/loans.home'
@@ -76,6 +78,16 @@ const TrustCenterRoute = TrustCenterRouteImport.update({
   path: '/trust-center',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthSigninRoute = AuthSigninRouteImport.update({
+  id: '/auth/signin',
+  path: '/auth/signin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthSignupRoute = AuthSignupRouteImport.update({
+  id: '/auth/signup',
+  path: '/auth/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoansIndexRoute = LoansIndexRouteImport.update({
   id: '/loans/',
   path: '/loans/',
@@ -118,6 +130,8 @@ export interface FileRoutesByFullPath {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
+  '/auth/signin': typeof AuthSigninRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/loans/business': typeof LoansBusinessRoute
   '/loans/home': typeof LoansHomeRoute
   '/loans/mortgage': typeof LoansMortgageRoute
@@ -136,6 +150,8 @@ export interface FileRoutesByTo {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
+  '/auth/signin': typeof AuthSigninRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/loans/business': typeof LoansBusinessRoute
   '/loans/home': typeof LoansHomeRoute
   '/loans/mortgage': typeof LoansMortgageRoute
@@ -155,6 +171,8 @@ export interface FileRoutesById {
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
+  '/auth/signin': typeof AuthSigninRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/loans/business': typeof LoansBusinessRoute
   '/loans/home': typeof LoansHomeRoute
   '/loans/mortgage': typeof LoansMortgageRoute
@@ -175,6 +193,8 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/terms'
     | '/trust-center'
+    | '/auth/signin'
+    | '/auth/signup'
     | '/loans/business'
     | '/loans/home'
     | '/loans/mortgage'
@@ -193,6 +213,8 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/terms'
     | '/trust-center'
+    | '/auth/signin'
+    | '/auth/signup'
     | '/loans/business'
     | '/loans/home'
     | '/loans/mortgage'
@@ -211,6 +233,8 @@ export interface FileRouteTypes {
     | '/privacy-policy'
     | '/terms'
     | '/trust-center'
+    | '/auth/signin'
+    | '/auth/signup'
     | '/loans/business'
     | '/loans/home'
     | '/loans/mortgage'
@@ -230,6 +254,8 @@ export interface RootRouteChildren {
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   TermsRoute: typeof TermsRoute
   TrustCenterRoute: typeof TrustCenterRoute
+  AuthSigninRoute: typeof AuthSigninRoute
+  AuthSignupRoute: typeof AuthSignupRoute
   LoansBusinessRoute: typeof LoansBusinessRoute
   LoansHomeRoute: typeof LoansHomeRoute
   LoansMortgageRoute: typeof LoansMortgageRoute
@@ -310,6 +336,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrustCenterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/signin': {
+      id: '/auth/signin'
+      path: '/auth/signin'
+      fullPath: '/auth/signin'
+      preLoaderRoute: typeof AuthSigninRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/signup': {
+      id: '/auth/signup'
+      path: '/auth/signup'
+      fullPath: '/auth/signup'
+      preLoaderRoute: typeof AuthSignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/loans/': {
       id: '/loans/'
       path: '/loans'
@@ -366,6 +406,8 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   TermsRoute: TermsRoute,
   TrustCenterRoute: TrustCenterRoute,
+  AuthSigninRoute: AuthSigninRoute,
+  AuthSignupRoute: AuthSignupRoute,
   LoansBusinessRoute: LoansBusinessRoute,
   LoansHomeRoute: LoansHomeRoute,
   LoansMortgageRoute: LoansMortgageRoute,
