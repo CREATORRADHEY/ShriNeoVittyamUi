@@ -9,7 +9,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import heroBorrower from "@/assets/hero-borrower.png.asset.json";
+import heroTrio from "@/assets/hero-trio.jpg";
 import photoBusiness from "@/assets/photo-business-owner.jpg";
 import photoFamily from "@/assets/photo-family.jpg";
 import photoAgent from "@/assets/photo-agent.jpg";
@@ -126,12 +126,12 @@ function HomePage() {
             <div className="relative mx-auto w-full max-w-[30rem] lg:max-w-none">
               <div className="overflow-hidden rounded-[22px] border border-border bg-surface">
                 <img
-                  src={heroBorrower.url}
-                  alt="A smiling customer of ShriNeo Capital standing with folded arms"
-                  width={1400}
-                  height={1100}
+                  src={heroTrio}
+                  alt="Three ShriNeo Capital customers standing together with folded arms"
+                  width={1280}
+                  height={1280}
                   fetchPriority="high"
-                  className="aspect-[4/5] size-full object-cover object-top"
+                  className="aspect-square size-full object-cover object-top"
                 />
               </div>
 
