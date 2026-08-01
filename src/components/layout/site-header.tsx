@@ -26,11 +26,13 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   const mainLinks = [
+    { to: "/how-it-works", label: "How it works" },
+    { to: "/compare-offers", label: "Compare offers" },
     { to: "/for-agents", label: t("nav.forAgents") },
-    { to: "/about", label: t("nav.about") },
     { to: "/trust-center", label: t("nav.trust") },
     { to: "/contact", label: t("nav.contact") },
   ] as const;
+
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background">
