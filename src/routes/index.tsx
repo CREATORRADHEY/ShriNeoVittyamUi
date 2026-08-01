@@ -1,51 +1,38 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
+  ArrowUpRight,
   Banknote,
-  BadgeCheck,
   FileCheck2,
   Languages,
   MessagesSquare,
   ShieldCheck,
-  Info,
+  Sparkles,
 } from "lucide-react";
-import heroImage from "@/assets/hero-family.jpg";
+import photoProfessional from "@/assets/photo-professional.jpg";
+import photoBusiness from "@/assets/photo-business-owner.jpg";
+import photoFamily from "@/assets/photo-family.jpg";
+import photoAgent from "@/assets/photo-agent.jpg";
 import { products } from "@/config/products";
 import { org } from "@/config/org";
 import { formatINR } from "@/lib/format";
-import { useI18n } from "@/i18n";
 import { PublicShell } from "@/components/layout/public-shell";
-import { Section, SectionHeading, Eyebrow, StatusPill } from "@/components/design-system/section";
 import { Button } from "@/components/ui/button";
-import { LanguageSwitcher } from "@/components/layout/language-switcher";
+import { StatusPill } from "@/components/design-system/section";
+import { Reveal } from "@/components/sections/reveal";
+import { FaqGroups } from "@/components/sections/blocks";
 import {
-  DarkCta,
-  DisclosureBlock,
-  FaqGroups,
-  FigureCard,
-  MediaSplit,
-  ProcessTimeline,
-  TrustStrip,
-  UseCaseCards,
-  type JourneyStep,
-} from "@/components/sections/blocks";
+  AgentAssistFigure,
+  ConsentFigure,
+  CostBreakdownFigure,
+  FundFlowFigure,
+  JourneyFigure,
+} from "@/components/illustrations/core";
 import {
-  AgentAssistArt,
-  CompareOffersArt,
-  DirectFundFlowArt,
-  DualScoreArt,
-  LoanCostArt,
-  PrivacyControlArt,
-} from "@/components/illustrations";
-import {
-  AgentDashboardPreview,
-  BorrowerDashboardPreview,
-  NeoChatPreview,
-  OfferHighlightPreview,
-} from "@/components/previews/previews";
-import { OfferComparisonPreview } from "@/components/loans/offer-comparison-preview";
-import { EmiCalculator } from "@/components/loans/emi-calculator";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+  ApplicationTrackingPanel,
+  BorrowerDashboardPanel,
+  OfferComparisonPanel,
+} from "@/components/previews/product-previews";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -71,621 +58,813 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-const journey: JourneyStep[] = [
-  {
-    title: "Tell us what you need",
-    body: "Amount, purpose and the tenure you have in mind. No documents at this stage.",
-    actor: "you",
-  },
-  {
-    title: "Complete your profile",
-    body: "Identity, income and bank information — each field explains why it is required.",
-    actor: "you",
-  },
-  {
-    title: "Compare eligible offers",
-    body: "Matching lenders return rate, APR, EMI, fees and total repayment side by side.",
-    actor: "shrineo",
-  },
-  {
-    title: "Review complete loan terms",
-    body: "The Key Fact Statement shows every charge, the schedule and the cooling-off window.",
-    actor: "you",
-  },
-  {
-    title: "Send your application",
-    body: "You e-sign with an OTP. Your consent is recorded with a timestamp.",
-    actor: "you",
-  },
-  {
-    title: "Track the lender's response",
-    body: "Each status change is visible with the date and the next expected action.",
-    actor: "lender",
-  },
-];
+const LENDER_NOTE = "Final approval and loan terms are determined by the participating lender.";
 
-const faqGroups = [
-  {
-    group: "Applying",
-    items: [
-      {
-        q: "Does ShriNeo lend money?",
-        a: "No. ShriNeo Capital is a Lending Service Provider. Participating banks and NBFCs assess, approve and disburse every loan.",
-      },
-      {
-        q: "What does an application cost?",
-        a: "Applying and comparing offers is free. Lender charges such as processing fees are disclosed in the Key Fact Statement before you sign.",
-      },
-    ],
-  },
-  {
-    group: "Offers and charges",
-    items: [
-      {
-        q: "How are offers ranked?",
-        a: "By total cost of borrowing by default. The ranking method is disclosed, no lender pays for placement and no matching offer is hidden.",
-      },
-      {
-        q: "Why is APR different from the interest rate?",
-        a: "APR includes interest plus fees, so it reflects the yearly cost of the loan and allows a fair comparison between offers.",
-      },
-    ],
-  },
-  {
-    group: "Security and consent",
-    items: [
-      {
-        q: "Who can see my documents?",
-        a: "Only you, the lenders you apply to, and a verified agent you have explicitly authorised by OTP. Every access is logged.",
-      },
-      {
-        q: "Can I withdraw consent?",
-        a: "Yes. Consents are purpose-specific and time-bound, and your consent history is visible in your account.",
-      },
-    ],
-  },
-  {
-    group: "Agents and support",
-    items: [
-      {
-        q: "Do I have to use an agent?",
-        a: "No. You can complete everything yourself. An agent can only assist after you approve the request with an OTP.",
-      },
-      {
-        q: "How do I raise a complaint?",
-        a: "Through the Grievance Redressal page. Every complaint receives a reference number, an acknowledgement and an escalation path.",
-      },
-    ],
-  },
-];
+/* --------------------------------------------------------------- section shell */
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return <p className="label-micro text-primary">{children}</p>;
+}
+
+/* ------------------------------------------------------------------- the page */
 
 function HomePage() {
-  const { t } = useI18n();
+  const featured = products[0]!;
+  const supporting = products.slice(1);
 
   return (
     <PublicShell>
-      {/* 1 + 2 — trust eyebrow and hero */}
-      <section aria-labelledby="hero-title" className="border-b border-border bg-surface">
-        <div className="container-page grid gap-12 py-12 lg:grid-cols-[1.02fr_1fr] lg:items-center lg:py-20">
-          <div>
-            <div className="mb-3 flex flex-wrap items-center gap-2">
-              <Eyebrow>{t("home.eyebrow")}</Eyebrow>
-              <Tooltip>
-                <TooltipTrigger
-                  aria-label="What Lending Service Provider means"
-                  className="inline-grid size-6 place-items-center rounded-full text-muted-foreground hover:text-primary"
-                >
-                  <Info aria-hidden className="size-4" />
-                </TooltipTrigger>
-                <TooltipContent className="max-w-xs">
-                  ShriNeo Capital connects borrowers with participating lenders. The final lending
-                  decision is made by the lender.
-                </TooltipContent>
-              </Tooltip>
-            </div>
+      {/* ─────────────────────────────────── 1. HERO — full-width editorial */}
+      <section aria-labelledby="hero-title" className="relative overflow-hidden bg-background">
+        {/* soft blue architectural forms */}
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <div className="absolute top-0 right-0 h-full w-[52%] bg-surface" />
+          <div className="absolute top-[-6rem] right-[6%] size-[26rem] rounded-full border border-brand-100" />
+          <div className="absolute top-[8rem] right-[28%] size-[34rem] rounded-full border border-brand-100/70" />
+          <div className="absolute inset-y-0 left-[48%] w-px bg-border" />
+        </div>
 
+        <div className="container-page relative grid gap-14 py-14 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-16 lg:py-24">
+          <Reveal>
+            <SectionLabel>RBI-aligned Lending Service Provider</SectionLabel>
             <h1
               id="hero-title"
-              className="editorial text-[clamp(2.25rem,6vw,3.75rem)] leading-[1.05] tracking-tight text-balance"
+              className="editorial mt-5 max-w-[16ch] text-[clamp(2.5rem,6vw,4.25rem)] leading-[1.02] tracking-tight"
             >
               Your Dreams, Our Responsibility.
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-muted-foreground">
+            <p className="mt-6 max-w-[46ch] text-lg text-muted-foreground">
               Compare eligible loan options, understand every cost, and complete your application
               with confidence.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg" className="min-h-11">
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Button asChild size="lg" className="min-h-12 rounded-lg px-6 text-base">
                 <Link to="/auth/signup">
                   Apply for a loan
                   <ArrowRight aria-hidden className="size-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="min-h-11">
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="min-h-12 rounded-lg border-border-strong px-6 text-base"
+              >
                 <Link to="/for-borrowers">
                   <MessagesSquare aria-hidden className="size-4" />
-                  Ask Neo
+                  Talk to Neo
                 </Link>
               </Button>
             </div>
 
-            <p className="mt-6">
-              <Link
-                to="/how-it-works"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-primary underline underline-offset-4"
-              >
-                See how ShriNeo works
-                <ArrowRight aria-hidden className="size-4" />
-              </Link>
-            </p>
+            <p className="mt-6 max-w-[46ch] text-sm text-muted-foreground">{LENDER_NOTE}</p>
+          </Reveal>
 
-            <p className="mt-6 max-w-xl text-sm text-muted-foreground">{org.roleStatement}</p>
-          </div>
+          {/* composed visual: photograph + two interface layers */}
+          <Reveal delay={90} className="relative min-w-0">
+            <div className="relative mx-auto w-full max-w-[30rem] lg:max-w-none">
+              <div className="overflow-hidden rounded-[22px] border border-border bg-card">
+                <img
+                  src={photoProfessional}
+                  alt="A young professional in Bengaluru reviewing her loan options in natural daylight"
+                  width={1200}
+                  height={1504}
+                  fetchPriority="high"
+                  className="aspect-[4/5] size-full object-cover object-top"
+                />
+              </div>
 
-          {/* Editorial hero composition: photography + a calm product panel */}
-          <div className="relative min-w-0">
-            <div className="overflow-hidden rounded-xl border border-border">
-              <img
-                src={heroImage}
-                alt={t("home.hero.imageAlt")}
-                width={1200}
-                height={900}
-                fetchPriority="high"
-                className="aspect-4/3 size-full object-cover"
-              />
-            </div>
-            <div className="mt-[-3.5rem] ml-auto w-[min(100%,22rem)] px-3 sm:mt-[-4.5rem] sm:px-0">
-              <OfferHighlightPreview />
-            </div>
-          </div>
-        </div>
-      </section>
+              {/* layer 1 — comparison panel */}
+              <div className="relative z-10 -mt-24 ml-auto w-[min(100%,20rem)] rounded-xl border border-border bg-card p-4 shadow-[var(--shadow-panel)] sm:-mr-6">
+                <div className="flex items-center justify-between">
+                  <p className="label-micro text-muted-foreground">Eligible offers</p>
+                  <p className="label-micro text-muted-foreground">Demonstration</p>
+                </div>
+                <ul className="mt-3 space-y-2">
+                  {[
+                    { name: "Aarambh Finance", apr: "12.4%", emi: 9885, best: true },
+                    { name: "Meridian Bank", apr: "12.9%", emi: 9843, best: false },
+                  ].map((row) => (
+                    <li
+                      key={row.name}
+                      className={`flex items-center gap-3 rounded-lg border px-3 py-2.5 ${
+                        row.best ? "border-primary bg-accent" : "border-border bg-card"
+                      }`}
+                    >
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-sm font-medium">{row.name}</span>
+                        <span className="num block text-xs text-muted-foreground">
+                          APR {row.apr}
+                        </span>
+                      </span>
+                      <span className="num shrink-0 text-sm font-semibold">
+                        {formatINR(row.emi)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-      {/* 3 — trust proof bar */}
-      <TrustStrip
-        items={[
-          {
-            icon: Banknote,
-            label: "Direct lender disbursal",
-            body: "Funds move from the lender straight to your bank account.",
-          },
-          {
-            icon: FileCheck2,
-            label: "Costs shown before signing",
-            body: "Rate, APR, fees and total repayment in the Key Fact Statement.",
-          },
-          {
-            icon: ShieldCheck,
-            label: "Purpose-specific consent",
-            body: "Each data use is consented to separately and logged.",
-          },
-          {
-            icon: Languages,
-            label: "English and Hindi",
-            body: "Switch language at any point without losing progress.",
-          },
-        ]}
-      />
-
-      {/* 4 — choose your language */}
-      <section aria-labelledby="lang-title" className="border-b border-border bg-background py-10">
-        <div className="container-page grid items-center gap-6 md:grid-cols-[1fr_auto]">
-          <div>
-            <h2 id="lang-title" className="text-lg font-semibold">
-              {t("lang.choose")}
-            </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Switch language at any time. Your progress stays saved.
-            </p>
-          </div>
-          <LanguageSwitcher />
-        </div>
-      </section>
-
-      {/* 5 — loans for every need */}
-      <Section tone="surface" labelledBy="products-title">
-        <SectionHeading
-          id="products-title"
-          title="Loans for every need"
-          body="Five products, one consistent process. All amounts are indicative ranges configured with participating lenders."
-        />
-        <ul className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
-          {products.map((product, index) => (
-            <li
-              key={product.slug}
-              className={
-                index === 0
-                  ? "lg:col-span-3"
-                  : index === 1
-                    ? "lg:col-span-3"
-                    : "lg:col-span-2"
-              }
-            >
-              <Link
-                to={product.path}
-                className="flex h-full flex-col rounded-xl border border-border bg-card p-6 transition-colors duration-150 hover:border-primary focus-visible:border-primary"
-              >
-                <span className="grid size-10 place-items-center rounded-lg bg-accent text-primary">
-                  <product.icon aria-hidden className="size-5" />
-                </span>
-                <h3 className="mt-4 flex flex-wrap items-center gap-2 text-lg font-semibold">
-                  {product.name}
-                  {product.phase2 ? (
-                    <StatusPill tone="warning">{t("common.comingSoon")}</StatusPill>
-                  ) : null}
-                </h3>
-                <p className="mt-2 text-sm text-muted-foreground">{product.summary}</p>
-                <p className="num mt-4 text-sm font-medium">
-                  {formatINR(product.range.min, { compact: true })} –{" "}
-                  {formatINR(product.range.max, { compact: true })}
+              {/* layer 2 — summary + direct transfer indicator */}
+              <div className="relative z-10 mt-3 w-[min(100%,17rem)] rounded-xl border border-border bg-surface p-4 sm:-ml-6">
+                <p className="label-micro text-muted-foreground">Total repayment</p>
+                <p className="num mt-1 text-xl font-semibold tracking-tight">
+                  {formatINR(355860)}
                 </p>
-                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
-                  Explore {product.name}
-                  <ArrowRight aria-hidden className="size-4" />
-                </span>
-              </Link>
+                <div className="mt-3 flex items-center gap-2 border-t border-border pt-3 text-xs text-muted-foreground">
+                  <span className="whitespace-nowrap">Lender</span>
+                  <span aria-hidden className="h-px flex-1 bg-border-strong" />
+                  <ArrowRight aria-hidden className="size-3.5 text-success" />
+                  <span aria-hidden className="h-px flex-1 bg-border-strong" />
+                  <span className="whitespace-nowrap">Your account</span>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────── 2. TRUST STRIP — horizontal */}
+      <section aria-label="How ShriNeo protects you" className="border-y border-border bg-background">
+        <ul className="container-page grid gap-x-10 gap-y-6 py-8 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { icon: Banknote, label: "Direct lender-to-borrower disbursal" },
+            { icon: FileCheck2, label: "Clear costs before signing" },
+            { icon: ShieldCheck, label: "Purpose-specific consent" },
+            { icon: Languages, label: "English and Hindi support" },
+          ].map((item) => (
+            <li key={item.label} className="flex items-start gap-3">
+              <item.icon aria-hidden className="mt-0.5 size-5 shrink-0 stroke-[1.4] text-primary" />
+              <span className="min-w-0 text-sm leading-snug font-medium">{item.label}</span>
             </li>
           ))}
         </ul>
-      </Section>
+      </section>
 
-      {/* 6 — how ShriNeo works */}
-      <Section labelledBy="how-title">
-        <SectionHeading
-          id="how-title"
-          title="How ShriNeo works"
-          body="Six stages. Steps you complete are marked separately from steps the lender controls."
-        />
-        <div className="mt-10">
-          <ProcessTimeline steps={journey} />
-        </div>
-        <div className="mt-8">
-          <Button asChild variant="outline" className="min-h-11">
-            <Link to="/how-it-works">See the full journey</Link>
-          </Button>
-        </div>
-      </Section>
-
-      {/* 7 — compare before you choose */}
-      <Section tone="surface" labelledBy="compare-title">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:items-center">
-          <div>
-            <SectionHeading
-              id="compare-title"
-              title="Compare before you choose"
-              body="Every matching lender is shown on the same rows, so the cheapest headline rate is never mistaken for the cheapest loan."
-            />
-            <div className="mt-6">
-              <FigureCard tone="card">
-                <CompareOffersArt />
-              </FigureCard>
-            </div>
-          </div>
-          <div className="min-w-0">
-            <OfferComparisonPreview />
-          </div>
-        </div>
-      </Section>
-
-      {/* 8 — understand every rupee */}
-      <MediaSplit
-        id="cost"
-        eyebrow="Total cost"
-        title="Understand every rupee"
-        body="Principal, interest, processing fee and taxes together decide your monthly EMI and total repayment. See the monthly payment and total repayment before you choose."
-        points={[
-          <>
-            <strong>Principal</strong> — the amount you borrow.
-          </>,
-          <>
-            <strong>Interest</strong> — the lender's charge on the outstanding balance.
-          </>,
-          <>
-            <strong>Processing fee and taxes</strong> — one-time charges, disclosed upfront.
-          </>,
-          <>
-            <strong>APR</strong> — interest and fees expressed as one yearly figure.
-          </>,
-        ]}
-        media={
-          <FigureCard caption="Illustrative split of a loan's total repayment.">
-            <LoanCostArt />
-          </FigureCard>
-        }
-        footnote="Estimated values. Final terms are determined by the participating lender."
-      />
-
-      <Section labelledBy="emi-title">
-        <SectionHeading
-          id="emi-title"
-          title="Try an estimate"
-          body="Adjust the amount, rate and tenure to see how the monthly instalment and total repayment change."
-        />
-        <div className="mt-8">
-          <EmiCalculator minAmount={50_000} maxAmount={20_00_000} defaultAmount={3_00_000} />
-        </div>
-      </Section>
-
-      {/* 9 — direct fund flow */}
-      <MediaSplit
-        eyebrow="Fund flow"
-        title="Money moves directly between you and the lender"
-        body="ShriNeo helps route and track your application. ShriNeo does not hold or disburse your loan funds."
-        mediaSide="left"
-        media={
-          <FigureCard caption="Participating lender → your bank account. ShriNeo sits alongside as a routing and tracking layer.">
-            <DirectFundFlowArt />
-          </FigureCard>
-        }
-        points={[
-          "Disbursal is credited by the lender to the bank account you verify.",
-          "Repayments are collected by the lender under the mandate you approve.",
-          "ShriNeo never asks for your banking password or OTP for a payment.",
-        ]}
-      />
-
-      {/* 10 — built for Bharat */}
-      <section aria-labelledby="bharat-title" className="border-b border-border bg-ink text-ink-foreground">
-        <div className="container-page grid gap-10 py-16 lg:grid-cols-[1fr_1fr] lg:items-center md:py-20">
-          <div>
+      {/* ─────────────────────────────── 3. PRODUCTS — directed composition */}
+      <section aria-labelledby="products-title" className="border-b border-border bg-surface">
+        <div className="container-page py-16 md:py-24">
+          <Reveal className="max-w-2xl">
+            <SectionLabel>Loan products</SectionLabel>
             <h2
-              id="bharat-title"
-              className="editorial text-[clamp(1.75rem,4vw,2.75rem)] tracking-tight text-balance"
+              id="products-title"
+              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] tracking-tight"
             >
-              Built for Bharat
+              One process. Five ways forward.
             </h2>
-            <p className="mt-4 max-w-xl text-ink-foreground/80">
-              A shop owner in a district town, a salaried professional in a metro and a family
-              planning their first home need the same thing: the full picture, in their language.
+            <p className="mt-4 text-base text-muted-foreground">
+              Amounts are indicative ranges configured with participating lenders and confirmed at
+              offer stage.
             </p>
-            <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-              {[
-                "Talk to Neo in your preferred language",
-                "Complete applications with guided support",
-                "Connect with a verified local agent",
-                "Review offers without hidden ranking",
-              ].map((item) => (
-                <li
-                  key={item}
-                  className="rounded-lg border border-ink-foreground/15 bg-ink-foreground/5 p-4 text-sm"
-                >
-                  {item}
-                </li>
+          </Reveal>
+
+          <div className="mt-12 grid gap-4 lg:grid-cols-[1.15fr_1fr]">
+            {/* featured */}
+            <Reveal className="min-w-0">
+              <Link
+                to={featured.path}
+                className="group flex h-full flex-col justify-between rounded-xl border border-border bg-card p-7 transition-colors duration-200 hover:border-primary md:p-9"
+              >
+                <div>
+                  <p className="label-micro text-muted-foreground">Most applied for</p>
+                  <h3 className="editorial mt-4 text-2xl tracking-tight md:text-3xl">
+                    {featured.name}
+                  </h3>
+                  <p className="mt-3 max-w-md text-base text-muted-foreground">
+                    {featured.summary}
+                  </p>
+                </div>
+                <div className="mt-10">
+                  <div aria-hidden className="flex items-end gap-1.5">
+                    {[18, 26, 34, 46, 58, 72, 88].map((h, i) => (
+                      <span
+                        key={h}
+                        className="w-6 rounded-t-[3px] border border-b-0 border-brand-200 bg-brand-50 transition-colors duration-200 group-hover:bg-brand-100"
+                        style={{ height: `${h}px`, opacity: 0.5 + i * 0.07 }}
+                      />
+                    ))}
+                  </div>
+                  <div className="mt-5 flex flex-wrap items-baseline justify-between gap-3 border-t border-border pt-5">
+                    <p className="num text-sm font-medium">
+                      {formatINR(featured.range.min, { compact: true })} –{" "}
+                      {formatINR(featured.range.max, { compact: true })}
+                    </p>
+                    <span className="inline-flex items-center gap-1.5 text-sm font-medium text-primary">
+                      Explore {featured.name}
+                      <ArrowRight aria-hidden className="size-4" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </Reveal>
+
+            {/* supporting */}
+            <ul className="grid gap-4 sm:grid-cols-2">
+              {supporting.map((product, i) => (
+                <Reveal as="li" key={product.slug} delay={60 + i * 40} className="min-w-0">
+                  <Link
+                    to={product.path}
+                    className="flex h-full flex-col rounded-xl border border-border bg-card p-5 transition-colors duration-200 hover:border-primary"
+                  >
+                    <product.icon
+                      aria-hidden
+                      className="size-5 shrink-0 stroke-[1.3] text-primary"
+                    />
+                    <h3 className="mt-4 flex flex-wrap items-center gap-2 text-base font-semibold">
+                      {product.name}
+                      {product.phase2 ? (
+                        <StatusPill tone="warning">Coming in Phase 2</StatusPill>
+                      ) : null}
+                    </h3>
+                    <p className="mt-2 text-sm text-muted-foreground">{product.summary}</p>
+                    <p className="num mt-auto pt-4 text-xs font-medium text-foreground">
+                      {formatINR(product.range.min, { compact: true })} –{" "}
+                      {formatINR(product.range.max, { compact: true })}
+                    </p>
+                  </Link>
+                </Reveal>
               ))}
             </ul>
-          </div>
-          <div className="overflow-hidden rounded-xl border border-ink-foreground/15">
-            <img
-              src={heroImage}
-              alt="A small business owner and a salaried professional reviewing loan information on a phone in a naturally lit Indian workplace"
-              width={1200}
-              height={900}
-              loading="lazy"
-              className="aspect-4/3 size-full object-cover"
-            />
           </div>
         </div>
       </section>
 
-      {/* 11 — meet Neo */}
-      <MediaSplit
-        eyebrow="Guided support"
-        title="Meet Neo"
-        body="Neo explains products, documents and charges in plain English or Hindi, at any stage of your application."
-        points={[
-          "“Which loan may fit my needs?”",
-          "“What does APR mean?”",
-          "“Why is this document required?”",
-          "“What happens after I submit?”",
-        ]}
-        media={<NeoChatPreview />}
-        footnote="Neo provides guidance. Final loan decisions are made by participating lenders."
-      />
-
-      {/* 12 — borrower and agent collaboration */}
-      <MediaSplit
-        eyebrow="Assisted applications"
-        title="Get help without giving up control"
-        mediaSide="left"
-        body="A verified agent can prepare and submit your file, but only after you approve the request."
-        points={[
-          "You give consent through an OTP before any agent can act.",
-          "Documents stay inside ShriNeo's secure system — never on a personal device.",
-          "Phone numbers remain masked where applicable.",
-          "You can withdraw agent access at any time from your account.",
-        ]}
-        media={
-          <FigureCard caption="Consent-gated assistance between a borrower and a verified agent.">
-            <AgentAssistArt />
-          </FigureCard>
-        }
-      />
-
-      {/* 13 — trust score explanation */}
-      <Section tone="surface" labelledBy="score-title">
-        <SectionHeading
-          id="score-title"
-          title="Two different views of your creditworthiness"
-          body="A bureau score and a cash-flow indicator answer different questions. They are not interchangeable."
-        />
-        <div className="mt-10 grid gap-6 lg:grid-cols-[1fr_1fr]">
-          <FigureCard tone="card">
-            <DualScoreArt />
-          </FigureCard>
-          <div className="grid gap-4">
-            <div className="rounded-xl border border-border bg-card p-6">
-              <h3 className="text-base font-semibold">CIBIL Score</h3>
-              <p className="num mt-1 text-sm text-muted-foreground">Range 300–900</p>
-              <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
-                <li>Traditional credit bureau score based on borrowing history.</li>
-                <li>Available for users who already have a bureau record.</li>
-                <li>Fetched only after your explicit consent.</li>
-              </ul>
-            </div>
-            <div className="rounded-xl border border-border bg-card p-6">
-              <h3 className="flex flex-wrap items-center gap-2 text-base font-semibold">
-                SNV Trust Score
-                <StatusPill tone="neutral">Not a bureau score</StatusPill>
-              </h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                A cash-flow and financial-behaviour indicator used to support lender underwriting,
-                with the contributing factors explained to you.
-              </p>
-              <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
-                <li>Built from consented banking and repayment behaviour.</li>
-                <li>Shown with the reasons behind it, never as a single opaque number.</li>
-                <li>The final decision always remains with the participating lender.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      {/* 14 — trust center preview */}
-      <MediaSplit
-        eyebrow="Trust Center"
-        title="Who does what, and what happens to your data"
-        body="Every responsibility in a ShriNeo application is written down: ours, the lender's and yours."
-        points={[
-          <Link className="text-primary underline underline-offset-4" to="/how-it-works">
-            How ShriNeo works
-          </Link>,
-          <Link className="text-primary underline underline-offset-4" to="/key-fact-statement">
-            What the Key Fact Statement must contain
-          </Link>,
-          <Link className="text-primary underline underline-offset-4" to="/account-aggregator">
-            How bank data is shared through Account Aggregator
-          </Link>,
-          <Link className="text-primary underline underline-offset-4" to="/grievance-redressal">
-            Grievance support and escalation
-          </Link>,
-        ]}
-        media={
-          <FigureCard caption="Your data-access history shows what was accessed, by whom, when and why.">
-            <PrivacyControlArt />
-          </FigureCard>
-        }
-        action={
-          <Button asChild variant="outline" className="min-h-11">
-            <Link to="/trust-center">Visit the Trust Center</Link>
-          </Button>
-        }
-      />
-
-      {/* 15 — agent recruitment */}
-      <Section labelledBy="agent-title">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-center">
-          <div>
-            <Eyebrow>For agents</Eyebrow>
+      {/* ────────────────────────────────── 4. HOW SHRINEO WORKS — journey */}
+      <section aria-labelledby="how-title" className="border-b border-border bg-background">
+        <div className="container-page py-16 md:py-24">
+          <Reveal className="max-w-2xl">
+            <SectionLabel>The journey</SectionLabel>
             <h2
-              id="agent-title"
-              className="text-[clamp(1.5rem,3vw,2.15rem)] font-semibold tracking-tight text-balance"
+              id="how-title"
+              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] tracking-tight"
             >
-              Help customers apply through a trusted digital process.
+              From uncertainty to a tracked application.
             </h2>
-            <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
+          </Reveal>
+
+          <Reveal className="mt-10 hidden md:block">
+            <JourneyFigure className="h-auto w-full" />
+          </Reveal>
+
+          <ol className="mt-10 grid gap-x-8 gap-y-8 md:mt-8 md:grid-cols-3 lg:grid-cols-6">
+            {[
+              { title: "Tell us what you need", body: "Amount, purpose, tenure.", actor: "You" },
+              { title: "Complete your profile", body: "Each field explains why.", actor: "You" },
+              { title: "Compare eligible offers", body: "Rate, APR, EMI, total.", actor: "ShriNeo" },
+              { title: "Review full loan terms", body: "Key Fact Statement.", actor: "You" },
+              { title: "Send your application", body: "OTP e-sign, timestamped.", actor: "You" },
+              { title: "Track lender response", body: "Every status, dated.", actor: "Lender" },
+            ].map((step, i) => (
+              <Reveal as="li" key={step.title} delay={i * 40} className="relative min-w-0">
+                <div className="flex items-center gap-3 border-t border-border pt-4 md:border-t-0 md:pt-0">
+                  <span className="num text-xs font-semibold text-primary">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    className={`label-micro ${step.actor === "Lender" ? "text-muted-foreground" : step.actor === "ShriNeo" ? "text-primary" : "text-foreground"}`}
+                  >
+                    {step.actor}
+                  </span>
+                </div>
+                <h3 className="mt-2 text-sm font-semibold">{step.title}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{step.body}</p>
+              </Reveal>
+            ))}
+          </ol>
+
+          <Reveal className="mt-12 grid gap-8 border-t border-border pt-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+            <div>
+              <h3 className="text-xl font-semibold tracking-tight">
+                Everything stays visible in one place.
+              </h3>
+              <p className="mt-3 max-w-md text-base text-muted-foreground">
+                Your dashboard keeps the requested amount, the consents you have given and every
+                stage the lender has completed.
+              </p>
+              <Button asChild variant="outline" className="mt-6 min-h-11 rounded-lg">
+                <Link to="/how-it-works">See the full journey</Link>
+              </Button>
+            </div>
+            <div className="min-w-0">
+              <BorrowerDashboardPanel />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ──────────────────────────────────── 5. OFFER COMPARISON — editorial */}
+      <section aria-labelledby="compare-title" className="border-b border-border bg-surface">
+        <div className="container-page grid gap-10 py-16 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16 md:py-24">
+          <Reveal>
+            <SectionLabel>Comparison</SectionLabel>
+            <h2
+              id="compare-title"
+              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] tracking-tight"
+            >
+              Compare before you choose.
+            </h2>
+            <p className="mt-5 max-w-[42ch] text-base text-muted-foreground">
+              Review rates, fees, EMI, tenure, and total repayment side by side before sending your
+              application.
+            </p>
+            <ul className="mt-8 space-y-3 border-t border-border pt-6 text-sm">
               {[
-                "Verified identity",
-                "Official agent profile",
-                "Multi-lender access",
-                "Training and certification",
-                "Transparent commission ledger",
-                "Secure borrower consent",
-                "File tracking end to end",
-              ].map((benefit) => (
-                <li key={benefit} className="flex items-start gap-2.5 text-sm">
-                  <BadgeCheck aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
-                  {benefit}
+                "The lowest headline rate is not always the lowest total cost.",
+                "APR combines interest and fees into one comparable figure.",
+                "No lender pays for placement, and no matching offer is hidden.",
+              ].map((point) => (
+                <li key={point} className="flex gap-3">
+                  <span aria-hidden className="mt-2.5 h-px w-4 shrink-0 bg-primary" />
+                  <span className="min-w-0 text-muted-foreground">{point}</span>
                 </li>
               ))}
             </ul>
-            <Button asChild size="lg" className="mt-8 min-h-11">
-              <Link to="/for-agents">Join as an agent</Link>
+            <Link
+              to="/compare-offers"
+              className="mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-primary underline underline-offset-4"
+            >
+              How comparison works
+              <ArrowUpRight aria-hidden className="size-4" />
+            </Link>
+          </Reveal>
+          <Reveal delay={80} className="min-w-0">
+            <OfferComparisonPanel />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ──────────────────────────── 6. UNDERSTAND EVERY RUPEE — diagram-led */}
+      <section aria-labelledby="cost-title" className="border-b border-border bg-background">
+        <div className="container-page py-16 md:py-24">
+          <Reveal className="max-w-2xl">
+            <SectionLabel>Total cost</SectionLabel>
+            <h2
+              id="cost-title"
+              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] tracking-tight"
+            >
+              Understand every rupee.
+            </h2>
+            <p className="mt-4 text-base text-muted-foreground">
+              Principal, interest, processing fee and taxes together decide your monthly instalment
+              and your total repayment.
+            </p>
+          </Reveal>
+
+          <Reveal className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+            <figure className="rounded-xl border border-border bg-surface-warm p-4 md:p-8">
+              <CostBreakdownFigure />
+              <figcaption className="mt-5 text-sm text-muted-foreground">
+                Illustrative split of a {formatINR(300000)} loan over 36 months. Estimated values.
+              </figcaption>
+            </figure>
+            <dl className="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-1">
+              {[
+                { term: "Loan amount", value: formatINR(300000), note: "What you borrow" },
+                { term: "Interest", value: formatINR(52320), note: "Charged on the balance" },
+                { term: "Fee and taxes", value: formatINR(3540), note: "One-time, disclosed upfront" },
+                { term: "Total repayment", value: formatINR(355860), note: "APR 12.4%" },
+              ].map((row, i) => (
+                <div key={row.term} className="bg-card px-5 py-4">
+                  <dt className="label-micro text-muted-foreground">{row.term}</dt>
+                  <dd
+                    className={`num mt-1 tracking-tight ${i === 3 ? "text-2xl font-semibold" : "text-lg"}`}
+                  >
+                    {row.value}
+                  </dd>
+                  <dd className="mt-1 text-xs text-muted-foreground">{row.note}</dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+          <p className="mt-6 text-xs text-muted-foreground">{LENDER_NOTE}</p>
+        </div>
+      </section>
+
+      {/* ────────────────────────────────────── 7. DIRECT FUND FLOW — navy */}
+      <section aria-labelledby="flow-title" className="bg-ink text-ink-foreground">
+        <div className="container-page grid gap-10 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16 md:py-24">
+          <Reveal>
+            <p className="label-micro text-brand-300">Fund flow</p>
+            <h2
+              id="flow-title"
+              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] tracking-tight"
+            >
+              The money moves between you and the lender.
+            </h2>
+            <p className="mt-5 max-w-[44ch] text-base text-ink-foreground/75">
+              ShriNeo helps route and track the application. ShriNeo does not hold or disburse the
+              loan funds.
+            </p>
+            <ul className="mt-8 space-y-3 border-t border-ink-foreground/15 pt-6 text-sm text-ink-foreground/75">
+              {[
+                "Disbursal is credited by the lender to the bank account you verify.",
+                "Repayments are collected by the lender under the mandate you approve.",
+                "ShriNeo never asks for your banking password or a payment OTP.",
+              ].map((point) => (
+                <li key={point} className="flex gap-3">
+                  <span aria-hidden className="mt-2.5 h-px w-4 shrink-0 bg-brand-300" />
+                  <span className="min-w-0">{point}</span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+          <Reveal delay={80} className="min-w-0">
+            <figure className="rounded-xl border border-ink-foreground/15 bg-background p-4 md:p-6">
+              <FundFlowFigure />
+            </figure>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ───────────────────────────── 8. BUILT FOR BHARAT — photography-led */}
+      <section aria-labelledby="bharat-title" className="border-b border-border bg-surface-warm">
+        <div className="container-page py-16 md:py-24">
+          <div className="grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
+            <Reveal className="min-w-0">
+              <div className="overflow-hidden rounded-[22px] border border-border">
+                <img
+                  src={photoBusiness}
+                  alt="A textile shop owner standing in his store in a north Indian town"
+                  width={1408}
+                  height={1008}
+                  loading="lazy"
+                  className="aspect-[16/10] size-full object-cover"
+                />
+              </div>
+            </Reveal>
+            <Reveal delay={80}>
+              <SectionLabel>Built for Bharat</SectionLabel>
+              <h2
+                id="bharat-title"
+                className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.6rem)] tracking-tight"
+              >
+                Built for people moving forward.
+              </h2>
+              <p className="mt-4 text-base text-muted-foreground">
+                Designed for customers, families, entrepreneurs, and local agents across India.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-[0.75fr_0.75fr_1fr] lg:items-stretch">
+            <Reveal className="min-w-0">
+              <figure className="h-full overflow-hidden rounded-xl border border-border bg-card">
+                <img
+                  src={photoFamily}
+                  alt="A young family in their living room discussing a home purchase"
+                  width={1408}
+                  height={1008}
+                  loading="lazy"
+                  className="aspect-[4/3] w-full object-cover"
+                />
+                <figcaption className="px-5 py-4 text-sm">
+                  <span className="label-micro block text-muted-foreground">Family</span>
+                  <span className="mt-1 block">Planning a first home together</span>
+                </figcaption>
+              </figure>
+            </Reveal>
+            <Reveal delay={60} className="min-w-0">
+              <figure className="h-full overflow-hidden rounded-xl border border-border bg-card">
+                <img
+                  src={photoAgent}
+                  alt="A verified ShriNeo agent assisting two customers with a tablet"
+                  width={1200}
+                  height={1008}
+                  loading="lazy"
+                  className="aspect-[4/3] w-full object-cover"
+                />
+                <figcaption className="px-5 py-4 text-sm">
+                  <span className="label-micro block text-muted-foreground">Verified agent</span>
+                  <span className="mt-1 block">Assisting only with your consent</span>
+                </figcaption>
+              </figure>
+            </Reveal>
+            <Reveal delay={120} className="min-w-0">
+              <div className="flex h-full flex-col justify-between rounded-xl border border-border bg-card p-6">
+                <ul className="space-y-4 text-sm">
+                  {[
+                    ["Salaried professional", "Compare offers without a branch visit"],
+                    ["Small business owner", "Working capital assessed on real cash flow"],
+                    ["Family", "Long-tenure options judged on total cost"],
+                    ["Local agent", "Support that stays inside an audited trail"],
+                  ].map(([who, what]) => (
+                    <li key={who} className="border-b border-border pb-4 last:border-0 last:pb-0">
+                      <p className="font-medium">{who}</p>
+                      <p className="mt-0.5 text-muted-foreground">{what}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ──────────────────────────────────────────────── 9. NEO — assistant */}
+      <section aria-labelledby="neo-title" className="border-b border-border bg-background">
+        <div className="container-page grid gap-10 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 md:py-24">
+          <Reveal className="min-w-0">
+            <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-panel)]">
+              <div className="flex items-center justify-between border-b border-border bg-surface px-4 py-2.5">
+                <p className="flex items-center gap-2 text-xs font-semibold">
+                  <Sparkles aria-hidden className="size-3.5 text-primary" />
+                  Neo
+                </p>
+                <p className="label-micro text-muted-foreground">Demonstration data</p>
+              </div>
+              <div className="space-y-4 p-5">
+                <div className="flex justify-end">
+                  <p className="max-w-[80%] rounded-xl rounded-tr-sm bg-accent px-4 py-3 text-sm">
+                    What does APR mean?
+                  </p>
+                </div>
+                <div className="flex justify-start">
+                  <p className="max-w-[88%] rounded-xl rounded-tl-sm border border-border bg-surface px-4 py-3 text-sm">
+                    APR includes the interest rate and applicable charges, helping you compare the
+                    total cost of different offers.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2 border-t border-border pt-4">
+                  {["Show my offers", "Explain processing fee", "What is a KFS?"].map((chip) => (
+                    <span
+                      key={chip}
+                      className="rounded-lg border border-border px-3 py-1.5 text-xs text-muted-foreground"
+                    >
+                      {chip}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={80}>
+            <SectionLabel>Neo</SectionLabel>
+            <h2
+              id="neo-title"
+              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.6rem)] tracking-tight"
+            >
+              Understand before you decide.
+            </h2>
+            <p className="mt-4 max-w-[44ch] text-base text-muted-foreground">
+              Neo answers in plain English or Hindi, at the point where the question comes up.
+            </p>
+            <dl className="mt-8 divide-y divide-border border-y border-border">
+              {[
+                ["Explain loan terms", "Rate, APR, fees, tenure and prepayment, in your words."],
+                ["Guide form completion", "Why a field is needed and what a valid answer looks like."],
+                ["Clarify application status", "What the current stage means and who acts next."],
+              ].map(([term, body]) => (
+                <div key={term} className="py-4">
+                  <dt className="text-sm font-semibold">{term}</dt>
+                  <dd className="mt-1 text-sm text-muted-foreground">{body}</dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────── 10. AGENT SUPPORT — human split */}
+      <section aria-labelledby="agent-title" className="border-b border-border bg-surface">
+        <div className="container-page grid gap-10 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16 md:py-24">
+          <Reveal>
+            <SectionLabel>Assisted applications</SectionLabel>
+            <h2
+              id="agent-title"
+              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.6rem)] tracking-tight"
+            >
+              Get help without giving up control.
+            </h2>
+            <ol className="mt-8 space-y-5 text-sm">
+              {[
+                ["You give consent", "An OTP you approve starts the assistance window."],
+                ["The agent helps", "They complete the application alongside you, never for you."],
+                ["Documents stay inside ShriNeo", "Files are never shared over chat or email."],
+                ["The application stays trackable", "Every action is logged against your account."],
+              ].map(([title, body], i) => (
+                <li key={title} className="flex gap-4">
+                  <span className="num shrink-0 text-xs font-semibold text-primary">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block font-medium">{title}</span>
+                    <span className="mt-0.5 block text-muted-foreground">{body}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+            <Button asChild variant="outline" className="mt-8 min-h-11 rounded-lg">
+              <Link to="/for-agents">How agent support works</Link>
+            </Button>
+          </Reveal>
+
+          <Reveal delay={80} className="min-w-0">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <figure className="overflow-hidden rounded-xl border border-border sm:col-span-2">
+                <img
+                  src={photoAgent}
+                  alt="A verified agent guiding two customers through an application on a tablet"
+                  width={1200}
+                  height={1008}
+                  loading="lazy"
+                  className="aspect-[16/9] w-full object-cover"
+                />
+              </figure>
+              <figure className="rounded-xl border border-border bg-card p-4 sm:col-span-2">
+                <AgentAssistFigure />
+              </figure>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ────────────────────────────── 11. TRUST CENTRE — responsibility map */}
+      <section aria-labelledby="trust-title" className="bg-ink text-ink-foreground">
+        <div className="container-page py-16 md:py-24">
+          <Reveal className="max-w-2xl">
+            <p className="label-micro text-brand-300">Trust centre</p>
+            <h2
+              id="trust-title"
+              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] tracking-tight"
+            >
+              Who is responsible for what.
+            </h2>
+            <p className="mt-4 text-base text-ink-foreground/75">
+              Digital lending works when every party's role is written down. This is ours.
+            </p>
+          </Reveal>
+
+          <ol className="mt-12 grid gap-px overflow-hidden rounded-xl border border-ink-foreground/15 bg-ink-foreground/15 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              ["You, the borrower", "You give consent, review the terms and decide."],
+              ["ShriNeo Capital", "We route, explain and track. We do not lend."],
+              ["Participating lender", "They assess, approve, disburse and collect."],
+              ["Technology providers", "They process data strictly under contract."],
+            ].map(([who, role]) => (
+              <li key={who} className="bg-ink px-6 py-7">
+                <h3 className="text-base font-semibold">{who}</h3>
+                <p className="mt-2 text-sm text-ink-foreground/70">{role}</p>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-4 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+            <Reveal className="min-w-0">
+              <dl className="grid h-full gap-px overflow-hidden rounded-xl border border-ink-foreground/15 bg-ink-foreground/15 sm:grid-cols-2">
+                {[
+                  ["Consent", "Purpose-specific, time-bound and revocable."],
+                  ["Key Fact Statement", "Every charge shown before you sign."],
+                  ["Cooling-off period", "Exit within the stated window without penalty."],
+                  ["Data handling", "Collected for a stated purpose, retained no longer."],
+                  ["Human review", "Escalation to a person, not only a model."],
+                  ["Grievance support", "A reference number and an escalation path."],
+                ].map(([term, body]) => (
+                  <div key={term} className="bg-ink px-6 py-5">
+                    <dt className="text-sm font-semibold">{term}</dt>
+                    <dd className="mt-1 text-sm text-ink-foreground/70">{body}</dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+            <Reveal delay={80} className="min-w-0">
+              <figure className="h-full rounded-xl border border-ink-foreground/15 bg-background p-4 md:p-6">
+                <ConsentFigure />
+                <figcaption className="mt-4 text-sm text-muted-foreground">
+                  Before anything is shared, you see the purpose, the data, the recipient and how
+                  long the consent lasts.
+                </figcaption>
+              </figure>
+            </Reveal>
+          </div>
+
+          <div className="mt-10 flex flex-wrap gap-3">
+            <Button asChild variant="secondary" className="min-h-11 rounded-lg">
+              <Link to="/trust-center">Read the Trust Centre</Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="min-h-11 rounded-lg border-ink-foreground/30 bg-transparent text-ink-foreground hover:bg-ink-foreground/10 hover:text-ink-foreground"
+            >
+              <Link to="/grievance-redressal">Grievance redressal</Link>
             </Button>
           </div>
-          <AgentDashboardPreview />
         </div>
-      </Section>
+      </section>
 
-      {/* 16 — example journeys */}
-      <Section tone="surface" labelledBy="stories-title">
-        <SectionHeading
-          id="stories-title"
-          title="What a ShriNeo application looks like"
-          body="Illustrative journeys, not customer testimonials. No approval outcome is implied."
-        />
-        <div className="mt-10">
-          <UseCaseCards
-            cases={[
-              {
-                persona: "A shop owner comparing business loans",
-                need: "Needs working capital before the festive season and wants to know the true cost of each option.",
-                steps: [
-                  "Shares turnover through Account Aggregator instead of PDF statements",
-                  "Compares APR and processing fee across matching lenders",
-                  "Reviews the Key Fact Statement before signing",
-                ],
-              },
-              {
-                persona: "A salaried borrower checking affordability",
-                need: "Wants to consolidate existing EMIs without stretching the monthly budget.",
-                steps: [
-                  "Uses the EMI estimate to test amount and tenure combinations",
-                  "Consents to a bureau check only when ready to apply",
-                  "Tracks the lender's response with timestamps",
-                ],
-              },
-              {
-                persona: "A family preparing for a home loan",
-                need: "Plans a long-tenure loan and wants to understand total repayment, not only the headline rate.",
-                steps: [
-                  "Collects property and income documents using the document guide",
-                  "Compares long-tenure offers on total cost",
-                  "Reviews foreclosure and prepayment terms before selecting",
-                ],
-              },
-            ]}
-          />
+      {/* ─────────────────────────────────── 11b. TRACKING + FAQ (white calm) */}
+      <section aria-labelledby="faq-title" className="border-b border-border bg-background">
+        <div className="container-page grid gap-12 py-16 lg:grid-cols-[0.9fr_1.1fr] md:py-24">
+          <Reveal>
+            <SectionLabel>Common questions</SectionLabel>
+            <h2
+              id="faq-title"
+              className="editorial mt-4 text-[clamp(1.75rem,3.2vw,2.4rem)] tracking-tight"
+            >
+              Answers before you apply.
+            </h2>
+            <div className="mt-8">
+              <ApplicationTrackingPanel />
+            </div>
+          </Reveal>
+          <Reveal delay={80} className="min-w-0">
+            <FaqGroups
+              groups={[
+                {
+                  group: "Applying",
+                  items: [
+                    {
+                      q: "Does ShriNeo lend money?",
+                      a: "No. ShriNeo Capital is a Lending Service Provider. Participating banks and NBFCs assess, approve and disburse every loan.",
+                    },
+                    {
+                      q: "What does an application cost?",
+                      a: "Applying and comparing offers is free. Lender charges such as processing fees are disclosed in the Key Fact Statement before you sign.",
+                    },
+                  ],
+                },
+                {
+                  group: "Offers and charges",
+                  items: [
+                    {
+                      q: "How are offers ranked?",
+                      a: "By total cost of borrowing by default. The ranking method is disclosed, no lender pays for placement and no matching offer is hidden.",
+                    },
+                    {
+                      q: "Why is APR different from the interest rate?",
+                      a: "APR includes interest plus fees, so it reflects the yearly cost of the loan and allows a fair comparison between offers.",
+                    },
+                  ],
+                },
+                {
+                  group: "Security and consent",
+                  items: [
+                    {
+                      q: "Who can see my documents?",
+                      a: "Only you, the lenders you apply to, and a verified agent you have explicitly authorised by OTP. Every access is logged.",
+                    },
+                    {
+                      q: "Can I withdraw consent?",
+                      a: "Yes. Consents are purpose-specific and time-bound, and your consent history is visible in your account.",
+                    },
+                  ],
+                },
+                {
+                  group: "Agents and support",
+                  items: [
+                    {
+                      q: "Do I have to use an agent?",
+                      a: "No. You can complete everything yourself. An agent can only assist after you approve the request with an OTP.",
+                    },
+                    {
+                      q: "How do I raise a complaint?",
+                      a: "Through the Grievance Redressal page. Every complaint receives a reference number, an acknowledgement and an escalation path.",
+                    },
+                  ],
+                },
+              ]}
+            />
+          </Reveal>
         </div>
-      </Section>
+      </section>
 
-      {/* Borrower dashboard preview + disclosure */}
-      <MediaSplit
-        eyebrow="After you apply"
-        title="Follow every stage, with dates"
-        mediaSide="left"
-        body="Your dashboard shows exactly where the application is, who is acting next and what is expected from you."
-        media={<BorrowerDashboardPreview />}
-        points={[
-          "Status changes are timestamped and never silently reversed.",
-          "Requests for more information appear with a clear deadline.",
-          "Approved offers show the cooling-off window and how to use it.",
-        ]}
-      />
-
-      {/* 17 — FAQ */}
-      <Section labelledBy="faq-title">
-        <SectionHeading id="faq-title" title="Questions people ask before applying" />
-        <div className="mt-8">
-          <FaqGroups groups={faqGroups} />
+      {/* ─────────────────────────────────────────── 12. FINAL CTA — typography */}
+      <section aria-labelledby="cta-title" className="bg-ink text-ink-foreground">
+        <div className="container-page py-20 md:py-28">
+          <div className="max-w-3xl">
+            <h2
+              id="cta-title"
+              className="editorial text-[clamp(2rem,4.6vw,3.25rem)] leading-[1.05] tracking-tight"
+            >
+              Understand your options before you decide.
+            </h2>
+            <p className="mt-6 max-w-[52ch] text-lg text-ink-foreground/75">
+              Review eligible offers, compare complete costs, and track your application in one
+              place.
+            </p>
+            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Button asChild size="lg" variant="secondary" className="min-h-12 rounded-lg px-6 text-base">
+                <Link to="/auth/signup">
+                  Start your application
+                  <ArrowRight aria-hidden className="size-4" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="min-h-12 rounded-lg border-ink-foreground/30 bg-transparent px-6 text-base text-ink-foreground hover:bg-ink-foreground/10 hover:text-ink-foreground"
+              >
+                <Link to="/for-borrowers">Talk to Neo</Link>
+              </Button>
+            </div>
+            <p className="mt-8 text-sm text-ink-foreground/60">{LENDER_NOTE}</p>
+            <p className="mt-2 text-sm text-ink-foreground/60">{org.roleStatement}</p>
+          </div>
         </div>
-        <div className="mt-8 max-w-2xl">
-          <DisclosureBlock>
-            {org.brandName} operates as a Lending Service Provider. It is not a bank or an NBFC and
-            does not lend its own funds. {org.regulatoryNote}.
-          </DisclosureBlock>
-        </div>
-      </Section>
-
-      {/* 18 — final CTA */}
-      <DarkCta
-        title="Understand your options before you decide."
-        body="Compare eligible offers, read the full cost, and apply only when the terms make sense to you."
-        primary={{ to: "/auth/signup", label: "Start your application" }}
-        secondary={{ to: "/for-borrowers", label: "Talk to Neo" }}
-        note="Final approval and loan terms are determined by the participating lender."
-      />
+      </section>
     </PublicShell>
   );
 }
