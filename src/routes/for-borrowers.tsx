@@ -154,19 +154,25 @@ export function ForBorrowersPage() {
               ))}
             </ul>
           </div>
-          <div>
-            <SectionHeading title="Your rights as a borrower" />
-            <ul className="mt-6 space-y-3">
-              {rights.map((item) => (
-                <li key={item} className="flex gap-3 text-sm">
-                  <ShieldCheck aria-hidden className="mt-0.5 size-4 shrink-0 text-success" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </Section>
+
+      <StatementBand
+        id="rights-title"
+        label="Your rights"
+        title="Rights you hold, whichever lender you borrow from."
+        body="These are not courtesies. They are the standards every application on ShriNeo follows."
+      >
+        <ul className="divide-y divide-ink-foreground/15 border-y border-ink-foreground/15">
+          {rights.map((item) => (
+            <li key={item} className="flex gap-3 py-4 text-sm text-ink-foreground/85">
+              <ShieldCheck aria-hidden className="mt-0.5 size-4 shrink-0" />
+              <span className="min-w-0">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </StatementBand>
+
 
       <Section tone="surface" labelledBy="neo-title">
         <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-center">
