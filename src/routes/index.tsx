@@ -125,12 +125,12 @@ function HomePage() {
           {/* composed visual: photograph + two interface layers */}
           <Reveal delay={90} className="relative min-w-0">
             <div className="relative mx-auto w-full max-w-[30rem] lg:max-w-none">
-              <div className="overflow-hidden rounded-[22px] border border-border bg-card">
+              <div className="overflow-hidden rounded-[22px] border border-border bg-surface">
                 <img
-                  src={photoProfessional}
-                  alt="A young professional in Bengaluru reviewing her loan options in natural daylight"
-                  width={1200}
-                  height={1504}
+                  src={heroBorrower.url}
+                  alt="A smiling customer of ShriNeo Capital standing with folded arms"
+                  width={1400}
+                  height={1100}
                   fetchPriority="high"
                   className="aspect-[4/5] size-full object-cover object-top"
                 />
