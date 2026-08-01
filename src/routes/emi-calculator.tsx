@@ -45,7 +45,10 @@ function EmiCalculatorPage() {
         title="EMI calculator"
         body="Test how the loan amount, interest rate and tenure change your monthly instalment and the total you repay. Every figure here is an estimate."
         aside={
-          <FigureCard tone="card" caption="Principal, interest, fee and taxes make up total repayment.">
+          <FigureCard
+            tone="card"
+            caption="Principal, interest, fee and taxes make up total repayment."
+          >
             <LoanCostArt />
           </FigureCard>
         }
@@ -123,9 +126,21 @@ function EmiCalculatorPage() {
 
       <RelatedGuides
         links={[
-          { to: "/compare-offers", label: "Compare loan offers", body: "Rate versus APR, and how ranking works." },
-          { to: "/key-fact-statement", label: "Key Fact Statement", body: "The binding cost disclosure before signing." },
-          { to: "/loans", label: "All loan products", body: "Indicative amounts and tenures by product." },
+          {
+            to: "/compare-offers",
+            label: "Compare loan offers",
+            body: "Rate versus APR, and how ranking works.",
+          },
+          {
+            to: "/key-fact-statement",
+            label: "Key Fact Statement",
+            body: "The binding cost disclosure before signing.",
+          },
+          {
+            to: "/loans",
+            label: "All loan products",
+            body: "Indicative amounts and tenures by product.",
+          },
         ]}
       />
 

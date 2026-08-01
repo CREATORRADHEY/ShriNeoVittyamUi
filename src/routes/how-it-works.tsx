@@ -18,6 +18,9 @@ import {
   TrackingArt,
 } from "@/components/illustrations";
 import { BorrowerDashboardPreview } from "@/components/previews/previews";
+import { EditorialHero, HeroPanel, StatementBand } from "@/components/sections/editorial";
+import { JourneyFigure } from "@/components/illustrations/core";
+import photoFamily from "@/assets/photo-family.jpg";
 
 export const Route = createFileRoute("/how-it-works")({
   head: () => ({
@@ -90,14 +93,26 @@ const directPath: JourneyStep[] = [
 ];
 
 const agentPath: JourneyStep[] = [
-  { title: "Agent raises a request", body: "A verified agent requests permission to assist.", actor: "shrineo" },
-  { title: "You approve by OTP", body: "Nothing happens until you confirm the request.", actor: "you" },
+  {
+    title: "Agent raises a request",
+    body: "A verified agent requests permission to assist.",
+    actor: "shrineo",
+  },
+  {
+    title: "You approve by OTP",
+    body: "Nothing happens until you confirm the request.",
+    actor: "you",
+  },
   {
     title: "Assisted completion",
     body: "The agent prepares the file with you; documents stay in ShriNeo's system.",
     actor: "shrineo",
   },
-  { title: "You review and sign", body: "Offers and the Key Fact Statement are shown to you, not to the agent alone.", actor: "you" },
+  {
+    title: "You review and sign",
+    body: "Offers and the Key Fact Statement are shown to you, not to the agent alone.",
+    actor: "you",
+  },
   { title: "Lender review", body: "Same review process as a direct application.", actor: "lender" },
   {
     title: "You can revoke access",
@@ -109,26 +124,61 @@ const agentPath: JourneyStep[] = [
 function HowItWorksPage() {
   return (
     <PublicShell>
-      <PageHero
+      <EditorialHero
         eyebrow="The full journey"
         title="How ShriNeo works"
         body="Twelve stages from sign-up to repayment. Steps you complete are separated from steps the participating lender controls, so it is always clear who is acting next."
+        image={{
+          src: photoFamily,
+          alt: "A family working through their loan application together at home",
+        }}
+        note="Final approval and loan terms are determined by the participating lender."
         actions={
           <>
-            <Button asChild size="lg" className="min-h-11">
+            <Button asChild size="lg" className="min-h-12 rounded-lg px-6 text-base">
               <Link to="/auth/signup">Start your application</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="min-h-11">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="min-h-12 rounded-lg border-border-strong px-6 text-base"
+            >
               <Link to="/compare-offers">See how offers compare</Link>
             </Button>
           </>
         }
-        aside={
-          <FigureCard tone="card" caption="Submitted, verified, under review, approved, disbursed.">
-            <TrackingArt />
-          </FigureCard>
+        panels={
+          <HeroPanel label="Live status" meta="Example">
+            <ol className="space-y-2 text-sm">
+              {["Submitted", "Verified", "Under review", "Approved", "Disbursed"].map(
+                (stage, i) => (
+                  <li
+                    key={stage}
+                    className="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2"
+                  >
+                    <span className="num grid size-6 shrink-0 place-items-center rounded-full bg-accent text-xs font-semibold text-primary">
+                      {i + 1}
+                    </span>
+                    <span className="min-w-0 truncate">{stage}</span>
+                  </li>
+                ),
+              )}
+            </ol>
+          </HeroPanel>
         }
       />
+
+      <StatementBand
+        id="arc-title"
+        label="The arc"
+        title="Uncertainty, understanding, then confidence."
+        body="Each stage exists to remove one unknown \u2014 what you qualify for, what it costs, and what happens next."
+      >
+        <div className="rounded-xl border border-ink-foreground/15 bg-ink-foreground/5 p-5 md:p-7">
+          <JourneyFigure />
+        </div>
+      </StatementBand>
 
       <Section labelledBy="direct-title">
         <SectionHeading

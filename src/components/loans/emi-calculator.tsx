@@ -150,23 +150,13 @@ function Field({
   );
 }
 
-function Result({
-  label,
-  value,
-  emphasis,
-}: {
-  label: string;
-  value: string;
-  emphasis?: boolean;
-}) {
+function Result({ label, value, emphasis }: { label: string; value: string; emphasis?: boolean }) {
   return (
     <div>
       <dt className="text-sm text-muted-foreground">{label}</dt>
       <dd
         className={
-          emphasis
-            ? "num mt-1 text-3xl font-semibold text-primary"
-            : "num mt-1 text-xl font-medium"
+          emphasis ? "num mt-1 text-3xl font-semibold text-primary" : "num mt-1 text-xl font-medium"
         }
       >
         {value}

@@ -12,6 +12,9 @@ import {
   RelatedGuides,
 } from "@/components/sections/blocks";
 import { CompareOffersArt, LoanCostArt } from "@/components/illustrations";
+import { EditorialHero, HeroPanel, StatementBand } from "@/components/sections/editorial";
+import { CompareFigure } from "@/components/illustrations/core";
+import photoProfessional from "@/assets/photo-professional.jpg";
 import { OfferComparisonPreview } from "@/components/loans/offer-comparison-preview";
 import { OfferHighlightPreview } from "@/components/previews/previews";
 
@@ -43,42 +46,96 @@ const anatomy = [
     term: "Participating lender",
     body: "The bank or NBFC that will assess, sanction and disburse the loan. ShriNeo does not lend.",
   },
-  { term: "Loan amount", body: "The amount the lender is willing to sanction, which may differ from what you requested." },
-  { term: "Interest rate", body: "The lender's charge on the outstanding principal, expressed per annum." },
+  {
+    term: "Loan amount",
+    body: "The amount the lender is willing to sanction, which may differ from what you requested.",
+  },
+  {
+    term: "Interest rate",
+    body: "The lender's charge on the outstanding principal, expressed per annum.",
+  },
   {
     term: "APR",
     body: "Interest plus fees expressed as one yearly figure. The fairest single number for comparing two offers.",
   },
-  { term: "EMI", body: "The fixed monthly instalment across the tenure, on a reducing-balance basis." },
-  { term: "Processing fee", body: "A one-time charge, usually deducted before disbursal, plus applicable taxes." },
-  { term: "Tenure", body: "How long you repay. A longer tenure lowers the EMI and raises total interest." },
-  { term: "Total repayment", body: "Principal plus all interest and charges over the full tenure." },
-  { term: "Match reason", body: "Why this lender matched your profile — stated in plain language." },
+  {
+    term: "EMI",
+    body: "The fixed monthly instalment across the tenure, on a reducing-balance basis.",
+  },
+  {
+    term: "Processing fee",
+    body: "A one-time charge, usually deducted before disbursal, plus applicable taxes.",
+  },
+  {
+    term: "Tenure",
+    body: "How long you repay. A longer tenure lowers the EMI and raises total interest.",
+  },
+  {
+    term: "Total repayment",
+    body: "Principal plus all interest and charges over the full tenure.",
+  },
+  {
+    term: "Match reason",
+    body: "Why this lender matched your profile — stated in plain language.",
+  },
 ];
 
 function CompareOffersPage() {
   return (
     <PublicShell>
-      <PageHero
+      <EditorialHero
         eyebrow="Offers"
         title="Compare before you choose"
         body="Two offers can share the same interest rate and still cost very differently. ShriNeo puts every matching lender on the same rows so the comparison is honest."
+        image={{
+          src: photoProfessional,
+          alt: "A borrower comparing loan offers side by side on a laptop",
+        }}
+        note="Offers are ranked by total cost of borrowing. No lender can pay for placement."
         actions={
           <>
-            <Button asChild size="lg" className="min-h-11">
+            <Button asChild size="lg" className="min-h-12 rounded-lg px-6 text-base">
               <Link to="/auth/signup">See your eligible offers</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="min-h-11">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="min-h-12 rounded-lg border-border-strong px-6 text-base"
+            >
               <Link to="/emi-calculator">Estimate an EMI</Link>
             </Button>
           </>
         }
-        aside={
-          <FigureCard tone="card" caption="Three offers aligned on identical cost rows.">
-            <CompareOffersArt />
-          </FigureCard>
+        panels={
+          <HeroPanel label="Every offer, same rows" meta="Illustrative">
+            <dl className="num space-y-1.5 text-sm">
+              {[
+                ["Interest rate p.a.", "11.5%"],
+                ["APR", "12.4%"],
+                ["Monthly EMI", "\u20b99,885"],
+                ["Total repayment", "\u20b93,55,860"],
+              ].map(([term, value]) => (
+                <div key={term} className="flex items-baseline justify-between gap-3">
+                  <dt className="text-muted-foreground">{term}</dt>
+                  <dd className="font-semibold">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </HeroPanel>
         }
       />
+
+      <StatementBand
+        id="rank-title"
+        label="How ranking works"
+        title="Ranked by what you actually repay."
+        body="Offers are ordered on total cost of borrowing \u2014 not on the headline rate, and never on what a lender is willing to pay us."
+      >
+        <div className="rounded-xl border border-ink-foreground/15 bg-ink-foreground/5 p-5 md:p-7">
+          <CompareFigure />
+        </div>
+      </StatementBand>
 
       <Section labelledBy="demo-title">
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -96,9 +153,33 @@ function CompareOffersPage() {
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:hidden">
           {[
-            { lender: "Participating Bank A", rate: "11.5%", apr: "12.4%", emi: "₹9,885", fee: "₹3,540", total: "₹3,55,860", reason: "Lowest total repayment for this amount and tenure." },
-            { lender: "Participating NBFC B", rate: "12.9%", apr: "14.1%", emi: "₹10,086", fee: "₹5,900", total: "₹3,63,096", reason: "Criteria most closely match the profile provided." },
-            { lender: "Participating Bank C", rate: "11.9%", apr: "12.9%", emi: "₹7,583", fee: "₹4,130", total: "₹3,18,486", reason: "Longer tenure lowers the instalment but raises interest." },
+            {
+              lender: "Participating Bank A",
+              rate: "11.5%",
+              apr: "12.4%",
+              emi: "₹9,885",
+              fee: "₹3,540",
+              total: "₹3,55,860",
+              reason: "Lowest total repayment for this amount and tenure.",
+            },
+            {
+              lender: "Participating NBFC B",
+              rate: "12.9%",
+              apr: "14.1%",
+              emi: "₹10,086",
+              fee: "₹5,900",
+              total: "₹3,63,096",
+              reason: "Criteria most closely match the profile provided.",
+            },
+            {
+              lender: "Participating Bank C",
+              rate: "11.9%",
+              apr: "12.9%",
+              emi: "₹7,583",
+              fee: "₹4,130",
+              total: "₹3,18,486",
+              reason: "Longer tenure lowers the instalment but raises interest.",
+            },
           ].map((offer) => (
             <article key={offer.lender} className="rounded-xl border border-border bg-card p-5">
               <h3 className="text-sm font-semibold">{offer.lender}</h3>
@@ -227,9 +308,21 @@ function CompareOffersPage() {
 
       <RelatedGuides
         links={[
-          { to: "/key-fact-statement", label: "Key Fact Statement", body: "What must be disclosed before you sign." },
-          { to: "/emi-calculator", label: "EMI calculator", body: "Test amount, rate and tenure combinations." },
-          { to: "/how-it-works", label: "How ShriNeo works", body: "The full journey, stage by stage." },
+          {
+            to: "/key-fact-statement",
+            label: "Key Fact Statement",
+            body: "What must be disclosed before you sign.",
+          },
+          {
+            to: "/emi-calculator",
+            label: "EMI calculator",
+            body: "Test amount, rate and tenure combinations.",
+          },
+          {
+            to: "/how-it-works",
+            label: "How ShriNeo works",
+            body: "The full journey, stage by stage.",
+          },
         ]}
       />
 

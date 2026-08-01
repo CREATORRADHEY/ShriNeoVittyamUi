@@ -100,10 +100,7 @@ export function MediaSplit({
             <ul className="mt-6 space-y-3">
               {points.map((point, i) => (
                 <li key={i} className="flex gap-3 text-sm">
-                  <span
-                    aria-hidden
-                    className="mt-2 size-1.5 shrink-0 rounded-full bg-primary"
-                  />
+                  <span aria-hidden className="mt-2 size-1.5 shrink-0 rounded-full bg-primary" />
                   <span className="min-w-0">{point}</span>
                 </li>
               ))}
@@ -169,9 +166,7 @@ export function TrustStrip({
             <item.icon aria-hidden className="mt-0.5 size-5 shrink-0 text-primary" />
             <div className="min-w-0">
               <p className="text-sm font-semibold">{item.label}</p>
-              {item.body ? (
-                <p className="mt-1 text-sm text-muted-foreground">{item.body}</p>
-              ) : null}
+              {item.body ? <p className="mt-1 text-sm text-muted-foreground">{item.body}</p> : null}
             </div>
           </li>
         ))}
@@ -273,7 +268,10 @@ export function UseCaseCards({
   return (
     <ul className="grid gap-5 md:grid-cols-3">
       {cases.map((item) => (
-        <li key={item.persona} className="flex flex-col rounded-xl border border-border bg-card p-6">
+        <li
+          key={item.persona}
+          className="flex flex-col rounded-xl border border-border bg-card p-6"
+        >
           <span className="w-fit rounded-full border border-border bg-muted px-2.5 py-1 text-[11px] font-medium text-muted-foreground">
             Example journey
           </span>

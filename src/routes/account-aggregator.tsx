@@ -39,11 +39,31 @@ export const Route = createFileRoute("/account-aggregator")({
 });
 
 const consentSteps: JourneyStep[] = [
-  { title: "Choose your bank account", body: "Select the account whose statements are relevant to this application.", actor: "you" },
-  { title: "Review the requested data", body: "You see exactly which data categories and period are being asked for.", actor: "you" },
-  { title: "Approve purpose and duration", body: "The purpose and the access period are stated before you approve.", actor: "you" },
-  { title: "Data is shared securely", body: "Your bank sends the data through the consent framework — not by email or upload.", actor: "shrineo" },
-  { title: "Manage the consent", body: "Consent can be managed or withdrawn according to the provider's rules.", actor: "you" },
+  {
+    title: "Choose your bank account",
+    body: "Select the account whose statements are relevant to this application.",
+    actor: "you",
+  },
+  {
+    title: "Review the requested data",
+    body: "You see exactly which data categories and period are being asked for.",
+    actor: "you",
+  },
+  {
+    title: "Approve purpose and duration",
+    body: "The purpose and the access period are stated before you approve.",
+    actor: "you",
+  },
+  {
+    title: "Data is shared securely",
+    body: "Your bank sends the data through the consent framework — not by email or upload.",
+    actor: "shrineo",
+  },
+  {
+    title: "Manage the consent",
+    body: "Consent can be managed or withdrawn according to the provider's rules.",
+    actor: "you",
+  },
 ];
 
 function AccountAggregatorPage() {
@@ -59,7 +79,10 @@ function AccountAggregatorPage() {
           </Button>
         }
         aside={
-          <FigureCard tone="card" caption="Bank accounts → consent layer → a limited view for the lending workflow.">
+          <FigureCard
+            tone="card"
+            caption="Bank accounts → consent layer → a limited view for the lending workflow."
+          >
             <AccountAggregatorArt />
           </FigureCard>
         }
@@ -169,9 +192,21 @@ function AccountAggregatorPage() {
 
       <RelatedGuides
         links={[
-          { to: "/key-fact-statement", label: "Key Fact Statement", body: "Every cost, disclosed before signing." },
-          { to: "/trust-center", label: "Trust Center", body: "Roles, data handling and grievance routes." },
-          { to: "/how-it-works", label: "How ShriNeo works", body: "Where consent sits in the journey." },
+          {
+            to: "/key-fact-statement",
+            label: "Key Fact Statement",
+            body: "Every cost, disclosed before signing.",
+          },
+          {
+            to: "/trust-center",
+            label: "Trust Center",
+            body: "Roles, data handling and grievance routes.",
+          },
+          {
+            to: "/how-it-works",
+            label: "How ShriNeo works",
+            body: "Where consent sits in the journey.",
+          },
         ]}
       />
 

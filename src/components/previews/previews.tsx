@@ -78,9 +78,7 @@ export function OfferHighlightPreview() {
           >
             <div className="min-w-0">
               <p className="truncate text-sm font-medium">{offer.lender}</p>
-              <p className="num text-xs text-muted-foreground">
-                APR {formatPercent(offer.apr, 1)}
-              </p>
+              <p className="num text-xs text-muted-foreground">APR {formatPercent(offer.apr, 1)}</p>
             </div>
             <p className="num shrink-0 text-sm font-semibold">{formatINR(offer.emi)}/mo</p>
           </li>

@@ -8,7 +8,11 @@ export const Route = createFileRoute("/loans/personal")({
   head: () => ({
     meta: [
       { title: "Personal Loan — ShriNeo Capital" },
-      { name: "description", content: product.summary + " Compare offers from participating lenders with clear fees and APR." },
+      {
+        name: "description",
+        content:
+          product.summary + " Compare offers from participating lenders with clear fees and APR.",
+      },
       { property: "og:title", content: "Personal Loan — ShriNeo Capital" },
       { property: "og:description", content: product.summary },
       { property: "og:url", content: "/loans/personal" },

@@ -206,15 +206,7 @@ function Field({
   );
 }
 
-function Detail({
-  icon: Icon,
-  term,
-  detail,
-}: {
-  icon: typeof Mail;
-  term: string;
-  detail: string;
-}) {
+function Detail({ icon: Icon, term, detail }: { icon: typeof Mail; term: string; detail: string }) {
   return (
     <div>
       <dt className="flex items-center gap-2 text-muted-foreground">

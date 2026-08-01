@@ -14,7 +14,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { I18nProvider } from "../i18n";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
-
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -80,7 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ShriNeo Capital — Your Dreams, Our Responsibility" },
+      { title: "ShriNeo Capital — Bharat Ka Digital Lending Partner" },
       {
         name: "description",
         content:
@@ -105,7 +104,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
   }),
-
 
   shellComponent: RootShell,
   component: RootComponent,
@@ -141,4 +139,3 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
-

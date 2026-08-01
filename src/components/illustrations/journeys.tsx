@@ -22,7 +22,14 @@ export function HomeJourneyArt({ className }: { className?: string }) {
       {[140, 196, 252, 308, 364].map((x, i) => (
         <g key={x}>
           <Stage cx={x} cy={104} n={i + 1} />
-          <rect x={x - 22} y={128} width={44} height={6} rx={3} fill={i < 3 ? ink.brandLight : ink.soft} />
+          <rect
+            x={x - 22}
+            y={128}
+            width={44}
+            height={6}
+            rx={3}
+            fill={i < 3 ? ink.brandLight : ink.soft}
+          />
         </g>
       ))}
     </Figure>
@@ -97,12 +104,7 @@ export function MortgageArt({ className }: { className?: string }) {
       <g>
         <line x1={156} y1={100} x2={244} y2={100} stroke={ink.brand} strokeWidth={1.5} />
         <rect x={182} y={84} width={36} height={32} rx={8} fill={ink.softer} stroke={ink.brand} />
-        <path
-          d="M194 96 v-4 a6 6 0 0 1 12 0 v4"
-          fill="none"
-          stroke={ink.brand}
-          strokeWidth={1.6}
-        />
+        <path d="M194 96 v-4 a6 6 0 0 1 12 0 v4" fill="none" stroke={ink.brand} strokeWidth={1.6} />
         <rect x={192} y={96} width={16} height={13} rx={3} fill={ink.brand} />
       </g>
       <Panel x={250} y={38} w={132} h={124} />
@@ -145,7 +147,13 @@ export function RepaymentArt({ className }: { className?: string }) {
       })}
       <Panel x={276} y={52} w={108} h={96} />
       <circle cx={330} cy={92} r={20} fill={ink.tealSoft} stroke={ink.teal} strokeWidth={1.5} />
-      <path d="M321 92 l6 6 12-13" fill="none" stroke={ink.teal} strokeWidth={2.2} strokeLinecap="round" />
+      <path
+        d="M321 92 l6 6 12-13"
+        fill="none"
+        stroke={ink.teal}
+        strokeWidth={2.2}
+        strokeLinecap="round"
+      />
       <Bar x={298} y={126} w={64} />
     </Figure>
   );
@@ -187,7 +195,13 @@ export function KfsArt({ className }: { className?: string }) {
       {[68, 96, 124, 152, 180].map((y, i) => (
         <g key={y}>
           <Bar x={112} y={y} w={84} />
-          <Bar x={216} y={y} w={i === 4 ? 72 : 54} h={6} fill={i === 4 ? ink.brand : ink.brandLight} />
+          <Bar
+            x={216}
+            y={y}
+            w={i === 4 ? 72 : 54}
+            h={6}
+            fill={i === 4 ? ink.brand : ink.brandLight}
+          />
           <line x1={112} y1={y + 16} x2={288} y2={y + 16} stroke={ink.line} strokeDasharray="2 4" />
         </g>
       ))}
@@ -237,7 +251,13 @@ export function FraudReviewArt({ className }: { className?: string }) {
     >
       {[36, 84, 132].map((y, i) => (
         <g key={y}>
-          <circle cx={38} cy={y} r={12} fill={i === 1 ? ink.amberSoft : ink.surface} stroke={i === 1 ? ink.amber : ink.line} />
+          <circle
+            cx={38}
+            cy={y}
+            r={12}
+            fill={i === 1 ? ink.amberSoft : ink.surface}
+            stroke={i === 1 ? ink.amber : ink.line}
+          />
           <Bar x={58} y={y - 3} w={46} h={6} fill={i === 1 ? ink.amber : ink.soft} />
           <Arrow x1={112} y1={y} x2={150} y2={92} dashed />
         </g>
@@ -249,7 +269,13 @@ export function FraudReviewArt({ className }: { className?: string }) {
       <Bar x={170} y={112} w={66} />
       <Arrow x1={264} y1={96} x2={300} y2={96} />
       <Panel x={304} y={62} w={80} h={70} fill={ink.tealSoft} stroke={ink.teal} />
-      <path d="M328 98 l9 9 18-20" fill="none" stroke={ink.teal} strokeWidth={2.2} strokeLinecap="round" />
+      <path
+        d="M328 98 l9 9 18-20"
+        fill="none"
+        stroke={ink.teal}
+        strokeWidth={2.2}
+        strokeLinecap="round"
+      />
     </Figure>
   );
 }
@@ -266,10 +292,24 @@ export function PrivacyControlArt({ className }: { className?: string }) {
       <Panel x={16} y={20} w={236} h={170} />
       {[48, 84, 120, 156].map((y, i) => (
         <g key={y}>
-          <circle cx={40} cy={y} r={7} fill={i === 0 ? ink.softer : ink.surface} stroke={ink.brandLight} />
+          <circle
+            cx={40}
+            cy={y}
+            r={7}
+            fill={i === 0 ? ink.softer : ink.surface}
+            stroke={ink.brandLight}
+          />
           <Bar x={58} y={y - 8} w={96} />
           <Bar x={58} y={y + 2} w={64} h={5} fill={ink.surface} />
-          <rect x={186} y={y - 10} width={48} height={20} rx={6} fill={ink.card} stroke={ink.line} />
+          <rect
+            x={186}
+            y={y - 10}
+            width={48}
+            height={20}
+            rx={6}
+            fill={ink.card}
+            stroke={ink.line}
+          />
         </g>
       ))}
       <path
@@ -278,7 +318,13 @@ export function PrivacyControlArt({ className }: { className?: string }) {
         stroke={ink.brand}
         strokeWidth={1.6}
       />
-      <path d="M304 106 l12 12 24-26" fill="none" stroke={ink.brand} strokeWidth={2.4} strokeLinecap="round" />
+      <path
+        d="M304 106 l12 12 24-26"
+        fill="none"
+        stroke={ink.brand}
+        strokeWidth={2.4}
+        strokeLinecap="round"
+      />
     </Figure>
   );
 }
@@ -295,7 +341,15 @@ export function NeoGuidanceArt({ className }: { className?: string }) {
       <Panel x={30} y={16} w={266} h={188} fill={ink.surface} />
       <rect x={48} y={40} width={148} height={34} rx={12} fill={ink.card} stroke={ink.line} />
       <Bar x={62} y={53} w={104} />
-      <rect x={112} y={86} width={166} height={44} rx={12} fill={ink.softer} stroke={ink.brandLight} />
+      <rect
+        x={112}
+        y={86}
+        width={166}
+        height={44}
+        rx={12}
+        fill={ink.softer}
+        stroke={ink.brandLight}
+      />
       <Bar x={128} y={98} w={132} h={6} fill={ink.brandLight} />
       <Bar x={128} y={112} w={96} h={6} fill={ink.brandLight} />
       <rect x={48} y={142} width={126} height={34} rx={12} fill={ink.card} stroke={ink.line} />
@@ -303,7 +357,13 @@ export function NeoGuidanceArt({ className }: { className?: string }) {
       <circle cx={340} cy={110} r={26} fill={ink.tealSoft} stroke={ink.teal} strokeWidth={1.5} />
       <circle cx={332} cy={106} r={3.4} fill={ink.teal} />
       <circle cx={348} cy={106} r={3.4} fill={ink.teal} />
-      <path d="M330 120 a12 10 0 0 0 20 0" fill="none" stroke={ink.teal} strokeWidth={2} strokeLinecap="round" />
+      <path
+        d="M330 120 a12 10 0 0 0 20 0"
+        fill="none"
+        stroke={ink.teal}
+        strokeWidth={2}
+        strokeLinecap="round"
+      />
     </Figure>
   );
 }

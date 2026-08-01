@@ -1,7 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CircleHelp, FileText, ListChecks, MessagesSquare, ShieldCheck } from "lucide-react";
 import { PublicShell } from "@/components/layout/public-shell";
-import { Section, SectionHeading, Eyebrow } from "@/components/design-system/section";
+import { Section, SectionHeading } from "@/components/design-system/section";
+import {
+  EditorialHero,
+  HeroPanel,
+  NumberedLedger,
+  StatementBand,
+} from "@/components/sections/editorial";
+import { FigureCard } from "@/components/sections/blocks";
+import { JourneyFigure } from "@/components/illustrations/core";
+import photoFamily from "@/assets/photo-family.jpg";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -69,29 +78,51 @@ const rights = [
 export function ForBorrowersPage() {
   return (
     <PublicShell>
-      <Section labelledBy="borrowers-title">
-        <div className="max-w-3xl">
-          <Eyebrow>For borrowers</Eyebrow>
-          <h1
-            id="borrowers-title"
-            className="editorial text-[clamp(2rem,5vw,3rem)] tracking-tight text-balance"
-          >
-            Know what you are agreeing to, at every step.
-          </h1>
-          <p className="mt-5 text-lg text-muted-foreground">
-            Applying for credit should not require decoding jargon. Here is the whole journey, the
-            documents to keep ready, and the rights you hold as a borrower.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button asChild size="lg" className="min-h-11">
+      <EditorialHero
+        titleId="borrowers-title"
+        eyebrow="For borrowers"
+        title="Know what you are agreeing to, at every step."
+        body="Applying for credit should not require decoding jargon. Here is the whole journey, the documents to keep ready, and the rights you hold as a borrower."
+        image={{
+          src: photoFamily,
+          alt: "A young Indian family reviewing their loan options together at home",
+        }}
+        note="Approval, the sanctioned amount and the interest rate are decided by the participating lender."
+        actions={
+          <>
+            <Button asChild size="lg" className="min-h-12 rounded-lg px-6 text-base">
               <Link to="/auth/signup">Apply for a loan</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="min-h-11">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="min-h-12 rounded-lg border-border-strong px-6 text-base"
+            >
               <Link to="/loans">See loan products</Link>
             </Button>
-          </div>
-        </div>
-      </Section>
+          </>
+        }
+        panels={
+          <HeroPanel label="Your protections" meta="Always">
+            <ul className="space-y-2 text-sm">
+              {[
+                "Key Fact Statement before you sign",
+                "Separate consent for each purpose",
+                "Cooling-off period after signing",
+              ].map((item) => (
+                <li
+                  key={item}
+                  className="flex gap-2.5 rounded-lg border border-border bg-card px-3 py-2.5"
+                >
+                  <ShieldCheck aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
+                  <span className="min-w-0">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </HeroPanel>
+        }
+      />
 
       <Section tone="surface" labelledBy="journey-title">
         <SectionHeading
@@ -99,21 +130,19 @@ export function ForBorrowersPage() {
           title="The full journey"
           body="Six stages. You can pause at any point, and nothing is submitted without your explicit action."
         />
-        <ol className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {journey.map((step, index) => (
-            <li key={step.title} className="rounded-xl border border-border bg-card p-6">
-              <span className="num inline-grid size-8 place-items-center rounded-full bg-accent text-sm font-semibold text-primary">
-                {index + 1}
-              </span>
-              <h3 className="mt-4 text-base font-semibold">{step.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{step.body}</p>
-            </li>
-          ))}
-        </ol>
+        <div className="mt-10 grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-start lg:gap-16">
+          <NumberedLedger items={journey} />
+          <FigureCard
+            tone="card"
+            caption="Uncertainty, understanding, then confidence — stage by stage."
+          >
+            <JourneyFigure />
+          </FigureCard>
+        </div>
       </Section>
 
       <Section labelledBy="prepare-title">
-        <div className="grid gap-12 lg:grid-cols-2">
+        <div className="max-w-2xl">
           <div>
             <SectionHeading
               id="prepare-title"
@@ -135,19 +164,24 @@ export function ForBorrowersPage() {
               ))}
             </ul>
           </div>
-          <div>
-            <SectionHeading title="Your rights as a borrower" />
-            <ul className="mt-6 space-y-3">
-              {rights.map((item) => (
-                <li key={item} className="flex gap-3 text-sm">
-                  <ShieldCheck aria-hidden className="mt-0.5 size-4 shrink-0 text-success" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </Section>
+
+      <StatementBand
+        id="rights-title"
+        label="Your rights"
+        title="Rights you hold, whichever lender you borrow from."
+        body="These are not courtesies. They are the standards every application on ShriNeo follows."
+      >
+        <ul className="divide-y divide-ink-foreground/15 border-y border-ink-foreground/15">
+          {rights.map((item) => (
+            <li key={item} className="flex gap-3 py-4 text-sm text-ink-foreground/85">
+              <ShieldCheck aria-hidden className="mt-0.5 size-4 shrink-0" />
+              <span className="min-w-0">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </StatementBand>
 
       <Section tone="surface" labelledBy="neo-title">
         <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-center">

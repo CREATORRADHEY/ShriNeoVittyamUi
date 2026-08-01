@@ -10,6 +10,11 @@ import { EmiCalculator } from "./emi-calculator";
 import { OfferComparisonPreview } from "./offer-comparison-preview";
 import { Button } from "@/components/ui/button";
 import { FigureCard, MediaSplit, RelatedGuides } from "@/components/sections/blocks";
+import { EditorialHero, HeroPanel, StatementBand } from "@/components/sections/editorial";
+import photoProfessional from "@/assets/photo-professional.jpg";
+import photoBusiness from "@/assets/photo-business-owner.jpg";
+import photoFamily from "@/assets/photo-family.jpg";
+import photoAgent from "@/assets/photo-agent.jpg";
 import {
   CashFlowCycleArt,
   CoolingOffArt,
@@ -32,6 +37,22 @@ type ProductStory = {
   caption: string;
   art: ReactNode;
   mediaSide: "left" | "right";
+};
+
+const productPhoto: Record<ProductSlug, string> = {
+  personal: photoProfessional,
+  business: photoBusiness,
+  home: photoFamily,
+  mortgage: photoBusiness,
+  sachet: photoAgent,
+};
+
+const productPhotoAlt: Record<ProductSlug, string> = {
+  personal: "A young Indian professional reviewing loan options in natural daylight",
+  business: "A small business owner at her shop counter in daylight",
+  home: "A young Indian family outside their new home",
+  mortgage: "A business owner reviewing property papers in daylight",
+  sachet: "A verified ShriNeo agent assisting a customer",
 };
 
 const stories: Record<ProductSlug, ProductStory> = {
@@ -102,7 +123,6 @@ const stories: Record<ProductSlug, ProductStory> = {
   },
 };
 
-
 export function ProductPage({ product }: { product: LoanProduct }) {
   const { t } = useI18n();
   const Icon = product.icon;
@@ -117,81 +137,83 @@ export function ProductPage({ product }: { product: LoanProduct }) {
 
   return (
     <PublicShell>
-      {/* Product hero */}
-      <Section labelledBy="product-title">
-        <div className="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:items-start">
-          <div>
-            <div className="mb-4 flex items-center gap-3">
-              <span className="grid size-11 place-items-center rounded-lg bg-accent text-primary">
-                <Icon aria-hidden className="size-5" />
+      {/* Product hero — same editorial composition as the homepage */}
+      <EditorialHero
+        titleId="product-title"
+        eyebrow={product.phase2 ? "Planned for Phase 2" : "Loan product"}
+        title={product.name}
+        body={product.description}
+        image={{ src: productPhoto[product.slug], alt: productPhotoAlt[product.slug] }}
+        actions={
+          product.phase2 ? (
+            <Button size="lg" disabled className="min-h-12 rounded-lg px-6 text-base">
+              Applications open in Phase 2
+            </Button>
+          ) : (
+            <>
+              <Button asChild size="lg" className="min-h-12 rounded-lg px-6 text-base">
+                <Link to="/auth/signup">{t("common.applyNow")}</Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="min-h-12 rounded-lg border-border-strong px-6 text-base"
+              >
+                <Link to="/auth/signup">{t("common.checkEligibility")}</Link>
+              </Button>
+            </>
+          )
+        }
+        note="Final approval and loan terms are determined by the participating lender."
+        panels={
+          <>
+            <HeroPanel label={t("common.indicative")} meta="Indicative">
+              <p className="num text-xl font-semibold tracking-tight">
+                {formatINR(product.range.min)} – {formatINR(product.range.max)}
+              </p>
+              <dl className="num mt-3 space-y-1.5 border-t border-border pt-3 text-sm">
+                <div className="flex items-baseline justify-between gap-3">
+                  <dt className="text-muted-foreground">Tenure</dt>
+                  <dd>
+                    {product.tenure.min}–{product.tenure.max}{" "}
+                    {product.tenure.model === "years" ? "years" : "months"}
+                  </dd>
+                </div>
+                {product.indicativeRate.max > 0 ? (
+                  <div className="flex items-baseline justify-between gap-3">
+                    <dt className="text-muted-foreground">Rate p.a.</dt>
+                    <dd>
+                      {product.indicativeRate.min}% – {product.indicativeRate.max}%
+                    </dd>
+                  </div>
+                ) : null}
+              </dl>
+            </HeroPanel>
+            <HeroPanel label="Status" align="left" overlap={false} tone="surface">
+              <span className="inline-flex">
+                {product.phase2 ? (
+                  <StatusPill tone="warning">
+                    <CircleAlert aria-hidden className="size-3.5" />
+                    {t("common.comingSoon")}
+                  </StatusPill>
+                ) : (
+                  <StatusPill tone="info">
+                    <ShieldCheck aria-hidden className="size-3.5" />
+                    Lending Service Provider
+                  </StatusPill>
+                )}
               </span>
-              {product.phase2 ? (
-                <StatusPill tone="warning">
-                  <CircleAlert aria-hidden className="size-3.5" />
-                  {t("common.comingSoon")}
-                </StatusPill>
-              ) : (
-                <StatusPill tone="info">
-                  <ShieldCheck aria-hidden className="size-3.5" />
-                  Lending Service Provider
-                </StatusPill>
-              )}
-            </div>
-            <h1
-              id="product-title"
-              className="editorial text-[clamp(2rem,5vw,3rem)] tracking-tight text-balance"
-            >
-              {product.name}
-            </h1>
-            <p className="mt-4 max-w-xl text-lg text-muted-foreground">{product.description}</p>
+              <p className="mt-3 text-xs text-muted-foreground">
+                Amounts, tenures and rates are indicative and configurable with each participating
+                lender.
+              </p>
+            </HeroPanel>
+          </>
+        }
+      />
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              {product.phase2 ? (
-                <Button size="lg" disabled className="min-h-11">
-                  Applications open in Phase 2
-                </Button>
-              ) : (
-                <>
-                  <Button asChild size="lg" className="min-h-11">
-                    <Link to="/auth/signup">{t("common.applyNow")}</Link>
-                  </Button>
-                  <Button asChild size="lg" variant="outline" className="min-h-11">
-                    <Link to="/auth/signup">{t("common.checkEligibility")}</Link>
-                  </Button>
-                </>
-              )}
-            </div>
-          </div>
-
-          <dl className="rounded-xl border border-border bg-surface p-6">
-            <dt className="text-sm font-medium text-muted-foreground">{t("common.indicative")}</dt>
-            <dd className="num mt-2 text-2xl font-semibold">
-              {formatINR(product.range.min)} – {formatINR(product.range.max)}
-            </dd>
-            <dt className="mt-6 text-sm font-medium text-muted-foreground">Tenure</dt>
-            <dd className="num mt-2 text-lg">
-              {product.tenure.min}–{product.tenure.max}{" "}
-              {product.tenure.model === "years" ? "years" : "months"}
-            </dd>
-            {product.indicativeRate.max > 0 ? (
-              <>
-                <dt className="mt-6 text-sm font-medium text-muted-foreground">
-                  Indicative interest rate
-                </dt>
-                <dd className="num mt-2 text-lg">
-                  {product.indicativeRate.min}% – {product.indicativeRate.max}% p.a.
-                </dd>
-              </>
-            ) : null}
-            <dd className="mt-6 border-t border-border pt-4 text-sm text-muted-foreground">
-              Amounts, tenures and rates shown are indicative and configurable. Actual terms are set
-              by each participating lender.
-            </dd>
-          </dl>
-        </div>
-      </Section>
-
-      {/* Product-specific explanatory illustration */}
+      {/* Product-specific explanatory illustration — the dominant visual story */}
       <MediaSplit
         eyebrow={story.eyebrow}
         title={story.title}
@@ -202,18 +224,22 @@ export function ProductPage({ product }: { product: LoanProduct }) {
         footnote="Illustrative explanation. Terms differ by participating lender."
       />
 
-      {/* Why choose ShriNeo */}
-      <Section tone="surface" labelledBy="why-title">
-        <SectionHeading id="why-title" title={`Why choose ShriNeo for a ${product.name}`} />
-        <ul className="mt-8 grid gap-4 md:grid-cols-3">
+      {/* Why choose ShriNeo — statement band, not a card grid */}
+      <StatementBand
+        id="why-title"
+        label={product.name}
+        title={`Why borrowers choose ShriNeo for a ${product.name.toLowerCase()}`}
+        body="The same standards apply to every product: comparable offers, disclosed costs, and consent you control."
+      >
+        <ul className="divide-y divide-ink-foreground/15 border-y border-ink-foreground/15">
           {product.whyShriNeo.map((item) => (
-            <li key={item} className="rounded-lg border border-border bg-card p-5">
-              <Check aria-hidden className="mb-3 size-5 text-success" />
-              <p className="text-sm">{item}</p>
+            <li key={item} className="flex gap-3 py-4 text-sm text-ink-foreground/85">
+              <Check aria-hidden className="mt-0.5 size-4 shrink-0" />
+              <span className="min-w-0">{item}</span>
             </li>
           ))}
         </ul>
-      </Section>
+      </StatementBand>
 
       {/* Eligibility + documents */}
       <Section labelledBy="eligibility-title">
@@ -334,9 +360,21 @@ export function ProductPage({ product }: { product: LoanProduct }) {
 
       <RelatedGuides
         links={[
-          { to: "/how-it-works", label: "How ShriNeo works", body: "Every stage from application to disbursal." },
-          { to: "/key-fact-statement", label: "Key Fact Statement", body: "The costs disclosed before you sign." },
-          { to: "/emi-calculator", label: "EMI calculator", body: "Estimate instalments and total cost." },
+          {
+            to: "/how-it-works",
+            label: "How ShriNeo works",
+            body: "Every stage from application to disbursal.",
+          },
+          {
+            to: "/key-fact-statement",
+            label: "Key Fact Statement",
+            body: "The costs disclosed before you sign.",
+          },
+          {
+            to: "/emi-calculator",
+            label: "EMI calculator",
+            body: "Estimate instalments and total cost.",
+          },
         ]}
       />
 

@@ -116,15 +116,7 @@ function AboutPage() {
   );
 }
 
-function Fact({
-  icon: Icon,
-  term,
-  detail,
-}: {
-  icon: typeof Users;
-  term: string;
-  detail: string;
-}) {
+function Fact({ icon: Icon, term, detail }: { icon: typeof Users; term: string; detail: string }) {
   return (
     <div className="rounded-lg border border-border p-5">
       <dt className="flex items-center gap-2 text-sm text-muted-foreground">
