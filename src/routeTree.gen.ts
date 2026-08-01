@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ForAgentsRouteImport } from './routes/for-agents'
+import { Route as ForBorrowersRouteImport } from './routes/for-borrowers'
 import { Route as LoansIndexRouteImport } from './routes/loans.index'
 import { Route as LoansBusinessRouteImport } from './routes/loans.business'
 import { Route as LoansHomeRouteImport } from './routes/loans.home'
@@ -26,6 +28,16 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForAgentsRoute = ForAgentsRouteImport.update({
+  id: '/for-agents',
+  path: '/for-agents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForBorrowersRoute = ForBorrowersRouteImport.update({
+  id: '/for-borrowers',
+  path: '/for-borrowers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoansIndexRoute = LoansIndexRouteImport.update({
@@ -62,6 +74,8 @@ const LoansSachetRoute = LoansSachetRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/for-agents': typeof ForAgentsRoute
+  '/for-borrowers': typeof ForBorrowersRoute
   '/loans/business': typeof LoansBusinessRoute
   '/loans/home': typeof LoansHomeRoute
   '/loans/mortgage': typeof LoansMortgageRoute
@@ -72,6 +86,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/for-agents': typeof ForAgentsRoute
+  '/for-borrowers': typeof ForBorrowersRoute
   '/loans/business': typeof LoansBusinessRoute
   '/loans/home': typeof LoansHomeRoute
   '/loans/mortgage': typeof LoansMortgageRoute
@@ -83,6 +99,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/for-agents': typeof ForAgentsRoute
+  '/for-borrowers': typeof ForBorrowersRoute
   '/loans/business': typeof LoansBusinessRoute
   '/loans/home': typeof LoansHomeRoute
   '/loans/mortgage': typeof LoansMortgageRoute
@@ -95,6 +113,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/for-agents'
+    | '/for-borrowers'
     | '/loans/business'
     | '/loans/home'
     | '/loans/mortgage'
@@ -105,6 +125,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/for-agents'
+    | '/for-borrowers'
     | '/loans/business'
     | '/loans/home'
     | '/loans/mortgage'
@@ -115,6 +137,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/for-agents'
+    | '/for-borrowers'
     | '/loans/business'
     | '/loans/home'
     | '/loans/mortgage'
@@ -126,6 +150,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ForAgentsRoute: typeof ForAgentsRoute
+  ForBorrowersRoute: typeof ForBorrowersRoute
   LoansBusinessRoute: typeof LoansBusinessRoute
   LoansHomeRoute: typeof LoansHomeRoute
   LoansMortgageRoute: typeof LoansMortgageRoute
@@ -148,6 +174,20 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-agents': {
+      id: '/for-agents'
+      path: '/for-agents'
+      fullPath: '/for-agents'
+      preLoaderRoute: typeof ForAgentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-borrowers': {
+      id: '/for-borrowers'
+      path: '/for-borrowers'
+      fullPath: '/for-borrowers'
+      preLoaderRoute: typeof ForBorrowersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/loans/': {
@@ -198,6 +238,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ForAgentsRoute: ForAgentsRoute,
+  ForBorrowersRoute: ForBorrowersRoute,
   LoansBusinessRoute: LoansBusinessRoute,
   LoansHomeRoute: LoansHomeRoute,
   LoansMortgageRoute: LoansMortgageRoute,
