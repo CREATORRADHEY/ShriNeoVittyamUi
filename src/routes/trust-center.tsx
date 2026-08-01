@@ -71,47 +71,82 @@ const controls = [
 function TrustCenterPage() {
   return (
     <PublicShell>
-      <Section labelledBy="trust-title">
-        <div className="max-w-3xl">
-          <Eyebrow>Trust Center</Eyebrow>
-          <h1
-            id="trust-title"
-            className="editorial text-[clamp(2rem,5vw,3rem)] tracking-tight text-balance"
-          >
-            The commitments behind every offer we show you.
-          </h1>
-          <p className="mt-5 text-lg text-muted-foreground">
-            This page is maintained by SHRINEO VITTIYAM PRIVATE LIMITED to answer common security,
-            privacy and conduct questions about ShriNeo Capital. It describes our own practices and
-            the controls visible in the product. It is not an independent certification or audit
-            result.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-2">
-            <StatusPill tone="info">
-              <ShieldCheck aria-hidden className="size-3.5" />
-              {org.role}
-            </StatusPill>
-            <StatusPill tone="neutral">App-owner maintained</StatusPill>
-          </div>
-        </div>
-      </Section>
+      <EditorialHero
+        titleId="trust-title"
+        eyebrow="Trust Center"
+        title="The commitments behind every offer we show you."
+        body="This page is maintained by SHRINEO VITTIYAM PRIVATE LIMITED to answer common security, privacy and conduct questions about ShriNeo Capital. It describes our own practices and the controls visible in the product — not an independent certification or audit result."
+        image={{
+          src: photoProfessional,
+          alt: "A professional reviewing loan disclosures on a laptop in natural light",
+        }}
+        note="We do not claim any certification, audit outcome or regulatory approval that has not been formally granted."
+        actions={
+          <>
+            <Button asChild size="lg" className="min-h-12 rounded-lg px-6 text-base">
+              <Link to="/grievance-redressal">Raise a grievance</Link>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="min-h-12 rounded-lg border-border-strong px-6 text-base"
+            >
+              <Link to="/privacy-policy">Read the privacy policy</Link>
+            </Button>
+          </>
+        }
+        panels={
+          <HeroPanel label="Our position" meta="Disclosed">
+            <div className="flex flex-wrap gap-2">
+              <StatusPill tone="info">
+                <ShieldCheck aria-hidden className="size-3.5" />
+                {org.role}
+              </StatusPill>
+              <StatusPill tone="neutral">App-owner maintained</StatusPill>
+            </div>
+            <p className="mt-3 border-t border-border pt-3 text-xs text-muted-foreground">
+              {org.roleStatement}
+            </p>
+          </HeroPanel>
+        }
+      />
 
-      <Section tone="surface" labelledBy="controls-title">
+      <StatementBand
+        id="consent-band"
+        label="The core commitment"
+        title="Consent is requested per purpose, recorded, and reversible."
+        body="Bureau checks, bank data access and e-sign are never bundled into a single tick-box. Each is asked for separately, timestamped, and reviewable by you later."
+      >
+        <div className="rounded-xl border border-ink-foreground/15 bg-ink-foreground/5 p-5 md:p-7">
+          <ConsentFigure />
+        </div>
+      </StatementBand>
+
+      <Section labelledBy="controls-title">
         <SectionHeading
           id="controls-title"
           title="Controls currently in place"
           body="Each item below describes behaviour you can observe in the product."
         />
-        <ul className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-10 grid gap-x-16 divide-y divide-border border-y border-border md:grid-cols-2 md:divide-y-0">
           {controls.map((control) => (
-            <li key={control.title} className="rounded-xl border border-border bg-card p-6">
-              <control.icon aria-hidden className="size-5 text-primary" />
-              <h3 className="mt-4 text-base font-semibold">{control.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{control.body}</p>
+            <li
+              key={control.title}
+              className="grid grid-cols-[2.25rem_minmax(0,1fr)] items-start gap-4 py-6 md:border-b md:border-border"
+            >
+              <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-accent text-primary">
+                <control.icon aria-hidden className="size-4" />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-base font-semibold">{control.title}</span>
+                <span className="mt-1.5 block text-sm text-muted-foreground">{control.body}</span>
+              </span>
             </li>
           ))}
         </ul>
       </Section>
+
 
       <Section labelledBy="responsibility-title">
         <SectionHeading
