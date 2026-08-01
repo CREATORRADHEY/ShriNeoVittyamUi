@@ -1,5 +1,5 @@
 export const hi: Record<string, string> = {
-  "brand.tagline": "आपके सपने, हमारी ज़िम्मेदारी।",
+  "brand.tagline": "भारत का डिजिटल लेंडिंग पार्टनर।",
   "brand.legal": "SHRINEO VITTIYAM PRIVATE LIMITED का एक ब्रांड",
 
   "nav.loans": "ऋण",
@@ -25,7 +25,7 @@ export const hi: Record<string, string> = {
   "lang.help": "आप इसे कभी भी बदल सकते हैं। पेज पर आपकी जगह बनी रहती है।",
 
   "home.eyebrow": "आरबीआई दिशानिर्देशों के अनुरूप लेंडिंग सर्विस प्रोवाइडर",
-  "home.hero.title": "आपके सपने, हमारी ज़िम्मेदारी।",
+  "home.hero.title": "भारत का डिजिटल लेंडिंग पार्टनर।",
   "home.hero.body":
     "ग्राहकों के लिए बना। एजेंट के लिए डिज़ाइन किया गया। बैंकों द्वारा समर्थित। भरोसे से संचालित।",
   "home.hero.primary": "ऋण के लिए आवेदन करें",

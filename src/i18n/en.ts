@@ -1,6 +1,6 @@
 export const en: Record<string, string> = {
   "brand.name": "ShriNeo Capital",
-  "brand.tagline": "Your dreams, our responsibility.",
+  "brand.tagline": "Bharat ka digital lending partner.",
   "brand.legal": "A brand of SHRINEO VITTIYAM PRIVATE LIMITED",
 
   "nav.loans": "Loans",
@@ -26,7 +26,7 @@ export const en: Record<string, string> = {
   "lang.help": "You can change this at any time. Your place on the page is kept.",
 
   "home.eyebrow": "RBI-aligned Lending Service Provider",
-  "home.hero.title": "Your Dreams, Our Responsibility.",
+  "home.hero.title": "Bharat Ka Digital Lending Partner.",
   "home.hero.body":
     "Built for customers. Designed for agents. Supported by banks. Powered by trust.",
   "home.hero.primary": "Apply for a loan",

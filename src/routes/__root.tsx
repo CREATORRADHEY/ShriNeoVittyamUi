@@ -80,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ShriNeo Capital — Your Dreams, Our Responsibility" },
+      { title: "ShriNeo Capital — Bharat Ka Digital Lending Partner" },
       {
         name: "description",
         content:

@@ -10,7 +10,6 @@ import {
   Sparkles,
 } from "lucide-react";
 import heroBorrower from "@/assets/hero-borrower.png.asset.json";
-import photoProfessional from "@/assets/photo-professional.jpg";
 import photoBusiness from "@/assets/photo-business-owner.jpg";
 import photoFamily from "@/assets/photo-family.jpg";
 import photoAgent from "@/assets/photo-agent.jpg";
@@ -38,13 +37,13 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ShriNeo Capital — Your Dreams, Our Responsibility" },
+      { title: "ShriNeo Capital — Bharat Ka Digital Lending Partner" },
       {
         name: "description",
         content:
           "Compare eligible loan offers from participating banks and NBFCs in English or Hindi. Clear costs, purpose-specific consent and a Key Fact Statement before you sign.",
       },
-      { property: "og:title", content: "ShriNeo Capital — Your Dreams, Our Responsibility" },
+      { property: "og:title", content: "ShriNeo Capital — Bharat Ka Digital Lending Partner" },
       {
         property: "og:description",
         content:
