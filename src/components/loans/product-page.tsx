@@ -332,7 +332,16 @@ export function ProductPage({ product }: { product: LoanProduct }) {
         </div>
       </Section>
 
+      <RelatedGuides
+        links={[
+          { to: "/how-it-works", label: "How ShriNeo works", body: "Every stage from application to disbursal." },
+          { to: "/key-fact-statement", label: "Key Fact Statement", body: "The costs disclosed before you sign." },
+          { to: "/emi-calculator", label: "EMI calculator", body: "Estimate instalments and total cost." },
+        ]}
+      />
+
       {/* Final CTA */}
+
       <Section tone="ink" labelledBy="cta-title">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
