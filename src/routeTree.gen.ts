@@ -12,8 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as ForAgentsRouteImport } from './routes/for-agents'
 import { Route as ForBorrowersRouteImport } from './routes/for-borrowers'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TrustCenterRouteImport } from './routes/trust-center'
 import { Route as LoansIndexRouteImport } from './routes/loans.index'
 import { Route as LoansBusinessRouteImport } from './routes/loans.business'
 import { Route as LoansHomeRouteImport } from './routes/loans.home'
@@ -36,6 +40,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CookiePolicyRoute = CookiePolicyRouteImport.update({
+  id: '/cookie-policy',
+  path: '/cookie-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ForAgentsRoute = ForAgentsRouteImport.update({
   id: '/for-agents',
   path: '/for-agents',
@@ -44,6 +53,21 @@ const ForAgentsRoute = ForAgentsRouteImport.update({
 const ForBorrowersRoute = ForBorrowersRouteImport.update({
   id: '/for-borrowers',
   path: '/for-borrowers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrustCenterRoute = TrustCenterRouteImport.update({
+  id: '/trust-center',
+  path: '/trust-center',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoansIndexRoute = LoansIndexRouteImport.update({
@@ -81,8 +105,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/terms': typeof TermsRoute
+  '/trust-center': typeof TrustCenterRoute
   '/loans/business': typeof LoansBusinessRoute
   '/loans/home': typeof LoansHomeRoute
   '/loans/mortgage': typeof LoansMortgageRoute
@@ -94,8 +122,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/terms': typeof TermsRoute
+  '/trust-center': typeof TrustCenterRoute
   '/loans/business': typeof LoansBusinessRoute
   '/loans/home': typeof LoansHomeRoute
   '/loans/mortgage': typeof LoansMortgageRoute
@@ -108,8 +140,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/terms': typeof TermsRoute
+  '/trust-center': typeof TrustCenterRoute
   '/loans/business': typeof LoansBusinessRoute
   '/loans/home': typeof LoansHomeRoute
   '/loans/mortgage': typeof LoansMortgageRoute
@@ -123,8 +159,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/cookie-policy'
     | '/for-agents'
     | '/for-borrowers'
+    | '/privacy-policy'
+    | '/terms'
+    | '/trust-center'
     | '/loans/business'
     | '/loans/home'
     | '/loans/mortgage'
@@ -136,8 +176,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/cookie-policy'
     | '/for-agents'
     | '/for-borrowers'
+    | '/privacy-policy'
+    | '/terms'
+    | '/trust-center'
     | '/loans/business'
     | '/loans/home'
     | '/loans/mortgage'
@@ -149,8 +193,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/cookie-policy'
     | '/for-agents'
     | '/for-borrowers'
+    | '/privacy-policy'
+    | '/terms'
+    | '/trust-center'
     | '/loans/business'
     | '/loans/home'
     | '/loans/mortgage'
@@ -163,8 +211,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  CookiePolicyRoute: typeof CookiePolicyRoute
   ForAgentsRoute: typeof ForAgentsRoute
   ForBorrowersRoute: typeof ForBorrowersRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  TermsRoute: typeof TermsRoute
+  TrustCenterRoute: typeof TrustCenterRoute
   LoansBusinessRoute: typeof LoansBusinessRoute
   LoansHomeRoute: typeof LoansHomeRoute
   LoansMortgageRoute: typeof LoansMortgageRoute
@@ -196,6 +248,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cookie-policy': {
+      id: '/cookie-policy'
+      path: '/cookie-policy'
+      fullPath: '/cookie-policy'
+      preLoaderRoute: typeof CookiePolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/for-agents': {
       id: '/for-agents'
       path: '/for-agents'
@@ -208,6 +267,27 @@ declare module '@tanstack/react-router' {
       path: '/for-borrowers'
       fullPath: '/for-borrowers'
       preLoaderRoute: typeof ForBorrowersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trust-center': {
+      id: '/trust-center'
+      path: '/trust-center'
+      fullPath: '/trust-center'
+      preLoaderRoute: typeof TrustCenterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/loans/': {
@@ -259,8 +339,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  CookiePolicyRoute: CookiePolicyRoute,
   ForAgentsRoute: ForAgentsRoute,
   ForBorrowersRoute: ForBorrowersRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  TermsRoute: TermsRoute,
+  TrustCenterRoute: TrustCenterRoute,
   LoansBusinessRoute: LoansBusinessRoute,
   LoansHomeRoute: LoansHomeRoute,
   LoansMortgageRoute: LoansMortgageRoute,
