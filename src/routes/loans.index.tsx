@@ -5,7 +5,12 @@ import { formatINR } from "@/lib/format";
 import { PublicShell } from "@/components/layout/public-shell";
 import { Section, SectionHeading, StatusPill } from "@/components/design-system/section";
 import { EmiCalculator } from "@/components/loans/emi-calculator";
-import { EditorialHero, HeroPanel, SectionLabel, StatementBand } from "@/components/sections/editorial";
+import {
+  EditorialHero,
+  HeroPanel,
+  SectionLabel,
+  StatementBand,
+} from "@/components/sections/editorial";
 import { Reveal } from "@/components/sections/reveal";
 import { RelatedGuides } from "@/components/sections/blocks";
 import { CostBreakdownFigure } from "@/components/illustrations/core";
@@ -91,11 +96,17 @@ function LoansIndex() {
       />
 
       {/* Directed composition: one lead product, the rest as an editorial ledger */}
-      <section aria-labelledby="lead-title" className="border-b border-border bg-surface py-14 md:py-20">
+      <section
+        aria-labelledby="lead-title"
+        className="border-b border-border bg-surface py-14 md:py-20"
+      >
         <div className="container-page grid gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
           <Reveal>
             <SectionLabel>Most requested</SectionLabel>
-            <h2 id="lead-title" className="editorial mt-4 text-[clamp(1.75rem,3.4vw,2.5rem)] tracking-tight">
+            <h2
+              id="lead-title"
+              className="editorial mt-4 text-[clamp(1.75rem,3.4vw,2.5rem)] tracking-tight"
+            >
               {featured.name}
             </h2>
             <p className="mt-4 max-w-[46ch] text-base text-muted-foreground">{featured.summary}</p>
@@ -146,9 +157,8 @@ function LoansIndex() {
                       </span>
                       <span className="num mt-2 block text-xs text-muted-foreground">
                         {formatINR(product.range.min, { compact: true })} –{" "}
-                        {formatINR(product.range.max, { compact: true })} ·{" "}
-                        {product.tenure.min}–{product.tenure.max}{" "}
-                        {product.tenure.model === "years" ? "years" : "months"}
+                        {formatINR(product.range.max, { compact: true })} · {product.tenure.min}–
+                        {product.tenure.max} {product.tenure.model === "years" ? "years" : "months"}
                       </span>
                     </span>
                     <ArrowRight
@@ -187,9 +197,21 @@ function LoansIndex() {
 
       <RelatedGuides
         links={[
-          { to: "/how-it-works", label: "How ShriNeo works", body: "Every stage from application to disbursal." },
-          { to: "/compare-offers", label: "Compare loan offers", body: "Rate, APR, EMI and total repayment." },
-          { to: "/key-fact-statement", label: "Key Fact Statement", body: "The costs disclosed before you sign." },
+          {
+            to: "/how-it-works",
+            label: "How ShriNeo works",
+            body: "Every stage from application to disbursal.",
+          },
+          {
+            to: "/compare-offers",
+            label: "Compare loan offers",
+            body: "Rate, APR, EMI and total repayment.",
+          },
+          {
+            to: "/key-fact-statement",
+            label: "Key Fact Statement",
+            body: "The costs disclosed before you sign.",
+          },
         ]}
       />
     </PublicShell>

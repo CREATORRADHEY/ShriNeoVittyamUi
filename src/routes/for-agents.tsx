@@ -158,7 +158,10 @@ export function ForAgentsPage() {
               ))}
             </ul>
           </div>
-          <FigureCard tone="card" caption="Consent-gated assistance: OTP first, then time-bound access.">
+          <FigureCard
+            tone="card"
+            caption="Consent-gated assistance: OTP first, then time-bound access."
+          >
             <AgentAssistFigure />
           </FigureCard>
         </div>

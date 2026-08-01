@@ -123,7 +123,6 @@ const stories: Record<ProductSlug, ProductStory> = {
   },
 };
 
-
 export function ProductPage({ product }: { product: LoanProduct }) {
   const { t } = useI18n();
   const Icon = product.icon;
@@ -241,7 +240,6 @@ export function ProductPage({ product }: { product: LoanProduct }) {
           ))}
         </ul>
       </StatementBand>
-
 
       {/* Eligibility + documents */}
       <Section labelledBy="eligibility-title">
@@ -362,9 +360,21 @@ export function ProductPage({ product }: { product: LoanProduct }) {
 
       <RelatedGuides
         links={[
-          { to: "/how-it-works", label: "How ShriNeo works", body: "Every stage from application to disbursal." },
-          { to: "/key-fact-statement", label: "Key Fact Statement", body: "The costs disclosed before you sign." },
-          { to: "/emi-calculator", label: "EMI calculator", body: "Estimate instalments and total cost." },
+          {
+            to: "/how-it-works",
+            label: "How ShriNeo works",
+            body: "Every stage from application to disbursal.",
+          },
+          {
+            to: "/key-fact-statement",
+            label: "Key Fact Statement",
+            body: "The costs disclosed before you sign.",
+          },
+          {
+            to: "/emi-calculator",
+            label: "EMI calculator",
+            body: "Estimate instalments and total cost.",
+          },
         ]}
       />
 

@@ -72,8 +72,8 @@ function CookiePolicyPage() {
 
       <LegalSection heading="5. Contact">
         <p>
-          Questions about this policy: {configured(org.supportEmail)}. Operated by{" "}
-          {org.legalEntity}.
+          Questions about this policy: {configured(org.supportEmail)}. Operated by {org.legalEntity}
+          .
         </p>
       </LegalSection>
     </LegalPage>

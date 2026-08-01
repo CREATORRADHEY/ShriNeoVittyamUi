@@ -103,9 +103,7 @@ export function OfferComparisonPanel() {
               <tr
                 key={offer.lender}
                 className={
-                  offer.selected
-                    ? "border-b border-border bg-accent/60"
-                    : "border-b border-border"
+                  offer.selected ? "border-b border-border bg-accent/60" : "border-b border-border"
                 }
               >
                 <th scope="row" className="py-3 pl-1 text-left align-top font-medium">
@@ -118,7 +116,10 @@ export function OfferComparisonPanel() {
                         <Check className="size-3" />
                       </span>
                     ) : (
-                      <span aria-hidden className="size-4 shrink-0 rounded-full border border-border-strong" />
+                      <span
+                        aria-hidden
+                        className="size-4 shrink-0 rounded-full border border-border-strong"
+                      />
                     )}
                     <span className="min-w-0">
                       {offer.lender}
@@ -239,9 +240,7 @@ export function ApplicationTrackingPanel() {
               </span>
               <span className="num block text-xs text-muted-foreground">{stage.meta}</span>
             </span>
-            {stage.state === "active" ? (
-              <StatusPill tone="info">Awaiting lender</StatusPill>
-            ) : null}
+            {stage.state === "active" ? <StatusPill tone="info">Awaiting lender</StatusPill> : null}
           </li>
         ))}
       </ol>

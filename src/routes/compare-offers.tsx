@@ -46,17 +46,38 @@ const anatomy = [
     term: "Participating lender",
     body: "The bank or NBFC that will assess, sanction and disburse the loan. ShriNeo does not lend.",
   },
-  { term: "Loan amount", body: "The amount the lender is willing to sanction, which may differ from what you requested." },
-  { term: "Interest rate", body: "The lender's charge on the outstanding principal, expressed per annum." },
+  {
+    term: "Loan amount",
+    body: "The amount the lender is willing to sanction, which may differ from what you requested.",
+  },
+  {
+    term: "Interest rate",
+    body: "The lender's charge on the outstanding principal, expressed per annum.",
+  },
   {
     term: "APR",
     body: "Interest plus fees expressed as one yearly figure. The fairest single number for comparing two offers.",
   },
-  { term: "EMI", body: "The fixed monthly instalment across the tenure, on a reducing-balance basis." },
-  { term: "Processing fee", body: "A one-time charge, usually deducted before disbursal, plus applicable taxes." },
-  { term: "Tenure", body: "How long you repay. A longer tenure lowers the EMI and raises total interest." },
-  { term: "Total repayment", body: "Principal plus all interest and charges over the full tenure." },
-  { term: "Match reason", body: "Why this lender matched your profile — stated in plain language." },
+  {
+    term: "EMI",
+    body: "The fixed monthly instalment across the tenure, on a reducing-balance basis.",
+  },
+  {
+    term: "Processing fee",
+    body: "A one-time charge, usually deducted before disbursal, plus applicable taxes.",
+  },
+  {
+    term: "Tenure",
+    body: "How long you repay. A longer tenure lowers the EMI and raises total interest.",
+  },
+  {
+    term: "Total repayment",
+    body: "Principal plus all interest and charges over the full tenure.",
+  },
+  {
+    term: "Match reason",
+    body: "Why this lender matched your profile — stated in plain language.",
+  },
 ];
 
 function CompareOffersPage() {
@@ -132,9 +153,33 @@ function CompareOffersPage() {
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:hidden">
           {[
-            { lender: "Participating Bank A", rate: "11.5%", apr: "12.4%", emi: "₹9,885", fee: "₹3,540", total: "₹3,55,860", reason: "Lowest total repayment for this amount and tenure." },
-            { lender: "Participating NBFC B", rate: "12.9%", apr: "14.1%", emi: "₹10,086", fee: "₹5,900", total: "₹3,63,096", reason: "Criteria most closely match the profile provided." },
-            { lender: "Participating Bank C", rate: "11.9%", apr: "12.9%", emi: "₹7,583", fee: "₹4,130", total: "₹3,18,486", reason: "Longer tenure lowers the instalment but raises interest." },
+            {
+              lender: "Participating Bank A",
+              rate: "11.5%",
+              apr: "12.4%",
+              emi: "₹9,885",
+              fee: "₹3,540",
+              total: "₹3,55,860",
+              reason: "Lowest total repayment for this amount and tenure.",
+            },
+            {
+              lender: "Participating NBFC B",
+              rate: "12.9%",
+              apr: "14.1%",
+              emi: "₹10,086",
+              fee: "₹5,900",
+              total: "₹3,63,096",
+              reason: "Criteria most closely match the profile provided.",
+            },
+            {
+              lender: "Participating Bank C",
+              rate: "11.9%",
+              apr: "12.9%",
+              emi: "₹7,583",
+              fee: "₹4,130",
+              total: "₹3,18,486",
+              reason: "Longer tenure lowers the instalment but raises interest.",
+            },
           ].map((offer) => (
             <article key={offer.lender} className="rounded-xl border border-border bg-card p-5">
               <h3 className="text-sm font-semibold">{offer.lender}</h3>
@@ -263,9 +308,21 @@ function CompareOffersPage() {
 
       <RelatedGuides
         links={[
-          { to: "/key-fact-statement", label: "Key Fact Statement", body: "What must be disclosed before you sign." },
-          { to: "/emi-calculator", label: "EMI calculator", body: "Test amount, rate and tenure combinations." },
-          { to: "/how-it-works", label: "How ShriNeo works", body: "The full journey, stage by stage." },
+          {
+            to: "/key-fact-statement",
+            label: "Key Fact Statement",
+            body: "What must be disclosed before you sign.",
+          },
+          {
+            to: "/emi-calculator",
+            label: "EMI calculator",
+            body: "Test amount, rate and tenure combinations.",
+          },
+          {
+            to: "/how-it-works",
+            label: "How ShriNeo works",
+            body: "The full journey, stage by stage.",
+          },
         ]}
       />
 

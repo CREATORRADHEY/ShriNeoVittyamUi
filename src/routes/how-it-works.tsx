@@ -93,14 +93,26 @@ const directPath: JourneyStep[] = [
 ];
 
 const agentPath: JourneyStep[] = [
-  { title: "Agent raises a request", body: "A verified agent requests permission to assist.", actor: "shrineo" },
-  { title: "You approve by OTP", body: "Nothing happens until you confirm the request.", actor: "you" },
+  {
+    title: "Agent raises a request",
+    body: "A verified agent requests permission to assist.",
+    actor: "shrineo",
+  },
+  {
+    title: "You approve by OTP",
+    body: "Nothing happens until you confirm the request.",
+    actor: "you",
+  },
   {
     title: "Assisted completion",
     body: "The agent prepares the file with you; documents stay in ShriNeo's system.",
     actor: "shrineo",
   },
-  { title: "You review and sign", body: "Offers and the Key Fact Statement are shown to you, not to the agent alone.", actor: "you" },
+  {
+    title: "You review and sign",
+    body: "Offers and the Key Fact Statement are shown to you, not to the agent alone.",
+    actor: "you",
+  },
   { title: "Lender review", body: "Same review process as a direct application.", actor: "lender" },
   {
     title: "You can revoke access",
@@ -139,17 +151,19 @@ function HowItWorksPage() {
         panels={
           <HeroPanel label="Live status" meta="Example">
             <ol className="space-y-2 text-sm">
-              {["Submitted", "Verified", "Under review", "Approved", "Disbursed"].map((stage, i) => (
-                <li
-                  key={stage}
-                  className="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2"
-                >
-                  <span className="num grid size-6 shrink-0 place-items-center rounded-full bg-accent text-xs font-semibold text-primary">
-                    {i + 1}
-                  </span>
-                  <span className="min-w-0 truncate">{stage}</span>
-                </li>
-              ))}
+              {["Submitted", "Verified", "Under review", "Approved", "Disbursed"].map(
+                (stage, i) => (
+                  <li
+                    key={stage}
+                    className="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2"
+                  >
+                    <span className="num grid size-6 shrink-0 place-items-center rounded-full bg-accent text-xs font-semibold text-primary">
+                      {i + 1}
+                    </span>
+                    <span className="min-w-0 truncate">{stage}</span>
+                  </li>
+                ),
+              )}
             </ol>
           </HeroPanel>
         }

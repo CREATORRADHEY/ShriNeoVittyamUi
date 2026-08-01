@@ -13,7 +13,9 @@ export function SectionLabel({
   tone?: "primary" | "inverse";
 }) {
   return (
-    <p className={cn("label-micro", tone === "primary" ? "text-primary" : "text-ink-foreground/70")}>
+    <p
+      className={cn("label-micro", tone === "primary" ? "text-primary" : "text-ink-foreground/70")}
+    >
       {children}
     </p>
   );
@@ -155,7 +157,9 @@ export function StatementBand({
           >
             {title}
           </h2>
-          {body ? <p className="mt-5 max-w-[46ch] text-base text-ink-foreground/80">{body}</p> : null}
+          {body ? (
+            <p className="mt-5 max-w-[46ch] text-base text-ink-foreground/80">{body}</p>
+          ) : null}
         </Reveal>
         {children ? (
           <Reveal delay={80} className="min-w-0">
@@ -177,7 +181,12 @@ export function NumberedLedger({
   columns?: 1 | 2;
 }) {
   return (
-    <ol className={cn("divide-y divide-border border-y border-border", columns === 2 && "md:columns-2 md:gap-12 md:divide-y-0 md:border-y-0")}>
+    <ol
+      className={cn(
+        "divide-y divide-border border-y border-border",
+        columns === 2 && "md:columns-2 md:gap-12 md:divide-y-0 md:border-y-0",
+      )}
+    >
       {items.map((item, i) => (
         <li
           key={item.title}

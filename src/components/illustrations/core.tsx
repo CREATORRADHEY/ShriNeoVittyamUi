@@ -61,7 +61,10 @@ const valueLabel = {
 
 /* ------------------------------------------------ 1. Offer comparison */
 
-export function CompareFigure({ className, title = "Three lender offers compared column by column, with one option selected" }: FigureProps) {
+export function CompareFigure({
+  className,
+  title = "Three lender offers compared column by column, with one option selected",
+}: FigureProps) {
   const cols = [
     { x: 16, selected: false, bars: [26, 40, 18] },
     { x: 118, selected: true, bars: [34, 52, 24] },
@@ -83,7 +86,14 @@ export function CompareFigure({ className, title = "Three lender offers compared
             strokeWidth={col.selected ? 1.75 : 1}
           />
           <line x1={col.x + 12} y1={44} x2={col.x + 56} y2={44} stroke={NAVY} strokeWidth="1.75" />
-          <line x1={col.x + 12} y1={56} x2={col.x + 44} y2={56} stroke={NAVY_SOFT} strokeWidth="1" />
+          <line
+            x1={col.x + 12}
+            y1={56}
+            x2={col.x + 44}
+            y2={56}
+            stroke={NAVY_SOFT}
+            strokeWidth="1"
+          />
           <line
             x1={col.x + 12}
             y1={72}
@@ -116,11 +126,7 @@ export function CompareFigure({ className, title = "Three lender offers compared
           {col.selected ? (
             <>
               <circle cx={col.x + 70} cy={34} r="7" fill={GREEN} opacity="0.14" />
-              <path
-                d={`M ${col.x + 66} 34 l 3 3 l 6 -6`}
-                stroke={GREEN}
-                strokeWidth="1.75"
-              />
+              <path d={`M ${col.x + 66} 34 l 3 3 l 6 -6`} stroke={GREEN} strokeWidth="1.75" />
             </>
           ) : null}
         </g>
@@ -175,7 +181,16 @@ export function CostBreakdownFigure({
       })}
       <line x1="16" y1="82" x2="304" y2="82" stroke="var(--border-strong)" strokeWidth="1" />
       <line x1="160" y1="82" x2="160" y2="96" stroke="var(--border-strong)" strokeWidth="1" />
-      <rect x="96" y="96" width="128" height="30" rx="6" fill="#ffffff" stroke={NAVY} strokeWidth="1.75" />
+      <rect
+        x="96"
+        y="96"
+        width="128"
+        height="30"
+        rx="6"
+        fill="#ffffff"
+        stroke={NAVY}
+        strokeWidth="1.75"
+      />
       <text x="108" y="115" style={microLabel} fill={NAVY}>
         TOTAL REPAYMENT
       </text>
@@ -212,7 +227,16 @@ export function FundFlowFigure({
       <rect x="0" y="0" width="320" height="200" rx="10" fill={PLATE} />
 
       {/* lender */}
-      <rect x="16" y="34" width="112" height="52" rx="8" fill="#ffffff" stroke={NAVY} strokeWidth="1.75" />
+      <rect
+        x="16"
+        y="34"
+        width="112"
+        height="52"
+        rx="8"
+        fill="#ffffff"
+        stroke={NAVY}
+        strokeWidth="1.75"
+      />
       <path d="M32 68 v-14 l16 -10 l16 10 v14" stroke={NAVY} strokeWidth="1.25" />
       <line x1="26" y1="68" x2="70" y2="68" stroke={NAVY} strokeWidth="1.25" />
       <text x="80" y="56" style={microLabel} fill={NAVY}>
@@ -221,7 +245,16 @@ export function FundFlowFigure({
       <line x1="80" y1="64" x2="116" y2="64" stroke={NAVY_SOFT} strokeWidth="1" />
 
       {/* borrower */}
-      <rect x="192" y="34" width="112" height="52" rx="8" fill="#ffffff" stroke={NAVY} strokeWidth="1.75" />
+      <rect
+        x="192"
+        y="34"
+        width="112"
+        height="52"
+        rx="8"
+        fill="#ffffff"
+        stroke={NAVY}
+        strokeWidth="1.75"
+      />
       <circle cx="216" cy="52" r="7" stroke={NAVY} strokeWidth="1.25" />
       <path d="M204 70 a12 12 0 0 1 24 0" stroke={NAVY} strokeWidth="1.25" />
       <text x="238" y="56" style={microLabel} fill={NAVY}>
@@ -237,15 +270,49 @@ export function FundFlowFigure({
       </text>
 
       {/* shrineo support layer */}
-      <line x1="72" y1="86" x2="72" y2="118" stroke="var(--border-strong)" strokeWidth="1" strokeDasharray="3 3" />
-      <line x1="248" y1="86" x2="248" y2="118" stroke="var(--border-strong)" strokeWidth="1" strokeDasharray="3 3" />
-      <rect x="16" y="118" width="288" height="62" rx="8" fill={FILL_SOFT} stroke={BLUE} strokeWidth="1" />
+      <line
+        x1="72"
+        y1="86"
+        x2="72"
+        y2="118"
+        stroke="var(--border-strong)"
+        strokeWidth="1"
+        strokeDasharray="3 3"
+      />
+      <line
+        x1="248"
+        y1="86"
+        x2="248"
+        y2="118"
+        stroke="var(--border-strong)"
+        strokeWidth="1"
+        strokeDasharray="3 3"
+      />
+      <rect
+        x="16"
+        y="118"
+        width="288"
+        height="62"
+        rx="8"
+        fill={FILL_SOFT}
+        stroke={BLUE}
+        strokeWidth="1"
+      />
       <text x="28" y="138" style={microLabel} fill={NAVY}>
         SHRINEO SUPPORT LAYER
       </text>
       {["ROUTING", "TRACKING", "SUPPORT", "DOCS"].map((label, i) => (
         <g key={label}>
-          <rect x={26 + i * 70} y={148} width="66" height="20" rx="4" fill="#ffffff" stroke={NAVY_SOFT} strokeWidth="1" />
+          <rect
+            x={26 + i * 70}
+            y={148}
+            width="66"
+            height="20"
+            rx="4"
+            fill="#ffffff"
+            stroke={NAVY_SOFT}
+            strokeWidth="1"
+          />
           <text
             x={59 + i * 70}
             y={162}
@@ -257,7 +324,6 @@ export function FundFlowFigure({
           </text>
         </g>
       ))}
-
     </Frame>
   );
 }
@@ -275,7 +341,8 @@ export function JourneyFigure({
     { x: 204, actor: "you" },
     { x: 262, actor: "lender" },
   ];
-  const tone = (actor: string) => (actor === "lender" ? NAVY_SOFT : actor === "shrineo" ? BLUE : NAVY);
+  const tone = (actor: string) =>
+    actor === "lender" ? NAVY_SOFT : actor === "shrineo" ? BLUE : NAVY;
   return (
     <Frame title={title} viewBox="0 0 320 140" className={className}>
       <rect x="0" y="0" width="320" height="140" rx="10" fill={PLATE} />
@@ -292,7 +359,12 @@ export function JourneyFigure({
             strokeWidth={i === 2 ? 1.75 : 1.25}
             strokeDasharray={node.actor === "lender" ? "3 3" : undefined}
           />
-          <text x={node.x - 3} y={82} style={{ ...valueLabel, fontSize: 10 }} fill={tone(node.actor)}>
+          <text
+            x={node.x - 3}
+            y={82}
+            style={{ ...valueLabel, fontSize: 10 }}
+            fill={tone(node.actor)}
+          >
             {i + 1}
           </text>
           <line
@@ -339,7 +411,16 @@ export function AgentAssistFigure({
     <Frame title={title} viewBox="0 0 320 180" className={className}>
       <rect x="0" y="0" width="320" height="180" rx="10" fill={PLATE} />
 
-      <rect x="16" y="30" width="96" height="120" rx="10" fill="#ffffff" stroke={NAVY} strokeWidth="1.75" />
+      <rect
+        x="16"
+        y="30"
+        width="96"
+        height="120"
+        rx="10"
+        fill="#ffffff"
+        stroke={NAVY}
+        strokeWidth="1.75"
+      />
       <text x="28" y="52" style={microLabel} fill={MUTED}>
         OTP CONSENT
       </text>
@@ -358,12 +439,29 @@ export function AgentAssistFigure({
       ))}
       <line x1="28" y1="96" x2="98" y2="96" stroke="var(--border)" strokeWidth="1" />
       <line x1="28" y1="106" x2="80" y2="106" stroke="var(--border)" strokeWidth="1" />
-      <rect x="28" y="118" width="70" height="20" rx="4" fill={FILL_SOFT} stroke={BLUE} strokeWidth="1.25" />
+      <rect
+        x="28"
+        y="118"
+        width="70"
+        height="20"
+        rx="4"
+        fill={FILL_SOFT}
+        stroke={BLUE}
+        strokeWidth="1.25"
+      />
       <text x="36" y="132" style={microLabel} fill={NAVY}>
         APPROVE
       </text>
 
-      <line x1="112" y1="90" x2="150" y2="90" stroke={NAVY_SOFT} strokeWidth="1.25" strokeDasharray="4 3" />
+      <line
+        x1="112"
+        y1="90"
+        x2="150"
+        y2="90"
+        stroke={NAVY_SOFT}
+        strokeWidth="1.25"
+        strokeDasharray="4 3"
+      />
       <path d="M144 85 l6 5 l-6 5" stroke={NAVY_SOFT} strokeWidth="1.25" />
 
       <circle cx="182" cy="62" r="14" stroke={NAVY} strokeWidth="1.5" fill="#ffffff" />
@@ -374,19 +472,48 @@ export function AgentAssistFigure({
         AGENT
       </text>
 
-
-      <rect x="228" y="42" width="76" height="96" rx="8" fill="#ffffff" stroke={NAVY} strokeWidth="1.25" />
+      <rect
+        x="228"
+        y="42"
+        width="76"
+        height="96"
+        rx="8"
+        fill="#ffffff"
+        stroke={NAVY}
+        strokeWidth="1.25"
+      />
       {[0, 1, 2].map((i) => (
         <g key={i}>
-          <rect x={240} y={58 + i * 26} width="20" height="16" rx="2" stroke={NAVY_SOFT} strokeWidth="1" />
-          <line x1="266" y1={62 + i * 26} x2="292" y2={62 + i * 26} stroke="var(--border-strong)" strokeWidth="1" />
-          <line x1="266" y1={70 + i * 26} x2="284" y2={70 + i * 26} stroke="var(--border)" strokeWidth="1" />
+          <rect
+            x={240}
+            y={58 + i * 26}
+            width="20"
+            height="16"
+            rx="2"
+            stroke={NAVY_SOFT}
+            strokeWidth="1"
+          />
+          <line
+            x1="266"
+            y1={62 + i * 26}
+            x2="292"
+            y2={62 + i * 26}
+            stroke="var(--border-strong)"
+            strokeWidth="1"
+          />
+          <line
+            x1="266"
+            y1={70 + i * 26}
+            x2="284"
+            y2={70 + i * 26}
+            stroke="var(--border)"
+            strokeWidth="1"
+          />
         </g>
       ))}
       <text x="240" y="152" style={microLabel} fill={MUTED}>
         SECURE FILES
       </text>
-
     </Frame>
   );
 }
@@ -401,7 +528,16 @@ export function ConsentFigure({
   return (
     <Frame title={title} viewBox="0 0 320 180" className={className}>
       <rect x="0" y="0" width="320" height="180" rx="10" fill={PLATE} />
-      <rect x="16" y="20" width="200" height="144" rx="8" fill="#ffffff" stroke={NAVY} strokeWidth="1.75" />
+      <rect
+        x="16"
+        y="20"
+        width="200"
+        height="144"
+        rx="8"
+        fill="#ffffff"
+        stroke={NAVY}
+        strokeWidth="1.75"
+      />
       <text x="32" y="42" style={microLabel} fill={MUTED}>
         CONSENT REQUEST
       </text>
@@ -419,20 +555,62 @@ export function ConsentFigure({
             stroke={NAVY_SOFT}
             strokeWidth="1.25"
           />
-          <line x1="32" y1={78 + i * 24} x2="200" y2={78 + i * 24} stroke="var(--border)" strokeWidth="1" />
+          <line
+            x1="32"
+            y1={78 + i * 24}
+            x2="200"
+            y2={78 + i * 24}
+            stroke="var(--border)"
+            strokeWidth="1"
+          />
         </g>
       ))}
-      <rect x="32" y="128" width="72" height="22" rx="4" fill={FILL_MID} stroke={NAVY} strokeWidth="1.25" />
+      <rect
+        x="32"
+        y="128"
+        width="72"
+        height="22"
+        rx="4"
+        fill={FILL_MID}
+        stroke={NAVY}
+        strokeWidth="1.25"
+      />
       <text x="42" y="143" style={microLabel} fill={NAVY}>
         ALLOW
       </text>
-      <rect x="112" y="128" width="72" height="22" rx="4" fill="#ffffff" stroke="var(--border-strong)" strokeWidth="1" />
+      <rect
+        x="112"
+        y="128"
+        width="72"
+        height="22"
+        rx="4"
+        fill="#ffffff"
+        stroke="var(--border-strong)"
+        strokeWidth="1"
+      />
       <text x="126" y="143" style={microLabel} fill={MUTED}>
         DECLINE
       </text>
 
-      <line x1="216" y1="92" x2="244" y2="92" stroke={NAVY_SOFT} strokeWidth="1.25" strokeDasharray="4 3" />
-      <rect x="244" y="60" width="60" height="64" rx="8" fill={FILL_SOFT} stroke={BLUE} strokeWidth="1.25" />
+      <line
+        x1="216"
+        y1="92"
+        x2="244"
+        y2="92"
+        stroke={NAVY_SOFT}
+        strokeWidth="1.25"
+        strokeDasharray="4 3"
+      />
+      <rect
+        x="244"
+        y="60"
+        width="60"
+        height="64"
+        rx="8"
+        fill={FILL_SOFT}
+        stroke={BLUE}
+        strokeWidth="1.25"
+      />
       <circle cx="274" cy="86" r="12" fill="#ffffff" stroke={GREEN} strokeWidth="1.75" />
       <path d="M268 86 l4 4 l9 -9" stroke={GREEN} strokeWidth="1.75" />
       <text x="252" y="114" style={microLabel} fill={NAVY}>

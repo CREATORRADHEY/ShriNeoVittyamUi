@@ -63,7 +63,10 @@ function KfsPage() {
           </Button>
         }
         aside={
-          <FigureCard tone="card" caption="A structured statement of terms, values and responsibilities.">
+          <FigureCard
+            tone="card"
+            caption="A structured statement of terms, values and responsibilities."
+          >
             <KfsArt />
           </FigureCard>
         }
@@ -153,9 +156,21 @@ function KfsPage() {
 
       <RelatedGuides
         links={[
-          { to: "/compare-offers", label: "Compare loan offers", body: "Rate versus APR and how to choose." },
-          { to: "/emi-calculator", label: "EMI calculator", body: "Estimate instalments before you apply." },
-          { to: "/account-aggregator", label: "Account Aggregator", body: "Consent-based bank data sharing." },
+          {
+            to: "/compare-offers",
+            label: "Compare loan offers",
+            body: "Rate versus APR and how to choose.",
+          },
+          {
+            to: "/emi-calculator",
+            label: "EMI calculator",
+            body: "Estimate instalments before you apply.",
+          },
+          {
+            to: "/account-aggregator",
+            label: "Account Aggregator",
+            body: "Consent-based bank data sharing.",
+          },
         ]}
       />
 

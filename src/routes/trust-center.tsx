@@ -150,7 +150,6 @@ function TrustCenterPage() {
         </ul>
       </Section>
 
-
       <Section labelledBy="responsibility-title">
         <SectionHeading
           id="responsibility-title"

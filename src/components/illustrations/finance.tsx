@@ -320,7 +320,12 @@ export function AgentAssistArt({ className }: { className?: string }) {
         strokeWidth={1.5}
       />
       <circle cx={342} cy={72} r={19} fill={ink.tealSoft} stroke={ink.teal} strokeWidth={1.5} />
-      <path d="M314 132 a28 28 0 0 1 56 0z" fill={ink.tealSoft} stroke={ink.teal} strokeWidth={1.5} />
+      <path
+        d="M314 132 a28 28 0 0 1 56 0z"
+        fill={ink.tealSoft}
+        stroke={ink.teal}
+        strokeWidth={1.5}
+      />
       <circle cx={356} cy={54} r={7} fill={ink.teal} />
       <Panel x={132} y={54} w={136} h={100} fill={ink.surface} stroke={ink.brand} />
       <rect x={152} y={74} width={96} height={22} rx={6} fill={ink.card} stroke={ink.line} />

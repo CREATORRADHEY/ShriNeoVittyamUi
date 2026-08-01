@@ -169,9 +169,7 @@ function HomePage() {
               {/* layer 2 — summary + direct transfer indicator */}
               <div className="relative z-10 mt-3 w-[min(100%,17rem)] rounded-xl border border-border bg-surface p-4 sm:-ml-6">
                 <p className="label-micro text-muted-foreground">Total repayment</p>
-                <p className="num mt-1 text-xl font-semibold tracking-tight">
-                  {formatINR(355860)}
-                </p>
+                <p className="num mt-1 text-xl font-semibold tracking-tight">{formatINR(355860)}</p>
                 <div className="mt-3 flex items-center gap-2 border-t border-border pt-3 text-xs text-muted-foreground">
                   <span className="whitespace-nowrap">Lender</span>
                   <span aria-hidden className="h-px flex-1 bg-border-strong" />
@@ -186,7 +184,10 @@ function HomePage() {
       </section>
 
       {/* ─────────────────────────────────────── 2. TRUST STRIP — horizontal */}
-      <section aria-label="How ShriNeo protects you" className="border-y border-border bg-background">
+      <section
+        aria-label="How ShriNeo protects you"
+        className="border-y border-border bg-background"
+      >
         <ul className="container-page grid gap-x-10 gap-y-6 py-8 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { icon: Banknote, label: "Direct lender-to-borrower disbursal" },
@@ -311,7 +312,11 @@ function HomePage() {
             {[
               { title: "Tell us what you need", body: "Amount, purpose, tenure.", actor: "You" },
               { title: "Complete your profile", body: "Each field explains why.", actor: "You" },
-              { title: "Compare eligible offers", body: "Rate, APR, EMI, total.", actor: "ShriNeo" },
+              {
+                title: "Compare eligible offers",
+                body: "Rate, APR, EMI, total.",
+                actor: "ShriNeo",
+              },
               { title: "Review full loan terms", body: "Key Fact Statement.", actor: "You" },
               { title: "Send your application", body: "OTP e-sign, timestamped.", actor: "You" },
               { title: "Track lender response", body: "Every status, dated.", actor: "Lender" },
@@ -422,7 +427,11 @@ function HomePage() {
               {[
                 { term: "Loan amount", value: formatINR(300000), note: "What you borrow" },
                 { term: "Interest", value: formatINR(52320), note: "Charged on the balance" },
-                { term: "Fee and taxes", value: formatINR(3540), note: "One-time, disclosed upfront" },
+                {
+                  term: "Fee and taxes",
+                  value: formatINR(3540),
+                  note: "One-time, disclosed upfront",
+                },
                 { term: "Total repayment", value: formatINR(355860), note: "APR 12.4%" },
               ].map((row, i) => (
                 <div key={row.term} className="bg-card px-5 py-4">
@@ -613,7 +622,10 @@ function HomePage() {
             <dl className="mt-8 divide-y divide-border border-y border-border">
               {[
                 ["Explain loan terms", "Rate, APR, fees, tenure and prepayment, in your words."],
-                ["Guide form completion", "Why a field is needed and what a valid answer looks like."],
+                [
+                  "Guide form completion",
+                  "Why a field is needed and what a valid answer looks like.",
+                ],
                 ["Clarify application status", "What the current stage means and who acts next."],
               ].map(([term, body]) => (
                 <div key={term} className="py-4">
@@ -845,7 +857,12 @@ function HomePage() {
               place.
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Button asChild size="lg" variant="secondary" className="min-h-12 rounded-lg px-6 text-base">
+              <Button
+                asChild
+                size="lg"
+                variant="secondary"
+                className="min-h-12 rounded-lg px-6 text-base"
+              >
                 <Link to="/auth/signup">
                   Start your application
                   <ArrowRight aria-hidden className="size-4" />

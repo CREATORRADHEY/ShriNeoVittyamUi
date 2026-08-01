@@ -33,7 +33,6 @@ export function SiteFooter() {
   return (
     <footer className="bg-surface">
       <div className="container-page grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-5">
-
         <div>
           <div className="flex items-center gap-2.5">
             <img src={logo.url} alt="" width={36} height={36} className="size-9 object-contain" />
@@ -74,7 +73,6 @@ export function SiteFooter() {
             </li>
           ))}
         </FooterColumn>
-
 
         <FooterColumn title={t("footer.legal")}>
           {legal.map((item) => (

@@ -8,7 +8,11 @@ export const Route = createFileRoute("/loans/mortgage")({
   head: () => ({
     meta: [
       { title: "Mortgage Loan (Loan Against Property) — ShriNeo Capital" },
-      { name: "description", content: product.summary + " Understand loan-to-value, rate and fees before you pledge property." },
+      {
+        name: "description",
+        content:
+          product.summary + " Understand loan-to-value, rate and fees before you pledge property.",
+      },
       { property: "og:title", content: "Mortgage Loan — ShriNeo Capital" },
       { property: "og:description", content: product.summary },
       { property: "og:url", content: "/loans/mortgage" },

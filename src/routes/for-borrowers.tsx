@@ -2,7 +2,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { CircleHelp, FileText, ListChecks, MessagesSquare, ShieldCheck } from "lucide-react";
 import { PublicShell } from "@/components/layout/public-shell";
 import { Section, SectionHeading } from "@/components/design-system/section";
-import { EditorialHero, HeroPanel, NumberedLedger, StatementBand } from "@/components/sections/editorial";
+import {
+  EditorialHero,
+  HeroPanel,
+  NumberedLedger,
+  StatementBand,
+} from "@/components/sections/editorial";
 import { FigureCard } from "@/components/sections/blocks";
 import { JourneyFigure } from "@/components/illustrations/core";
 import photoFamily from "@/assets/photo-family.jpg";
@@ -106,7 +111,10 @@ export function ForBorrowersPage() {
                 "Separate consent for each purpose",
                 "Cooling-off period after signing",
               ].map((item) => (
-                <li key={item} className="flex gap-2.5 rounded-lg border border-border bg-card px-3 py-2.5">
+                <li
+                  key={item}
+                  className="flex gap-2.5 rounded-lg border border-border bg-card px-3 py-2.5"
+                >
                   <ShieldCheck aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
                   <span className="min-w-0">{item}</span>
                 </li>
@@ -124,12 +132,14 @@ export function ForBorrowersPage() {
         />
         <div className="mt-10 grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-start lg:gap-16">
           <NumberedLedger items={journey} />
-          <FigureCard tone="card" caption="Uncertainty, understanding, then confidence — stage by stage.">
+          <FigureCard
+            tone="card"
+            caption="Uncertainty, understanding, then confidence — stage by stage."
+          >
             <JourneyFigure />
           </FigureCard>
         </div>
       </Section>
-
 
       <Section labelledBy="prepare-title">
         <div className="max-w-2xl">
@@ -172,7 +182,6 @@ export function ForBorrowersPage() {
           ))}
         </ul>
       </StatementBand>
-
 
       <Section tone="surface" labelledBy="neo-title">
         <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-center">

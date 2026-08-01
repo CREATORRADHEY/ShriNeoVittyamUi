@@ -33,7 +33,6 @@ export function SiteHeader() {
     { to: "/contact", label: t("nav.contact") },
   ] as const;
 
-
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background">
       <nav aria-label="Primary" className="container-page">
