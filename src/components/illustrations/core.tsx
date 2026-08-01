@@ -19,7 +19,7 @@ const GREEN = "var(--success)";
 const AMBER = "var(--warning)";
 const MUTED = "var(--muted-foreground)";
 
-type FigureProps = { className?: string; title?: string };
+type FigureProps = { className?: string | undefined; title?: string | undefined };
 
 function Frame({
   title,
@@ -29,7 +29,7 @@ function Frame({
 }: {
   title: string;
   viewBox: string;
-  className?: string;
+  className?: string | undefined;
   children: React.ReactNode;
 }) {
   return (

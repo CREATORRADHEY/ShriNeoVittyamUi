@@ -160,7 +160,7 @@ export function BorrowerDashboardPanel() {
         {[
           { label: "Application", value: "Personal Loan" },
           { label: "Requested", value: formatINR(DEMO.amount) },
-          { label: "Indicative EMI", value: formatINR(offers[0].emi) },
+          { label: "Indicative EMI", value: formatINR(offers[0]!.emi) },
         ].map((stat) => (
           <div key={stat.label} className="rounded-lg border border-border bg-surface p-3">
             <p className="label-micro text-muted-foreground">{stat.label}</p>
