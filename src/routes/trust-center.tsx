@@ -11,8 +11,11 @@ import {
 } from "lucide-react";
 import { org, configured } from "@/config/org";
 import { PublicShell } from "@/components/layout/public-shell";
-import { Section, SectionHeading, Eyebrow, StatusPill } from "@/components/design-system/section";
+import { Section, SectionHeading, StatusPill } from "@/components/design-system/section";
 import { Button } from "@/components/ui/button";
+import { EditorialHero, HeroPanel, StatementBand } from "@/components/sections/editorial";
+import { ConsentFigure } from "@/components/illustrations/core";
+import photoProfessional from "@/assets/photo-professional.jpg";
 
 export const Route = createFileRoute("/trust-center")({
   head: () => ({
