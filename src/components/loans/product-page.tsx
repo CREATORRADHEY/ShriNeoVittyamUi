@@ -225,18 +225,23 @@ export function ProductPage({ product }: { product: LoanProduct }) {
         footnote="Illustrative explanation. Terms differ by participating lender."
       />
 
-      {/* Why choose ShriNeo */}
-      <Section tone="surface" labelledBy="why-title">
-        <SectionHeading id="why-title" title={`Why choose ShriNeo for a ${product.name}`} />
-        <ul className="mt-8 grid gap-4 md:grid-cols-3">
+      {/* Why choose ShriNeo — statement band, not a card grid */}
+      <StatementBand
+        id="why-title"
+        label={product.name}
+        title={`Why borrowers choose ShriNeo for a ${product.name.toLowerCase()}`}
+        body="The same standards apply to every product: comparable offers, disclosed costs, and consent you control."
+      >
+        <ul className="divide-y divide-ink-foreground/15 border-y border-ink-foreground/15">
           {product.whyShriNeo.map((item) => (
-            <li key={item} className="rounded-lg border border-border bg-card p-5">
-              <Check aria-hidden className="mb-3 size-5 text-success" />
-              <p className="text-sm">{item}</p>
+            <li key={item} className="flex gap-3 py-4 text-sm text-ink-foreground/85">
+              <Check aria-hidden className="mt-0.5 size-4 shrink-0" />
+              <span className="min-w-0">{item}</span>
             </li>
           ))}
         </ul>
-      </Section>
+      </StatementBand>
+
 
       {/* Eligibility + documents */}
       <Section labelledBy="eligibility-title">
