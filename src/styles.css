@@ -6,7 +6,8 @@
 
 /*
  * ShriNeo Capital design system
- * Calm, grounded, bank-grade. Blue-led, mostly white/neutral surfaces.
+ * "Calm financial confidence for Bharat."
+ * Blue-led, mostly white / neutral surfaces, restrained motion.
  * Type roles: Inter (product UI) / Source Serif 4 (editorial) /
  *             IBM Plex Mono (financial values) / Noto Sans Devanagari (Hindi)
  */
@@ -21,6 +22,7 @@
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
+  --radius-2xl: 22px;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -50,7 +52,9 @@
 
   --color-surface: var(--surface);
   --color-surface-strong: var(--surface-strong);
+  --color-surface-warm: var(--surface-warm);
   --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
   --color-ink-foreground: var(--ink-foreground);
 
   --color-info: var(--info);
@@ -69,7 +73,8 @@
   --color-ring: var(--ring);
 
   --shadow-overlay: 0 4px 8px rgb(6 18 44 / 0.06), 0 16px 40px rgb(6 18 44 / 0.12);
-  --shadow-raised: 0 1px 2px rgb(6 18 44 / 0.06), 0 6px 16px rgb(6 18 44 / 0.06);
+  --shadow-raised: 0 1px 2px rgb(6 18 44 / 0.05), 0 8px 24px rgb(6 18 44 / 0.06);
+  --shadow-panel: 0 1px 1px rgb(6 18 44 / 0.04), 0 24px 60px -24px rgb(6 18 44 / 0.22);
 }
 
 :root {
@@ -105,9 +110,12 @@
   --accent: #eef3ff;
   --accent-foreground: #002b98;
 
-  --surface: #f7f9fc;
-  --surface-strong: #eef2f8;
+  --surface: #f6f8fc;
+  --surface-strong: #eaeff8;
+  /* 3% warm accent — used once or twice per page, never for meaning */
+  --surface-warm: #faf7f2;
   --ink: #06122c;
+  --ink-soft: #0d1e42;
   --ink-foreground: #ffffff;
 
   --info: #2563eb;
@@ -120,7 +128,7 @@
   --destructive-foreground: #ffffff;
   --error-surface: #fdeceb;
 
-  --border: #dfe4ee;
+  --border: #e2e7f0;
   --border-strong: #c3cbdb;
   --input: #c3cbdb;
   --ring: #2563eb;
@@ -143,6 +151,7 @@
     font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   h1,
@@ -150,13 +159,14 @@
   h3,
   h4 {
     text-wrap: balance;
-    line-height: 1.2;
+    line-height: 1.15;
   }
 
   :focus-visible {
     outline: 2px solid var(--color-ring);
     outline-offset: 2px;
     border-radius: 4px;
+    transition: outline-offset 150ms ease;
   }
 
   [lang="hi"] body,
@@ -175,22 +185,54 @@
 @utility editorial {
   font-family: var(--font-serif);
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+}
+
+/* Small institutional label used above headings and inside diagrams */
+@utility label-micro {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+@utility hairline {
+  border: 1px solid var(--color-border);
 }
 
 @utility container-page {
   margin-inline: auto;
   width: 100%;
   max-width: 1200px;
-  padding-inline: 1rem;
+  padding-inline: 20px;
   @media (width >= 768px) {
     padding-inline: 2rem;
   }
 }
 
+/* Restrained section entrance: 12px rise, 260ms, once */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 300ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@utility reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
   }
 
   *,
