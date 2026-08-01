@@ -106,6 +106,8 @@ const stories: Record<ProductSlug, ProductStory> = {
 export function ProductPage({ product }: { product: LoanProduct }) {
   const { t } = useI18n();
   const Icon = product.icon;
+  const story = stories[product.slug];
+
   const tenureMonths = {
     min: product.tenure.model === "years" ? product.tenure.min * 12 : product.tenure.min,
     max: product.tenure.model === "years" ? product.tenure.max * 12 : product.tenure.max,
