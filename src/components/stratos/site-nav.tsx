@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "./primitives";
+import logo from "@/assets/shrineo-logo.png.asset.json";
 
 const links = [
   { label: "Platform", href: "#platform" },
