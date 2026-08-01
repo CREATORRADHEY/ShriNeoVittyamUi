@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
+import heroBorrower from "@/assets/hero-borrower.png.asset.json";
 import photoProfessional from "@/assets/photo-professional.jpg";
 import photoBusiness from "@/assets/photo-business-owner.jpg";
 import photoFamily from "@/assets/photo-family.jpg";
