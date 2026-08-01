@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "./primitives";
+import logo from "@/assets/shrineo-logo.png.asset.json";
 
 const links = [
   { label: "Platform", href: "#platform" },
@@ -30,8 +31,20 @@ export function SiteNav() {
         aria-label="Primary"
         className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-6 py-4 md:grid-cols-[auto_1fr_auto]"
       >
-        <a href="#top" className="text-xl font-semibold tracking-tight">
-          STRATOS
+        <a href="#top" className="flex items-center gap-2.5" aria-label="ShriNeo Capital home">
+          <img
+            src={logo.url}
+            alt="ShriNeo Capital"
+            width={40}
+            height={40}
+            className="h-10 w-10 object-contain"
+          />
+          <span className="flex flex-col leading-none">
+            <span className="text-lg font-semibold tracking-tight">ShriNeo Capital</span>
+            <span className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              Financial Services
+            </span>
+          </span>
         </a>
 
         <ul className="hidden items-center justify-center gap-8 text-sm font-medium text-muted-foreground md:flex">

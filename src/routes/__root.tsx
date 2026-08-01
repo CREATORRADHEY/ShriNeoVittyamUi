@@ -77,14 +77,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Stratos — Institutional Treasury Infrastructure" },
+      { title: "ShriNeo Capital — Financial Services" },
       {
         name: "description",
         content:
           "Institutional treasury management, cross-border settlements, and programmable liquidity for modern enterprises.",
       },
-      { name: "author", content: "Stratos Technologies" },
-      { property: "og:title", content: "Stratos — Institutional Treasury Infrastructure" },
+      { name: "author", content: "ShriNeo Capital" },
+      { property: "og:title", content: "ShriNeo Capital — Financial Services" },
       {
         property: "og:description",
         content:
@@ -104,7 +104,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
   }),
 

@@ -8,9 +8,9 @@ import { Pricing } from "@/components/stratos/pricing";
 import { ConversionCta } from "@/components/stratos/conversion-cta";
 import { SiteFooter } from "@/components/stratos/site-footer";
 
-const title = "Stratos — Institutional Treasury & Global Settlements";
+const title = "ShriNeo Capital — Your Dreams, Our Responsibility";
 const description =
-  "Stratos unifies institutional treasury management, multi-rail cross-border settlements, and programmable liquidity for modern enterprises.";
+  "ShriNeo Capital unifies institutional treasury management, multi-rail cross-border settlements, and programmable liquidity for modern enterprises.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
