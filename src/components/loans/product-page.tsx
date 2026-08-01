@@ -39,6 +39,22 @@ type ProductStory = {
   mediaSide: "left" | "right";
 };
 
+const productPhoto: Record<ProductSlug, string> = {
+  personal: photoProfessional,
+  business: photoBusiness,
+  home: photoFamily,
+  mortgage: photoBusiness,
+  sachet: photoAgent,
+};
+
+const productPhotoAlt: Record<ProductSlug, string> = {
+  personal: "A young Indian professional reviewing loan options in natural daylight",
+  business: "A small business owner at her shop counter in daylight",
+  home: "A young Indian family outside their new home",
+  mortgage: "A business owner reviewing property papers in daylight",
+  sachet: "A verified ShriNeo agent assisting a customer",
+};
+
 const stories: Record<ProductSlug, ProductStory> = {
   personal: {
     eyebrow: "Unsecured borrowing",
