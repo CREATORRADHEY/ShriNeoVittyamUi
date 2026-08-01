@@ -45,7 +45,13 @@ import {
 } from "@/components/previews/previews";
 import { OfferComparisonPreview } from "@/components/loans/offer-comparison-preview";
 import { EmiCalculator } from "@/components/loans/emi-calculator";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
