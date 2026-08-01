@@ -363,7 +363,7 @@ export function AgentAssistFigure({
       <path d="M168 96 a14 16 0 0 1 28 0" stroke={NAVY} strokeWidth="1.5" />
       <circle cx="196" cy="50" r="7" fill={GREEN} opacity="0.14" />
       <path d="M192 50 l3 3 l6 -6" stroke={GREEN} strokeWidth="1.5" />
-      <text x="156" y="118" textAnchor="middle" style={microLabel} fill={NAVY}>
+      <text x="182" y="118" textAnchor="middle" style={microLabel} fill={NAVY}>
         AGENT
       </text>
 
