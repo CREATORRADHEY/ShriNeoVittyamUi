@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as R404RouteImport } from './routes/404'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AccountAggregatorRouteImport } from './routes/account-aggregator'
 import { Route as CompareOffersRouteImport } from './routes/compare-offers'
@@ -22,20 +23,51 @@ import { Route as GrievanceRedressalRouteImport } from './routes/grievance-redre
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as KeyFactStatementRouteImport } from './routes/key-fact-statement'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as PrototypeRouteImport } from './routes/prototype'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TrustCenterRouteImport } from './routes/trust-center'
 import { Route as AuthSigninRouteImport } from './routes/auth.signin'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
+import { Route as ErrorsIndexRouteImport } from './routes/errors.index'
+import { Route as Errors401RouteImport } from './routes/errors.401'
+import { Route as Errors403RouteImport } from './routes/errors.403'
+import { Route as Errors410RouteImport } from './routes/errors.410'
+import { Route as Errors429RouteImport } from './routes/errors.429'
+import { Route as Errors500RouteImport } from './routes/errors.500'
+import { Route as Errors503RouteImport } from './routes/errors.503'
+import { Route as ErrorsDeactivatedRouteImport } from './routes/errors.deactivated'
+import { Route as ErrorsMaintenanceRouteImport } from './routes/errors.maintenance'
+import { Route as ErrorsNoResultsRouteImport } from './routes/errors.no-results'
+import { Route as ErrorsOfflineRouteImport } from './routes/errors.offline'
+import { Route as ErrorsScriptFailureRouteImport } from './routes/errors.script-failure'
+import { Route as ErrorsSecurityRouteImport } from './routes/errors.security'
+import { Route as ErrorsSuspendedRouteImport } from './routes/errors.suspended'
+import { Route as ErrorsUnsupportedBrowserRouteImport } from './routes/errors.unsupported-browser'
 import { Route as LoansIndexRouteImport } from './routes/loans.index'
 import { Route as LoansBusinessRouteImport } from './routes/loans.business'
 import { Route as LoansHomeRouteImport } from './routes/loans.home'
 import { Route as LoansMortgageRouteImport } from './routes/loans.mortgage'
 import { Route as LoansPersonalRouteImport } from './routes/loans.personal'
 import { Route as LoansSachetRouteImport } from './routes/loans.sachet'
+import { Route as AppAdminIndexRouteImport } from './routes/app.admin.index'
+import { Route as AppAgentIndexRouteImport } from './routes/app.agent.index'
+import { Route as AppBorrowerIndexRouteImport } from './routes/app.borrower.index'
+import { Route as AppBorrowerApplicationRouteImport } from './routes/app.borrower.application'
+import { Route as AppBorrowerApplicationsRouteImport } from './routes/app.borrower.applications'
+import { Route as AppBorrowerApplyRouteImport } from './routes/app.borrower.apply'
+import { Route as AppBorrowerDocumentsRouteImport } from './routes/app.borrower.documents'
+import { Route as AppBorrowerOffersRouteImport } from './routes/app.borrower.offers'
+import { Route as AppBorrowerPaymentsRouteImport } from './routes/app.borrower.payments'
+import { Route as AppLenderIndexRouteImport } from './routes/app.lender.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const R404Route = R404RouteImport.update({
+  id: '/404',
+  path: '/404',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -98,6 +130,11 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrototypeRoute = PrototypeRouteImport.update({
+  id: '/prototype',
+  path: '/prototype',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -118,6 +155,82 @@ const AuthSignupRoute = AuthSignupRouteImport.update({
   path: '/auth/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ErrorsIndexRoute = ErrorsIndexRouteImport.update({
+  id: '/errors/',
+  path: '/errors/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Errors401Route = Errors401RouteImport.update({
+  id: '/errors/401',
+  path: '/errors/401',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Errors403Route = Errors403RouteImport.update({
+  id: '/errors/403',
+  path: '/errors/403',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Errors410Route = Errors410RouteImport.update({
+  id: '/errors/410',
+  path: '/errors/410',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Errors429Route = Errors429RouteImport.update({
+  id: '/errors/429',
+  path: '/errors/429',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Errors500Route = Errors500RouteImport.update({
+  id: '/errors/500',
+  path: '/errors/500',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Errors503Route = Errors503RouteImport.update({
+  id: '/errors/503',
+  path: '/errors/503',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ErrorsDeactivatedRoute = ErrorsDeactivatedRouteImport.update({
+  id: '/errors/deactivated',
+  path: '/errors/deactivated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ErrorsMaintenanceRoute = ErrorsMaintenanceRouteImport.update({
+  id: '/errors/maintenance',
+  path: '/errors/maintenance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ErrorsNoResultsRoute = ErrorsNoResultsRouteImport.update({
+  id: '/errors/no-results',
+  path: '/errors/no-results',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ErrorsOfflineRoute = ErrorsOfflineRouteImport.update({
+  id: '/errors/offline',
+  path: '/errors/offline',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ErrorsScriptFailureRoute = ErrorsScriptFailureRouteImport.update({
+  id: '/errors/script-failure',
+  path: '/errors/script-failure',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ErrorsSecurityRoute = ErrorsSecurityRouteImport.update({
+  id: '/errors/security',
+  path: '/errors/security',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ErrorsSuspendedRoute = ErrorsSuspendedRouteImport.update({
+  id: '/errors/suspended',
+  path: '/errors/suspended',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ErrorsUnsupportedBrowserRoute =
+  ErrorsUnsupportedBrowserRouteImport.update({
+    id: '/errors/unsupported-browser',
+    path: '/errors/unsupported-browser',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LoansIndexRoute = LoansIndexRouteImport.update({
   id: '/loans/',
   path: '/loans/',
@@ -148,9 +261,60 @@ const LoansSachetRoute = LoansSachetRouteImport.update({
   path: '/loans/sachet',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppAdminIndexRoute = AppAdminIndexRouteImport.update({
+  id: '/app/admin/',
+  path: '/app/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAgentIndexRoute = AppAgentIndexRouteImport.update({
+  id: '/app/agent/',
+  path: '/app/agent/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBorrowerIndexRoute = AppBorrowerIndexRouteImport.update({
+  id: '/app/borrower/',
+  path: '/app/borrower/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBorrowerApplicationRoute = AppBorrowerApplicationRouteImport.update({
+  id: '/app/borrower/application',
+  path: '/app/borrower/application',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBorrowerApplicationsRoute = AppBorrowerApplicationsRouteImport.update({
+  id: '/app/borrower/applications',
+  path: '/app/borrower/applications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBorrowerApplyRoute = AppBorrowerApplyRouteImport.update({
+  id: '/app/borrower/apply',
+  path: '/app/borrower/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBorrowerDocumentsRoute = AppBorrowerDocumentsRouteImport.update({
+  id: '/app/borrower/documents',
+  path: '/app/borrower/documents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBorrowerOffersRoute = AppBorrowerOffersRouteImport.update({
+  id: '/app/borrower/offers',
+  path: '/app/borrower/offers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBorrowerPaymentsRoute = AppBorrowerPaymentsRouteImport.update({
+  id: '/app/borrower/payments',
+  path: '/app/borrower/payments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppLenderIndexRoute = AppLenderIndexRouteImport.update({
+  id: '/app/lender/',
+  path: '/app/lender/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/account-aggregator': typeof AccountAggregatorRoute
   '/compare-offers': typeof CompareOffersRoute
@@ -163,19 +327,46 @@ export interface FileRoutesByFullPath {
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/prototype': typeof PrototypeRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/errors/401': typeof Errors401Route
+  '/errors/403': typeof Errors403Route
+  '/errors/410': typeof Errors410Route
+  '/errors/429': typeof Errors429Route
+  '/errors/500': typeof Errors500Route
+  '/errors/503': typeof Errors503Route
+  '/errors/deactivated': typeof ErrorsDeactivatedRoute
+  '/errors/maintenance': typeof ErrorsMaintenanceRoute
+  '/errors/no-results': typeof ErrorsNoResultsRoute
+  '/errors/offline': typeof ErrorsOfflineRoute
+  '/errors/script-failure': typeof ErrorsScriptFailureRoute
+  '/errors/security': typeof ErrorsSecurityRoute
+  '/errors/suspended': typeof ErrorsSuspendedRoute
+  '/errors/unsupported-browser': typeof ErrorsUnsupportedBrowserRoute
   '/loans/business': typeof LoansBusinessRoute
   '/loans/home': typeof LoansHomeRoute
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/errors/': typeof ErrorsIndexRoute
   '/loans/': typeof LoansIndexRoute
+  '/app/borrower/application': typeof AppBorrowerApplicationRoute
+  '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
+  '/app/borrower/apply': typeof AppBorrowerApplyRoute
+  '/app/borrower/documents': typeof AppBorrowerDocumentsRoute
+  '/app/borrower/offers': typeof AppBorrowerOffersRoute
+  '/app/borrower/payments': typeof AppBorrowerPaymentsRoute
+  '/app/admin/': typeof AppAdminIndexRoute
+  '/app/agent/': typeof AppAgentIndexRoute
+  '/app/borrower/': typeof AppBorrowerIndexRoute
+  '/app/lender/': typeof AppLenderIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/account-aggregator': typeof AccountAggregatorRoute
   '/compare-offers': typeof CompareOffersRoute
@@ -188,20 +379,47 @@ export interface FileRoutesByTo {
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/prototype': typeof PrototypeRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/errors/401': typeof Errors401Route
+  '/errors/403': typeof Errors403Route
+  '/errors/410': typeof Errors410Route
+  '/errors/429': typeof Errors429Route
+  '/errors/500': typeof Errors500Route
+  '/errors/503': typeof Errors503Route
+  '/errors/deactivated': typeof ErrorsDeactivatedRoute
+  '/errors/maintenance': typeof ErrorsMaintenanceRoute
+  '/errors/no-results': typeof ErrorsNoResultsRoute
+  '/errors/offline': typeof ErrorsOfflineRoute
+  '/errors/script-failure': typeof ErrorsScriptFailureRoute
+  '/errors/security': typeof ErrorsSecurityRoute
+  '/errors/suspended': typeof ErrorsSuspendedRoute
+  '/errors/unsupported-browser': typeof ErrorsUnsupportedBrowserRoute
   '/loans/business': typeof LoansBusinessRoute
   '/loans/home': typeof LoansHomeRoute
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/errors': typeof ErrorsIndexRoute
   '/loans': typeof LoansIndexRoute
+  '/app/borrower/application': typeof AppBorrowerApplicationRoute
+  '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
+  '/app/borrower/apply': typeof AppBorrowerApplyRoute
+  '/app/borrower/documents': typeof AppBorrowerDocumentsRoute
+  '/app/borrower/offers': typeof AppBorrowerOffersRoute
+  '/app/borrower/payments': typeof AppBorrowerPaymentsRoute
+  '/app/admin': typeof AppAdminIndexRoute
+  '/app/agent': typeof AppAgentIndexRoute
+  '/app/borrower': typeof AppBorrowerIndexRoute
+  '/app/lender': typeof AppLenderIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/account-aggregator': typeof AccountAggregatorRoute
   '/compare-offers': typeof CompareOffersRoute
@@ -214,21 +432,48 @@ export interface FileRoutesById {
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/prototype': typeof PrototypeRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/errors/401': typeof Errors401Route
+  '/errors/403': typeof Errors403Route
+  '/errors/410': typeof Errors410Route
+  '/errors/429': typeof Errors429Route
+  '/errors/500': typeof Errors500Route
+  '/errors/503': typeof Errors503Route
+  '/errors/deactivated': typeof ErrorsDeactivatedRoute
+  '/errors/maintenance': typeof ErrorsMaintenanceRoute
+  '/errors/no-results': typeof ErrorsNoResultsRoute
+  '/errors/offline': typeof ErrorsOfflineRoute
+  '/errors/script-failure': typeof ErrorsScriptFailureRoute
+  '/errors/security': typeof ErrorsSecurityRoute
+  '/errors/suspended': typeof ErrorsSuspendedRoute
+  '/errors/unsupported-browser': typeof ErrorsUnsupportedBrowserRoute
   '/loans/business': typeof LoansBusinessRoute
   '/loans/home': typeof LoansHomeRoute
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/errors/': typeof ErrorsIndexRoute
   '/loans/': typeof LoansIndexRoute
+  '/app/borrower/application': typeof AppBorrowerApplicationRoute
+  '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
+  '/app/borrower/apply': typeof AppBorrowerApplyRoute
+  '/app/borrower/documents': typeof AppBorrowerDocumentsRoute
+  '/app/borrower/offers': typeof AppBorrowerOffersRoute
+  '/app/borrower/payments': typeof AppBorrowerPaymentsRoute
+  '/app/admin/': typeof AppAdminIndexRoute
+  '/app/agent/': typeof AppAgentIndexRoute
+  '/app/borrower/': typeof AppBorrowerIndexRoute
+  '/app/lender/': typeof AppLenderIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/404'
     | '/about'
     | '/account-aggregator'
     | '/compare-offers'
@@ -241,19 +486,46 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/key-fact-statement'
     | '/privacy-policy'
+    | '/prototype'
     | '/terms'
     | '/trust-center'
     | '/auth/signin'
     | '/auth/signup'
+    | '/errors/401'
+    | '/errors/403'
+    | '/errors/410'
+    | '/errors/429'
+    | '/errors/500'
+    | '/errors/503'
+    | '/errors/deactivated'
+    | '/errors/maintenance'
+    | '/errors/no-results'
+    | '/errors/offline'
+    | '/errors/script-failure'
+    | '/errors/security'
+    | '/errors/suspended'
+    | '/errors/unsupported-browser'
     | '/loans/business'
     | '/loans/home'
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/errors/'
     | '/loans/'
+    | '/app/borrower/application'
+    | '/app/borrower/applications'
+    | '/app/borrower/apply'
+    | '/app/borrower/documents'
+    | '/app/borrower/offers'
+    | '/app/borrower/payments'
+    | '/app/admin/'
+    | '/app/agent/'
+    | '/app/borrower/'
+    | '/app/lender/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/404'
     | '/about'
     | '/account-aggregator'
     | '/compare-offers'
@@ -266,19 +538,46 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/key-fact-statement'
     | '/privacy-policy'
+    | '/prototype'
     | '/terms'
     | '/trust-center'
     | '/auth/signin'
     | '/auth/signup'
+    | '/errors/401'
+    | '/errors/403'
+    | '/errors/410'
+    | '/errors/429'
+    | '/errors/500'
+    | '/errors/503'
+    | '/errors/deactivated'
+    | '/errors/maintenance'
+    | '/errors/no-results'
+    | '/errors/offline'
+    | '/errors/script-failure'
+    | '/errors/security'
+    | '/errors/suspended'
+    | '/errors/unsupported-browser'
     | '/loans/business'
     | '/loans/home'
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/errors'
     | '/loans'
+    | '/app/borrower/application'
+    | '/app/borrower/applications'
+    | '/app/borrower/apply'
+    | '/app/borrower/documents'
+    | '/app/borrower/offers'
+    | '/app/borrower/payments'
+    | '/app/admin'
+    | '/app/agent'
+    | '/app/borrower'
+    | '/app/lender'
   id:
     | '__root__'
     | '/'
+    | '/404'
     | '/about'
     | '/account-aggregator'
     | '/compare-offers'
@@ -291,20 +590,47 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/key-fact-statement'
     | '/privacy-policy'
+    | '/prototype'
     | '/terms'
     | '/trust-center'
     | '/auth/signin'
     | '/auth/signup'
+    | '/errors/401'
+    | '/errors/403'
+    | '/errors/410'
+    | '/errors/429'
+    | '/errors/500'
+    | '/errors/503'
+    | '/errors/deactivated'
+    | '/errors/maintenance'
+    | '/errors/no-results'
+    | '/errors/offline'
+    | '/errors/script-failure'
+    | '/errors/security'
+    | '/errors/suspended'
+    | '/errors/unsupported-browser'
     | '/loans/business'
     | '/loans/home'
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/errors/'
     | '/loans/'
+    | '/app/borrower/application'
+    | '/app/borrower/applications'
+    | '/app/borrower/apply'
+    | '/app/borrower/documents'
+    | '/app/borrower/offers'
+    | '/app/borrower/payments'
+    | '/app/admin/'
+    | '/app/agent/'
+    | '/app/borrower/'
+    | '/app/lender/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  R404Route: typeof R404Route
   AboutRoute: typeof AboutRoute
   AccountAggregatorRoute: typeof AccountAggregatorRoute
   CompareOffersRoute: typeof CompareOffersRoute
@@ -317,16 +643,42 @@ export interface RootRouteChildren {
   HowItWorksRoute: typeof HowItWorksRoute
   KeyFactStatementRoute: typeof KeyFactStatementRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  PrototypeRoute: typeof PrototypeRoute
   TermsRoute: typeof TermsRoute
   TrustCenterRoute: typeof TrustCenterRoute
   AuthSigninRoute: typeof AuthSigninRoute
   AuthSignupRoute: typeof AuthSignupRoute
+  Errors401Route: typeof Errors401Route
+  Errors403Route: typeof Errors403Route
+  Errors410Route: typeof Errors410Route
+  Errors429Route: typeof Errors429Route
+  Errors500Route: typeof Errors500Route
+  Errors503Route: typeof Errors503Route
+  ErrorsDeactivatedRoute: typeof ErrorsDeactivatedRoute
+  ErrorsMaintenanceRoute: typeof ErrorsMaintenanceRoute
+  ErrorsNoResultsRoute: typeof ErrorsNoResultsRoute
+  ErrorsOfflineRoute: typeof ErrorsOfflineRoute
+  ErrorsScriptFailureRoute: typeof ErrorsScriptFailureRoute
+  ErrorsSecurityRoute: typeof ErrorsSecurityRoute
+  ErrorsSuspendedRoute: typeof ErrorsSuspendedRoute
+  ErrorsUnsupportedBrowserRoute: typeof ErrorsUnsupportedBrowserRoute
   LoansBusinessRoute: typeof LoansBusinessRoute
   LoansHomeRoute: typeof LoansHomeRoute
   LoansMortgageRoute: typeof LoansMortgageRoute
   LoansPersonalRoute: typeof LoansPersonalRoute
   LoansSachetRoute: typeof LoansSachetRoute
+  ErrorsIndexRoute: typeof ErrorsIndexRoute
   LoansIndexRoute: typeof LoansIndexRoute
+  AppBorrowerApplicationRoute: typeof AppBorrowerApplicationRoute
+  AppBorrowerApplicationsRoute: typeof AppBorrowerApplicationsRoute
+  AppBorrowerApplyRoute: typeof AppBorrowerApplyRoute
+  AppBorrowerDocumentsRoute: typeof AppBorrowerDocumentsRoute
+  AppBorrowerOffersRoute: typeof AppBorrowerOffersRoute
+  AppBorrowerPaymentsRoute: typeof AppBorrowerPaymentsRoute
+  AppAdminIndexRoute: typeof AppAdminIndexRoute
+  AppAgentIndexRoute: typeof AppAgentIndexRoute
+  AppBorrowerIndexRoute: typeof AppBorrowerIndexRoute
+  AppLenderIndexRoute: typeof AppLenderIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -336,6 +688,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/404': {
+      id: '/404'
+      path: '/404'
+      fullPath: '/404'
+      preLoaderRoute: typeof R404RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -422,6 +781,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/prototype': {
+      id: '/prototype'
+      path: '/prototype'
+      fullPath: '/prototype'
+      preLoaderRoute: typeof PrototypeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -448,6 +814,111 @@ declare module '@tanstack/react-router' {
       path: '/auth/signup'
       fullPath: '/auth/signup'
       preLoaderRoute: typeof AuthSignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/': {
+      id: '/errors/'
+      path: '/errors'
+      fullPath: '/errors/'
+      preLoaderRoute: typeof ErrorsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/401': {
+      id: '/errors/401'
+      path: '/errors/401'
+      fullPath: '/errors/401'
+      preLoaderRoute: typeof Errors401RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/403': {
+      id: '/errors/403'
+      path: '/errors/403'
+      fullPath: '/errors/403'
+      preLoaderRoute: typeof Errors403RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/410': {
+      id: '/errors/410'
+      path: '/errors/410'
+      fullPath: '/errors/410'
+      preLoaderRoute: typeof Errors410RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/429': {
+      id: '/errors/429'
+      path: '/errors/429'
+      fullPath: '/errors/429'
+      preLoaderRoute: typeof Errors429RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/500': {
+      id: '/errors/500'
+      path: '/errors/500'
+      fullPath: '/errors/500'
+      preLoaderRoute: typeof Errors500RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/503': {
+      id: '/errors/503'
+      path: '/errors/503'
+      fullPath: '/errors/503'
+      preLoaderRoute: typeof Errors503RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/deactivated': {
+      id: '/errors/deactivated'
+      path: '/errors/deactivated'
+      fullPath: '/errors/deactivated'
+      preLoaderRoute: typeof ErrorsDeactivatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/maintenance': {
+      id: '/errors/maintenance'
+      path: '/errors/maintenance'
+      fullPath: '/errors/maintenance'
+      preLoaderRoute: typeof ErrorsMaintenanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/no-results': {
+      id: '/errors/no-results'
+      path: '/errors/no-results'
+      fullPath: '/errors/no-results'
+      preLoaderRoute: typeof ErrorsNoResultsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/offline': {
+      id: '/errors/offline'
+      path: '/errors/offline'
+      fullPath: '/errors/offline'
+      preLoaderRoute: typeof ErrorsOfflineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/script-failure': {
+      id: '/errors/script-failure'
+      path: '/errors/script-failure'
+      fullPath: '/errors/script-failure'
+      preLoaderRoute: typeof ErrorsScriptFailureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/security': {
+      id: '/errors/security'
+      path: '/errors/security'
+      fullPath: '/errors/security'
+      preLoaderRoute: typeof ErrorsSecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/suspended': {
+      id: '/errors/suspended'
+      path: '/errors/suspended'
+      fullPath: '/errors/suspended'
+      preLoaderRoute: typeof ErrorsSuspendedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/errors/unsupported-browser': {
+      id: '/errors/unsupported-browser'
+      path: '/errors/unsupported-browser'
+      fullPath: '/errors/unsupported-browser'
+      preLoaderRoute: typeof ErrorsUnsupportedBrowserRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/loans/': {
@@ -492,11 +963,82 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoansSachetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/admin/': {
+      id: '/app/admin/'
+      path: '/app/admin'
+      fullPath: '/app/admin/'
+      preLoaderRoute: typeof AppAdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/agent/': {
+      id: '/app/agent/'
+      path: '/app/agent'
+      fullPath: '/app/agent/'
+      preLoaderRoute: typeof AppAgentIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/borrower/': {
+      id: '/app/borrower/'
+      path: '/app/borrower'
+      fullPath: '/app/borrower/'
+      preLoaderRoute: typeof AppBorrowerIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/borrower/application': {
+      id: '/app/borrower/application'
+      path: '/app/borrower/application'
+      fullPath: '/app/borrower/application'
+      preLoaderRoute: typeof AppBorrowerApplicationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/borrower/applications': {
+      id: '/app/borrower/applications'
+      path: '/app/borrower/applications'
+      fullPath: '/app/borrower/applications'
+      preLoaderRoute: typeof AppBorrowerApplicationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/borrower/apply': {
+      id: '/app/borrower/apply'
+      path: '/app/borrower/apply'
+      fullPath: '/app/borrower/apply'
+      preLoaderRoute: typeof AppBorrowerApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/borrower/documents': {
+      id: '/app/borrower/documents'
+      path: '/app/borrower/documents'
+      fullPath: '/app/borrower/documents'
+      preLoaderRoute: typeof AppBorrowerDocumentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/borrower/offers': {
+      id: '/app/borrower/offers'
+      path: '/app/borrower/offers'
+      fullPath: '/app/borrower/offers'
+      preLoaderRoute: typeof AppBorrowerOffersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/borrower/payments': {
+      id: '/app/borrower/payments'
+      path: '/app/borrower/payments'
+      fullPath: '/app/borrower/payments'
+      preLoaderRoute: typeof AppBorrowerPaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/lender/': {
+      id: '/app/lender/'
+      path: '/app/lender'
+      fullPath: '/app/lender/'
+      preLoaderRoute: typeof AppLenderIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  R404Route: R404Route,
   AboutRoute: AboutRoute,
   AccountAggregatorRoute: AccountAggregatorRoute,
   CompareOffersRoute: CompareOffersRoute,
@@ -509,16 +1051,42 @@ const rootRouteChildren: RootRouteChildren = {
   HowItWorksRoute: HowItWorksRoute,
   KeyFactStatementRoute: KeyFactStatementRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  PrototypeRoute: PrototypeRoute,
   TermsRoute: TermsRoute,
   TrustCenterRoute: TrustCenterRoute,
   AuthSigninRoute: AuthSigninRoute,
   AuthSignupRoute: AuthSignupRoute,
+  Errors401Route: Errors401Route,
+  Errors403Route: Errors403Route,
+  Errors410Route: Errors410Route,
+  Errors429Route: Errors429Route,
+  Errors500Route: Errors500Route,
+  Errors503Route: Errors503Route,
+  ErrorsDeactivatedRoute: ErrorsDeactivatedRoute,
+  ErrorsMaintenanceRoute: ErrorsMaintenanceRoute,
+  ErrorsNoResultsRoute: ErrorsNoResultsRoute,
+  ErrorsOfflineRoute: ErrorsOfflineRoute,
+  ErrorsScriptFailureRoute: ErrorsScriptFailureRoute,
+  ErrorsSecurityRoute: ErrorsSecurityRoute,
+  ErrorsSuspendedRoute: ErrorsSuspendedRoute,
+  ErrorsUnsupportedBrowserRoute: ErrorsUnsupportedBrowserRoute,
   LoansBusinessRoute: LoansBusinessRoute,
   LoansHomeRoute: LoansHomeRoute,
   LoansMortgageRoute: LoansMortgageRoute,
   LoansPersonalRoute: LoansPersonalRoute,
   LoansSachetRoute: LoansSachetRoute,
+  ErrorsIndexRoute: ErrorsIndexRoute,
   LoansIndexRoute: LoansIndexRoute,
+  AppBorrowerApplicationRoute: AppBorrowerApplicationRoute,
+  AppBorrowerApplicationsRoute: AppBorrowerApplicationsRoute,
+  AppBorrowerApplyRoute: AppBorrowerApplyRoute,
+  AppBorrowerDocumentsRoute: AppBorrowerDocumentsRoute,
+  AppBorrowerOffersRoute: AppBorrowerOffersRoute,
+  AppBorrowerPaymentsRoute: AppBorrowerPaymentsRoute,
+  AppAdminIndexRoute: AppAdminIndexRoute,
+  AppAgentIndexRoute: AppAgentIndexRoute,
+  AppBorrowerIndexRoute: AppBorrowerIndexRoute,
+  AppLenderIndexRoute: AppLenderIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
