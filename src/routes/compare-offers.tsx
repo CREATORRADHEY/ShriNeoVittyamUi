@@ -12,6 +12,9 @@ import {
   RelatedGuides,
 } from "@/components/sections/blocks";
 import { CompareOffersArt, LoanCostArt } from "@/components/illustrations";
+import { EditorialHero, HeroPanel, StatementBand } from "@/components/sections/editorial";
+import { CompareFigure } from "@/components/illustrations/core";
+import photoProfessional from "@/assets/photo-professional.jpg";
 import { OfferComparisonPreview } from "@/components/loans/offer-comparison-preview";
 import { OfferHighlightPreview } from "@/components/previews/previews";
 
@@ -59,26 +62,59 @@ const anatomy = [
 function CompareOffersPage() {
   return (
     <PublicShell>
-      <PageHero
+      <EditorialHero
         eyebrow="Offers"
         title="Compare before you choose"
         body="Two offers can share the same interest rate and still cost very differently. ShriNeo puts every matching lender on the same rows so the comparison is honest."
+        image={{
+          src: photoProfessional,
+          alt: "A borrower comparing loan offers side by side on a laptop",
+        }}
+        note="Offers are ranked by total cost of borrowing. No lender can pay for placement."
         actions={
           <>
-            <Button asChild size="lg" className="min-h-11">
+            <Button asChild size="lg" className="min-h-12 rounded-lg px-6 text-base">
               <Link to="/auth/signup">See your eligible offers</Link>
             </Button>
-            <Button asChild size="lg" variant="outline" className="min-h-11">
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="min-h-12 rounded-lg border-border-strong px-6 text-base"
+            >
               <Link to="/emi-calculator">Estimate an EMI</Link>
             </Button>
           </>
         }
-        aside={
-          <FigureCard tone="card" caption="Three offers aligned on identical cost rows.">
-            <CompareOffersArt />
-          </FigureCard>
+        panels={
+          <HeroPanel label="Every offer, same rows" meta="Illustrative">
+            <dl className="num space-y-1.5 text-sm">
+              {[
+                ["Interest rate p.a.", "11.5%"],
+                ["APR", "12.4%"],
+                ["Monthly EMI", "\u20b99,885"],
+                ["Total repayment", "\u20b93,55,860"],
+              ].map(([term, value]) => (
+                <div key={term} className="flex items-baseline justify-between gap-3">
+                  <dt className="text-muted-foreground">{term}</dt>
+                  <dd className="font-semibold">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </HeroPanel>
         }
       />
+
+      <StatementBand
+        id="rank-title"
+        label="How ranking works"
+        title="Ranked by what you actually repay."
+        body="Offers are ordered on total cost of borrowing \u2014 not on the headline rate, and never on what a lender is willing to pay us."
+      >
+        <div className="rounded-xl border border-ink-foreground/15 bg-ink-foreground/5 p-5 md:p-7">
+          <CompareFigure />
+        </div>
+      </StatementBand>
 
       <Section labelledBy="demo-title">
         <div className="flex flex-wrap items-center justify-between gap-3">
