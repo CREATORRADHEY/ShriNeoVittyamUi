@@ -243,14 +243,21 @@ export function FundFlowFigure({
       <text x="28" y="138" style={microLabel} fill={NAVY}>
         SHRINEO SUPPORT LAYER
       </text>
-      {["ROUTING", "TRACKING", "SUPPORT", "DOCUMENTS"].map((label, i) => (
+      {["ROUTING", "TRACKING", "SUPPORT", "DOCS"].map((label, i) => (
         <g key={label}>
-          <rect x={28 + i * 68} y={148} width="60" height="20" rx="4" fill="#ffffff" stroke={NAVY_SOFT} strokeWidth="1" />
-          <text x={34 + i * 68} y={162} style={microLabel} fill={NAVY}>
+          <rect x={26 + i * 70} y={148} width="66" height="20" rx="4" fill="#ffffff" stroke={NAVY_SOFT} strokeWidth="1" />
+          <text
+            x={59 + i * 70}
+            y={162}
+            textAnchor="middle"
+            style={{ ...microLabel, fontSize: 8, letterSpacing: 0.6 }}
+            fill={NAVY}
+          >
             {label}
           </text>
         </g>
       ))}
+
     </Frame>
   );
 }
