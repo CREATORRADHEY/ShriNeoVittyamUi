@@ -332,8 +332,8 @@ export function DarkCta({
 }: {
   title: string;
   body?: string;
-  primary: { to: NonNullable<LinkProps["to"]>; label: string };
-  secondary?: { to: NonNullable<LinkProps["to"]>; label: string };
+  primary: { to: LinkProps["to"]; label: string };
+  secondary?: { to: LinkProps["to"]; label: string };
   note?: string;
 }) {
   return (
@@ -378,7 +378,7 @@ export function RelatedGuides({
   links,
   title = "Related guides",
 }: {
-  links: { to: NonNullable<LinkProps["to"]>; label: string; body: string }[];
+  links: { to: LinkProps["to"]; label: string; body: string }[];
   title?: string;
 }) {
   return (
