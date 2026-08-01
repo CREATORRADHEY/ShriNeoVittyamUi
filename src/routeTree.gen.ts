@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as ForAgentsRouteImport } from './routes/for-agents'
 import { Route as ForBorrowersRouteImport } from './routes/for-borrowers'
+import { Route as GrievanceRedressalRouteImport } from './routes/grievance-redressal'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TrustCenterRouteImport } from './routes/trust-center'
@@ -53,6 +54,11 @@ const ForAgentsRoute = ForAgentsRouteImport.update({
 const ForBorrowersRoute = ForBorrowersRouteImport.update({
   id: '/for-borrowers',
   path: '/for-borrowers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GrievanceRedressalRoute = GrievanceRedressalRouteImport.update({
+  id: '/grievance-redressal',
+  path: '/grievance-redressal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
@@ -108,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/cookie-policy': typeof CookiePolicyRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
+  '/grievance-redressal': typeof GrievanceRedressalRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
@@ -125,6 +132,7 @@ export interface FileRoutesByTo {
   '/cookie-policy': typeof CookiePolicyRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
+  '/grievance-redressal': typeof GrievanceRedressalRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
@@ -143,6 +151,7 @@ export interface FileRoutesById {
   '/cookie-policy': typeof CookiePolicyRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
+  '/grievance-redressal': typeof GrievanceRedressalRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
@@ -162,6 +171,7 @@ export interface FileRouteTypes {
     | '/cookie-policy'
     | '/for-agents'
     | '/for-borrowers'
+    | '/grievance-redressal'
     | '/privacy-policy'
     | '/terms'
     | '/trust-center'
@@ -179,6 +189,7 @@ export interface FileRouteTypes {
     | '/cookie-policy'
     | '/for-agents'
     | '/for-borrowers'
+    | '/grievance-redressal'
     | '/privacy-policy'
     | '/terms'
     | '/trust-center'
@@ -196,6 +207,7 @@ export interface FileRouteTypes {
     | '/cookie-policy'
     | '/for-agents'
     | '/for-borrowers'
+    | '/grievance-redressal'
     | '/privacy-policy'
     | '/terms'
     | '/trust-center'
@@ -214,6 +226,7 @@ export interface RootRouteChildren {
   CookiePolicyRoute: typeof CookiePolicyRoute
   ForAgentsRoute: typeof ForAgentsRoute
   ForBorrowersRoute: typeof ForBorrowersRoute
+  GrievanceRedressalRoute: typeof GrievanceRedressalRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   TermsRoute: typeof TermsRoute
   TrustCenterRoute: typeof TrustCenterRoute
@@ -267,6 +280,13 @@ declare module '@tanstack/react-router' {
       path: '/for-borrowers'
       fullPath: '/for-borrowers'
       preLoaderRoute: typeof ForBorrowersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/grievance-redressal': {
+      id: '/grievance-redressal'
+      path: '/grievance-redressal'
+      fullPath: '/grievance-redressal'
+      preLoaderRoute: typeof GrievanceRedressalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy-policy': {
@@ -342,6 +362,7 @@ const rootRouteChildren: RootRouteChildren = {
   CookiePolicyRoute: CookiePolicyRoute,
   ForAgentsRoute: ForAgentsRoute,
   ForBorrowersRoute: ForBorrowersRoute,
+  GrievanceRedressalRoute: GrievanceRedressalRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   TermsRoute: TermsRoute,
   TrustCenterRoute: TrustCenterRoute,
