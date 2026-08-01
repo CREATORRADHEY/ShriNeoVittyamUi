@@ -1,7 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CircleHelp, FileText, ListChecks, MessagesSquare, ShieldCheck } from "lucide-react";
 import { PublicShell } from "@/components/layout/public-shell";
-import { Section, SectionHeading, Eyebrow } from "@/components/design-system/section";
+import { Section, SectionHeading } from "@/components/design-system/section";
+import { EditorialHero, HeroPanel, NumberedLedger } from "@/components/sections/editorial";
+import { FigureCard } from "@/components/sections/blocks";
+import { JourneyFigure } from "@/components/illustrations/core";
+import photoFamily from "@/assets/photo-family.jpg";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
