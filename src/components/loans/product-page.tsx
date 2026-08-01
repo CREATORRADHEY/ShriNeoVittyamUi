@@ -1,6 +1,7 @@
+import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { Check, CircleAlert, FileText, Lock, ShieldCheck } from "lucide-react";
-import type { LoanProduct } from "@/config/products";
+import type { LoanProduct, ProductSlug } from "@/config/products";
 import { formatINR } from "@/lib/format";
 import { useI18n } from "@/i18n";
 import { PublicShell } from "@/components/layout/public-shell";
@@ -8,12 +9,99 @@ import { Section, SectionHeading, Eyebrow, StatusPill } from "@/components/desig
 import { EmiCalculator } from "./emi-calculator";
 import { OfferComparisonPreview } from "./offer-comparison-preview";
 import { Button } from "@/components/ui/button";
+import { FigureCard, MediaSplit, RelatedGuides } from "@/components/sections/blocks";
+import {
+  CashFlowCycleArt,
+  CoolingOffArt,
+  HomeJourneyArt,
+  LoanCostArt,
+  MortgageArt,
+} from "@/components/illustrations";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+
+type ProductStory = {
+  eyebrow: string;
+  title: string;
+  body: string;
+  points: ReactNode[];
+  caption: string;
+  art: ReactNode;
+  mediaSide: "left" | "right";
+};
+
+const stories: Record<ProductSlug, ProductStory> = {
+  personal: {
+    eyebrow: "Unsecured borrowing",
+    title: "What you actually repay",
+    body: "With no security to fall back on, lenders price a personal loan on income stability and repayment history. Understanding the total cost matters more than the headline rate.",
+    points: [
+      "Principal and interest form the instalment; the processing fee is charged once.",
+      "A longer tenure lowers the EMI and raises the total interest paid.",
+      "Foreclosure terms differ by lender and are stated in the Key Fact Statement.",
+    ],
+    caption: "Illustrative split of a personal loan's total repayment.",
+    art: <LoanCostArt />,
+    mediaSide: "right",
+  },
+  business: {
+    eyebrow: "Working capital",
+    title: "Funding the gap in your cash cycle",
+    body: "Stock is bought before it sells and customers pay after delivery. A business loan bridges that gap — so the tenure should match the cycle, not exceed it.",
+    points: [
+      "Turnover shared through Account Aggregator replaces months of PDF statements.",
+      "Lenders review vintage, banking turnover and filings alongside personal credit.",
+      "Match the tenure to the cash cycle to avoid paying interest on idle funds.",
+    ],
+    caption: "Purchase, sales inflow, operating expenses and the funding gap.",
+    art: <CashFlowCycleArt />,
+    mediaSide: "left",
+  },
+  home: {
+    eyebrow: "Long tenure",
+    title: "A decision measured in decades",
+    body: "Over twenty years, a small difference in rate or fees changes the total repayment substantially. The journey is longer too — property verification sits between sanction and disbursal.",
+    points: [
+      "Property documents are verified by the lender, not by ShriNeo.",
+      "Own contribution (margin) is set by the lender and affects the sanctioned amount.",
+      "Compare offers on total repayment, not only on the advertised rate.",
+    ],
+    caption: "Property selection through application, review, sanction and disbursal.",
+    art: <HomeJourneyArt />,
+    mediaSide: "right",
+  },
+  mortgage: {
+    eyebrow: "Secured lending",
+    title: "Your property is the security",
+    body: "A loan against property unlocks larger amounts at lower rates than unsecured borrowing, because the lender holds a charge on an asset you already own.",
+    points: [
+      "Loan-to-value limits are set by each lender after valuation.",
+      "A missed repayment on a secured loan places the property at risk.",
+      "Existing charges on the property affect how much can be sanctioned.",
+    ],
+    caption: "The property stays yours while a charge supports the borrowed funds.",
+    art: <MortgageArt />,
+    mediaSide: "left",
+  },
+  sachet: {
+    eyebrow: "Planned for Phase 2",
+    title: "Small amounts, where fees matter most",
+    body: "On a small, short loan, a flat fee can dominate the cost. This product will launch only once participating lenders, disclosures and controls are in place.",
+    points: [
+      "No application, decision or disbursal workflow is live for this product.",
+      "Eligibility and documents will be published at launch.",
+      "The same consent, disclosure and grievance standards will apply.",
+    ],
+    caption: "A defined window and a borrower-controlled exit remain part of the design.",
+    art: <CoolingOffArt />,
+    mediaSide: "right",
+  },
+};
+
 
 export function ProductPage({ product }: { product: LoanProduct }) {
   const { t } = useI18n();
@@ -100,6 +188,17 @@ export function ProductPage({ product }: { product: LoanProduct }) {
           </dl>
         </div>
       </Section>
+
+      {/* Product-specific explanatory illustration */}
+      <MediaSplit
+        eyebrow={story.eyebrow}
+        title={story.title}
+        body={story.body}
+        points={story.points}
+        mediaSide={story.mediaSide}
+        media={<FigureCard caption={story.caption}>{story.art}</FigureCard>}
+        footnote="Illustrative explanation. Terms differ by participating lender."
+      />
 
       {/* Why choose ShriNeo */}
       <Section tone="surface" labelledBy="why-title">
