@@ -523,14 +523,25 @@ textarea {
   font-family: "Poppins", "Noto Sans Devanagari", system-ui, sans-serif;
 }
 
+/* Canonical brand navy gradient — exact values from the approved landing
+   reference. Every dark band on the site uses one of these two directions. */
+@utility navy-band {
+  background: linear-gradient(100deg, #001a5c 0%, #00246f 44%, #002b98 100%);
+}
+
+@utility navy-band-reverse {
+  background: linear-gradient(260deg, #001a5c 0%, #00246f 44%, #002b98 100%);
+}
+
 .hero-navy {
   --hero-deep: #001a5c;
-  --hero-core: #000890;
+  --hero-core: #00246f;
   --hero-mid: #002b98;
   --hero-lift: #0051ae;
-  background-color: var(--hero-deep);
+  background: linear-gradient(100deg, #001a5c 0%, #00246f 44%, #002b98 100%);
   color: #ffffff;
 }
+
 
 .hero-on-navy {
   color: #b9c6e8;
