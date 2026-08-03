@@ -1,11 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Mic, ShieldCheck } from "lucide-react";
-import heroDesktop from "@/assets/hero-man-desktop.jpg";
-import heroMobile from "@/assets/hero-man-mobile.jpg";
+import heroDesktopAsset from "@/assets/hero-shop-desktop.jpg.asset.json";
+import heroMobileAsset from "@/assets/hero-shop-mobile.jpg.asset.json";
 import { products } from "@/config/products";
 import { formatINR } from "@/lib/format";
 
-const PHOTO_ALT = "Small-business owner standing confidently outside his workplace.";
+const heroDesktop = heroDesktopAsset.url;
+const heroMobile = heroMobileAsset.url;
+
+const PHOTO_ALT = "Shop owner standing at his kirana store counter, smartphone in hand.";
 
 /**
  * Homepage hero — one static story on a full-bleed navy field.
@@ -25,8 +28,8 @@ export function HomeHero() {
         <img
           src={heroDesktop}
           alt=""
-          width={1920}
-          height={1088}
+          width={1537}
+          height={1023}
           fetchPriority="high"
           decoding="async"
           className="hero-photo hero-photo-in absolute inset-y-0 right-0 hidden h-full w-[54%] object-cover object-[68%_center] md:block"
@@ -86,8 +89,8 @@ export function HomeHero() {
               <img
                 src={heroMobile}
                 alt={PHOTO_ALT}
-                width={1024}
-                height={1280}
+                width={818}
+                height={1023}
                 fetchPriority="high"
                 className="hero-photo-mobile hero-photo-in aspect-[4/5] w-full object-cover object-top"
               />
