@@ -48,8 +48,8 @@ export function HomeHero() {
                 id="hero-title"
                 className="font-display mt-6 max-w-[660px] text-[clamp(2.375rem,3.7vw,3.625rem)] leading-[1.08] font-semibold tracking-[-0.02em] text-white"
               >
-                <span className="block whitespace-nowrap">Your Dreams,</span>
-                <span className="block whitespace-nowrap">Our Responsibility.</span>
+                <span className="block md:whitespace-nowrap">Your Dreams,</span>
+                <span className="block md:whitespace-nowrap">Our Responsibility.</span>
               </h1>
 
               <p className="hero-on-navy font-display mt-5 max-w-[550px] text-[clamp(1rem,1.4vw,1.25rem)] leading-[1.55]">
