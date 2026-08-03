@@ -1,13 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  Banknote,
-  FileCheck2,
-  Languages,
-  ShieldCheck,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import { HomeHero } from "@/components/sections/home-hero";
 import { UspStrip } from "@/components/sections/usp-strip";
 import { EligibilityWidget } from "@/components/sections/eligibility-widget";
