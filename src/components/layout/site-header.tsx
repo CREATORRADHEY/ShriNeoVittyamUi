@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import logo from "@/assets/shrineo-logo.png.asset.json";
 import { products } from "@/config/products";
 import { useI18n } from "@/i18n";
 import { LanguageSwitcher } from "./language-switcher";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { HeaderMenuProvider, useHeaderMenu } from "./header-menu";
+import { LoansMenu, NeedHelpPill, supportOptions, triggerClass } from "./header-panels";
 
 const productKeys: Record<string, string> = {
   personal: "nav.personal",
@@ -21,25 +17,40 @@ const productKeys: Record<string, string> = {
 };
 
 export function SiteHeader() {
+  return (
+    <HeaderMenuProvider>
+      <HeaderInner />
+    </HeaderMenuProvider>
+  );
+}
+
+function HeaderInner() {
   const { t } = useI18n();
+  const { closeNow } = useHeaderMenu();
   const [open, setOpen] = useState(false);
   const [condensed, setCondensed] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setCondensed(window.scrollY > 24);
+    const onScroll = () => setCondensed(window.scrollY > 56);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [open]);
 
   const mainLinks = [
     { to: "/for-agents", label: t("nav.forAgents") },
     { to: "/about", label: t("nav.about") },
     { to: "/trust-center", label: t("nav.trust") },
   ] as const;
-
-  const navLink =
-    "inline-flex min-h-11 items-center rounded-md px-3 text-sm font-medium text-white/90 transition-colors duration-150 hover:bg-white/10 hover:text-white";
 
   return (
     <header
@@ -77,39 +88,11 @@ export function SiteHeader() {
 
           <ul className="hidden items-center justify-center gap-1 lg:flex">
             <li>
-              <DropdownMenu>
-                <DropdownMenuTrigger className={`${navLink} gap-1`}>
-                  {t("nav.loans")}
-                  <ChevronDown aria-hidden className="size-4" />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-64">
-                  {products.map((product) => (
-                    <DropdownMenuItem key={product.slug} asChild>
-                      <Link to={product.path} className="flex items-center justify-between gap-3">
-                        <span>{t(productKeys[product.slug]!, product.name)}</span>
-                        {product.phase2 ? (
-                          <span className="rounded-full bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
-                            {t("common.comingSoon")}
-                          </span>
-                        ) : null}
-                      </Link>
-                    </DropdownMenuItem>
-                  ))}
-                  <DropdownMenuItem asChild>
-                    <Link to="/loans" className="font-medium text-primary">
-                      All loan products
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <LoansMenu />
             </li>
             {mainLinks.map((link) => (
               <li key={link.to}>
-                <Link
-                  to={link.to}
-                  activeProps={{ className: "bg-white/10 text-white" }}
-                  className={navLink}
-                >
+                <Link to={link.to} className={triggerClass} onPointerEnter={closeNow}>
                   {link.label}
                 </Link>
               </li>
@@ -117,18 +100,22 @@ export function SiteHeader() {
           </ul>
 
           <div className="flex items-center justify-end gap-2">
-            <span className="hidden rounded-full border border-white/20 px-3 py-1 text-[11px] font-medium text-[#b9c6e8] xl:inline-flex">
-              Lending Service Provider
-            </span>
-            <div className="hidden md:block [&>div]:border-white/20 [&>div]:bg-transparent [&_svg]:text-[#c8d5f0] [&_button]:text-white/80 [&_button[aria-pressed=true]]:bg-white [&_button[aria-pressed=true]]:text-[#001a5c]">
+            <NeedHelpPill />
+            <div
+              onPointerDownCapture={closeNow}
+              className="hidden md:block [&>div]:border-white/20 [&>div]:bg-transparent [&_svg]:text-[#c8d5f0] [&_button]:text-white/80 [&_button[aria-pressed=true]]:bg-white [&_button[aria-pressed=true]]:text-[#001a5c]"
+            >
               <LanguageSwitcher />
             </div>
-            <Link to="/auth/signin" className={`${navLink} max-md:hidden`}>
+            <Link
+              to="/auth/signin"
+              className="inline-flex min-h-11 items-center rounded-md border border-white/20 px-3 text-sm font-medium text-white/90 transition-[background-color,border-color,color] duration-150 hover:border-white/40 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none max-md:hidden"
+            >
               {t("nav.login")}
             </Link>
             <Link
               to="/auth/signup"
-              className="cta-saffron inline-flex min-h-11 items-center justify-center rounded-[10px] px-4 text-sm font-semibold transition-colors duration-150"
+              className="cta-saffron group inline-flex min-h-11 items-center justify-center gap-1.5 rounded-[10px] px-4 text-sm font-semibold transition-[background-color,transform] duration-150 hover:-translate-y-px active:translate-y-px focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
             >
               {t("nav.apply")}
             </Link>
@@ -137,7 +124,10 @@ export function SiteHeader() {
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
-              onClick={() => setOpen((v) => !v)}
+              onClick={() => {
+                closeNow();
+                setOpen((v) => !v);
+              }}
               className="inline-grid size-11 place-items-center rounded-md border border-white/25 text-white lg:hidden"
             >
               {open ? (
@@ -150,7 +140,10 @@ export function SiteHeader() {
         </div>
 
         {open ? (
-          <div id="mobile-menu" className="border-t border-white/15 py-4 lg:hidden">
+          <div
+            id="mobile-menu"
+            className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-white/15 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] lg:hidden"
+          >
             <p className="px-1 pb-2 text-xs font-semibold tracking-wide text-[#b9c6e8] uppercase">
               {t("nav.loans")}
             </p>
@@ -183,7 +176,32 @@ export function SiteHeader() {
                 </li>
               ))}
             </ul>
+
+            <p className="mt-4 px-1 pb-2 text-xs font-semibold tracking-wide text-[#b9c6e8] uppercase">
+              {t("menu.services")}
+            </p>
+            <ul className="grid gap-1 border-t border-white/15 pt-3">
+              {supportOptions.map((option) => (
+                <li key={option.key}>
+                  <Link
+                    to={option.to}
+                    onClick={() => setOpen(false)}
+                    className="flex min-h-11 items-center justify-between gap-3 rounded-md px-3 text-base text-white hover:bg-white/10"
+                  >
+                    <span className="inline-flex items-center gap-2.5">
+                      <option.icon aria-hidden className="size-4 stroke-[1.5] text-[#c8d5f0]" />
+                      {t(`menu.help.${option.key}`)}
+                    </span>
+                    <span className="num text-xs text-[#b9c6e8]">{t(option.meta)}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
             <div className="mt-4 grid gap-2">
+              <div className="[&>div]:w-full [&>div]:justify-center [&>div]:border-white/20 [&>div]:bg-transparent [&_svg]:text-[#c8d5f0] [&_button]:text-white/80 [&_button[aria-pressed=true]]:bg-white [&_button[aria-pressed=true]]:text-[#001a5c]">
+                <LanguageSwitcher />
+              </div>
               <Link
                 to="/auth/signin"
                 onClick={() => setOpen(false)}
