@@ -230,9 +230,6 @@ function HomePage() {
           <Reveal delay={80} className="min-w-0">
             <HomeFaq />
           </Reveal>
-          <Reveal delay={120} className="mt-12 max-w-xl">
-            <ApplicationTrackingPanel />
-          </Reveal>
         </div>
       </section>
 
