@@ -201,87 +201,13 @@ function HomePage() {
           </Reveal>
         </div>
       </section>
-
-
-      {/* ──────────────────────────────────────────────── 9. NEO — assistant */}
-      <NeoConversationSection />
-
-      {/* ────────────────────── 10. SNV TRUST SCORE — beyond-bureau signals */}
+      {/* ────────────────────── 6. SNV TRUST SCORE — beyond-bureau signals */}
       <SnvTrustScoreSection />
 
-      {/* ────────────────────────────── 11. TRUST CENTRE — responsibility map */}
-      <section aria-labelledby="trust-title" className="bg-ink text-ink-foreground">
-        <div className="container-page py-16 md:py-24">
-          <Reveal className="max-w-2xl">
-            <p className="label-micro text-brand-300">Trust centre</p>
-            <h2
-              id="trust-title"
-              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] tracking-tight"
-            >
-              Who is responsible for what.
-            </h2>
-            <p className="mt-4 text-base text-ink-foreground/75">
-              Digital lending works when every party's role is written down. This is ours.
-            </p>
-          </Reveal>
+      {/* ─────────────────────────────────────── 7. FOR AGENTS — recruitment */}
+      <AgentCtaSection />
 
-          <ol className="mt-12 grid gap-px overflow-hidden rounded-xl border border-ink-foreground/15 bg-ink-foreground/15 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              ["You, the borrower", "You give consent, review the terms and decide."],
-              ["ShriNeo Capital", "We route, explain and track. We do not lend."],
-              ["Participating lender", "They assess, approve, disburse and collect."],
-              ["Technology providers", "They process data strictly under contract."],
-            ].map(([who, role]) => (
-              <li key={who} className="bg-ink px-6 py-7">
-                <h3 className="text-base font-semibold">{who}</h3>
-                <p className="mt-2 text-sm text-ink-foreground/70">{role}</p>
-              </li>
-            ))}
-          </ol>
 
-          <div className="mt-4 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-            <Reveal className="min-w-0">
-              <dl className="grid h-full gap-px overflow-hidden rounded-xl border border-ink-foreground/15 bg-ink-foreground/15 sm:grid-cols-2">
-                {[
-                  ["Consent", "Purpose-specific, time-bound and revocable."],
-                  ["Key Fact Statement", "Every charge shown before you sign."],
-                  ["Cooling-off period", "Exit within the stated window without penalty."],
-                  ["Data handling", "Collected for a stated purpose, retained no longer."],
-                  ["Human review", "Escalation to a person, not only a model."],
-                  ["Grievance support", "A reference number and an escalation path."],
-                ].map(([term, body]) => (
-                  <div key={term} className="bg-ink px-6 py-5">
-                    <dt className="text-sm font-semibold">{term}</dt>
-                    <dd className="mt-1 text-sm text-ink-foreground/70">{body}</dd>
-                  </div>
-                ))}
-              </dl>
-            </Reveal>
-            <Reveal delay={80} className="min-w-0">
-              <figure className="h-full rounded-xl border border-ink-foreground/15 bg-background p-4 md:p-6">
-                <ConsentFigure />
-                <figcaption className="mt-4 text-sm text-muted-foreground">
-                  Before anything is shared, you see the purpose, the data, the recipient and how
-                  long the consent lasts.
-                </figcaption>
-              </figure>
-            </Reveal>
-          </div>
-
-          <div className="mt-10 flex flex-wrap gap-3">
-            <Button asChild variant="secondary" className="min-h-11 rounded-lg">
-              <Link to="/trust-center">Read the Trust Centre</Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              className="min-h-11 rounded-lg border-ink-foreground/30 bg-transparent text-ink-foreground hover:bg-ink-foreground/10 hover:text-ink-foreground"
-            >
-              <Link to="/grievance-redressal">Grievance redressal</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
 
       {/* ─────────────────────────────────── 11b. TRACKING + FAQ (white calm) */}
       <section aria-labelledby="faq-title" className="border-b border-border bg-background">
