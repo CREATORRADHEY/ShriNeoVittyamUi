@@ -1,6 +1,7 @@
 import { RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { useI18n } from "@/i18n";
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -12,7 +13,6 @@ import { cn } from "@/lib/utils";
 type Turn = {
   id: string;
   from: "you" | "neo";
-  label: string;
   text: string;
 };
 
@@ -20,20 +20,17 @@ const TURNS: Turn[] = [
   {
     id: "t1",
     from: "you",
-    label: "You",
     text: "मुझे दुकान के लिए लोन चाहिए। कितना मिल सकता है?",
   },
   {
     id: "t2",
     from: "neo",
-    label: "Neo",
     text: "यह आपकी कमाई, ख़र्च और चुकौती के तरीक़े पर निर्भर करता है। आप राशि और मोबाइल नंबर डालिए, मैं देखकर बताता हूँ कि कौन-कौन से विकल्प खुलते हैं।",
   },
-  { id: "t3", from: "you", label: "You", text: "कौन से कागज़ लगेंगे?" },
+  { id: "t3", from: "you", text: "कौन से कागज़ लगेंगे?" },
   {
     id: "t4",
     from: "neo",
-    label: "Neo",
     text: "शुरू करने के लिए आधार, PAN और छह महीने का बैंक स्टेटमेंट। दुकान का लोन है तो GST या उद्यम नंबर भी काम आता है।",
   },
 ];
@@ -62,6 +59,7 @@ function MicIcon(props: { className?: string }) {
 }
 
 export function NeoConversationSection() {
+  const { t } = useI18n();
   const reduced = usePrefersReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
   const timers = useRef<number[]>([]);
@@ -136,7 +134,7 @@ export function NeoConversationSection() {
     >
       <div ref={sectionRef} className="container-page py-16 md:py-24">
         <h2 id="neo-conversation-title" className="sr-only">
-          Neo, the ShriNeo assistant — illustrative conversation
+          {t("neo.heading")}
         </h2>
 
         <div className="mx-auto w-full max-w-[720px]">
@@ -148,7 +146,7 @@ export function NeoConversationSection() {
               </span>
               <span className="min-w-0">
                 <span className="block text-sm font-semibold text-primary">Neo</span>
-                <span className="block text-xs text-muted-foreground">ShriNeo assistant</span>
+                <span className="block text-xs text-muted-foreground">{t("neo.role")}</span>
               </span>
             </div>
 
@@ -164,7 +162,7 @@ export function NeoConversationSection() {
                     visible(index) ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
                   )}
                 >
-                  <span className="label-micro text-muted-foreground">{turn.label}</span>
+                  <span className="label-micro text-muted-foreground">{turn.from === "neo" ? "Neo" : t("neo.you")}</span>
                   <p
                     lang="hi"
                     className={cn(
@@ -183,19 +181,19 @@ export function NeoConversationSection() {
 
           {/* replay control */}
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-            <span className="label-micro text-muted-foreground">Illustrative conversation</span>
+            <span className="label-micro text-muted-foreground">{t("neo.caption")}</span>
             <span aria-hidden className="size-1 rounded-full bg-border-strong" />
             <button
               type="button"
               onClick={replay}
-              aria-label="Replay illustrative Neo conversation"
+              aria-label={t("neo.replay.aria")}
               className="group inline-flex min-h-[44px] items-center gap-1.5 rounded-lg bg-transparent px-2 text-sm font-medium text-primary transition-colors duration-[var(--motion-fast)] hover:text-primary-hover active:opacity-70"
             >
               <RotateCcw
                 aria-hidden
                 className="size-4 transition-transform duration-[var(--motion-standard)] ease-[cubic-bezier(0.2,0,0,1)] group-hover:-rotate-45 motion-reduce:transition-none motion-reduce:group-hover:rotate-0"
               />
-              Replay
+              {t("neo.replay")}
             </button>
           </div>
         </div>
