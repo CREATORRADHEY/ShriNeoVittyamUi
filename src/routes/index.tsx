@@ -65,8 +65,8 @@ function HomePage() {
       {/* ─────────────────────── 1. HERO — full-bleed navy, one static story */}
       <HomeHero />
 
-      {/* ───────────────── 1b. PRODUCT STRIP — one-click product navigation */}
-      <ProductStrip />
+
+
 
       {/* ─────────────────────────────────────── 2. TRUST STRIP — horizontal */}
       <section
