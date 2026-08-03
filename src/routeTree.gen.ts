@@ -21,6 +21,7 @@ import { Route as ForAgentsRouteImport } from './routes/for-agents'
 import { Route as ForBorrowersRouteImport } from './routes/for-borrowers'
 import { Route as ForLendersRouteImport } from './routes/for-lenders'
 import { Route as GrievanceRedressalRouteImport } from './routes/grievance-redressal'
+import { Route as HelpCenterRouteImport } from './routes/help-center'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as KeyFactStatementRouteImport } from './routes/key-fact-statement'
 import { Route as McpRouteImport } from './routes/mcp'
@@ -129,6 +130,11 @@ const ForLendersRoute = ForLendersRouteImport.update({
 const GrievanceRedressalRoute = GrievanceRedressalRouteImport.update({
   id: '/grievance-redressal',
   path: '/grievance-redressal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpCenterRoute = HelpCenterRouteImport.update({
+  id: '/help-center',
+  path: '/help-center',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HowItWorksRoute = HowItWorksRouteImport.update({
@@ -397,6 +403,7 @@ export interface FileRoutesByFullPath {
   '/for-borrowers': typeof ForBorrowersRoute
   '/for-lenders': typeof ForLendersRoute
   '/grievance-redressal': typeof GrievanceRedressalRoute
+  '/help-center': typeof HelpCenterRoute
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
@@ -460,6 +467,7 @@ export interface FileRoutesByTo {
   '/for-borrowers': typeof ForBorrowersRoute
   '/for-lenders': typeof ForLendersRoute
   '/grievance-redressal': typeof GrievanceRedressalRoute
+  '/help-center': typeof HelpCenterRoute
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
@@ -524,6 +532,7 @@ export interface FileRoutesById {
   '/for-borrowers': typeof ForBorrowersRoute
   '/for-lenders': typeof ForLendersRoute
   '/grievance-redressal': typeof GrievanceRedressalRoute
+  '/help-center': typeof HelpCenterRoute
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
@@ -589,6 +598,7 @@ export interface FileRouteTypes {
     | '/for-borrowers'
     | '/for-lenders'
     | '/grievance-redressal'
+    | '/help-center'
     | '/how-it-works'
     | '/key-fact-statement'
     | '/mcp'
@@ -652,6 +662,7 @@ export interface FileRouteTypes {
     | '/for-borrowers'
     | '/for-lenders'
     | '/grievance-redressal'
+    | '/help-center'
     | '/how-it-works'
     | '/key-fact-statement'
     | '/mcp'
@@ -715,6 +726,7 @@ export interface FileRouteTypes {
     | '/for-borrowers'
     | '/for-lenders'
     | '/grievance-redressal'
+    | '/help-center'
     | '/how-it-works'
     | '/key-fact-statement'
     | '/mcp'
@@ -779,6 +791,7 @@ export interface RootRouteChildren {
   ForBorrowersRoute: typeof ForBorrowersRoute
   ForLendersRoute: typeof ForLendersRoute
   GrievanceRedressalRoute: typeof GrievanceRedressalRoute
+  HelpCenterRoute: typeof HelpCenterRoute
   HowItWorksRoute: typeof HowItWorksRoute
   KeyFactStatementRoute: typeof KeyFactStatementRoute
   McpRoute: typeof McpRoute
@@ -914,6 +927,13 @@ declare module '@tanstack/react-router' {
       path: '/grievance-redressal'
       fullPath: '/grievance-redressal'
       preLoaderRoute: typeof GrievanceRedressalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help-center': {
+      id: '/help-center'
+      path: '/help-center'
+      fullPath: '/help-center'
+      preLoaderRoute: typeof HelpCenterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/how-it-works': {
@@ -1275,6 +1295,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForBorrowersRoute: ForBorrowersRoute,
   ForLendersRoute: ForLendersRoute,
   GrievanceRedressalRoute: GrievanceRedressalRoute,
+  HelpCenterRoute: HelpCenterRoute,
   HowItWorksRoute: HowItWorksRoute,
   KeyFactStatementRoute: KeyFactStatementRoute,
   McpRoute: McpRoute,
