@@ -23,6 +23,7 @@ import { Route as GrievanceRedressalRouteImport } from './routes/grievance-redre
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as KeyFactStatementRouteImport } from './routes/key-fact-statement'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as MotionRouteImport } from './routes/motion'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as PrototypeRouteImport } from './routes/prototype'
 import { Route as TermsRouteImport } from './routes/terms'
@@ -132,6 +133,11 @@ const KeyFactStatementRoute = KeyFactStatementRouteImport.update({
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MotionRoute = MotionRouteImport.update({
+  id: '/motion',
+  path: '/motion',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
@@ -354,6 +360,7 @@ export interface FileRoutesByFullPath {
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
+  '/motion': typeof MotionRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/prototype': typeof PrototypeRoute
   '/terms': typeof TermsRoute
@@ -410,6 +417,7 @@ export interface FileRoutesByTo {
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
+  '/motion': typeof MotionRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/prototype': typeof PrototypeRoute
   '/terms': typeof TermsRoute
@@ -467,6 +475,7 @@ export interface FileRoutesById {
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
+  '/motion': typeof MotionRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/prototype': typeof PrototypeRoute
   '/terms': typeof TermsRoute
@@ -525,6 +534,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/key-fact-statement'
     | '/mcp'
+    | '/motion'
     | '/privacy-policy'
     | '/prototype'
     | '/terms'
@@ -581,6 +591,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/key-fact-statement'
     | '/mcp'
+    | '/motion'
     | '/privacy-policy'
     | '/prototype'
     | '/terms'
@@ -637,6 +648,7 @@ export interface FileRouteTypes {
     | '/how-it-works'
     | '/key-fact-statement'
     | '/mcp'
+    | '/motion'
     | '/privacy-policy'
     | '/prototype'
     | '/terms'
@@ -694,6 +706,7 @@ export interface RootRouteChildren {
   HowItWorksRoute: typeof HowItWorksRoute
   KeyFactStatementRoute: typeof KeyFactStatementRoute
   McpRoute: typeof McpRoute
+  MotionRoute: typeof MotionRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   PrototypeRoute: typeof PrototypeRoute
   TermsRoute: typeof TermsRoute
@@ -834,6 +847,13 @@ declare module '@tanstack/react-router' {
       path: '/mcp'
       fullPath: '/mcp'
       preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/motion': {
+      id: '/motion'
+      path: '/motion'
+      fullPath: '/motion'
+      preLoaderRoute: typeof MotionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy-policy': {
@@ -1134,6 +1154,7 @@ const rootRouteChildren: RootRouteChildren = {
   HowItWorksRoute: HowItWorksRoute,
   KeyFactStatementRoute: KeyFactStatementRoute,
   McpRoute: McpRoute,
+  MotionRoute: MotionRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   PrototypeRoute: PrototypeRoute,
   TermsRoute: TermsRoute,
