@@ -90,13 +90,14 @@ function HomePage() {
             </p>
           </Reveal>
 
-          <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border lg:grid-cols-[1.15fr_1fr]">
+          <div className="mt-12 grid gap-px rounded-xl border border-border bg-border lg:grid-cols-[1.15fr_1fr]">
             {/* featured */}
             <Reveal className="min-w-0">
               <Link
                 to={featured.path}
-                className="group flex h-full flex-col justify-between bg-card p-7 transition-colors duration-200 hover:bg-brand-50 md:p-9"
+                className="group relative z-0 flex h-full flex-col justify-between bg-card p-7 transition-[transform,box-shadow,background-color] duration-[260ms] ease-[cubic-bezier(0.2,0,0,1)] will-change-transform hover:z-10 hover:-translate-y-1.5 hover:bg-brand-50 hover:shadow-[0_22px_44px_-26px_rgba(0,43,152,0.45)] focus-visible:z-10 focus-visible:-translate-y-1.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:p-9"
               >
+
                 <div>
                   <p className="label-micro text-muted-foreground">Most applied for</p>
                   <h3 className="editorial mt-4 text-2xl tracking-tight md:text-3xl">
@@ -136,12 +137,13 @@ function HomePage() {
                 <Reveal as="li" key={product.slug} delay={60 + i * 40} className="min-w-0">
                   <Link
                     to={product.path}
-                    className="flex h-full flex-col bg-card p-5 transition-colors duration-200 hover:bg-brand-50"
+                    className="group relative z-0 flex h-full flex-col bg-card p-5 transition-[transform,box-shadow,background-color] duration-[240ms] ease-[cubic-bezier(0.2,0,0,1)] will-change-transform hover:z-10 hover:-translate-y-1 hover:bg-brand-50 hover:shadow-[0_18px_36px_-24px_rgba(0,43,152,0.45)] focus-visible:z-10 focus-visible:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
                   >
                     <product.icon
                       aria-hidden
-                      className="size-5 shrink-0 stroke-[1.3] text-primary"
+                      className="size-5 shrink-0 stroke-[1.3] text-primary transition-transform duration-[220ms] ease-[cubic-bezier(0.2,0,0,1)] group-hover:scale-110 motion-reduce:transition-none"
                     />
+
                     <h3 className="mt-4 flex flex-wrap items-center gap-2 text-base font-semibold">
                       {product.name}
                       {product.phase2 ? (

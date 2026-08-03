@@ -304,18 +304,26 @@ export function SnvTrustScoreSection() {
           </p>
 
           <ul className="mt-[30px] grid grid-cols-2 gap-2.5">
-            {SIGNALS.map((signal) => (
+            {SIGNALS.map((signal, i) => (
               <li
                 key={signal.key}
-                className="flex items-center gap-[11px] rounded-[10px] border border-white/15 bg-white/[0.05] px-[15px] py-[13px] text-[14px] font-medium text-white"
+                style={{ transitionDelay: revealed ? `${120 + i * 70}ms` : "0ms" }}
+                className={cn(
+                  "group flex items-center gap-[11px] rounded-[10px] border border-white/15 bg-white/[0.05] px-[15px] py-[13px] text-[14px] font-medium text-white",
+                  "transition-[transform,opacity,background-color,border-color,box-shadow] duration-[420ms] ease-[cubic-bezier(0.2,0,0,1)] will-change-transform",
+                  revealed ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
+                  "hover:-translate-y-[3px] hover:border-white/30 hover:bg-white/[0.1] hover:shadow-[0_10px_24px_-14px_rgba(0,0,0,0.75)]",
+                  "focus-within:-translate-y-[3px] focus-within:border-white/30 motion-reduce:transition-none motion-reduce:hover:translate-y-0",
+                )}
               >
-                <span className="flex size-7 shrink-0 items-center justify-center rounded-[7px] bg-white/10 text-[#C8D5F0]">
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-[7px] bg-white/10 text-[#C8D5F0] transition-[transform,background-color] duration-[220ms] ease-[cubic-bezier(0.2,0,0,1)] group-hover:scale-[1.06] group-hover:bg-white/[0.18] motion-reduce:transition-none">
                   {signal.icon}
                 </span>
                 <span className="min-w-0">{t(signal.key)}</span>
               </li>
             ))}
           </ul>
+
 
         </div>
 
