@@ -28,8 +28,8 @@ export function HomeHero() {
         <img
           src={heroDesktop}
           alt=""
-          width={1920}
-          height={1088}
+          width={1537}
+          height={1023}
           fetchPriority="high"
           decoding="async"
           className="hero-photo hero-photo-in absolute inset-y-0 right-0 hidden h-full w-[54%] object-cover object-[68%_center] md:block"
@@ -89,8 +89,8 @@ export function HomeHero() {
               <img
                 src={heroMobile}
                 alt={PHOTO_ALT}
-                width={1024}
-                height={1280}
+                width={818}
+                height={1023}
                 fetchPriority="high"
                 className="hero-photo-mobile hero-photo-in aspect-[4/5] w-full object-cover object-top"
               />
