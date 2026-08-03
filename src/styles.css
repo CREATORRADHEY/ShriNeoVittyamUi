@@ -57,6 +57,16 @@
   --color-ink-soft: var(--ink-soft);
   --color-ink-foreground: var(--ink-foreground);
 
+  /* Ivory demonstration surfaces + SNV Trust Score palette */
+  --color-ivory: var(--ivory);
+  --color-ivory-border: var(--ivory-border);
+  --color-navy-deep: var(--navy-deep);
+  --color-navy-mid: var(--navy-mid);
+  --color-navy-bright: var(--navy-bright);
+  --color-band-low: var(--band-low);
+  --color-band-mid: var(--band-mid);
+  --color-band-high: var(--band-high);
+
   --color-info: var(--info);
   --color-info-surface: var(--info-surface);
   --color-success: var(--success);
@@ -117,6 +127,19 @@
   --ink: #06122c;
   --ink-soft: #0d1e42;
   --ink-foreground: #ffffff;
+
+  /* Warm ivory demonstration surface */
+  --ivory: #f7f3ea;
+  --ivory-border: #e6ddcc;
+  /* SNV Trust Score institutional navy family */
+  --navy-deep: #001a5c;
+  --navy-mid: #00246f;
+  --navy-bright: #002b98;
+  /* SNV Trust Score ring bands (0-40 / 40-70 / 70-100) */
+  --band-low: #c9bca8;
+  --band-mid: #4a7fc1;
+  --band-high: #9fd0ff;
+
 
   --info: #2563eb;
   --info-surface: #eef3ff;
