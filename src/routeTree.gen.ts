@@ -55,6 +55,7 @@ import { Route as LoansMortgageRouteImport } from './routes/loans.mortgage'
 import { Route as LoansPersonalRouteImport } from './routes/loans.personal'
 import { Route as LoansSachetRouteImport } from './routes/loans.sachet'
 import { Route as TrustCenterIndexRouteImport } from './routes/trust-center.index'
+import { Route as TrustCenterSnvTrustScoreRouteImport } from './routes/trust-center.snv-trust-score'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as AppAdminIndexRouteImport } from './routes/app.admin.index'
 import { Route as AppAgentIndexRouteImport } from './routes/app.agent.index'
@@ -300,6 +301,12 @@ const TrustCenterIndexRoute = TrustCenterIndexRouteImport.update({
   path: '/trust-center/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrustCenterSnvTrustScoreRoute =
+  TrustCenterSnvTrustScoreRouteImport.update({
+    id: '/trust-center/snv-trust-score',
+    path: '/trust-center/snv-trust-score',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
   Char91DotmcpChar93InvokeToolToolRouteImport.update({
     id: '/.mcp/invoke-tool/$tool',
@@ -401,6 +408,7 @@ export interface FileRoutesByFullPath {
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/trust-center/snv-trust-score': typeof TrustCenterSnvTrustScoreRoute
   '/errors/': typeof ErrorsIndexRoute
   '/loans/': typeof LoansIndexRoute
   '/trust-center/': typeof TrustCenterIndexRoute
@@ -460,6 +468,7 @@ export interface FileRoutesByTo {
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/trust-center/snv-trust-score': typeof TrustCenterSnvTrustScoreRoute
   '/errors': typeof ErrorsIndexRoute
   '/loans': typeof LoansIndexRoute
   '/trust-center': typeof TrustCenterIndexRoute
@@ -520,6 +529,7 @@ export interface FileRoutesById {
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/trust-center/snv-trust-score': typeof TrustCenterSnvTrustScoreRoute
   '/errors/': typeof ErrorsIndexRoute
   '/loans/': typeof LoansIndexRoute
   '/trust-center/': typeof TrustCenterIndexRoute
@@ -581,6 +591,7 @@ export interface FileRouteTypes {
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/trust-center/snv-trust-score'
     | '/errors/'
     | '/loans/'
     | '/trust-center/'
@@ -640,6 +651,7 @@ export interface FileRouteTypes {
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/trust-center/snv-trust-score'
     | '/errors'
     | '/loans'
     | '/trust-center'
@@ -699,6 +711,7 @@ export interface FileRouteTypes {
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/trust-center/snv-trust-score'
     | '/errors/'
     | '/loans/'
     | '/trust-center/'
@@ -759,6 +772,7 @@ export interface RootRouteChildren {
   LoansMortgageRoute: typeof LoansMortgageRoute
   LoansPersonalRoute: typeof LoansPersonalRoute
   LoansSachetRoute: typeof LoansSachetRoute
+  TrustCenterSnvTrustScoreRoute: typeof TrustCenterSnvTrustScoreRoute
   ErrorsIndexRoute: typeof ErrorsIndexRoute
   LoansIndexRoute: typeof LoansIndexRoute
   TrustCenterIndexRoute: typeof TrustCenterIndexRoute
@@ -1099,6 +1113,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrustCenterIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trust-center/snv-trust-score': {
+      id: '/trust-center/snv-trust-score'
+      path: '/trust-center/snv-trust-score'
+      fullPath: '/trust-center/snv-trust-score'
+      preLoaderRoute: typeof TrustCenterSnvTrustScoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/.mcp/invoke-tool/$tool': {
       id: '/.mcp/invoke-tool/$tool'
       path: '/.mcp/invoke-tool/$tool'
@@ -1224,6 +1245,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoansMortgageRoute: LoansMortgageRoute,
   LoansPersonalRoute: LoansPersonalRoute,
   LoansSachetRoute: LoansSachetRoute,
+  TrustCenterSnvTrustScoreRoute: TrustCenterSnvTrustScoreRoute,
   ErrorsIndexRoute: ErrorsIndexRoute,
   LoansIndexRoute: LoansIndexRoute,
   TrustCenterIndexRoute: TrustCenterIndexRoute,
