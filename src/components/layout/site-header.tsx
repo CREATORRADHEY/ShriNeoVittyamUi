@@ -118,7 +118,7 @@ export function SiteHeader() {
             <span className="hidden rounded-full border border-white/20 px-3 py-1 text-[11px] font-medium text-[#b9c6e8] xl:inline-flex">
               Lending Service Provider
             </span>
-            <div className="[&>div]:border-white/20 [&>div]:bg-transparent [&_svg]:text-[#c8d5f0] [&_button]:text-white/80 [&_button[aria-pressed=true]]:bg-white [&_button[aria-pressed=true]]:text-[#001a5c]">
+            <div className="hidden md:block [&>div]:border-white/20 [&>div]:bg-transparent [&_svg]:text-[#c8d5f0] [&_button]:text-white/80 [&_button[aria-pressed=true]]:bg-white [&_button[aria-pressed=true]]:text-[#001a5c]">
               <LanguageSwitcher />
             </div>
             <Link to="/auth/signin" className={`${navLink} hidden md:inline-flex`}>
