@@ -55,6 +55,7 @@ import { Route as LoansMortgageRouteImport } from './routes/loans.mortgage'
 import { Route as LoansPersonalRouteImport } from './routes/loans.personal'
 import { Route as LoansSachetRouteImport } from './routes/loans.sachet'
 import { Route as TrustCenterIndexRouteImport } from './routes/trust-center.index'
+import { Route as TrustCenterPrivacyAndDataRouteImport } from './routes/trust-center.privacy-and-data'
 import { Route as TrustCenterRbiComplianceRouteImport } from './routes/trust-center.rbi-compliance'
 import { Route as TrustCenterSecurityRouteImport } from './routes/trust-center.security'
 import { Route as TrustCenterSnvTrustScoreRouteImport } from './routes/trust-center.snv-trust-score'
@@ -303,6 +304,12 @@ const TrustCenterIndexRoute = TrustCenterIndexRouteImport.update({
   path: '/trust-center/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrustCenterPrivacyAndDataRoute =
+  TrustCenterPrivacyAndDataRouteImport.update({
+    id: '/trust-center/privacy-and-data',
+    path: '/trust-center/privacy-and-data',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TrustCenterRbiComplianceRoute =
   TrustCenterRbiComplianceRouteImport.update({
     id: '/trust-center/rbi-compliance',
@@ -421,6 +428,7 @@ export interface FileRoutesByFullPath {
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/trust-center/privacy-and-data': typeof TrustCenterPrivacyAndDataRoute
   '/trust-center/rbi-compliance': typeof TrustCenterRbiComplianceRoute
   '/trust-center/security': typeof TrustCenterSecurityRoute
   '/trust-center/snv-trust-score': typeof TrustCenterSnvTrustScoreRoute
@@ -483,6 +491,7 @@ export interface FileRoutesByTo {
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/trust-center/privacy-and-data': typeof TrustCenterPrivacyAndDataRoute
   '/trust-center/rbi-compliance': typeof TrustCenterRbiComplianceRoute
   '/trust-center/security': typeof TrustCenterSecurityRoute
   '/trust-center/snv-trust-score': typeof TrustCenterSnvTrustScoreRoute
@@ -546,6 +555,7 @@ export interface FileRoutesById {
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/trust-center/privacy-and-data': typeof TrustCenterPrivacyAndDataRoute
   '/trust-center/rbi-compliance': typeof TrustCenterRbiComplianceRoute
   '/trust-center/security': typeof TrustCenterSecurityRoute
   '/trust-center/snv-trust-score': typeof TrustCenterSnvTrustScoreRoute
@@ -610,6 +620,7 @@ export interface FileRouteTypes {
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/trust-center/privacy-and-data'
     | '/trust-center/rbi-compliance'
     | '/trust-center/security'
     | '/trust-center/snv-trust-score'
@@ -672,6 +683,7 @@ export interface FileRouteTypes {
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/trust-center/privacy-and-data'
     | '/trust-center/rbi-compliance'
     | '/trust-center/security'
     | '/trust-center/snv-trust-score'
@@ -734,6 +746,7 @@ export interface FileRouteTypes {
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/trust-center/privacy-and-data'
     | '/trust-center/rbi-compliance'
     | '/trust-center/security'
     | '/trust-center/snv-trust-score'
@@ -797,6 +810,7 @@ export interface RootRouteChildren {
   LoansMortgageRoute: typeof LoansMortgageRoute
   LoansPersonalRoute: typeof LoansPersonalRoute
   LoansSachetRoute: typeof LoansSachetRoute
+  TrustCenterPrivacyAndDataRoute: typeof TrustCenterPrivacyAndDataRoute
   TrustCenterRbiComplianceRoute: typeof TrustCenterRbiComplianceRoute
   TrustCenterSecurityRoute: typeof TrustCenterSecurityRoute
   TrustCenterSnvTrustScoreRoute: typeof TrustCenterSnvTrustScoreRoute
@@ -1140,6 +1154,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TrustCenterIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trust-center/privacy-and-data': {
+      id: '/trust-center/privacy-and-data'
+      path: '/trust-center/privacy-and-data'
+      fullPath: '/trust-center/privacy-and-data'
+      preLoaderRoute: typeof TrustCenterPrivacyAndDataRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/trust-center/rbi-compliance': {
       id: '/trust-center/rbi-compliance'
       path: '/trust-center/rbi-compliance'
@@ -1286,6 +1307,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoansMortgageRoute: LoansMortgageRoute,
   LoansPersonalRoute: LoansPersonalRoute,
   LoansSachetRoute: LoansSachetRoute,
+  TrustCenterPrivacyAndDataRoute: TrustCenterPrivacyAndDataRoute,
   TrustCenterRbiComplianceRoute: TrustCenterRbiComplianceRoute,
   TrustCenterSecurityRoute: TrustCenterSecurityRoute,
   TrustCenterSnvTrustScoreRoute: TrustCenterSnvTrustScoreRoute,
