@@ -19,6 +19,7 @@ import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as ForAgentsRouteImport } from './routes/for-agents'
 import { Route as ForBorrowersRouteImport } from './routes/for-borrowers'
+import { Route as ForLendersRouteImport } from './routes/for-lenders'
 import { Route as GrievanceRedressalRouteImport } from './routes/grievance-redressal'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as KeyFactStatementRouteImport } from './routes/key-fact-statement'
@@ -114,6 +115,11 @@ const ForAgentsRoute = ForAgentsRouteImport.update({
 const ForBorrowersRoute = ForBorrowersRouteImport.update({
   id: '/for-borrowers',
   path: '/for-borrowers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForLendersRoute = ForLendersRouteImport.update({
+  id: '/for-lenders',
+  path: '/for-lenders',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GrievanceRedressalRoute = GrievanceRedressalRouteImport.update({
@@ -362,6 +368,7 @@ export interface FileRoutesByFullPath {
   '/emi-calculator': typeof EmiCalculatorRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
+  '/for-lenders': typeof ForLendersRoute
   '/grievance-redressal': typeof GrievanceRedressalRoute
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
@@ -420,6 +427,7 @@ export interface FileRoutesByTo {
   '/emi-calculator': typeof EmiCalculatorRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
+  '/for-lenders': typeof ForLendersRoute
   '/grievance-redressal': typeof GrievanceRedressalRoute
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
@@ -479,6 +487,7 @@ export interface FileRoutesById {
   '/emi-calculator': typeof EmiCalculatorRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
+  '/for-lenders': typeof ForLendersRoute
   '/grievance-redressal': typeof GrievanceRedressalRoute
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
@@ -539,6 +548,7 @@ export interface FileRouteTypes {
     | '/emi-calculator'
     | '/for-agents'
     | '/for-borrowers'
+    | '/for-lenders'
     | '/grievance-redressal'
     | '/how-it-works'
     | '/key-fact-statement'
@@ -597,6 +607,7 @@ export interface FileRouteTypes {
     | '/emi-calculator'
     | '/for-agents'
     | '/for-borrowers'
+    | '/for-lenders'
     | '/grievance-redressal'
     | '/how-it-works'
     | '/key-fact-statement'
@@ -655,6 +666,7 @@ export interface FileRouteTypes {
     | '/emi-calculator'
     | '/for-agents'
     | '/for-borrowers'
+    | '/for-lenders'
     | '/grievance-redressal'
     | '/how-it-works'
     | '/key-fact-statement'
@@ -714,6 +726,7 @@ export interface RootRouteChildren {
   EmiCalculatorRoute: typeof EmiCalculatorRoute
   ForAgentsRoute: typeof ForAgentsRoute
   ForBorrowersRoute: typeof ForBorrowersRoute
+  ForLendersRoute: typeof ForLendersRoute
   GrievanceRedressalRoute: typeof GrievanceRedressalRoute
   HowItWorksRoute: typeof HowItWorksRoute
   KeyFactStatementRoute: typeof KeyFactStatementRoute
@@ -832,6 +845,13 @@ declare module '@tanstack/react-router' {
       path: '/for-borrowers'
       fullPath: '/for-borrowers'
       preLoaderRoute: typeof ForBorrowersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-lenders': {
+      id: '/for-lenders'
+      path: '/for-lenders'
+      fullPath: '/for-lenders'
+      preLoaderRoute: typeof ForLendersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/grievance-redressal': {
@@ -1170,6 +1190,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmiCalculatorRoute: EmiCalculatorRoute,
   ForAgentsRoute: ForAgentsRoute,
   ForBorrowersRoute: ForBorrowersRoute,
+  ForLendersRoute: ForLendersRoute,
   GrievanceRedressalRoute: GrievanceRedressalRoute,
   HowItWorksRoute: HowItWorksRoute,
   KeyFactStatementRoute: KeyFactStatementRoute,
