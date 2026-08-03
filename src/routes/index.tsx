@@ -158,6 +158,9 @@ function HomePage() {
         </div>
       </section>
 
+      {/* ──────────────────────────────────────────────── 4. NEO — assistant */}
+      <NeoConversationSection />
+
       {/* ──────────────────────────────────── 5. OFFER COMPARISON — editorial */}
       <section aria-labelledby="compare-title" className="border-b border-border bg-surface">
         <div className="container-page grid gap-10 py-16 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16 md:py-24">
