@@ -26,7 +26,7 @@ import {
 import { DetailPopover, LiveValue, ResponsivePanel } from "@/components/motion/overlays";
 import { Term, TermHint } from "@/components/motion/glossary";
 import { Reveal } from "@/components/sections/reveal";
-import { emiFor } from "@/lib/emi";
+import { calculateEmi } from "@/lib/emi";
 import { formatINR } from "@/lib/format";
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -99,8 +99,11 @@ function MotionPreviewRoute() {
   const [amount, setAmount] = useState(500000);
   const [rate, setRate] = useState(14);
   const [months, setMonths] = useState(36);
-  const emi = emiFor(amount, rate, months);
-  const total = emi * months;
+  const { monthlyEmi: emi, totalRepayment: total } = calculateEmi({
+    principal: amount,
+    annualRatePercent: rate,
+    tenureMonths: months,
+  });
 
   const [email, setEmail] = useState("");
   const [touched, setTouched] = useState(false);
@@ -384,7 +387,7 @@ function MotionPreviewRoute() {
               ["Which documents will I need?", "Identity, address and income proof, plus product-specific documents."],
               ["Does checking eligibility affect my score?", "An indicative check does not. A lender's bureau check may be recorded, and we ask first."],
             ].map(([q, a]) => (
-              <AccordionItem key={q} value={q}>
+              <AccordionItem key={q} value={q as string}>
                 <AccordionTrigger className="text-left text-base">{q}</AccordionTrigger>
                 <AccordionContent className="text-sm text-muted-foreground">{a}</AccordionContent>
               </AccordionItem>
