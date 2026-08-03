@@ -90,13 +90,14 @@ function HomePage() {
             </p>
           </Reveal>
 
-          <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border lg:grid-cols-[1.15fr_1fr]">
+          <div className="mt-12 grid gap-px rounded-xl border border-border bg-border lg:grid-cols-[1.15fr_1fr]">
             {/* featured */}
             <Reveal className="min-w-0">
               <Link
                 to={featured.path}
-                className="group flex h-full flex-col justify-between bg-card p-7 transition-colors duration-200 hover:bg-brand-50 md:p-9"
+                className="group relative z-0 flex h-full flex-col justify-between bg-card p-7 transition-[transform,box-shadow,background-color] duration-[260ms] ease-[cubic-bezier(0.2,0,0,1)] will-change-transform hover:z-10 hover:-translate-y-1.5 hover:bg-brand-50 hover:shadow-[0_22px_44px_-26px_rgba(0,43,152,0.45)] focus-visible:z-10 focus-visible:-translate-y-1.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:p-9"
               >
+
                 <div>
                   <p className="label-micro text-muted-foreground">Most applied for</p>
                   <h3 className="editorial mt-4 text-2xl tracking-tight md:text-3xl">
