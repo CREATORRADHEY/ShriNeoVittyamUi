@@ -189,12 +189,16 @@ export function PortalShell({
                   <Menu aria-hidden className="size-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-72 overflow-y-auto p-4">
+              <SheetContent side="left" className="w-[min(18rem,calc(100vw-3rem))] overflow-y-auto p-4">
                 <SheetTitle className="editorial text-base">{ROLE_LABEL[role]} portal</SheetTitle>
+                <SheetDescription className="sr-only">
+                  Navigate between sections of the {ROLE_LABEL[role].toLowerCase()} portal.
+                </SheetDescription>
                 <div className="mt-4">
                   <NavList role={role} />
                 </div>
               </SheetContent>
+
             </Sheet>
             <div className="min-w-0 flex-1">
               <h1 className={cn("truncate font-semibold text-foreground", role === "borrower" ? "text-lg" : "text-base")}>
