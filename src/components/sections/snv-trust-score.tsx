@@ -282,31 +282,34 @@ export function SnvTrustScoreSection() {
   return (
     <section
       aria-labelledby="snv-trust-score-title"
-      className="border-b border-ink-foreground/10 bg-[linear-gradient(100deg,var(--color-navy-deep),var(--color-navy-mid)_48%,var(--color-navy-bright))] text-ink-foreground"
+      className="w-full bg-[linear-gradient(100deg,#001A5C_0%,#00246F_48%,#002B98_100%)] text-white"
     >
       <div
         ref={ref}
-        className="mx-auto grid w-full max-w-[1320px] items-center gap-12 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16"
+        className="mx-auto w-full max-w-[1320px] px-5 py-[clamp(70px,6.2vw,92px)] sm:px-8 lg:px-12"
       >
+        <div className="grid items-center gap-9 sm:gap-12 lg:grid-cols-2 lg:gap-20">
         <div className={reveal}>
-          <p className="label-micro text-brand-300">{t("snv.eyebrow")}</p>
+          <p className="font-mono text-[11px] font-semibold tracking-[0.13em] uppercase text-[#B9C6E8]">
+            {t("snv.eyebrow")}
+          </p>
           <h2
             id="snv-trust-score-title"
-            className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] tracking-tight"
+            className="font-display mt-[18px] text-[clamp(30px,3.1vw,42px)] leading-[1.14] font-semibold tracking-[-0.028em] text-pretty text-white"
           >
-            {t("snv.title.line1")}
-            <br />
-            {t("snv.title.line2")}
+            {t("snv.title.line1")} {t("snv.title.line2")}
           </h2>
-          <p className="mt-5 max-w-[46ch] text-base text-ink-foreground/75">{t("snv.body")}</p>
+          <p className="mt-5 max-w-[480px] text-[17.5px] leading-[1.6] text-pretty text-[#B9C6E8]">
+            {t("snv.body")}
+          </p>
 
-          <ul className="mt-8 grid gap-2.5 sm:grid-cols-2">
+          <ul className="mt-[30px] grid grid-cols-2 gap-2.5">
             {SIGNALS.map((signal) => (
               <li
                 key={signal.key}
-                className="flex items-center gap-2.5 rounded-[10px] border border-ink-foreground/15 bg-ink-foreground/[0.05] px-3.5 py-3 text-sm font-medium text-ink-foreground"
+                className="flex items-center gap-[11px] rounded-[10px] border border-white/15 bg-white/[0.05] px-[15px] py-[13px] text-[14px] font-medium text-white"
               >
-                <span className="flex size-7 shrink-0 items-center justify-center rounded-[7px] bg-ink-foreground/10 text-brand-300">
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-[7px] bg-white/10 text-[#C8D5F0]">
                   {signal.icon}
                 </span>
                 <span className="min-w-0">{t(signal.key)}</span>
@@ -314,21 +317,18 @@ export function SnvTrustScoreSection() {
             ))}
           </ul>
 
-          <p className="mt-7 hidden items-center gap-2.5 text-sm text-ink-foreground/72 lg:flex">
-            <span className="text-ink-foreground/60">
-              <LockIcon />
-            </span>
-            {t("snv.reassurance")}
-          </p>
         </div>
 
-        <div className={cn("flex flex-col items-center gap-4 p-2", reveal)}>
+        <div className={cn("flex flex-col items-center gap-[18px] p-2", reveal)}>
           <TrustScoreRing progress={reduced ? SCORE : progress} label={t("snv.ring.aria")} />
-          <span className="label-micro text-brand-300/85">{t("snv.illustrative")}</span>
+          <span className="font-mono text-[11.5px] font-medium tracking-[0.1em] uppercase text-[rgba(185,198,232,0.85)]">
+            {t("snv.illustrative")}
+          </span>
+        </div>
         </div>
 
-        <p className="flex items-center justify-center gap-2.5 text-sm text-ink-foreground/72 lg:hidden">
-          <span className="text-ink-foreground/60">
+        <p className="mt-[30px] flex items-start gap-2.5 text-[14px] leading-[1.6] text-white/72">
+          <span className="mt-0.5 text-white/60">
             <LockIcon />
           </span>
           {t("snv.reassurance")}
