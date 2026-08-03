@@ -57,7 +57,7 @@ function HeaderInner() {
     <header
       data-condensed={condensed}
       data-menu-open={open}
-      className="font-display sticky top-0 z-[1000] bg-transparent transition-[background-color,box-shadow,backdrop-filter] duration-200 data-[menu-open=true]:bg-[#001a5c] data-[condensed=true]:border-b data-[condensed=true]:border-white/12 data-[condensed=true]:bg-[#00134a]/80 data-[condensed=true]:shadow-[0_1px_12px_rgba(0,8,60,0.35)] data-[condensed=true]:backdrop-blur-md"
+      className="font-display sticky top-0 z-[1000] border-b border-white/15 bg-[#00134a]/45 shadow-[0_2px_18px_rgba(0,8,60,0.22)] backdrop-blur-xl backdrop-saturate-150 transition-[background-color,box-shadow,backdrop-filter,border-color] duration-200 data-[menu-open=true]:bg-[#001a5c]/90 data-[condensed=true]:border-white/20 data-[condensed=true]:bg-[#00134a]/70 data-[condensed=true]:shadow-[0_4px_24px_rgba(0,8,60,0.38)]"
     >
 
       <nav aria-label="Primary" className="container-page">
