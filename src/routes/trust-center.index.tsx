@@ -16,8 +16,10 @@ import { Button } from "@/components/ui/button";
 import { EditorialHero, HeroPanel, StatementBand } from "@/components/sections/editorial";
 import { ConsentFigure } from "@/components/illustrations/core";
 import photoProfessional from "@/assets/photo-professional.jpg";
+import { RelatedGuides } from "@/components/sections/blocks";
 
-export const Route = createFileRoute("/trust-center")({
+
+export const Route = createFileRoute("/trust-center/")({
   head: () => ({
     meta: [
       { title: "Trust Center — disclosures, data and consent | ShriNeo Capital" },
@@ -211,7 +213,34 @@ function TrustCenterPage() {
           </div>
         </div>
       </Section>
+
+      <RelatedGuides
+        title="Go deeper"
+        links={[
+          {
+            to: "/trust-center/snv-trust-score",
+            label: "SNV Trust Score",
+            body: "What the advisory indicator is, and what it is not.",
+          },
+          {
+            to: "/trust-center/security",
+            label: "Security",
+            body: "Encryption, document handling and account protection.",
+          },
+          {
+            to: "/trust-center/rbi-compliance",
+            label: "RBI compliance",
+            body: "Our LSP role and the lender's responsibilities.",
+          },
+          {
+            to: "/trust-center/privacy-and-data",
+            label: "Privacy and data",
+            body: "Collection, consent moments, retention and your rights.",
+          },
+        ]}
+      />
     </PublicShell>
+
   );
 }
 

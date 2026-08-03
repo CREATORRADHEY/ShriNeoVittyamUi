@@ -19,7 +19,9 @@ import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as ForAgentsRouteImport } from './routes/for-agents'
 import { Route as ForBorrowersRouteImport } from './routes/for-borrowers'
+import { Route as ForLendersRouteImport } from './routes/for-lenders'
 import { Route as GrievanceRedressalRouteImport } from './routes/grievance-redressal'
+import { Route as HelpCenterRouteImport } from './routes/help-center'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as KeyFactStatementRouteImport } from './routes/key-fact-statement'
 import { Route as McpRouteImport } from './routes/mcp'
@@ -28,7 +30,6 @@ import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as PrototypeRouteImport } from './routes/prototype'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as TrustCenterRouteImport } from './routes/trust-center'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AuthSigninRouteImport } from './routes/auth.signin'
@@ -54,6 +55,11 @@ import { Route as LoansHomeRouteImport } from './routes/loans.home'
 import { Route as LoansMortgageRouteImport } from './routes/loans.mortgage'
 import { Route as LoansPersonalRouteImport } from './routes/loans.personal'
 import { Route as LoansSachetRouteImport } from './routes/loans.sachet'
+import { Route as TrustCenterIndexRouteImport } from './routes/trust-center.index'
+import { Route as TrustCenterPrivacyAndDataRouteImport } from './routes/trust-center.privacy-and-data'
+import { Route as TrustCenterRbiComplianceRouteImport } from './routes/trust-center.rbi-compliance'
+import { Route as TrustCenterSecurityRouteImport } from './routes/trust-center.security'
+import { Route as TrustCenterSnvTrustScoreRouteImport } from './routes/trust-center.snv-trust-score'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as AppAdminIndexRouteImport } from './routes/app.admin.index'
 import { Route as AppAgentIndexRouteImport } from './routes/app.agent.index'
@@ -116,9 +122,19 @@ const ForBorrowersRoute = ForBorrowersRouteImport.update({
   path: '/for-borrowers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ForLendersRoute = ForLendersRouteImport.update({
+  id: '/for-lenders',
+  path: '/for-lenders',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GrievanceRedressalRoute = GrievanceRedressalRouteImport.update({
   id: '/grievance-redressal',
   path: '/grievance-redressal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpCenterRoute = HelpCenterRouteImport.update({
+  id: '/help-center',
+  path: '/help-center',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HowItWorksRoute = HowItWorksRouteImport.update({
@@ -159,11 +175,6 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TrustCenterRoute = TrustCenterRouteImport.update({
-  id: '/trust-center',
-  path: '/trust-center',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93ListToolsRoute =
@@ -294,6 +305,34 @@ const LoansSachetRoute = LoansSachetRouteImport.update({
   path: '/loans/sachet',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrustCenterIndexRoute = TrustCenterIndexRouteImport.update({
+  id: '/trust-center/',
+  path: '/trust-center/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrustCenterPrivacyAndDataRoute =
+  TrustCenterPrivacyAndDataRouteImport.update({
+    id: '/trust-center/privacy-and-data',
+    path: '/trust-center/privacy-and-data',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TrustCenterRbiComplianceRoute =
+  TrustCenterRbiComplianceRouteImport.update({
+    id: '/trust-center/rbi-compliance',
+    path: '/trust-center/rbi-compliance',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TrustCenterSecurityRoute = TrustCenterSecurityRouteImport.update({
+  id: '/trust-center/security',
+  path: '/trust-center/security',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrustCenterSnvTrustScoreRoute =
+  TrustCenterSnvTrustScoreRouteImport.update({
+    id: '/trust-center/snv-trust-score',
+    path: '/trust-center/snv-trust-score',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
   Char91DotmcpChar93InvokeToolToolRouteImport.update({
     id: '/.mcp/invoke-tool/$tool',
@@ -362,7 +401,9 @@ export interface FileRoutesByFullPath {
   '/emi-calculator': typeof EmiCalculatorRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
+  '/for-lenders': typeof ForLendersRoute
   '/grievance-redressal': typeof GrievanceRedressalRoute
+  '/help-center': typeof HelpCenterRoute
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
@@ -371,7 +412,6 @@ export interface FileRoutesByFullPath {
   '/prototype': typeof PrototypeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/trust-center': typeof TrustCenterRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/signin': typeof AuthSigninRoute
@@ -395,8 +435,13 @@ export interface FileRoutesByFullPath {
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/trust-center/privacy-and-data': typeof TrustCenterPrivacyAndDataRoute
+  '/trust-center/rbi-compliance': typeof TrustCenterRbiComplianceRoute
+  '/trust-center/security': typeof TrustCenterSecurityRoute
+  '/trust-center/snv-trust-score': typeof TrustCenterSnvTrustScoreRoute
   '/errors/': typeof ErrorsIndexRoute
   '/loans/': typeof LoansIndexRoute
+  '/trust-center/': typeof TrustCenterIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
@@ -420,7 +465,9 @@ export interface FileRoutesByTo {
   '/emi-calculator': typeof EmiCalculatorRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
+  '/for-lenders': typeof ForLendersRoute
   '/grievance-redressal': typeof GrievanceRedressalRoute
+  '/help-center': typeof HelpCenterRoute
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
@@ -429,7 +476,6 @@ export interface FileRoutesByTo {
   '/prototype': typeof PrototypeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/trust-center': typeof TrustCenterRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/signin': typeof AuthSigninRoute
@@ -453,8 +499,13 @@ export interface FileRoutesByTo {
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/trust-center/privacy-and-data': typeof TrustCenterPrivacyAndDataRoute
+  '/trust-center/rbi-compliance': typeof TrustCenterRbiComplianceRoute
+  '/trust-center/security': typeof TrustCenterSecurityRoute
+  '/trust-center/snv-trust-score': typeof TrustCenterSnvTrustScoreRoute
   '/errors': typeof ErrorsIndexRoute
   '/loans': typeof LoansIndexRoute
+  '/trust-center': typeof TrustCenterIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
@@ -479,7 +530,9 @@ export interface FileRoutesById {
   '/emi-calculator': typeof EmiCalculatorRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
+  '/for-lenders': typeof ForLendersRoute
   '/grievance-redressal': typeof GrievanceRedressalRoute
+  '/help-center': typeof HelpCenterRoute
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
@@ -488,7 +541,6 @@ export interface FileRoutesById {
   '/prototype': typeof PrototypeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/trust-center': typeof TrustCenterRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/signin': typeof AuthSigninRoute
@@ -512,8 +564,13 @@ export interface FileRoutesById {
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/trust-center/privacy-and-data': typeof TrustCenterPrivacyAndDataRoute
+  '/trust-center/rbi-compliance': typeof TrustCenterRbiComplianceRoute
+  '/trust-center/security': typeof TrustCenterSecurityRoute
+  '/trust-center/snv-trust-score': typeof TrustCenterSnvTrustScoreRoute
   '/errors/': typeof ErrorsIndexRoute
   '/loans/': typeof LoansIndexRoute
+  '/trust-center/': typeof TrustCenterIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
@@ -539,7 +596,9 @@ export interface FileRouteTypes {
     | '/emi-calculator'
     | '/for-agents'
     | '/for-borrowers'
+    | '/for-lenders'
     | '/grievance-redressal'
+    | '/help-center'
     | '/how-it-works'
     | '/key-fact-statement'
     | '/mcp'
@@ -548,7 +607,6 @@ export interface FileRouteTypes {
     | '/prototype'
     | '/sitemap.xml'
     | '/terms'
-    | '/trust-center'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/auth/signin'
@@ -572,8 +630,13 @@ export interface FileRouteTypes {
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/trust-center/privacy-and-data'
+    | '/trust-center/rbi-compliance'
+    | '/trust-center/security'
+    | '/trust-center/snv-trust-score'
     | '/errors/'
     | '/loans/'
+    | '/trust-center/'
     | '/.mcp/invoke-tool/$tool'
     | '/app/borrower/application'
     | '/app/borrower/applications'
@@ -597,7 +660,9 @@ export interface FileRouteTypes {
     | '/emi-calculator'
     | '/for-agents'
     | '/for-borrowers'
+    | '/for-lenders'
     | '/grievance-redressal'
+    | '/help-center'
     | '/how-it-works'
     | '/key-fact-statement'
     | '/mcp'
@@ -606,7 +671,6 @@ export interface FileRouteTypes {
     | '/prototype'
     | '/sitemap.xml'
     | '/terms'
-    | '/trust-center'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/auth/signin'
@@ -630,8 +694,13 @@ export interface FileRouteTypes {
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/trust-center/privacy-and-data'
+    | '/trust-center/rbi-compliance'
+    | '/trust-center/security'
+    | '/trust-center/snv-trust-score'
     | '/errors'
     | '/loans'
+    | '/trust-center'
     | '/.mcp/invoke-tool/$tool'
     | '/app/borrower/application'
     | '/app/borrower/applications'
@@ -655,7 +724,9 @@ export interface FileRouteTypes {
     | '/emi-calculator'
     | '/for-agents'
     | '/for-borrowers'
+    | '/for-lenders'
     | '/grievance-redressal'
+    | '/help-center'
     | '/how-it-works'
     | '/key-fact-statement'
     | '/mcp'
@@ -664,7 +735,6 @@ export interface FileRouteTypes {
     | '/prototype'
     | '/sitemap.xml'
     | '/terms'
-    | '/trust-center'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/auth/signin'
@@ -688,8 +758,13 @@ export interface FileRouteTypes {
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/trust-center/privacy-and-data'
+    | '/trust-center/rbi-compliance'
+    | '/trust-center/security'
+    | '/trust-center/snv-trust-score'
     | '/errors/'
     | '/loans/'
+    | '/trust-center/'
     | '/.mcp/invoke-tool/$tool'
     | '/app/borrower/application'
     | '/app/borrower/applications'
@@ -714,7 +789,9 @@ export interface RootRouteChildren {
   EmiCalculatorRoute: typeof EmiCalculatorRoute
   ForAgentsRoute: typeof ForAgentsRoute
   ForBorrowersRoute: typeof ForBorrowersRoute
+  ForLendersRoute: typeof ForLendersRoute
   GrievanceRedressalRoute: typeof GrievanceRedressalRoute
+  HelpCenterRoute: typeof HelpCenterRoute
   HowItWorksRoute: typeof HowItWorksRoute
   KeyFactStatementRoute: typeof KeyFactStatementRoute
   McpRoute: typeof McpRoute
@@ -723,7 +800,6 @@ export interface RootRouteChildren {
   PrototypeRoute: typeof PrototypeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
-  TrustCenterRoute: typeof TrustCenterRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AuthSigninRoute: typeof AuthSigninRoute
@@ -747,8 +823,13 @@ export interface RootRouteChildren {
   LoansMortgageRoute: typeof LoansMortgageRoute
   LoansPersonalRoute: typeof LoansPersonalRoute
   LoansSachetRoute: typeof LoansSachetRoute
+  TrustCenterPrivacyAndDataRoute: typeof TrustCenterPrivacyAndDataRoute
+  TrustCenterRbiComplianceRoute: typeof TrustCenterRbiComplianceRoute
+  TrustCenterSecurityRoute: typeof TrustCenterSecurityRoute
+  TrustCenterSnvTrustScoreRoute: typeof TrustCenterSnvTrustScoreRoute
   ErrorsIndexRoute: typeof ErrorsIndexRoute
   LoansIndexRoute: typeof LoansIndexRoute
+  TrustCenterIndexRoute: typeof TrustCenterIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   AppBorrowerApplicationRoute: typeof AppBorrowerApplicationRoute
   AppBorrowerApplicationsRoute: typeof AppBorrowerApplicationsRoute
@@ -834,11 +915,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForBorrowersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/for-lenders': {
+      id: '/for-lenders'
+      path: '/for-lenders'
+      fullPath: '/for-lenders'
+      preLoaderRoute: typeof ForLendersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/grievance-redressal': {
       id: '/grievance-redressal'
       path: '/grievance-redressal'
       fullPath: '/grievance-redressal'
       preLoaderRoute: typeof GrievanceRedressalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help-center': {
+      id: '/help-center'
+      path: '/help-center'
+      fullPath: '/help-center'
+      preLoaderRoute: typeof HelpCenterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/how-it-works': {
@@ -895,13 +990,6 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/trust-center': {
-      id: '/trust-center'
-      path: '/trust-center'
-      fullPath: '/trust-center'
-      preLoaderRoute: typeof TrustCenterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -1079,6 +1167,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoansSachetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trust-center/': {
+      id: '/trust-center/'
+      path: '/trust-center'
+      fullPath: '/trust-center/'
+      preLoaderRoute: typeof TrustCenterIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trust-center/privacy-and-data': {
+      id: '/trust-center/privacy-and-data'
+      path: '/trust-center/privacy-and-data'
+      fullPath: '/trust-center/privacy-and-data'
+      preLoaderRoute: typeof TrustCenterPrivacyAndDataRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trust-center/rbi-compliance': {
+      id: '/trust-center/rbi-compliance'
+      path: '/trust-center/rbi-compliance'
+      fullPath: '/trust-center/rbi-compliance'
+      preLoaderRoute: typeof TrustCenterRbiComplianceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trust-center/security': {
+      id: '/trust-center/security'
+      path: '/trust-center/security'
+      fullPath: '/trust-center/security'
+      preLoaderRoute: typeof TrustCenterSecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trust-center/snv-trust-score': {
+      id: '/trust-center/snv-trust-score'
+      path: '/trust-center/snv-trust-score'
+      fullPath: '/trust-center/snv-trust-score'
+      preLoaderRoute: typeof TrustCenterSnvTrustScoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/.mcp/invoke-tool/$tool': {
       id: '/.mcp/invoke-tool/$tool'
       path: '/.mcp/invoke-tool/$tool'
@@ -1170,7 +1293,9 @@ const rootRouteChildren: RootRouteChildren = {
   EmiCalculatorRoute: EmiCalculatorRoute,
   ForAgentsRoute: ForAgentsRoute,
   ForBorrowersRoute: ForBorrowersRoute,
+  ForLendersRoute: ForLendersRoute,
   GrievanceRedressalRoute: GrievanceRedressalRoute,
+  HelpCenterRoute: HelpCenterRoute,
   HowItWorksRoute: HowItWorksRoute,
   KeyFactStatementRoute: KeyFactStatementRoute,
   McpRoute: McpRoute,
@@ -1179,7 +1304,6 @@ const rootRouteChildren: RootRouteChildren = {
   PrototypeRoute: PrototypeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
-  TrustCenterRoute: TrustCenterRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
@@ -1204,8 +1328,13 @@ const rootRouteChildren: RootRouteChildren = {
   LoansMortgageRoute: LoansMortgageRoute,
   LoansPersonalRoute: LoansPersonalRoute,
   LoansSachetRoute: LoansSachetRoute,
+  TrustCenterPrivacyAndDataRoute: TrustCenterPrivacyAndDataRoute,
+  TrustCenterRbiComplianceRoute: TrustCenterRbiComplianceRoute,
+  TrustCenterSecurityRoute: TrustCenterSecurityRoute,
+  TrustCenterSnvTrustScoreRoute: TrustCenterSnvTrustScoreRoute,
   ErrorsIndexRoute: ErrorsIndexRoute,
   LoansIndexRoute: LoansIndexRoute,
+  TrustCenterIndexRoute: TrustCenterIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   AppBorrowerApplicationRoute: AppBorrowerApplicationRoute,
   AppBorrowerApplicationsRoute: AppBorrowerApplicationsRoute,
