@@ -444,7 +444,7 @@ function MotionSystemRoute() {
         reversibility="Yes — you can restart from where you left off."
         confirmLabel="Withdraw application"
         cancelLabel="Keep it active"
-        onConfirm={() => toast("Application withdrawn", { description: "Your draft is saved for 30 days." })}
+        onConfirm={() => setOutcome("withdrawn")}
       />
 
       <ConsequenceModal
@@ -460,7 +460,7 @@ function MotionSystemRoute() {
         nextStep="Disbursal usually completes within two working days."
         confirmLabel="Accept offer"
         cancelLabel="Review offers again"
-        onConfirm={() => toast.success("Offer accepted", { description: "IDFC First has been notified." })}
+        onConfirm={() => setOutcome("accepted")}
       />
 
       <ConsequenceModal
