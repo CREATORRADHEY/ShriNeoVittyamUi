@@ -248,7 +248,7 @@ function MotionSystemRoute() {
                 className={cn(invalid && "border-destructive")}
               />
               {invalid ? (
-                <p id="motion-email-error" className="reveal is-shown mt-1.5 text-sm text-destructive">
+                <p id="motion-email-error" className="route-enter mt-1.5 text-sm text-destructive">
                   Enter an email address that includes an @ symbol.
                 </p>
               ) : null}
@@ -334,12 +334,12 @@ function MotionSystemRoute() {
             </div>
           ) : null}
           {upload === "verifying" ? (
-            <p aria-live="polite" className="reveal is-shown mt-4 text-sm text-muted-foreground">
+            <p aria-live="polite" className="route-enter mt-4 text-sm text-muted-foreground">
               Checking the document. This usually takes a few seconds.
             </p>
           ) : null}
           {upload === "done" ? (
-            <div className="reveal is-shown mt-4 rounded-lg border border-success/40 bg-success-surface p-3 text-sm">
+            <div className="route-enter mt-4 rounded-lg border border-success/40 bg-success-surface p-3 text-sm">
               <p className="font-medium text-foreground">Verified</p>
               <p className="text-muted-foreground">Statements for Apr–Jun 2026 were read successfully.</p>
               <Button variant="ghost" className="mt-2 h-8 px-2" onClick={() => setUpload("idle")}>
