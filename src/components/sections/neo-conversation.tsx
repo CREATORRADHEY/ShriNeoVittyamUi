@@ -130,7 +130,7 @@ export function NeoConversationSection() {
   return (
     <section
       aria-labelledby="neo-conversation-title"
-      className="border-b border-border bg-ivory"
+      className="bg-ivory"
     >
       <div ref={sectionRef} className="container-page py-16 md:py-24">
         <h2 id="neo-conversation-title" className="sr-only">
