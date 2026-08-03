@@ -33,7 +33,7 @@ export function SiteFooter() {
   ];
 
   return (
-    <footer className="w-full bg-[#000890] text-[#B9C6E8]">
+    <footer className="navy-band w-full text-[#B9C6E8]">
       <div className="mx-auto w-full max-w-[1320px] px-5 pt-[70px] sm:px-8 lg:px-12 lg:pt-[88px]">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
           <div className="max-w-xs">
