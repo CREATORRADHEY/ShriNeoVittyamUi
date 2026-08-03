@@ -85,6 +85,8 @@ function Section({
 function MotionSystemRoute() {
   const [modal, setModal] = useState<null | "confirm" | "sensitive" | "security">(null);
   const [drawer, setDrawer] = useState(false);
+  const [outcome, setOutcome] = useState<null | "withdrawn" | "accepted">(null);
+
   const [selected, setSelected] = useState("axis");
   const [email, setEmail] = useState("");
   const [invalid, setInvalid] = useState(false);
