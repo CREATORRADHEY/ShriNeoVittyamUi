@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Check, HelpCircle, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -284,6 +284,7 @@ export function ConsequenceModal({
   // Sensitive and security dialogs require an explicit decision: no backdrop
   // dismissal and no Escape. Both always expose a labelled cancel path.
   const locked = kind === "sensitive" || kind === "security";
+  useReturnFocus(open);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -384,6 +385,7 @@ export function ResponsivePanel({
   children: ReactNode;
 }) {
   const isMobile = useIsMobile();
+  useReturnFocus(open);
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
