@@ -12,6 +12,7 @@ import appCss from "../styles.css?url";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { RouteTransition } from "@/components/motion/route-transition";
+import { CookieConsent } from "@/components/motion/cookie-consent";
 import { FullPageState, referenceStamp } from "@/components/states/full-page";
 import { NotFoundPage } from "@/components/states/negative-pages";
 import { PrototypeToolbar } from "@/components/prototype/toolbar";
@@ -117,6 +118,7 @@ function RootComponent() {
               <Outlet />
             </RouteTransition>
             <Toaster />
+            <CookieConsent />
             <PrototypeToolbar />
           </PrototypeProvider>
         </I18nProvider>
