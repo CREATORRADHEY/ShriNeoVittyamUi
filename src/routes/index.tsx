@@ -13,7 +13,10 @@ import { formatINR } from "@/lib/format";
 import { PublicShell } from "@/components/layout/public-shell";
 import { StatusPill } from "@/components/design-system/section";
 import { Reveal } from "@/components/sections/reveal";
-import { FaqGroups } from "@/components/sections/blocks";
+import { HomeFaq } from "@/components/sections/home-faq";
+import { HowItWorksSection } from "@/components/sections/how-it-works";
+import { homeContent } from "@/content/home-content";
+import { useI18n } from "@/i18n";
 import {
   ApplicationTrackingPanel,
   OfferComparisonPanel,
@@ -53,6 +56,8 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 /* ------------------------------------------------------------------- the page */
 
 function HomePage() {
+  const { language } = useI18n();
+  const faqCopy = homeContent(language);
   const featured = products[0]!;
   const supporting = products.slice(1);
 
@@ -159,6 +164,8 @@ function HomePage() {
       </section>
 
       {/* ───────────────────── 4. BEYOND CIBIL — SNV Trust Score, dark band */}
+      <HowItWorksSection />
+
       <SnvTrustScoreSection />
 
       {/* ─────────────────────────────────────── 5. COMPARISON — editorial */}
