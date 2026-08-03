@@ -8,7 +8,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import { HomeHero, ProductStrip } from "@/components/sections/home-hero";
+import { HomeHero } from "@/components/sections/home-hero";
 import { products } from "@/config/products";
 import { formatINR } from "@/lib/format";
 import { PublicShell } from "@/components/layout/public-shell";
@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { StatusPill } from "@/components/design-system/section";
 import { Reveal } from "@/components/sections/reveal";
 import { FaqGroups } from "@/components/sections/blocks";
-import { ConsentFigure, CostBreakdownFigure } from "@/components/illustrations/core";
+import { ConsentFigure } from "@/components/illustrations/core";
 import {
   ApplicationTrackingPanel,
   OfferComparisonPanel,
