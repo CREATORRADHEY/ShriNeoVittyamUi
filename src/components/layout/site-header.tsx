@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ChevronDown, Menu, X } from "lucide-react";
 import logo from "@/assets/shrineo-logo.png.asset.json";
 import { products } from "@/config/products";
 import { useI18n } from "@/i18n";
-import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "./language-switcher";
 import {
   DropdownMenu,
@@ -24,32 +23,52 @@ const productKeys: Record<string, string> = {
 export function SiteHeader() {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
+  const [condensed, setCondensed] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setCondensed(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const mainLinks = [
-    { to: "/how-it-works", label: "How it works" },
-    { to: "/compare-offers", label: "Compare offers" },
     { to: "/for-agents", label: t("nav.forAgents") },
+    { to: "/about", label: t("nav.about") },
     { to: "/trust-center", label: t("nav.trust") },
-    { to: "/contact", label: t("nav.contact") },
   ] as const;
 
+  const navLink =
+    "inline-flex min-h-11 items-center rounded-md px-3 text-sm font-medium text-white/90 transition-colors duration-150 hover:bg-white/10 hover:text-white";
+
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background">
+    <header
+      data-condensed={condensed}
+      className="font-display sticky top-0 z-50 bg-[#001a5c] transition-shadow duration-200 data-[condensed=true]:border-b data-[condensed=true]:border-white/12 data-[condensed=true]:bg-[#00134a] data-[condensed=true]:shadow-[0_1px_12px_rgba(0,8,60,0.35)]"
+    >
       <nav aria-label="Primary" className="container-page">
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-3 lg:grid-cols-[auto_1fr_auto]">
+        <div
+          className={`grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 transition-[padding] duration-200 lg:grid-cols-[auto_1fr_auto] ${
+            condensed ? "py-2" : "py-3.5"
+          }`}
+        >
           <Link to="/" className="flex min-w-0 items-center gap-2.5">
             <img
               src={logo.url}
               alt=""
               width={36}
               height={36}
-              className="size-9 shrink-0 object-contain"
+              className={`shrink-0 object-contain transition-[width,height] duration-200 ${
+                condensed ? "size-7" : "size-9"
+              }`}
             />
             <span className="flex min-w-0 flex-col leading-tight">
-              <span className="truncate text-base font-semibold tracking-tight">
+              <span className="truncate text-base font-semibold tracking-tight text-white">
                 ShriNeo Capital
               </span>
-              <span className="truncate text-[11px] text-muted-foreground">Financial Services</span>
+              {condensed ? null : (
+                <span className="truncate text-[11px] text-[#b9c6e8]">Financial Services</span>
+              )}
             </span>
             <span className="sr-only">— home</span>
           </Link>
@@ -57,7 +76,7 @@ export function SiteHeader() {
           <ul className="hidden items-center justify-center gap-1 lg:flex">
             <li>
               <DropdownMenu>
-                <DropdownMenuTrigger className="inline-flex min-h-11 items-center gap-1 rounded-md px-3 text-sm font-medium text-foreground hover:bg-muted">
+                <DropdownMenuTrigger className={`${navLink} gap-1`}>
                   {t("nav.loans")}
                   <ChevronDown aria-hidden className="size-4" />
                 </DropdownMenuTrigger>
@@ -86,8 +105,8 @@ export function SiteHeader() {
               <li key={link.to}>
                 <Link
                   to={link.to}
-                  activeProps={{ className: "bg-muted text-foreground" }}
-                  className="inline-flex min-h-11 items-center rounded-md px-3 text-sm font-medium text-foreground hover:bg-muted"
+                  activeProps={{ className: "bg-white/10 text-white" }}
+                  className={navLink}
                 >
                   {link.label}
                 </Link>
@@ -96,22 +115,28 @@ export function SiteHeader() {
           </ul>
 
           <div className="flex items-center justify-end gap-2">
-            <div className="hidden md:block">
+            <span className="hidden rounded-full border border-white/20 px-3 py-1 text-[11px] font-medium text-[#b9c6e8] xl:inline-flex">
+              Lending Service Provider
+            </span>
+            <div className="[&>div]:border-white/20 [&>div]:bg-transparent [&_svg]:text-[#c8d5f0] [&_button]:text-white/80 [&_button[aria-pressed=true]]:bg-white [&_button[aria-pressed=true]]:text-[#001a5c]">
               <LanguageSwitcher />
             </div>
-            <Button asChild variant="ghost" size="sm" className="hidden md:inline-flex">
-              <Link to="/auth/signin">{t("nav.login")}</Link>
-            </Button>
-            <Button asChild size="sm" className="hidden sm:inline-flex">
-              <Link to="/auth/signup">{t("nav.apply")}</Link>
-            </Button>
+            <Link to="/auth/signin" className={`${navLink} hidden md:inline-flex`}>
+              {t("nav.login")}
+            </Link>
+            <Link
+              to="/auth/signup"
+              className="cta-saffron hidden min-h-11 items-center justify-center rounded-[10px] px-4 text-sm font-semibold transition-colors duration-150 sm:inline-flex"
+            >
+              {t("nav.apply")}
+            </Link>
             <button
               type="button"
               aria-expanded={open}
               aria-controls="mobile-menu"
               aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
               onClick={() => setOpen((v) => !v)}
-              className="inline-grid size-11 place-items-center rounded-md border border-border lg:hidden"
+              className="inline-grid size-11 place-items-center rounded-md border border-white/25 text-white lg:hidden"
             >
               {open ? (
                 <X aria-hidden className="size-5" />
@@ -123,8 +148,8 @@ export function SiteHeader() {
         </div>
 
         {open ? (
-          <div id="mobile-menu" className="border-t border-border py-4 lg:hidden">
-            <p className="px-1 pb-2 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+          <div id="mobile-menu" className="border-t border-white/15 py-4 lg:hidden">
+            <p className="px-1 pb-2 text-xs font-semibold tracking-wide text-[#b9c6e8] uppercase">
               {t("nav.loans")}
             </p>
             <ul className="mb-3 grid gap-1">
@@ -133,45 +158,44 @@ export function SiteHeader() {
                   <Link
                     to={product.path}
                     onClick={() => setOpen(false)}
-                    className="flex min-h-11 items-center justify-between rounded-md px-3 text-base hover:bg-muted"
+                    className="flex min-h-11 items-center justify-between rounded-md px-3 text-base text-white hover:bg-white/10"
                   >
                     {t(productKeys[product.slug]!, product.name)}
                     {product.phase2 ? (
-                      <span className="text-xs text-muted-foreground">
-                        {t("common.comingSoon")}
-                      </span>
+                      <span className="text-xs text-[#b9c6e8]">{t("common.comingSoon")}</span>
                     ) : null}
                   </Link>
                 </li>
               ))}
             </ul>
-            <ul className="grid gap-1 border-t border-border pt-3">
+            <ul className="grid gap-1 border-t border-white/15 pt-3">
               {mainLinks.map((link) => (
                 <li key={link.to}>
                   <Link
                     to={link.to}
                     onClick={() => setOpen(false)}
-                    className="flex min-h-11 items-center rounded-md px-3 text-base hover:bg-muted"
+                    className="flex min-h-11 items-center rounded-md px-3 text-base text-white hover:bg-white/10"
                   >
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-            <div className="mt-4 flex flex-col gap-3">
-              <LanguageSwitcher />
-              <div className="grid grid-cols-2 gap-2">
-                <Button asChild variant="outline" className="min-h-11">
-                  <Link to="/auth/signin" onClick={() => setOpen(false)}>
-                    {t("nav.login")}
-                  </Link>
-                </Button>
-                <Button asChild className="min-h-11">
-                  <Link to="/auth/signup" onClick={() => setOpen(false)}>
-                    {t("nav.apply")}
-                  </Link>
-                </Button>
-              </div>
+            <div className="mt-4 grid gap-2">
+              <Link
+                to="/auth/signin"
+                onClick={() => setOpen(false)}
+                className="flex min-h-11 items-center justify-center rounded-[10px] border border-white/25 text-base font-medium text-white"
+              >
+                {t("nav.login")}
+              </Link>
+              <Link
+                to="/auth/signup"
+                onClick={() => setOpen(false)}
+                className="cta-saffron flex min-h-11 items-center justify-center rounded-[10px] text-base font-semibold"
+              >
+                {t("nav.apply")}
+              </Link>
             </div>
           </div>
         ) : null}

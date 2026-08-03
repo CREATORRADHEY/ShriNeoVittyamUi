@@ -459,3 +459,156 @@ textarea {
   }
 }
 
+
+/* ============================================================
+   Homepage hero — immersive navy field, integrated photograph
+   ============================================================ */
+
+.font-display {
+  font-family: "Poppins", "Noto Sans Devanagari", system-ui, sans-serif;
+}
+
+.hero-navy {
+  --hero-deep: #001a5c;
+  --hero-core: #000890;
+  --hero-mid: #002b98;
+  --hero-lift: #0051ae;
+  background-color: var(--hero-deep);
+  color: #ffffff;
+}
+
+.hero-on-navy {
+  color: #b9c6e8;
+}
+
+.hero-icon {
+  color: #c8d5f0;
+}
+
+/* Layer 2 — restrained tonal depth that settles once on load. */
+.hero-field {
+  background:
+    radial-gradient(
+      120% 100% at 78% 18%,
+      color-mix(in oklab, var(--hero-lift) 42%, transparent) 0%,
+      transparent 62%
+    ),
+    radial-gradient(
+      100% 90% at 12% 82%,
+      color-mix(in oklab, var(--hero-core) 78%, transparent) 0%,
+      transparent 70%
+    ),
+    linear-gradient(96deg, var(--hero-deep) 22%, var(--hero-mid) 100%);
+  opacity: 0.92;
+  will-change: transform, opacity;
+  animation: hero-settle 6s cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+@keyframes hero-settle {
+  from {
+    transform: translate3d(-2.5%, 0, 0) scale(1.04);
+    opacity: 0.72;
+  }
+  to {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.92;
+  }
+}
+
+/* Layer 3 — the photograph dissolves into the navy field, never boxed. */
+.hero-photo {
+  filter: saturate(0.96) contrast(1.03);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.25) 16%,
+    rgba(0, 0, 0, 0.78) 34%,
+    #000 52%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.25) 16%,
+    rgba(0, 0, 0, 0.78) 34%,
+    #000 52%
+  );
+}
+
+.hero-photo-mobile {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 22%, #000 46%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 22%, #000 46%);
+}
+
+/* Layer 4 — left-weighted grade guaranteeing text contrast. */
+.hero-grade {
+  background:
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, #001a5c 92%, transparent) 0%,
+      color-mix(in oklab, #001a5c 78%, transparent) 38%,
+      color-mix(in oklab, #001a5c 28%, transparent) 62%,
+      transparent 86%
+    ),
+    radial-gradient(120% 120% at 50% 50%, transparent 52%, rgba(0, 8, 60, 0.42) 100%);
+}
+
+.hero-grade-mobile {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, #001a5c 94%, transparent) 0%,
+    color-mix(in oklab, #001a5c 55%, transparent) 34%,
+    transparent 62%
+  );
+}
+
+/* Entrance — short, opacity + small rise, complete inside 700ms. */
+.hero-in {
+  animation: hero-in 380ms var(--ease-enter) both;
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 11px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-photo-in {
+  animation: hero-photo-in 620ms var(--ease-enter) both;
+}
+
+@keyframes hero-photo-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.cta-saffron {
+  background-color: #e0912f;
+  color: #ffffff;
+}
+
+.cta-saffron:hover,
+.cta-saffron:active {
+  background-color: #c9761a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-field,
+  .hero-in,
+  .hero-photo-in {
+    animation: none !important;
+    opacity: 1;
+    transform: none !important;
+  }
+  .hero-field {
+    opacity: 0.92;
+  }
+}
