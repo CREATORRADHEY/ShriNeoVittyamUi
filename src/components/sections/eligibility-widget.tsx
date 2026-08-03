@@ -48,7 +48,9 @@ export function EligibilityWidget() {
 
   const [amount, setAmount] = useState("2,00,000");
   const [mobile, setMobile] = useState("");
-  const [errors, setErrors] = useState<{ amount?: string; mobile?: string }>({});
+  const [errors, setErrors] = useState<{ amount?: string | undefined; mobile?: string | undefined }>(
+    {},
+  );
   const [invalidNudge, setInvalidNudge] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -82,7 +84,7 @@ export function EligibilityWidget() {
     event.preventDefault();
     const amountValue = Number(amount.replace(/\D/g, ""));
     const mobileDigits = mobile.replace(/\D/g, "");
-    const next: { amount?: string; mobile?: string } = {};
+    const next: { amount?: string | undefined; mobile?: string | undefined } = {};
 
     if (!amountValue || amountValue < MIN_AMOUNT || amountValue > MAX_AMOUNT) {
       next.amount = t("elig.error.amount");
