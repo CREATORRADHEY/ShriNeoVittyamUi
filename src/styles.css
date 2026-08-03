@@ -53,9 +53,13 @@
   --color-surface: var(--surface);
   --color-surface-strong: var(--surface-strong);
   --color-surface-warm: var(--surface-warm);
+  --color-surface-blue: var(--surface-blue);
+  --color-card-warm: var(--card-warm);
+  --color-border-warm: var(--border-warm);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-ink-foreground: var(--ink-foreground);
+
 
   --color-info: var(--info);
   --color-info-surface: var(--info-surface);
