@@ -123,9 +123,9 @@ function BreakdownBody({
   footnote,
   children,
 }: {
-  rows?: BreakdownRow[];
-  footnote?: string;
-  children?: ReactNode;
+  rows?: BreakdownRow[] | undefined;
+  footnote?: string | undefined;
+  children?: ReactNode | undefined;
 }) {
   return (
     <>
