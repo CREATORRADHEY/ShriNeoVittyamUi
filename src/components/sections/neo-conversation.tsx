@@ -130,7 +130,7 @@ export function NeoConversationSection() {
   return (
     <section
       aria-labelledby="neo-conversation-title"
-      className="bg-ivory"
+      className="w-full border-t border-[#E7DFCE] bg-[#F7F3EA]"
     >
       <div ref={sectionRef} className="container-page py-16 md:py-24">
         <h2 id="neo-conversation-title" className="sr-only">
@@ -138,20 +138,20 @@ export function NeoConversationSection() {
         </h2>
 
         <div className="mx-auto w-full max-w-[720px]">
-          <div className="overflow-hidden rounded-2xl border border-ivory-border bg-card">
+          <div className="overflow-hidden rounded-2xl border border-[#E7DFCE] bg-white">
             {/* header */}
-            <div className="flex items-center gap-3 border-b border-ivory-border bg-ivory px-4 py-3 sm:px-5">
-              <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-100 text-primary">
+            <div className="flex items-center gap-[11px] border-b border-[#ECE7DD] bg-[#FBF9F4] px-4 py-4 sm:px-[22px]">
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#E6F1FB] text-[#0051AE]">
                 <MicIcon className="size-4" />
               </span>
               <span className="min-w-0">
-                <span className="block text-sm font-semibold text-primary">Neo</span>
-                <span className="block text-xs text-muted-foreground">{t("neo.role")}</span>
+                <span className="block text-[15px] font-semibold tracking-[-0.01em] text-[#002B98]">Neo</span>
+                <span className="block text-[11.5px] font-medium text-[#5B657D]">{t("neo.role")}</span>
               </span>
             </div>
 
             {/* transcript — always in the DOM, only opacity/transform animate */}
-            <ol className="space-y-4 p-4 sm:p-6">
+            <ol className="space-y-5 px-[22px] py-[26px] pb-7">
               {TURNS.map((turn, index) => (
                 <li
                   key={turn.id}
@@ -162,14 +162,16 @@ export function NeoConversationSection() {
                     visible(index) ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
                   )}
                 >
-                  <span className="label-micro text-muted-foreground">{turn.from === "neo" ? "Neo" : t("neo.you")}</span>
+                  <span className="font-mono text-[11px] font-semibold tracking-[0.12em] uppercase text-[#5B657D]">
+                    {turn.from === "neo" ? "Neo" : t("neo.you")}
+                  </span>
                   <p
                     lang="hi"
                     className={cn(
-                      "mt-1.5 rounded-xl px-4 py-3 text-base leading-[1.75]",
+                      "mt-1.5 rounded-xl border px-[17px] py-[13px] text-[15px] leading-[1.6]",
                       turn.from === "you"
-                        ? "max-w-[86%] bg-brand-100 text-primary sm:max-w-[80%]"
-                        : "max-w-[92%] border border-ivory-border bg-ivory text-foreground/85 sm:max-w-[88%]",
+                        ? "max-w-[85%] border-[#D6E5F7] bg-[#E6F1FB] text-[#002B98]"
+                        : "max-w-[85%] border-[#ECE7DD] bg-white text-[#5B657D]",
                     )}
                   >
                     {turn.text}
@@ -181,8 +183,10 @@ export function NeoConversationSection() {
 
           {/* replay control */}
           <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
-            <span className="label-micro text-muted-foreground">{t("neo.caption")}</span>
-            <span aria-hidden className="size-1 rounded-full bg-border-strong" />
+            <span className="font-mono text-[11.5px] font-medium tracking-[0.1em] uppercase text-[#5B657D]">
+              {t("neo.caption")}
+            </span>
+            <span aria-hidden className="size-[3px] rounded-full bg-[#B4BDCC]" />
             <button
               type="button"
               onClick={replay}

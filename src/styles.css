@@ -523,14 +523,25 @@ textarea {
   font-family: "Poppins", "Noto Sans Devanagari", system-ui, sans-serif;
 }
 
+/* Canonical brand navy gradient — exact values from the approved landing
+   reference. Every dark band on the site uses one of these two directions. */
+@utility navy-band {
+  background: linear-gradient(100deg, #001a5c 0%, #00246f 44%, #002b98 100%);
+}
+
+@utility navy-band-reverse {
+  background: linear-gradient(260deg, #001a5c 0%, #00246f 44%, #002b98 100%);
+}
+
 .hero-navy {
   --hero-deep: #001a5c;
-  --hero-core: #000890;
+  --hero-core: #00246f;
   --hero-mid: #002b98;
   --hero-lift: #0051ae;
-  background-color: var(--hero-deep);
+  background: linear-gradient(100deg, #001a5c 0%, #00246f 44%, #002b98 100%);
   color: #ffffff;
 }
+
 
 .hero-on-navy {
   color: #b9c6e8;
@@ -731,4 +742,26 @@ textarea {
 @keyframes usp-marquee {
   from { transform: translate3d(0, 0, 0); }
   to { transform: translate3d(-50%, 0, 0); }
+}
+
+/* "For Agents" band — the photograph dissolves rightwards into the navy field. */
+.agent-photo-field {
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 38%,
+    rgba(0, 0, 0, 0.72) 57%,
+    rgba(0, 0, 0, 0.28) 75%,
+    rgba(0, 0, 0, 0.05) 90%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 38%,
+    rgba(0, 0, 0, 0.72) 57%,
+    rgba(0, 0, 0, 0.28) 75%,
+    rgba(0, 0, 0, 0.05) 90%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
