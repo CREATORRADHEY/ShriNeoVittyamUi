@@ -5,6 +5,16 @@ import getCompanyInfoTool from "./tools/get-company-info";
 import getLoanProductTool from "./tools/get-loan-product";
 import listLoanProductsTool from "./tools/list-loan-products";
 
+// `defineTool` leaves `outputSchema` as `undefined`, which trips
+// exactOptionalPropertyTypes when the array is matched against AnyToolDefinition.
+const tools = [
+  listLoanProductsTool,
+  getLoanProductTool,
+  calculateEmiTool,
+  getCompanyInfoTool,
+] as unknown as Parameters<typeof defineMcp>[0]["tools"];
+
+
 export default defineMcp({
   name: "trustworthy-finance-hub",
   title: "Trustworthy Finance Hub",
