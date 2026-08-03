@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, CircleCheck } from "lucide-react";
-import photoAgent from "@/assets/photo-agent.jpg";
+import photoAgent from "@/assets/photo-agent-suit.jpg";
 import { Reveal } from "@/components/sections/reveal";
 
 const BENEFITS = [
