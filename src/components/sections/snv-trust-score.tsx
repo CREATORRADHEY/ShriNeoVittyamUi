@@ -1,16 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
+import { useI18n } from "@/i18n";
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 /* --------------------------------------------------------------- ring maths */
 
 const SCORE = 68; // illustrative demonstration value only
-const SIZE = 280;
+const SIZE = 320;
 const C = SIZE / 2;
-const R = 104;
-const STROKE = 14;
-const CIRC = 2 * Math.PI * R;
+const R = 118;
+const STROKE = 13;
+const GAP = 1.1; // hairline separation between bands, as in the reference
 const DURATION = 950;
 
 const BANDS = [
@@ -21,7 +22,7 @@ const BANDS = [
 
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 const point = (value: number, radius: number) => {
-  const angle = ((value / 100) * 360 - 90) * (Math.PI / 180);
+  const angle = (value / 100) * Math.PI * 2 - Math.PI / 2;
   return { x: C + radius * Math.cos(angle), y: C + radius * Math.sin(angle) };
 };
 
@@ -39,9 +40,9 @@ const iconProps = {
   className: "size-[18px] shrink-0",
 };
 
-const SIGNALS = [
+const SIGNALS: { key: string; icon: ReactNode }[] = [
   {
-    label: "UPI & bank activity",
+    key: "snv.signal.upi",
     icon: (
       <svg {...iconProps}>
         <path d="M4 8.5h13M14.5 6l2.5 2.5-2.5 2.5M20 15.5H7M9.5 13 7 15.5 9.5 18" />
@@ -49,7 +50,7 @@ const SIGNALS = [
     ),
   },
   {
-    label: "Utility & mobile bills",
+    key: "snv.signal.bills",
     icon: (
       <svg {...iconProps}>
         <path d="M6 3.5h12v17l-2-1.4-2 1.4-2-1.4-2 1.4-2-1.4-2 1.4z" />
@@ -58,7 +59,7 @@ const SIGNALS = [
     ),
   },
   {
-    label: "Business cash flow",
+    key: "snv.signal.cashflow",
     icon: (
       <svg {...iconProps}>
         <path d="M3.5 20h17M6.5 20v-5M11 20v-9M15.5 20v-6M20 20V7" />
@@ -66,7 +67,7 @@ const SIGNALS = [
     ),
   },
   {
-    label: "Repayment history",
+    key: "snv.signal.repayment",
     icon: (
       <svg {...iconProps}>
         <path d="M4 12a8 8 0 1 1 2.6 5.9" />
@@ -88,111 +89,128 @@ function LockIcon() {
 
 /* ------------------------------------------------------------------- ring */
 
-function TrustScoreRing({ progress }: { progress: number }) {
+function TrustScoreRing({ progress, label }: { progress: number; label: string }) {
+  const indicator = point(SCORE, R);
+  const shownMax = progress;
+
   return (
     <svg
       viewBox={`0 0 ${SIZE} ${SIZE}`}
       role="img"
-      aria-label={`SNV Trust Score illustration. Illustrative SNV Trust Score of ${SCORE} on a 0 to 100 scale.`}
-      className="w-[250px] max-w-full sm:w-[280px] lg:w-[320px]"
+      aria-label={label}
+      className="w-[250px] max-w-full overflow-visible sm:w-[290px] lg:w-[330px]"
     >
-      {/* closed track — the ring is never an open gauge */}
-      <circle
-        cx={C}
-        cy={C}
-        r={R}
-        fill="none"
-        stroke="var(--color-ink-foreground)"
-        strokeOpacity={0.12}
-        strokeWidth={STROKE}
-      />
+      {/* closed track — never an open gauge */}
+      <circle cx={C} cy={C} r={R} fill="none" stroke="rgba(255,255,255,0.09)" strokeWidth={STROKE} />
 
       {BANDS.map((band) => {
-        const span = band.to - band.from;
-        const shown = Math.min(Math.max(progress - band.from, 0), span);
-        if (shown <= 0) return null;
+        const a = band.from + GAP;
+        const b = band.to - GAP;
+        if (shownMax <= a + 0.001) return null;
+        const end = Math.min(b, shownMax);
+        const p1 = point(a, R);
+        const p2 = point(end, R);
+        const large = (end - a) / 100 > 0.5 ? 1 : 0;
         return (
-          <circle
+          <path
             key={band.from}
-            cx={C}
-            cy={C}
-            r={R}
+            d={`M${p1.x} ${p1.y} A${R} ${R} 0 ${large} 1 ${p2.x} ${p2.y}`}
             fill="none"
             stroke={band.color}
             strokeWidth={STROKE}
             strokeLinecap="butt"
-            strokeDasharray={`${(shown / 100) * CIRC} ${CIRC}`}
-            transform={`rotate(${(band.from / 100) * 360 - 90} ${C} ${C})`}
           />
         );
       })}
 
+      {/* hairline edges */}
+      <circle cx={C} cy={C} r={R - STROKE / 2} fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth={1} />
+      <circle cx={C} cy={C} r={R + STROKE / 2} fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth={1} />
+
       {/* boundary markers */}
       {[0, 40, 70].map((value) => {
-        const { x, y } = point(value, R + 26);
+        const inner = point(value, R - STROKE / 2 - 5);
+        const outer = point(value, R + STROKE / 2 + 6);
+        const label = point(value, R + STROKE / 2 + 20);
         return (
-          <text
-            key={value}
-            x={x}
-            y={y}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fill="var(--color-brand-300)"
-            fontFamily="var(--font-mono)"
-            fontSize={12}
-          >
-            {value}
-          </text>
+          <g key={value}>
+            <line
+              x1={inner.x}
+              y1={inner.y}
+              x2={outer.x}
+              y2={outer.y}
+              stroke="rgba(255,255,255,0.34)"
+              strokeWidth={1.2}
+            />
+            <text
+              x={label.x}
+              y={label.y + 4}
+              textAnchor="middle"
+              fill="rgba(185,198,232,0.78)"
+              fontFamily="var(--font-mono)"
+              fontSize={11}
+              fontWeight={500}
+            >
+              {value}
+            </text>
+          </g>
         );
       })}
 
-      {/* indicator — appears only once progress reaches the score */}
-      {progress >= SCORE - 0.5 ? (
-        <g>
-          <circle cx={point(SCORE, R).x} cy={point(SCORE, R).y} r={11} fill="var(--color-ivory)" fillOpacity={0.18} />
-          <circle cx={point(SCORE, R).x} cy={point(SCORE, R).y} r={5} fill="var(--color-ivory)" />
-        </g>
-      ) : null}
+      {/* indicator — appears only once the sweep reaches the score */}
+      <g opacity={shownMax >= SCORE ? 1 : 0}>
+        <circle
+          cx={indicator.x}
+          cy={indicator.y}
+          r={8.5}
+          fill="none"
+          stroke="rgba(251,249,244,0.32)"
+          strokeWidth={6}
+        />
+        <circle cx={indicator.x} cy={indicator.y} r={6} fill="#FBF9F4" />
+      </g>
 
-      {/* centre content */}
-      <text
-        x={C}
-        y={C - 26}
-        textAnchor="middle"
-        fill="var(--color-brand-300)"
-        fontSize={13}
-        fontWeight={600}
-      >
+      {/* centre content — stable and readable throughout */}
+      <text x={C} y={C - 30} textAnchor="middle" fill="#B9C6E8" fontSize={14} fontWeight={600}>
         SNV Trust Score
       </text>
       <text
         x={C}
-        y={C + 14}
+        y={C + 22}
         textAnchor="middle"
-        fill="var(--color-ink-foreground)"
+        fill="#FFFFFF"
         fontFamily="var(--font-mono)"
-        fontSize={52}
+        fontSize={60}
         fontWeight={600}
       >
         {SCORE}
       </text>
-      <text
-        x={C}
-        y={C + 42}
-        textAnchor="middle"
-        fill="var(--color-brand-300)"
-        fontFamily="var(--font-mono)"
-        fontSize={12}
-      >
-        0–100 scale
-      </text>
+      <ScaleLabel />
     </svg>
+  );
+}
+
+function ScaleLabel() {
+  const { t } = useI18n();
+  return (
+    <text
+      x={C}
+      y={C + 46}
+      textAnchor="middle"
+      fill="rgba(185,198,232,0.8)"
+      fontFamily="var(--font-mono)"
+      fontSize={11.5}
+      fontWeight={500}
+    >
+      {t("snv.scale")}
+    </text>
   );
 }
 
 /* ---------------------------------------------------------------- section */
 
 export function SnvTrustScoreSection() {
+  const { t } = useI18n();
   const reduced = usePrefersReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const frame = useRef<number | null>(null);
@@ -264,57 +282,56 @@ export function SnvTrustScoreSection() {
   return (
     <section
       aria-labelledby="snv-trust-score-title"
-      className="border-b border-ink-foreground/10 bg-[linear-gradient(105deg,var(--color-navy-deep),var(--color-navy-mid)_58%,var(--color-navy-bright))] text-ink-foreground"
+      className="border-b border-ink-foreground/10 bg-[linear-gradient(100deg,var(--color-navy-deep),var(--color-navy-mid)_48%,var(--color-navy-bright))] text-ink-foreground"
     >
       <div
         ref={ref}
         className="mx-auto grid w-full max-w-[1320px] items-center gap-12 px-5 py-16 md:px-8 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16"
       >
         <div className={reveal}>
-          <p className="label-micro text-brand-300">Beyond CIBIL</p>
+          <p className="label-micro text-brand-300">{t("snv.eyebrow")}</p>
           <h2
             id="snv-trust-score-title"
             className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] tracking-tight"
           >
-            Credit that looks past your
+            {t("snv.title.line1")}
             <br />
-            bureau history.
+            {t("snv.title.line2")}
           </h2>
-          <p className="mt-5 max-w-[46ch] text-base text-ink-foreground/75">
-            Over 400 million Indians and small businesses are financially reliable, yet invisible to
-            credit bureaus.
-          </p>
+          <p className="mt-5 max-w-[46ch] text-base text-ink-foreground/75">{t("snv.body")}</p>
 
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+          <ul className="mt-8 grid gap-2.5 sm:grid-cols-2">
             {SIGNALS.map((signal) => (
               <li
-                key={signal.label}
-                className="flex items-center gap-2.5 rounded-[10px] border border-brand-300/25 bg-ink-foreground/[0.04] px-3.5 py-3 text-sm text-ink-foreground/90"
+                key={signal.key}
+                className="flex items-center gap-2.5 rounded-[10px] border border-ink-foreground/15 bg-ink-foreground/[0.05] px-3.5 py-3 text-sm font-medium text-ink-foreground"
               >
-                <span className="text-brand-300">{signal.icon}</span>
-                <span className="min-w-0">{signal.label}</span>
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-[7px] bg-ink-foreground/10 text-brand-300">
+                  {signal.icon}
+                </span>
+                <span className="min-w-0">{t(signal.key)}</span>
               </li>
             ))}
           </ul>
 
-          <p className="mt-6 hidden items-center gap-2 text-sm text-ink-foreground/70 lg:flex">
-            <span className="text-brand-300">
+          <p className="mt-7 hidden items-center gap-2.5 text-sm text-ink-foreground/72 lg:flex">
+            <span className="text-ink-foreground/60">
               <LockIcon />
             </span>
-            Encrypted, consent-based, never sold.
+            {t("snv.reassurance")}
           </p>
         </div>
 
-        <div className={cn("flex flex-col items-center", reveal)}>
-          <TrustScoreRing progress={reduced ? SCORE : progress} />
-          <p className="label-micro mt-5 text-brand-300">Illustrative example</p>
+        <div className={cn("flex flex-col items-center gap-4 p-2", reveal)}>
+          <TrustScoreRing progress={reduced ? SCORE : progress} label={t("snv.ring.aria")} />
+          <span className="label-micro text-brand-300/85">{t("snv.illustrative")}</span>
         </div>
 
-        <p className="flex items-center justify-center gap-2 text-sm text-ink-foreground/70 lg:hidden">
-          <span className="text-brand-300">
+        <p className="flex items-center justify-center gap-2.5 text-sm text-ink-foreground/72 lg:hidden">
+          <span className="text-ink-foreground/60">
             <LockIcon />
           </span>
-          Encrypted, consent-based, never sold.
+          {t("snv.reassurance")}
         </p>
       </div>
     </section>
