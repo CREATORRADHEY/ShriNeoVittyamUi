@@ -59,17 +59,17 @@ function HomePage() {
       {/* ─────────────────────── 1. HERO — full-bleed navy, one static story */}
       <HomeHero />
 
-
-
-
-      {/* ─────────────────────────────────── 2. USP STRIP — platform promise */}
+      {/* ─────────────────────────────── 1b. USP STRIP — platform promise */}
       <UspStrip />
 
-      {/* ───────────────────────── 2b. ELIGIBILITY — prototype entry point */}
+      {/* ──────────────────── 2. CHECK WHAT YOU QUALIFY FOR — eligibility */}
       <EligibilityWidget />
 
       {/* ─────────────────────────────── 3. PRODUCTS — directed composition */}
-      <section aria-labelledby="products-title" className="border-b border-border bg-surface">
+      <section
+        aria-labelledby="products-title"
+        className="bg-gradient-to-b from-brand-50 to-background"
+      >
         <div className="container-page py-16 md:py-24">
           <Reveal className="max-w-2xl">
             <SectionLabel>Loan products</SectionLabel>
@@ -85,12 +85,12 @@ function HomePage() {
             </p>
           </Reveal>
 
-          <div className="mt-12 grid gap-4 lg:grid-cols-[1.15fr_1fr]">
+          <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border lg:grid-cols-[1.15fr_1fr]">
             {/* featured */}
             <Reveal className="min-w-0">
               <Link
                 to={featured.path}
-                className="group flex h-full flex-col justify-between rounded-xl border border-border bg-card p-7 transition-colors duration-200 hover:border-primary md:p-9"
+                className="group flex h-full flex-col justify-between bg-card p-7 transition-colors duration-200 hover:bg-brand-50 md:p-9"
               >
                 <div>
                   <p className="label-micro text-muted-foreground">Most applied for</p>
@@ -126,12 +126,12 @@ function HomePage() {
             </Reveal>
 
             {/* supporting */}
-            <ul className="grid gap-4 sm:grid-cols-2">
+            <ul className="grid gap-px bg-border sm:grid-cols-2">
               {supporting.map((product, i) => (
                 <Reveal as="li" key={product.slug} delay={60 + i * 40} className="min-w-0">
                   <Link
                     to={product.path}
-                    className="flex h-full flex-col rounded-xl border border-border bg-card p-5 transition-colors duration-200 hover:border-primary"
+                    className="flex h-full flex-col bg-card p-5 transition-colors duration-200 hover:bg-brand-50"
                   >
                     <product.icon
                       aria-hidden
@@ -156,11 +156,11 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ──────────────────────────────────────────────── 4. NEO — assistant */}
-      <NeoConversationSection />
+      {/* ───────────────────── 4. BEYOND CIBIL — SNV Trust Score, dark band */}
+      <SnvTrustScoreSection />
 
-      {/* ──────────────────────────────────── 5. OFFER COMPARISON — editorial */}
-      <section aria-labelledby="compare-title" className="border-b border-border bg-surface">
+      {/* ─────────────────────────────────────── 5. COMPARISON — editorial */}
+      <section aria-labelledby="compare-title" className="bg-background">
         <div className="container-page grid gap-10 py-16 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16 md:py-24">
           <Reveal>
             <SectionLabel>Comparison</SectionLabel>
@@ -199,8 +199,13 @@ function HomePage() {
           </Reveal>
         </div>
       </section>
-      {/* ─────────────────────────────────────── 6. FOR AGENTS — recruitment */}
+
+      {/* ──────────────────────────────────────────────── 6. NEO — assistant */}
+      <NeoConversationSection />
+
+      {/* ─────────────────────────────────────── 7. FOR AGENTS — recruitment */}
       <AgentCtaSection />
+
 
 
 
