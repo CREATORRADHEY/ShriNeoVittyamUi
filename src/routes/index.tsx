@@ -198,72 +198,10 @@ function HomePage() {
 
 
       {/* ──────────────────────────────────────────────── 9. NEO — assistant */}
-      <section aria-labelledby="neo-title" className="border-b border-border bg-background">
-        <div className="container-page grid gap-10 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 md:py-24">
-          <Reveal className="min-w-0">
-            <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-panel)]">
-              <div className="flex items-center justify-between border-b border-border bg-surface px-4 py-2.5">
-                <p className="flex items-center gap-2 text-xs font-semibold">
-                  <Sparkles aria-hidden className="size-3.5 text-primary" />
-                  Neo
-                </p>
-                <p className="label-micro text-muted-foreground">Demonstration data</p>
-              </div>
-              <div className="space-y-4 p-5">
-                <div className="flex justify-end">
-                  <p className="max-w-[80%] rounded-xl rounded-tr-sm bg-accent px-4 py-3 text-sm">
-                    What does APR mean?
-                  </p>
-                </div>
-                <div className="flex justify-start">
-                  <p className="max-w-[88%] rounded-xl rounded-tl-sm border border-border bg-surface px-4 py-3 text-sm">
-                    APR includes the interest rate and applicable charges, helping you compare the
-                    total cost of different offers.
-                  </p>
-                </div>
-                <div className="flex flex-wrap gap-2 border-t border-border pt-4">
-                  {["Show my offers", "Explain processing fee", "What is a KFS?"].map((chip) => (
-                    <span
-                      key={chip}
-                      className="rounded-lg border border-border px-3 py-1.5 text-xs text-muted-foreground"
-                    >
-                      {chip}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </Reveal>
+      <NeoConversationSection />
 
-          <Reveal delay={80}>
-            <SectionLabel>Neo</SectionLabel>
-            <h2
-              id="neo-title"
-              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.6rem)] tracking-tight"
-            >
-              Understand before you decide.
-            </h2>
-            <p className="mt-4 max-w-[44ch] text-base text-muted-foreground">
-              Neo answers in plain English or Hindi, at the point where the question comes up.
-            </p>
-            <dl className="mt-8 divide-y divide-border border-y border-border">
-              {[
-                ["Explain loan terms", "Rate, APR, fees, tenure and prepayment, in your words."],
-                [
-                  "Guide form completion",
-                  "Why a field is needed and what a valid answer looks like.",
-                ],
-                ["Clarify application status", "What the current stage means and who acts next."],
-              ].map(([term, body]) => (
-                <div key={term} className="py-4">
-                  <dt className="text-sm font-semibold">{term}</dt>
-                  <dd className="mt-1 text-sm text-muted-foreground">{body}</dd>
-                </div>
-              ))}
-            </dl>
-          </Reveal>
-        </div>
-      </section>
+      {/* ────────────────────── 10. SNV TRUST SCORE — beyond-bureau signals */}
+      <SnvTrustScoreSection />
 
       {/* ────────────────────────────── 11. TRUST CENTRE — responsibility map */}
       <section aria-labelledby="trust-title" className="bg-ink text-ink-foreground">
