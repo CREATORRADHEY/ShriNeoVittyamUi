@@ -126,7 +126,7 @@ export function SiteHeader() {
             </Link>
             <Link
               to="/auth/signup"
-              className="cta-saffron hidden min-h-11 items-center justify-center rounded-[10px] px-4 text-sm font-semibold transition-colors duration-150 sm:inline-flex"
+              className="cta-saffron inline-flex min-h-11 items-center justify-center rounded-[10px] px-4 text-sm font-semibold transition-colors duration-150"
             >
               {t("nav.apply")}
             </Link>
