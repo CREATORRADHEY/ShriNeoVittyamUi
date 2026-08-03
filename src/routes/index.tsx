@@ -739,46 +739,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────── 12. FINAL CTA — typography */}
-      <section aria-labelledby="cta-title" className="bg-ink text-ink-foreground">
-        <div className="container-page py-20 md:py-28">
-          <div className="max-w-3xl">
-            <h2
-              id="cta-title"
-              className="editorial text-[clamp(2rem,4.6vw,3.25rem)] leading-[1.05] tracking-tight"
-            >
-              Understand your options before you decide.
-            </h2>
-            <p className="mt-6 max-w-[52ch] text-lg text-ink-foreground/75">
-              Review eligible offers, compare complete costs, and track your application in one
-              place.
-            </p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Button
-                asChild
-                size="lg"
-                variant="secondary"
-                className="min-h-12 rounded-lg px-6 text-base"
-              >
-                <Link to="/auth/signup">
-                  Start your application
-                  <ArrowRight aria-hidden className="size-4" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="min-h-12 rounded-lg border-ink-foreground/30 bg-transparent px-6 text-base text-ink-foreground hover:bg-ink-foreground/10 hover:text-ink-foreground"
-              >
-                <Link to="/for-borrowers">Talk to Neo</Link>
-              </Button>
-            </div>
-            <p className="mt-8 text-sm text-ink-foreground/60">{LENDER_NOTE}</p>
-            <p className="mt-2 text-sm text-ink-foreground/60">{org.roleStatement}</p>
-          </div>
-        </div>
-      </section>
     </PublicShell>
   );
 }
