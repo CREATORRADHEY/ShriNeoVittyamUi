@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import logo from "@/assets/shrineo-logo.png.asset.json";
 import { products } from "@/config/products";
 import { useI18n } from "@/i18n";
@@ -29,6 +29,7 @@ function HeaderInner() {
   const { closeNow } = useHeaderMenu();
   const [open, setOpen] = useState(false);
   const [condensed, setCondensed] = useState(false);
+  const [loansOpen, setLoansOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setCondensed(window.scrollY > 56);
@@ -55,8 +56,9 @@ function HeaderInner() {
   return (
     <header
       data-condensed={condensed}
-      className="font-display sticky top-0 z-50 bg-[#001a5c] transition-shadow duration-200 data-[condensed=true]:border-b data-[condensed=true]:border-white/12 data-[condensed=true]:bg-[#00134a] data-[condensed=true]:shadow-[0_1px_12px_rgba(0,8,60,0.35)]"
+      className="font-display sticky top-0 z-[1000] bg-[#001a5c] transition-shadow duration-200 data-[condensed=true]:border-b data-[condensed=true]:border-white/12 data-[condensed=true]:bg-[#00134a] data-[condensed=true]:shadow-[0_1px_12px_rgba(0,8,60,0.35)]"
     >
+
       <nav aria-label="Primary" className="container-page">
         <div
           className={`grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 transition-[padding] duration-200 lg:grid-cols-[auto_1fr_auto] ${
@@ -144,10 +146,20 @@ function HeaderInner() {
             id="mobile-menu"
             className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-white/15 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] lg:hidden"
           >
-            <p className="px-1 pb-2 text-xs font-semibold tracking-wide text-[#b9c6e8] uppercase">
+            <button
+              type="button"
+              aria-expanded={loansOpen}
+              aria-controls="mobile-loans"
+              onClick={() => setLoansOpen((v) => !v)}
+              className="flex min-h-11 w-full items-center justify-between rounded-md px-3 text-base font-medium text-white hover:bg-white/10"
+            >
               {t("nav.loans")}
-            </p>
-            <ul className="mb-3 grid gap-1">
+              <ChevronDown
+                aria-hidden
+                className={`size-5 transition-transform duration-200 ${loansOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+            <ul id="mobile-loans" hidden={!loansOpen} className="mb-3 grid gap-1">
               {products.map((product) => (
                 <li key={product.slug}>
                   <Link
@@ -163,6 +175,7 @@ function HeaderInner() {
                 </li>
               ))}
             </ul>
+
             <ul className="grid gap-1 border-t border-white/15 pt-3">
               {mainLinks.map((link) => (
                 <li key={link.to}>

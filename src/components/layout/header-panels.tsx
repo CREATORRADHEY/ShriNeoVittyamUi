@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -44,34 +46,59 @@ export function LoansMenu() {
   const { open, openNow, openSoon, closeSoon, closeNow, cancelClose, toggle } = useHeaderMenu();
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const isOpen = open === "loans";
   const present = usePresence(isOpen);
   const [box, setBox] = useState<{ left: number; top: number; width: number } | null>(null);
 
-  // One measurement per open — the panel is clamped inside the viewport and
-  // sits directly beneath the (possibly condensed) header.
+  // The panel is portalled to <body> so an animated ancestor (the route
+  // transition wrapper) can never become its containing block — that is what
+  // detached it from the trigger after scrolling. It is measured from the live
+  // trigger rect, re-measured on resize / header height change, and closed
+  // deliberately once meaningful scrolling begins.
   useEffect(() => {
     if (!isOpen) return;
     const measure = () => {
       const rect = rootRef.current?.getBoundingClientRect();
+      const header = rootRef.current?.closest("header")?.getBoundingClientRect();
       if (!rect) return;
       const width = Math.min(900, window.innerWidth - 48);
       const left = Math.min(
         Math.max(24, rect.left + rect.width / 2 - width / 2),
         window.innerWidth - 24 - width,
       );
-      setBox({ left, top: rect.bottom, width });
+      setBox({ left, top: header ? header.bottom : rect.bottom, width });
     };
     measure();
+
+    const startY = window.scrollY;
+    const onScroll = () => {
+      if (Math.abs(window.scrollY - startY) > 24) {
+        closeNow();
+        return;
+      }
+      measure();
+    };
+
     window.addEventListener("resize", measure);
-    window.addEventListener("scroll", measure, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    let observer: ResizeObserver | undefined;
+    const header = rootRef.current?.closest("header");
+    if (header && typeof ResizeObserver !== "undefined") {
+      observer = new ResizeObserver(measure);
+      observer.observe(header);
+    }
+
     return () => {
       window.removeEventListener("resize", measure);
-      window.removeEventListener("scroll", measure);
+      window.removeEventListener("scroll", onScroll);
+      observer?.disconnect();
     };
-  }, [isOpen]);
+  }, [isOpen, closeNow]);
 
-  useDisclosureBehaviour({ isOpen, close: closeNow, rootRef, triggerRef });
+
+  useDisclosureBehaviour({ isOpen, close: closeNow, rootRef, triggerRef, panelRef });
 
   return (
     <div
@@ -115,13 +142,18 @@ export function LoansMenu() {
         />
       </button>
 
-      {present ? (
+      {present && typeof document !== "undefined"
+        ? createPortal(
         <div
+          ref={panelRef}
           id="loans-panel"
           data-state={isOpen ? "open" : "closed"}
-          className="hdr-panel fixed z-50 pt-2"
+          className="hdr-panel fixed z-[1100] pt-2"
           style={{ left: box?.left ?? 0, top: box?.top ?? 0, width: box?.width ?? 0 }}
           onPointerEnter={cancelClose}
+          onPointerLeave={(e) => {
+            if (e.pointerType === "mouse") closeSoon();
+          }}
         >
           <div className="w-full overflow-hidden rounded-[14px] border border-border bg-surface-warm text-foreground shadow-[var(--shadow-panel)]">
             <div className="grid gap-0 md:grid-cols-[1.55fr_1fr]">
@@ -186,8 +218,11 @@ export function LoansMenu() {
               </div>
             </div>
           </div>
-        </div>
-      ) : null}
+        </div>,
+            document.body,
+          )
+        : null}
+
     </div>
   );
 }
