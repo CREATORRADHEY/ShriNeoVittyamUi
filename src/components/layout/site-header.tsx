@@ -55,8 +55,9 @@ function HeaderInner() {
   return (
     <header
       data-condensed={condensed}
-      className="font-display sticky top-0 z-50 bg-[#001a5c] transition-shadow duration-200 data-[condensed=true]:border-b data-[condensed=true]:border-white/12 data-[condensed=true]:bg-[#00134a] data-[condensed=true]:shadow-[0_1px_12px_rgba(0,8,60,0.35)]"
+      className="font-display sticky top-0 z-[1000] bg-[#001a5c] transition-shadow duration-200 data-[condensed=true]:border-b data-[condensed=true]:border-white/12 data-[condensed=true]:bg-[#00134a] data-[condensed=true]:shadow-[0_1px_12px_rgba(0,8,60,0.35)]"
     >
+
       <nav aria-label="Primary" className="container-page">
         <div
           className={`grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 transition-[padding] duration-200 lg:grid-cols-[auto_1fr_auto] ${
