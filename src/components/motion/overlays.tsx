@@ -42,6 +42,26 @@ import { cn } from "@/lib/utils";
 /* Shared sizing so content never clips at 200% zoom or in Hindi. */
 const FLOATING_WIDTH = "w-[min(20rem,calc(100vw-2rem))] max-h-[min(24rem,70dvh)] overflow-y-auto";
 
+/**
+ * Remembers the element that opened a controlled overlay and returns focus to
+ * it on close, so keyboard and screen-reader users land back where they were.
+ */
+function useReturnFocus(open: boolean) {
+  const trigger = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (open) {
+      trigger.current = document.activeElement as HTMLElement | null;
+      return;
+    }
+    const element = trigger.current;
+    if (!element || !document.contains(element)) return;
+    const timer = window.setTimeout(() => element.focus({ preventScroll: true }), 0);
+    return () => window.clearTimeout(timer);
+  }, [open]);
+}
+
+
 /* ------------------------------------------------------------------ */
 /* Tooltip — short definitions only. Never the sole home of a fact.    */
 /* ------------------------------------------------------------------ */
