@@ -535,59 +535,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ─────────────────────────────────── 10. AGENT SUPPORT — human split */}
-      <section aria-labelledby="agent-title" className="border-b border-border bg-surface">
-        <div className="container-page grid gap-10 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16 md:py-24">
-          <Reveal>
-            <SectionLabel>Assisted applications</SectionLabel>
-            <h2
-              id="agent-title"
-              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.6rem)] tracking-tight"
-            >
-              Get help without giving up control.
-            </h2>
-            <ol className="mt-8 space-y-5 text-sm">
-              {[
-                ["You give consent", "An OTP you approve starts the assistance window."],
-                ["The agent helps", "They complete the application alongside you, never for you."],
-                ["Documents stay inside ShriNeo", "Files are never shared over chat or email."],
-                ["The application stays trackable", "Every action is logged against your account."],
-              ].map(([title, body], i) => (
-                <li key={title} className="flex gap-4">
-                  <span className="num shrink-0 text-xs font-semibold text-primary">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block font-medium">{title}</span>
-                    <span className="mt-0.5 block text-muted-foreground">{body}</span>
-                  </span>
-                </li>
-              ))}
-            </ol>
-            <Button asChild variant="outline" className="mt-8 min-h-11 rounded-lg">
-              <Link to="/for-agents">How agent support works</Link>
-            </Button>
-          </Reveal>
-
-          <Reveal delay={80} className="min-w-0">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <figure className="overflow-hidden rounded-xl border border-border sm:col-span-2">
-                <img
-                  src={photoAgent}
-                  alt="A verified agent guiding two customers through an application on a tablet"
-                  width={1200}
-                  height={1008}
-                  loading="lazy"
-                  className="aspect-[16/9] w-full object-cover"
-                />
-              </figure>
-              <figure className="rounded-xl border border-border bg-card p-4 sm:col-span-2">
-                <AgentAssistFigure />
-              </figure>
-            </div>
-          </Reveal>
-        </div>
-      </section>
 
       {/* ────────────────────────────── 11. TRUST CENTRE — responsibility map */}
       <section aria-labelledby="trust-title" className="bg-ink text-ink-foreground">
