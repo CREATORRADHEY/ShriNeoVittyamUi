@@ -113,7 +113,7 @@ export function EligibilityWidget() {
     <section
       id="check-eligibility"
       aria-labelledby="eligibility-title"
-      className="border-b border-border bg-brand-50"
+      className="bg-gradient-to-b from-background to-brand-50"
     >
       <div className="container-page py-14 md:py-20">
         <form

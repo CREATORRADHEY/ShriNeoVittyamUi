@@ -136,7 +136,7 @@ export function UspStrip() {
   return (
     <section
       aria-label="What the ShriNeo platform does"
-      className="border-y border-border bg-background"
+      className="border-b border-border bg-background"
     >
       {reduced ? (
         <ul className="container-page flex flex-wrap items-center justify-center gap-x-6 gap-y-2 py-3">
