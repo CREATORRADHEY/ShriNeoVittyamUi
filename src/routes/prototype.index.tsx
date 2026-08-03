@@ -20,7 +20,7 @@ import {
   type Role,
 } from "@/prototype/state";
 
-export const Route = createFileRoute("/prototype")({
+export const Route = createFileRoute("/prototype/")({
   head: () => ({
     meta: [
       { title: "ShriNeo Prototype Navigator — internal design review" },
