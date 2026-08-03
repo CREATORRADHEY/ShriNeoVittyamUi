@@ -247,7 +247,7 @@ export function UspStrip() {
           );
 
           const shell = cn(
-            "relative flex h-full min-h-[88px] items-center gap-3 px-4 py-5 sm:px-6",
+            "relative flex h-full min-h-[88px] items-center gap-3 px-4 py-4 sm:px-6 sm:py-5",
             "transition-[opacity,transform,background-color] ease-[cubic-bezier(0,0,0.2,1)]",
             "motion-safe:duration-[320ms]",
             revealed ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
