@@ -9,11 +9,9 @@ import { AgentCtaSection } from "@/components/sections/agent-cta";
 import { products } from "@/config/products";
 import { formatINR } from "@/lib/format";
 import { PublicShell } from "@/components/layout/public-shell";
-import { Button } from "@/components/ui/button";
 import { StatusPill } from "@/components/design-system/section";
 import { Reveal } from "@/components/sections/reveal";
 import { FaqGroups } from "@/components/sections/blocks";
-import { ConsentFigure } from "@/components/illustrations/core";
 import {
   ApplicationTrackingPanel,
   OfferComparisonPanel,
