@@ -46,7 +46,6 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-const LENDER_NOTE = "Final approval and loan terms are determined by the participating lender.";
 
 /* --------------------------------------------------------------- section shell */
 
