@@ -9,6 +9,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { HomeHero } from "@/components/sections/home-hero";
+import { UspStrip } from "@/components/sections/usp-strip";
 import { EligibilityWidget } from "@/components/sections/eligibility-widget";
 import { products } from "@/config/products";
 import { formatINR } from "@/lib/format";
