@@ -92,7 +92,7 @@ const USPS: Usp[] = [
   {
     id: "platform",
     title: "One platform for multiple banks and NBFCs",
-    copy: "Access eligible lending partners through one system.",
+    copy: "\n",
     Icon: PlatformNetworkIcon,
     to: "/for-lenders",
   },
