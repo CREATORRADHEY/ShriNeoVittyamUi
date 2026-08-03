@@ -211,28 +211,243 @@
   }
 }
 
-/* Restrained section entrance: 12px rise, 260ms, once */
+/* ============================================================
+ * MOTION SYSTEM
+ * Calm, immediate, grounded. Every duration below is a token —
+ * components must not invent their own timing.
+ * ============================================================ */
+
+:root {
+  --motion-instant: 80ms;
+  --motion-fast: 140ms;
+  --motion-standard: 220ms;
+  --motion-moderate: 300ms;
+  --motion-slow: 450ms;
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0, 0, 0.2, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Movement scale — financial UI never travels far. */
+  --move-micro: 1px;
+  --move-surface: 6px;
+  --move-modal: 10px;
+  --move-section: 16px;
+}
+
+/* Section reveal: 16px rise, 400ms, once. */
 @utility reveal {
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(var(--move-section));
   transition:
-    opacity 300ms cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    opacity 400ms var(--ease-enter),
+    transform 400ms var(--ease-enter);
+  will-change: opacity, transform;
 }
 
 @utility reveal-in {
   opacity: 1;
   transform: none;
+  will-change: auto;
 }
+
+/* Hero editorial unit: headline, then supporting copy, then CTAs. */
+@keyframes shrineo-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility hero-enter {
+  animation: shrineo-rise var(--motion-slow) var(--ease-enter) both;
+}
+
+/* Route content transition — content only, chrome stays put. */
+@keyframes shrineo-route-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility route-enter {
+  animation: shrineo-route-in var(--motion-moderate) var(--ease-enter) both;
+}
+
+@utility route-enter-flat {
+  animation: shrineo-route-in var(--motion-standard) var(--ease-enter) both;
+  animation-name: shrineo-fade-in;
+}
+
+@keyframes shrineo-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Marketing card: border + shadow emphasis, 1px lift, never a float. */
+@utility card-interactive {
+  transition:
+    transform var(--motion-fast) var(--ease-standard),
+    box-shadow var(--motion-fast) var(--ease-standard),
+    border-color var(--motion-fast) var(--ease-standard),
+    background-color var(--motion-fast) var(--ease-standard);
+
+  &:hover {
+    transform: translateY(calc(-1 * var(--move-micro)));
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-raised);
+  }
+
+  &:active {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Operational surfaces (lender / admin): emphasis without displacement. */
+@utility row-interactive {
+  transition:
+    background-color var(--motion-fast) var(--ease-standard),
+    border-color var(--motion-fast) var(--ease-standard);
+
+  &:hover {
+    background-color: var(--color-surface);
+  }
+}
+
+/* Value changed: brief highlight, exact figure readable throughout. */
+@keyframes shrineo-value-change {
+  from {
+    background-color: var(--color-info-surface);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+@utility value-changed {
+  animation: shrineo-value-change var(--motion-slow) var(--ease-exit) both;
+  border-radius: 4px;
+}
+
+/* Single corrective nudge — OTP / auth failure only. One cycle. */
+@keyframes shrineo-nudge {
+  0%,
+  100% {
+    transform: none;
+  }
+  30% {
+    transform: translateX(-3px);
+  }
+  70% {
+    transform: translateX(3px);
+  }
+}
+
+@utility nudge-once {
+  animation: shrineo-nudge var(--motion-standard) var(--ease-standard) 1;
+}
+
+/* --- Overlay timing: retune Radix / tw-animate defaults to our tokens ---
+   The shadcn primitives in this project do not emit data-slot attributes,
+   so we hook the Radix state attributes they do emit. */
+
+/* Modals, alert dialogs, sheets, drawers */
+[role="dialog"][data-state="open"],
+[role="alertdialog"][data-state="open"] {
+  animation-duration: var(--motion-standard);
+  animation-timing-function: var(--ease-enter);
+  transition-duration: var(--motion-moderate);
+  transition-timing-function: var(--ease-enter);
+}
+
+[role="dialog"][data-state="closed"],
+[role="alertdialog"][data-state="closed"] {
+  animation-duration: var(--motion-fast);
+  animation-timing-function: var(--ease-exit);
+  transition-duration: var(--motion-standard);
+  transition-timing-function: var(--ease-exit);
+}
+
+/* Backdrops */
+[data-radix-portal] > [data-state][aria-hidden="true"],
+[data-state="open"].fixed.inset-0 {
+  animation-duration: var(--motion-standard);
+}
+
+/* Anchored surfaces: tooltip, popover, dropdown, select */
+[data-radix-popper-content-wrapper] > * {
+  animation-duration: var(--motion-fast) !important;
+  animation-timing-function: var(--ease-enter);
+}
+
+[data-radix-popper-content-wrapper] > [data-state="closed"] {
+  animation-duration: var(--motion-instant) !important;
+  animation-timing-function: var(--ease-exit);
+}
+
+/* Buttons: press acknowledgement without playfulness. */
+button:not(:disabled):active {
+  transition-duration: var(--motion-instant);
+}
+
+/* Inputs: focus and validation feedback. */
+input,
+textarea {
+  transition:
+    border-color var(--motion-fast) var(--ease-standard),
+    box-shadow var(--motion-fast) var(--ease-standard),
+    background-color var(--motion-fast) var(--ease-standard);
+}
+
+/* Accordion panel + chevron. */
+[data-radix-collapsible-content],
+[data-state][id^="radix-"][role="region"] {
+  animation-duration: var(--motion-standard);
+  animation-timing-function: var(--ease-standard);
+}
+
+[data-state] > svg.lucide-chevron-down {
+  transition: transform var(--motion-standard) var(--ease-standard);
+}
+
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  .reveal {
-    opacity: 1;
-    transform: none;
+  /* Content must never be withheld while motion is suppressed. */
+  .reveal,
+  .hero-enter,
+  .route-enter,
+  .route-enter-flat {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+
+  .nudge-once,
+  .value-changed {
+    animation: none !important;
+  }
+
+  .card-interactive:hover,
+  [data-slot="button"]:not(:disabled):active {
+    transform: none !important;
   }
 
   *,
@@ -243,3 +458,4 @@
     transition-duration: 0.01ms !important;
   }
 }
+
