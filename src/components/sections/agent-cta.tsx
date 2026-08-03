@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, CircleCheck } from "lucide-react";
-import photoAgent from "@/assets/photo-agent.jpg";
+import photoAgent from "@/assets/photo-agent-suit.jpg";
 import { Reveal } from "@/components/sections/reveal";
 
 const BENEFITS = [
@@ -24,7 +24,7 @@ export function AgentCtaSection() {
         <div className="relative min-h-[280px] lg:min-h-[520px]">
           <img
             src={photoAgent}
-            alt="A ShriNeo agent standing outside his shop with a smartphone and a folder."
+            alt="A registered ShriNeo agent in a business suit, holding a smartphone and a folder."
             loading="lazy"
             decoding="async"
             className="absolute inset-0 size-full object-cover object-[40%_center]"
