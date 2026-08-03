@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import logo from "@/assets/shrineo-logo.png.asset.json";
 import { products } from "@/config/products";
 import { useI18n } from "@/i18n";
@@ -29,6 +29,7 @@ function HeaderInner() {
   const { closeNow } = useHeaderMenu();
   const [open, setOpen] = useState(false);
   const [condensed, setCondensed] = useState(false);
+  const [loansOpen, setLoansOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setCondensed(window.scrollY > 56);
