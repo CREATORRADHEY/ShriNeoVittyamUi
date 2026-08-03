@@ -1,12 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import {
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-  type ReactElement,
-  type SVGProps,
-} from "react";
+import type { ReactElement, SVGProps } from "react";
 
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -81,7 +74,6 @@ function StatusTimelineIcon(props: SVGProps<SVGSVGElement>) {
 type Usp = {
   id: string;
   title: string;
-  copy: string;
   Icon: (props: SVGProps<SVGSVGElement>) => ReactElement;
   to?: "/for-lenders" | "/how-it-works";
 };
@@ -92,216 +84,91 @@ const USPS: Usp[] = [
   {
     id: "platform",
     title: "One platform for multiple banks and NBFCs",
-    copy: "\n",
     Icon: PlatformNetworkIcon,
     to: "/for-lenders",
   },
   {
     id: "management",
     title: "End-to-end management",
-    copy: "Manage applications from enquiry to disbursal.",
     Icon: WorkflowStagesIcon,
     to: "/how-it-works",
   },
-  {
-    id: "repayments",
-    title: "Real-time repayments",
-    copy: "Track repayment confirmations as they are received.",
-    Icon: RepaymentFlowIcon,
-  },
-  {
-    id: "updates",
-    title: "Real-time updates",
-    copy: "Follow application and loan-status changes clearly.",
-    Icon: StatusTimelineIcon,
-  },
+  { id: "repayments", title: "Real-time repayments", Icon: RepaymentFlowIcon },
+  { id: "updates", title: "Real-time updates", Icon: StatusTimelineIcon },
 ];
-
-const HOLD = 1600; // active duration per item
-const PAUSE = 750; // extra rest after the fourth item
-const STAGGER = 120; // entrance delay between items
-const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 /* ------------------------------------------------------------------ strip */
 
-export function UspStrip() {
-  const reduced = usePrefersReducedMotion();
-  const ref = useRef<HTMLUListElement>(null);
-  const timer = useRef<number | null>(null);
-  const resume = useRef<number | null>(null);
-
-  const [animatable, setAnimatable] = useState(false);
-  const [entered, setEntered] = useState(false);
-  const [inView, setInView] = useState(false);
-  const [visible, setVisible] = useState(true);
-  const [held, setHeld] = useState<number | null>(null);
-  const [active, setActive] = useState(0);
-
-  // Only opt into entrance motion once JS has hydrated, so the markup is
-  // fully visible when JavaScript never runs.
-  useIsoLayoutEffect(() => {
-    if (!reduced) setAnimatable(true);
-  }, [reduced]);
-
-  // Viewport observation: one-time entrance plus loop gating.
-  useEffect(() => {
-    const node = ref.current;
-    if (!node || typeof IntersectionObserver === "undefined") {
-      setEntered(true);
-      setInView(true);
-      return;
-    }
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry) return;
-        setInView(entry.isIntersecting);
-        if (entry.isIntersecting) setEntered(true);
-      },
-      { threshold: 0.35 },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
-  // Pause while the tab is hidden.
-  useEffect(() => {
-    const onVisibility = () => setVisible(!document.hidden);
-    onVisibility();
-    document.addEventListener("visibilitychange", onVisibility);
-    return () => document.removeEventListener("visibilitychange", onVisibility);
-  }, []);
-
-  const paused = reduced || !entered || !inView || !visible || held !== null;
-  const current = held ?? active;
-
-  // A single advance timer for the emphasis loop.
-  useEffect(() => {
-    if (paused) return;
-    const first = active === 0 && !timer.current;
-    const delay = (active === USPS.length - 1 ? HOLD + PAUSE : HOLD) + (first ? 800 : 0);
-    timer.current = window.setTimeout(() => {
-      setActive((index) => (index + 1) % USPS.length);
-    }, delay);
-    return () => {
-      if (timer.current) window.clearTimeout(timer.current);
-      timer.current = null;
-    };
-  }, [active, paused]);
-
-  useEffect(
-    () => () => {
-      if (resume.current) window.clearTimeout(resume.current);
-    },
-    [],
+function Item({ usp }: { usp: Usp }) {
+  const content = (
+    <>
+      <usp.Icon className="size-[20px] shrink-0 text-primary/85 transition-colors duration-200 group-hover:text-primary-hover" />
+      <span className="whitespace-nowrap text-[13px] font-medium leading-none text-foreground/85 transition-colors duration-200 group-hover:text-foreground">
+        {usp.title}
+      </span>
+    </>
   );
 
-  const hold = (index: number) => {
-    if (resume.current) {
-      window.clearTimeout(resume.current);
-      resume.current = null;
-    }
-    setHeld(index);
-  };
+  const shell =
+    "group flex items-center gap-2.5 rounded-full px-4 py-2 transition-colors duration-200 hover:bg-primary/[0.05]";
 
-  const release = (index: number) => {
-    if (resume.current) window.clearTimeout(resume.current);
-    resume.current = window.setTimeout(() => {
-      setHeld(null);
-      setActive((index + 1) % USPS.length);
-      resume.current = null;
-    }, 1500);
-  };
+  return usp.to ? (
+    <Link
+      to={usp.to}
+      className={cn(
+        shell,
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      )}
+    >
+      {content}
+    </Link>
+  ) : (
+    <div className={shell}>{content}</div>
+  );
+}
 
-  const revealed = !animatable || entered;
+export function UspStrip() {
+  const reduced = usePrefersReducedMotion();
+
+  // Two identical tracks make the translate(-50%) loop seamless.
+  const track = [...USPS, ...USPS];
 
   return (
-    <section aria-label="What the ShriNeo platform does" className="border-y border-border bg-background">
-      <ul
-        ref={ref}
-        className="container-page grid grid-cols-2 lg:grid-cols-4"
-      >
-        {USPS.map((usp, index) => {
-          const isActive = !reduced && entered && current === index;
-          const content = (
-            <>
-              <usp.Icon
-                className={cn(
-                  "mt-0.5 size-[22px] shrink-0 transition-[color,transform] duration-200 ease-[cubic-bezier(0.2,0,0,1)]",
-                  isActive ? "-translate-y-px text-primary-hover" : "text-primary/85",
-                )}
-              />
-              <span className="min-w-0">
-                <span
-                  className={cn(
-                    "block text-sm leading-snug text-balance transition-colors duration-200",
-                    isActive ? "font-semibold text-foreground" : "font-medium text-foreground/85",
-                  )}
-                >
-                  {usp.title}
-                </span>
-                <span className="mt-1 hidden text-xs leading-snug text-muted-foreground sm:block">
-                  {usp.copy}
-                </span>
-              </span>
-            </>
-          );
-
-          const shell = cn(
-            "relative flex h-full min-h-[88px] items-center gap-3 px-4 py-4 sm:px-6 sm:py-5",
-            "transition-[opacity,transform,background-color] ease-[cubic-bezier(0,0,0.2,1)]",
-            "motion-safe:duration-[320ms]",
-            revealed ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
-            isActive ? "bg-primary/[0.035]" : "bg-transparent",
-          );
-
-          return (
-            <li
-              key={usp.id}
-              className={cn(
-                "relative min-w-0 border-border",
-                index % 2 === 1 && "border-l lg:border-l",
-                index > 1 && "border-t lg:border-t-0",
-                index === 2 && "lg:border-l",
-                index === 3 && "lg:border-l",
-              )}
-              style={revealed ? undefined : { transitionDelay: `${index * STAGGER}ms` }}
-              onMouseEnter={() => hold(index)}
-              onMouseLeave={() => release(index)}
-            >
-              {usp.to ? (
-                <Link
-                  to={usp.to}
-                  className={cn(shell, "hover:bg-primary/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background")}
-                  style={{ transitionDelay: revealed ? "0ms" : `${index * STAGGER}ms` }}
-                  onFocus={() => hold(index)}
-                  onBlur={() => release(index)}
-                >
-                  {content}
-                </Link>
-              ) : (
-                <div className={shell} style={{ transitionDelay: revealed ? "0ms" : `${index * STAGGER}ms` }}>
-                  {content}
-                </div>
-              )}
-
-              {/* Decorative progress line — never announced. */}
-              <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-0.5 overflow-hidden">
-                {isActive ? (
-                  <span
-                    key={`${usp.id}-${active}-${held ?? "auto"}`}
-                    className="block h-full origin-left bg-primary-hover"
-                    style={
-                      held === index
-                        ? { transform: "scaleX(1)" }
-                        : { animation: `usp-progress ${HOLD}ms linear forwards` }
-                    }
-                  />
-                ) : null}
-              </span>
+    <section
+      aria-label="What the ShriNeo platform does"
+      className="border-y border-border bg-background"
+    >
+      {reduced ? (
+        <ul className="container-page flex flex-wrap items-center justify-center gap-x-6 gap-y-2 py-3">
+          {USPS.map((usp) => (
+            <li key={usp.id} className="min-w-0">
+              <Item usp={usp} />
             </li>
-          );
-        })}
-      </ul>
+          ))}
+        </ul>
+      ) : (
+        <div
+          className={cn(
+            "group/marquee relative overflow-hidden py-2.5",
+            "[mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]",
+          )}
+        >
+          <ul
+            className="flex w-max items-center [animation:usp-marquee_34s_linear_infinite] group-hover/marquee:[animation-play-state:paused] focus-within:[animation-play-state:paused]"
+          >
+            {track.map((usp, index) => (
+              <li
+                key={`${usp.id}-${index}`}
+                aria-hidden={index >= USPS.length}
+                className="flex shrink-0 items-center"
+              >
+                <Item usp={usp} />
+                <span aria-hidden className="mx-3 h-3.5 w-px bg-border" />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </section>
   );
 }
