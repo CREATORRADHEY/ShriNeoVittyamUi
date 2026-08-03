@@ -116,8 +116,12 @@
 
   --surface: #f6f8fc;
   --surface-strong: #eaeff8;
-  /* 3% warm accent — used once or twice per page, never for meaning */
-  --surface-warm: #faf7f2;
+  /* Warm ivory + soft blue alternation used by the homepage rhythm */
+  --surface-warm: #f7f3ea;
+  --surface-blue: #eef3fb;
+  --card-warm: #fefcf7;
+  --border-warm: #ece7dd;
+
   --ink: #06122c;
   --ink-soft: #0d1e42;
   --ink-foreground: #ffffff;
