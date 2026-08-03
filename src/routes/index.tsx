@@ -208,82 +208,27 @@ function HomePage() {
       {/* ─────────────────────────────────────── 7. FOR AGENTS — recruitment */}
       <AgentCtaSection />
 
-      {/* ────────────────────── 8. COMMON QUESTIONS — tracking + FAQ (calm) */}
+      {/* ────────────────────── 8. COMMON QUESTIONS — FAQ + tracking (calm) */}
       <section aria-labelledby="faq-title" className="bg-background">
-
-        <div className="container-page grid gap-12 py-16 lg:grid-cols-[0.9fr_1.1fr] md:py-24">
-          <Reveal>
-            <SectionLabel>Common questions</SectionLabel>
+        <div className="container-page py-16 md:py-24">
+          <Reveal className="max-w-2xl">
+            <SectionLabel>{faqCopy.faqEyebrow}</SectionLabel>
             <h2
               id="faq-title"
-              className="editorial mt-4 text-[clamp(1.75rem,3.2vw,2.4rem)] tracking-tight"
+              className="editorial mt-4 mb-8 text-[clamp(1.75rem,3.2vw,2.4rem)] tracking-tight"
             >
-              Answers before you apply.
+              {faqCopy.faqTitle}
             </h2>
-            <div className="mt-8">
-              <ApplicationTrackingPanel />
-            </div>
           </Reveal>
           <Reveal delay={80} className="min-w-0">
-            <FaqGroups
-              groups={[
-                {
-                  group: "Applying",
-                  items: [
-                    {
-                      q: "Does ShriNeo lend money?",
-                      a: "No. ShriNeo Capital is a Lending Service Provider. Participating banks and NBFCs assess, approve and disburse every loan.",
-                    },
-                    {
-                      q: "What does an application cost?",
-                      a: "Applying and comparing offers is free. Lender charges such as processing fees are disclosed in the Key Fact Statement before you sign.",
-                    },
-                  ],
-                },
-                {
-                  group: "Offers and charges",
-                  items: [
-                    {
-                      q: "How are offers ranked?",
-                      a: "By total cost of borrowing by default. The ranking method is disclosed, no lender pays for placement and no matching offer is hidden.",
-                    },
-                    {
-                      q: "Why is APR different from the interest rate?",
-                      a: "APR includes interest plus fees, so it reflects the yearly cost of the loan and allows a fair comparison between offers.",
-                    },
-                  ],
-                },
-                {
-                  group: "Security and consent",
-                  items: [
-                    {
-                      q: "Who can see my documents?",
-                      a: "Only you, the lenders you apply to, and a verified agent you have explicitly authorised by OTP. Every access is logged.",
-                    },
-                    {
-                      q: "Can I withdraw consent?",
-                      a: "Yes. Consents are purpose-specific and time-bound, and your consent history is visible in your account.",
-                    },
-                  ],
-                },
-                {
-                  group: "Agents and support",
-                  items: [
-                    {
-                      q: "Do I have to use an agent?",
-                      a: "No. You can complete everything yourself. An agent can only assist after you approve the request with an OTP.",
-                    },
-                    {
-                      q: "How do I raise a complaint?",
-                      a: "Through the Grievance Redressal page. Every complaint receives a reference number, an acknowledgement and an escalation path.",
-                    },
-                  ],
-                },
-              ]}
-            />
+            <HomeFaq />
+          </Reveal>
+          <Reveal delay={120} className="mt-12 max-w-xl">
+            <ApplicationTrackingPanel />
           </Reveal>
         </div>
       </section>
+
 
       {/* ───────────────────────────── 9. BLOG — teasers, directly above footer */}
       <BlogTeaserSection />
