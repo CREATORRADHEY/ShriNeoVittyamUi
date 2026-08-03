@@ -1,12 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import {
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-  type ReactElement,
-  type SVGProps,
-} from "react";
+import type { ReactElement, SVGProps } from "react";
 
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
