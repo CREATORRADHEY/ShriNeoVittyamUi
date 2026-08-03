@@ -68,7 +68,6 @@ function HomePage() {
       {/* ───────────────── 1b. PRODUCT STRIP — one-click product navigation */}
       <ProductStrip />
 
-
       {/* ─────────────────────────────────────── 2. TRUST STRIP — horizontal */}
       <section
         aria-label="How ShriNeo protects you"
@@ -177,7 +176,6 @@ function HomePage() {
         </div>
       </section>
 
-
       {/* ──────────────────────────────────── 5. OFFER COMPARISON — editorial */}
       <section aria-labelledby="compare-title" className="border-b border-border bg-surface">
         <div className="container-page grid gap-10 py-16 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16 md:py-24">
@@ -270,7 +268,6 @@ function HomePage() {
         </div>
       </section>
 
-
       {/* ──────────────────────────────────────────────── 9. NEO — assistant */}
       <section aria-labelledby="neo-title" className="border-b border-border bg-background">
         <div className="container-page grid gap-10 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 md:py-24">
@@ -338,7 +335,6 @@ function HomePage() {
           </Reveal>
         </div>
       </section>
-
 
       {/* ────────────────────────────── 11. TRUST CENTRE — responsibility map */}
       <section aria-labelledby="trust-title" className="bg-ink text-ink-foreground">
