@@ -34,7 +34,7 @@ import {
 import type { ComponentType, ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { org } from "@/config/org";
 import { cn } from "@/lib/utils";
 import { DEVICE_WIDTH, ROLE_LABEL, usePrototype, type Role } from "@/prototype/state";
