@@ -55,6 +55,7 @@ import { Route as LoansMortgageRouteImport } from './routes/loans.mortgage'
 import { Route as LoansPersonalRouteImport } from './routes/loans.personal'
 import { Route as LoansSachetRouteImport } from './routes/loans.sachet'
 import { Route as PrototypeIndexRouteImport } from './routes/prototype.index'
+import { Route as PrototypeMotionRouteImport } from './routes/prototype.motion'
 import { Route as TrustCenterIndexRouteImport } from './routes/trust-center.index'
 import { Route as TrustCenterPrivacyAndDataRouteImport } from './routes/trust-center.privacy-and-data'
 import { Route as TrustCenterRbiComplianceRouteImport } from './routes/trust-center.rbi-compliance'
@@ -305,6 +306,11 @@ const PrototypeIndexRoute = PrototypeIndexRouteImport.update({
   path: '/prototype/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrototypeMotionRoute = PrototypeMotionRouteImport.update({
+  id: '/prototype/motion',
+  path: '/prototype/motion',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TrustCenterIndexRoute = TrustCenterIndexRouteImport.update({
   id: '/trust-center/',
   path: '/trust-center/',
@@ -434,6 +440,7 @@ export interface FileRoutesByFullPath {
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/prototype/motion': typeof PrototypeMotionRoute
   '/trust-center/privacy-and-data': typeof TrustCenterPrivacyAndDataRoute
   '/trust-center/rbi-compliance': typeof TrustCenterRbiComplianceRoute
   '/trust-center/security': typeof TrustCenterSecurityRoute
@@ -498,6 +505,7 @@ export interface FileRoutesByTo {
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/prototype/motion': typeof PrototypeMotionRoute
   '/trust-center/privacy-and-data': typeof TrustCenterPrivacyAndDataRoute
   '/trust-center/rbi-compliance': typeof TrustCenterRbiComplianceRoute
   '/trust-center/security': typeof TrustCenterSecurityRoute
@@ -563,6 +571,7 @@ export interface FileRoutesById {
   '/loans/mortgage': typeof LoansMortgageRoute
   '/loans/personal': typeof LoansPersonalRoute
   '/loans/sachet': typeof LoansSachetRoute
+  '/prototype/motion': typeof PrototypeMotionRoute
   '/trust-center/privacy-and-data': typeof TrustCenterPrivacyAndDataRoute
   '/trust-center/rbi-compliance': typeof TrustCenterRbiComplianceRoute
   '/trust-center/security': typeof TrustCenterSecurityRoute
@@ -629,6 +638,7 @@ export interface FileRouteTypes {
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/prototype/motion'
     | '/trust-center/privacy-and-data'
     | '/trust-center/rbi-compliance'
     | '/trust-center/security'
@@ -693,6 +703,7 @@ export interface FileRouteTypes {
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/prototype/motion'
     | '/trust-center/privacy-and-data'
     | '/trust-center/rbi-compliance'
     | '/trust-center/security'
@@ -757,6 +768,7 @@ export interface FileRouteTypes {
     | '/loans/mortgage'
     | '/loans/personal'
     | '/loans/sachet'
+    | '/prototype/motion'
     | '/trust-center/privacy-and-data'
     | '/trust-center/rbi-compliance'
     | '/trust-center/security'
@@ -822,6 +834,7 @@ export interface RootRouteChildren {
   LoansMortgageRoute: typeof LoansMortgageRoute
   LoansPersonalRoute: typeof LoansPersonalRoute
   LoansSachetRoute: typeof LoansSachetRoute
+  PrototypeMotionRoute: typeof PrototypeMotionRoute
   TrustCenterPrivacyAndDataRoute: typeof TrustCenterPrivacyAndDataRoute
   TrustCenterRbiComplianceRoute: typeof TrustCenterRbiComplianceRoute
   TrustCenterSecurityRoute: typeof TrustCenterSecurityRoute
@@ -1167,6 +1180,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrototypeIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/prototype/motion': {
+      id: '/prototype/motion'
+      path: '/prototype/motion'
+      fullPath: '/prototype/motion'
+      preLoaderRoute: typeof PrototypeMotionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/trust-center/': {
       id: '/trust-center/'
       path: '/trust-center'
@@ -1327,6 +1347,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoansMortgageRoute: LoansMortgageRoute,
   LoansPersonalRoute: LoansPersonalRoute,
   LoansSachetRoute: LoansSachetRoute,
+  PrototypeMotionRoute: PrototypeMotionRoute,
   TrustCenterPrivacyAndDataRoute: TrustCenterPrivacyAndDataRoute,
   TrustCenterRbiComplianceRoute: TrustCenterRbiComplianceRoute,
   TrustCenterSecurityRoute: TrustCenterSecurityRoute,
