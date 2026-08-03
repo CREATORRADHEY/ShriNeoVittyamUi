@@ -26,6 +26,7 @@ import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MotionRouteImport } from './routes/motion'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as PrototypeRouteImport } from './routes/prototype'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TrustCenterRouteImport } from './routes/trust-center'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -148,6 +149,11 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
 const PrototypeRoute = PrototypeRouteImport.update({
   id: '/prototype',
   path: '/prototype',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsRoute = TermsRouteImport.update({
@@ -363,6 +369,7 @@ export interface FileRoutesByFullPath {
   '/motion': typeof MotionRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/prototype': typeof PrototypeRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -420,6 +427,7 @@ export interface FileRoutesByTo {
   '/motion': typeof MotionRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/prototype': typeof PrototypeRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -478,6 +486,7 @@ export interface FileRoutesById {
   '/motion': typeof MotionRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/prototype': typeof PrototypeRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
@@ -537,6 +546,7 @@ export interface FileRouteTypes {
     | '/motion'
     | '/privacy-policy'
     | '/prototype'
+    | '/sitemap.xml'
     | '/terms'
     | '/trust-center'
     | '/.mcp/list-tools'
@@ -594,6 +604,7 @@ export interface FileRouteTypes {
     | '/motion'
     | '/privacy-policy'
     | '/prototype'
+    | '/sitemap.xml'
     | '/terms'
     | '/trust-center'
     | '/.mcp/list-tools'
@@ -651,6 +662,7 @@ export interface FileRouteTypes {
     | '/motion'
     | '/privacy-policy'
     | '/prototype'
+    | '/sitemap.xml'
     | '/terms'
     | '/trust-center'
     | '/.mcp/list-tools'
@@ -709,6 +721,7 @@ export interface RootRouteChildren {
   MotionRoute: typeof MotionRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   PrototypeRoute: typeof PrototypeRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
   TrustCenterRoute: typeof TrustCenterRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
@@ -868,6 +881,13 @@ declare module '@tanstack/react-router' {
       path: '/prototype'
       fullPath: '/prototype'
       preLoaderRoute: typeof PrototypeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms': {
@@ -1157,6 +1177,7 @@ const rootRouteChildren: RootRouteChildren = {
   MotionRoute: MotionRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   PrototypeRoute: PrototypeRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
   TrustCenterRoute: TrustCenterRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
