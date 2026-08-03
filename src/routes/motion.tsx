@@ -18,6 +18,7 @@ import {
   DismissibleNote,
   InfoTip,
   LiveValue,
+  OutcomeRecord,
   ResponsivePanel,
   SelectableOffer,
 } from "@/components/motion/overlays";
