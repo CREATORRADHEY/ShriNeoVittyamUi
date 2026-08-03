@@ -121,26 +121,21 @@ export function HowItWorksSection() {
               <li
                 key={step.title}
                 className={cn(
-                  "group relative min-w-0 border-t border-[#ECE7DD] pt-[22px]",
-                  "transition-transform duration-[260ms] ease-[cubic-bezier(0.2,0,0,1)] will-change-transform",
-                  "hover:-translate-y-[3px] focus-within:-translate-y-[3px] motion-reduce:transition-none motion-reduce:hover:translate-y-0",
+                  "min-w-0 border-t border-[#ECE7DD] pt-[22px]",
                   !shown && "opacity-0",
                   shown && !settled && "animate-[shrineo-rise_330ms_cubic-bezier(0.2,0,0,1)_both]",
                 )}
                 style={shown && !settled ? { animationDelay: `${120 + i * 95}ms` } : undefined}
               >
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute -top-px right-0 left-0 h-px origin-left scale-x-0 bg-[#0051AE] transition-transform duration-[320ms] ease-[cubic-bezier(0.2,0,0,1)] group-hover:scale-x-100 group-focus-within:scale-x-100 motion-reduce:transition-none"
-                />
                 <div className="flex items-center justify-between gap-3">
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-[#E6F1FB] text-[#0051AE] transition-[transform,background-color,box-shadow] duration-[220ms] ease-[cubic-bezier(0.2,0,0,1)] group-hover:-translate-y-[2px] group-hover:scale-[1.05] group-hover:bg-[#DBEAFB] group-hover:shadow-[0_8px_18px_-12px_rgba(0,43,152,0.65)] motion-reduce:transition-none">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-[#E6F1FB] text-[#0051AE]">
                     {STEP_ICONS[i]}
                   </span>
-                  <span className="font-mono text-[12.5px] font-semibold tracking-[0.06em] text-[#B4BDCC] transition-colors duration-[220ms] group-hover:text-[#0051AE] motion-reduce:transition-none">
+                  <span className="font-mono text-[12.5px] font-semibold tracking-[0.06em] text-[#B4BDCC]">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                 </div>
+
                 <h3 className="mt-[18px] text-[18px] font-semibold tracking-[-0.015em] text-[#002B98]">
                   {step.title}
                 </h3>

@@ -55,19 +55,17 @@ function RepaymentFlowIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-/** Status timeline with a timestamp indicator. */
+/** Live notification bell with broadcast waves. */
 function StatusTimelineIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg {...svg} {...props}>
-      <path d="M4.5 5.5h9M4.5 12h6M4.5 18.5h5" />
-      <circle cx="2.6" cy="5.5" r="0.9" />
-      <circle cx="2.6" cy="12" r="0.9" />
-      <circle cx="2.6" cy="18.5" r="0.9" />
-      <circle cx="17.5" cy="15.5" r="4.5" />
-      <path d="M17.5 13.4v2.3l1.5 1" />
+      <path d="M9.4 17.2a2.6 2.6 0 0 0 5.2 0" />
+      <path d="M6 17.2h12l-1.5-2v-3.6a4.5 4.5 0 0 0-9 0V15.2z" />
+      <path d="M18.9 5.1a6.9 6.9 0 0 1 2 3.1M5.1 5.1a6.9 6.9 0 0 0-2 3.1" />
     </svg>
   );
 }
+
 
 /* -------------------------------------------------------------------- data */
 
