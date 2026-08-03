@@ -57,6 +57,16 @@
   --color-ink-soft: var(--ink-soft);
   --color-ink-foreground: var(--ink-foreground);
 
+  /* Ivory demonstration surfaces + SNV Trust Score palette */
+  --color-ivory: var(--ivory);
+  --color-ivory-border: var(--ivory-border);
+  --color-navy-deep: var(--navy-deep);
+  --color-navy-mid: var(--navy-mid);
+  --color-navy-bright: var(--navy-bright);
+  --color-band-low: var(--band-low);
+  --color-band-mid: var(--band-mid);
+  --color-band-high: var(--band-high);
+
   --color-info: var(--info);
   --color-info-surface: var(--info-surface);
   --color-success: var(--success);
