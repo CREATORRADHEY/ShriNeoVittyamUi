@@ -53,9 +53,13 @@
   --color-surface: var(--surface);
   --color-surface-strong: var(--surface-strong);
   --color-surface-warm: var(--surface-warm);
+  --color-surface-blue: var(--surface-blue);
+  --color-card-warm: var(--card-warm);
+  --color-border-warm: var(--border-warm);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-ink-foreground: var(--ink-foreground);
+
 
   --color-info: var(--info);
   --color-info-surface: var(--info-surface);
@@ -112,8 +116,12 @@
 
   --surface: #f6f8fc;
   --surface-strong: #eaeff8;
-  /* 3% warm accent — used once or twice per page, never for meaning */
-  --surface-warm: #faf7f2;
+  /* Warm ivory + soft blue alternation used by the homepage rhythm */
+  --surface-warm: #f7f3ea;
+  --surface-blue: #eef3fb;
+  --card-warm: #fefcf7;
+  --border-warm: #ece7dd;
+
   --ink: #06122c;
   --ink-soft: #0d1e42;
   --ink-foreground: #ffffff;
@@ -610,5 +618,27 @@ textarea {
   }
   .hero-field {
     opacity: 0.92;
+  }
+}
+
+/* Homepage how-it-works connector — draws once, never loops. */
+@utility line-draw {
+  transform-origin: left center;
+  animation: shrineo-line-draw 700ms var(--ease-standard) both;
+}
+
+@keyframes shrineo-line-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line-draw {
+    animation: none !important;
+    transform: none !important;
   }
 }
