@@ -2,125 +2,144 @@ import { Link } from "@tanstack/react-router";
 import logo from "@/assets/shrineo-logo.png.asset.json";
 import { products } from "@/config/products";
 import { configured, org } from "@/config/org";
-import { useI18n } from "@/i18n";
+
+type FooterLink = { label: string; to?: string; href?: string };
+
+const companyLinks: FooterLink[] = [
+  { label: "About", to: "/about" },
+  { label: "Blog", to: "/help-center" },
+  { label: "Careers", href: "mailto:careers@shrineocapital.com" },
+  { label: "Contact", to: "/contact" },
+  { label: "Press", to: "/about" },
+  { label: "Partners", to: "/for-lenders" },
+];
+
+const trustLinks: FooterLink[] = [
+  { label: "Trust Center", to: "/trust-center" },
+  { label: "Privacy Policy", to: "/privacy-policy" },
+  { label: "Terms & Conditions", to: "/terms" },
+  { label: "Cookie Policy", to: "/cookie-policy" },
+  { label: "Grievance Redressal", to: "/grievance-redressal" },
+];
 
 export function SiteFooter() {
-  const { t } = useI18n();
-
-  const company = [
-    { to: "/about", label: t("nav.about") },
-    { to: "/for-borrowers", label: t("nav.forBorrowers") },
-    { to: "/for-agents", label: t("nav.forAgents") },
-    { to: "/contact", label: t("nav.contact") },
-  ] as const;
-
-  const resources = [
-    { to: "/how-it-works", label: "How it works" },
-    { to: "/compare-offers", label: "Compare offers" },
-    { to: "/emi-calculator", label: "EMI calculator" },
-    { to: "/key-fact-statement", label: "Key Fact Statement" },
-    { to: "/account-aggregator", label: "Account Aggregator" },
-  ] as const;
-
-  const legal = [
-    { to: "/trust-center", label: t("nav.trust") },
-    { to: "/privacy-policy", label: t("footer.privacy") },
-    { to: "/terms", label: t("footer.terms") },
-    { to: "/cookie-policy", label: t("footer.cookies") },
-    { to: "/grievance-redressal", label: t("footer.grievance") },
-  ] as const;
+  const columns: { title: string; links: FooterLink[] }[] = [
+    {
+      title: "Products",
+      links: products.map((product) => ({ label: product.name, to: product.path })),
+    },
+    { title: "Company", links: companyLinks },
+    { title: "Trust & Legal", links: trustLinks },
+  ];
 
   return (
-    <footer className="bg-surface">
-      <div className="container-page grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-5">
-        <div>
-          <div className="flex items-center gap-2.5">
-            <img src={logo.url} alt="" width={36} height={36} className="size-9 object-contain" />
-            <span className="text-base font-semibold">ShriNeo Capital</span>
-          </div>
-          <p className="mt-3 max-w-xs text-sm text-muted-foreground">
-            A vernacular-first digital lending platform connecting borrowers with participating
-            banks and NBFCs.
-          </p>
-          <p className="mt-3 text-sm font-medium">{org.brandLine}</p>
-        </div>
-
-        <FooterColumn title={t("footer.products")}>
-          {products.map((product) => (
-            <li key={product.slug}>
-              <Link to={product.path} className="hover:text-foreground hover:underline">
-                {product.name}
-              </Link>
-            </li>
-          ))}
-        </FooterColumn>
-
-        <FooterColumn title={t("footer.company")}>
-          {company.map((item) => (
-            <li key={item.to}>
-              <Link to={item.to} className="hover:text-foreground hover:underline">
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </FooterColumn>
-        <FooterColumn title="Guides">
-          {resources.map((item) => (
-            <li key={item.to}>
-              <Link to={item.to} className="hover:text-foreground hover:underline">
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </FooterColumn>
-
-        <FooterColumn title={t("footer.legal")}>
-          {legal.map((item) => (
-            <li key={item.to}>
-              <Link to={item.to} className="hover:text-foreground hover:underline">
-                {item.label}
-              </Link>
-            </li>
-          ))}
-        </FooterColumn>
-      </div>
-
-      <div className="border-t border-border">
-        <div className="container-page grid gap-6 py-8 text-sm text-muted-foreground md:grid-cols-2">
-          <div className="space-y-1">
-            <p className="font-medium text-foreground">Regulatory and registration</p>
-            <p>{org.roleStatement}</p>
-            <p>
-              CIN: <span className="num">{configured(org.cin)}</span>
+    <footer className="w-full bg-[#000890] text-[#B9C6E8]">
+      <div className="mx-auto w-full max-w-[1320px] px-5 pt-[70px] sm:px-8 lg:px-12 lg:pt-[88px]">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
+          <div className="max-w-xs">
+            <span className="inline-flex rounded-[10px] bg-white px-3.5 py-2.5">
+              <img src={logo.url} alt="ShriNeo Capital" className="block h-11 w-auto object-contain" />
+            </span>
+            <p className="mt-5 text-[15px] leading-relaxed text-[#B9C6E8]">
+              Digital Lending Partner for Bharat.
             </p>
-            <p>Registered office: {configured(org.registeredAddress)}</p>
+            <p className="mt-3 text-[12.5px] leading-relaxed text-[#B9C6E8]/70">
+              A brand of {org.legalEntity}.
+            </p>
           </div>
-          <div className="space-y-1">
-            <p className="font-medium text-foreground">Grievance Officer</p>
-            <p>{configured(org.grievanceOfficer.name)}</p>
-            <p>{configured(org.grievanceOfficer.email)}</p>
-            <p>{org.grievanceOfficer.responseWindow}</p>
+
+          {columns.map((column) => (
+            <nav key={column.title} aria-label={column.title}>
+              <h2 className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.11em] text-[#B9C6E8]/75">
+                {column.title}
+              </h2>
+              <ul className="mt-3 flex flex-col gap-0.5">
+                {column.links.map((link) => (
+                  <li key={`${column.title}-${link.label}`}>
+                    {link.to ? (
+                      <Link
+                        to={link.to}
+                        className="flex min-h-11 w-fit items-center text-[14.5px] text-white/85 transition-opacity hover:text-white hover:opacity-100"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={link.href}
+                        className="flex min-h-11 w-fit items-center text-[14.5px] text-white/85 transition-opacity hover:text-white hover:opacity-100"
+                      >
+                        {link.label}
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+        </div>
+
+        <div className="mt-11 grid gap-6 border-y border-white/15 py-6 lg:mt-16 lg:grid-cols-2 lg:gap-12">
+          <div className="flex items-start gap-3">
+            <svg
+              width="18"
+              height="20"
+              viewBox="0 0 14 16"
+              fill="none"
+              aria-hidden="true"
+              className="mt-0.5 flex-none"
+            >
+              <path
+                d="M7 1.1 12.4 3.2v4.3c0 3.4-2.2 6.3-5.4 7.4-3.2-1.1-5.4-4-5.4-7.4V3.2L7 1.1z"
+                stroke="#B9C6E8"
+                strokeWidth="1.3"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M4.9 7.9 6.5 9.5l2.9-3"
+                stroke="#B9C6E8"
+                strokeWidth="1.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <div>
+              <p className="text-[14.5px] font-semibold text-white">
+                RBI-aligned Lending Service Provider
+              </p>
+              <p className="mt-1.5 font-mono text-xs leading-relaxed text-[#B9C6E8]/80">
+                CIN: <span className="num">{configured(org.cin)}</span>
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-[14.5px] font-semibold text-white">Grievance Redressal Officer</p>
+            <p className="mt-1.5 text-[13.5px] leading-relaxed text-[#B9C6E8]/85">
+              Reachable for any complaint about a loan, an agent, or your data.
+            </p>
+            <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-2">
+              <a
+                href="mailto:grievance@shrineocapital.com"
+                className="inline-flex min-h-11 items-center border-b border-white/40 font-mono text-[12.5px] text-white transition-colors hover:border-white"
+              >
+                grievance@shrineocapital.com
+              </a>
+              <span className="font-mono text-xs text-[#B9C6E8]/70">
+                {configured(org.grievanceOfficer.name)}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="border-t border-border">
-        <div className="container-page flex flex-col gap-2 py-6 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
-          <p>
+        <div className="flex flex-wrap items-center justify-between gap-x-7 gap-y-3 py-5 pb-8 lg:pb-11">
+          <span className="text-[12.5px] text-[#B9C6E8]/75">
             &copy; {new Date().getFullYear()} {org.legalEntity}. All rights reserved.
-          </p>
-          <p>{t("footer.alignment")}</p>
+          </span>
+          <span className="text-[12.5px] text-[#B9C6E8]/75">
+            Operated under RBI Digital Lending Guidelines.
+          </span>
         </div>
       </div>
     </footer>
-  );
-}
-
-function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <nav aria-label={title}>
-      <h2 className="text-sm font-semibold">{title}</h2>
-      <ul className="mt-3 space-y-2 text-sm text-muted-foreground">{children}</ul>
-    </nav>
   );
 }
