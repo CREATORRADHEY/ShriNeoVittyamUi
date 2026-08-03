@@ -8,7 +8,7 @@ import {
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import { HomeHero, ProductStrip } from "@/components/sections/home-hero";
+import { HomeHero } from "@/components/sections/home-hero";
 import { products } from "@/config/products";
 import { formatINR } from "@/lib/format";
 import { PublicShell } from "@/components/layout/public-shell";
@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { StatusPill } from "@/components/design-system/section";
 import { Reveal } from "@/components/sections/reveal";
 import { FaqGroups } from "@/components/sections/blocks";
-import { ConsentFigure, CostBreakdownFigure } from "@/components/illustrations/core";
+import { ConsentFigure } from "@/components/illustrations/core";
 import {
   ApplicationTrackingPanel,
   OfferComparisonPanel,
@@ -46,7 +46,6 @@ export const Route = createFileRoute("/")({
   component: HomePage,
 });
 
-const LENDER_NOTE = "Final approval and loan terms are determined by the participating lender.";
 
 /* --------------------------------------------------------------- section shell */
 
@@ -65,8 +64,8 @@ function HomePage() {
       {/* ─────────────────────── 1. HERO — full-bleed navy, one static story */}
       <HomeHero />
 
-      {/* ───────────────── 1b. PRODUCT STRIP — one-click product navigation */}
-      <ProductStrip />
+
+
 
       {/* ─────────────────────────────────────── 2. TRUST STRIP — horizontal */}
       <section
@@ -217,56 +216,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ──────────────────────────── 6. UNDERSTAND EVERY RUPEE — diagram-led */}
-      <section aria-labelledby="cost-title" className="border-b border-border bg-background">
-        <div className="container-page py-16 md:py-24">
-          <Reveal className="max-w-2xl">
-            <SectionLabel>Total cost</SectionLabel>
-            <h2
-              id="cost-title"
-              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] tracking-tight"
-            >
-              Understand every rupee.
-            </h2>
-            <p className="mt-4 text-base text-muted-foreground">
-              Principal, interest, processing fee and taxes together decide your monthly instalment
-              and your total repayment.
-            </p>
-          </Reveal>
-
-          <Reveal className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-            <figure className="rounded-xl border border-border bg-surface-warm p-4 md:p-8">
-              <CostBreakdownFigure />
-              <figcaption className="mt-5 text-sm text-muted-foreground">
-                Illustrative split of a {formatINR(300000)} loan over 36 months. Estimated values.
-              </figcaption>
-            </figure>
-            <dl className="grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-1">
-              {[
-                { term: "Loan amount", value: formatINR(300000), note: "What you borrow" },
-                { term: "Interest", value: formatINR(52320), note: "Charged on the balance" },
-                {
-                  term: "Fee and taxes",
-                  value: formatINR(3540),
-                  note: "One-time, disclosed upfront",
-                },
-                { term: "Total repayment", value: formatINR(355860), note: "APR 12.4%" },
-              ].map((row, i) => (
-                <div key={row.term} className="bg-card px-5 py-4">
-                  <dt className="label-micro text-muted-foreground">{row.term}</dt>
-                  <dd
-                    className={`num mt-1 tracking-tight ${i === 3 ? "text-2xl font-semibold" : "text-lg"}`}
-                  >
-                    {row.value}
-                  </dd>
-                  <dd className="mt-1 text-xs text-muted-foreground">{row.note}</dd>
-                </div>
-              ))}
-            </dl>
-          </Reveal>
-          <p className="mt-6 text-xs text-muted-foreground">{LENDER_NOTE}</p>
-        </div>
-      </section>
 
       {/* ──────────────────────────────────────────────── 9. NEO — assistant */}
       <section aria-labelledby="neo-title" className="border-b border-border bg-background">
