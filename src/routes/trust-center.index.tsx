@@ -17,7 +17,7 @@ import { EditorialHero, HeroPanel, StatementBand } from "@/components/sections/e
 import { ConsentFigure } from "@/components/illustrations/core";
 import photoProfessional from "@/assets/photo-professional.jpg";
 
-export const Route = createFileRoute("/trust-center")({
+export const Route = createFileRoute("/trust-center/")({
   head: () => ({
     meta: [
       { title: "Trust Center — disclosures, data and consent | ShriNeo Capital" },

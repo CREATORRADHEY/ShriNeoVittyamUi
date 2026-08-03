@@ -28,7 +28,6 @@ import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as PrototypeRouteImport } from './routes/prototype'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as TrustCenterRouteImport } from './routes/trust-center'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AuthSigninRouteImport } from './routes/auth.signin'
@@ -54,6 +53,7 @@ import { Route as LoansHomeRouteImport } from './routes/loans.home'
 import { Route as LoansMortgageRouteImport } from './routes/loans.mortgage'
 import { Route as LoansPersonalRouteImport } from './routes/loans.personal'
 import { Route as LoansSachetRouteImport } from './routes/loans.sachet'
+import { Route as TrustCenterIndexRouteImport } from './routes/trust-center.index'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as AppAdminIndexRouteImport } from './routes/app.admin.index'
 import { Route as AppAgentIndexRouteImport } from './routes/app.agent.index'
@@ -159,11 +159,6 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TrustCenterRoute = TrustCenterRouteImport.update({
-  id: '/trust-center',
-  path: '/trust-center',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93ListToolsRoute =
@@ -294,6 +289,11 @@ const LoansSachetRoute = LoansSachetRouteImport.update({
   path: '/loans/sachet',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrustCenterIndexRoute = TrustCenterIndexRouteImport.update({
+  id: '/trust-center/',
+  path: '/trust-center/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
   Char91DotmcpChar93InvokeToolToolRouteImport.update({
     id: '/.mcp/invoke-tool/$tool',
@@ -371,7 +371,6 @@ export interface FileRoutesByFullPath {
   '/prototype': typeof PrototypeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/trust-center': typeof TrustCenterRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/signin': typeof AuthSigninRoute
@@ -397,6 +396,7 @@ export interface FileRoutesByFullPath {
   '/loans/sachet': typeof LoansSachetRoute
   '/errors/': typeof ErrorsIndexRoute
   '/loans/': typeof LoansIndexRoute
+  '/trust-center/': typeof TrustCenterIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
@@ -429,7 +429,6 @@ export interface FileRoutesByTo {
   '/prototype': typeof PrototypeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/trust-center': typeof TrustCenterRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/signin': typeof AuthSigninRoute
@@ -455,6 +454,7 @@ export interface FileRoutesByTo {
   '/loans/sachet': typeof LoansSachetRoute
   '/errors': typeof ErrorsIndexRoute
   '/loans': typeof LoansIndexRoute
+  '/trust-center': typeof TrustCenterIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
@@ -488,7 +488,6 @@ export interface FileRoutesById {
   '/prototype': typeof PrototypeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
-  '/trust-center': typeof TrustCenterRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/signin': typeof AuthSigninRoute
@@ -514,6 +513,7 @@ export interface FileRoutesById {
   '/loans/sachet': typeof LoansSachetRoute
   '/errors/': typeof ErrorsIndexRoute
   '/loans/': typeof LoansIndexRoute
+  '/trust-center/': typeof TrustCenterIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
@@ -548,7 +548,6 @@ export interface FileRouteTypes {
     | '/prototype'
     | '/sitemap.xml'
     | '/terms'
-    | '/trust-center'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/auth/signin'
@@ -574,6 +573,7 @@ export interface FileRouteTypes {
     | '/loans/sachet'
     | '/errors/'
     | '/loans/'
+    | '/trust-center/'
     | '/.mcp/invoke-tool/$tool'
     | '/app/borrower/application'
     | '/app/borrower/applications'
@@ -606,7 +606,6 @@ export interface FileRouteTypes {
     | '/prototype'
     | '/sitemap.xml'
     | '/terms'
-    | '/trust-center'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/auth/signin'
@@ -632,6 +631,7 @@ export interface FileRouteTypes {
     | '/loans/sachet'
     | '/errors'
     | '/loans'
+    | '/trust-center'
     | '/.mcp/invoke-tool/$tool'
     | '/app/borrower/application'
     | '/app/borrower/applications'
@@ -664,7 +664,6 @@ export interface FileRouteTypes {
     | '/prototype'
     | '/sitemap.xml'
     | '/terms'
-    | '/trust-center'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/auth/signin'
@@ -690,6 +689,7 @@ export interface FileRouteTypes {
     | '/loans/sachet'
     | '/errors/'
     | '/loans/'
+    | '/trust-center/'
     | '/.mcp/invoke-tool/$tool'
     | '/app/borrower/application'
     | '/app/borrower/applications'
@@ -723,7 +723,6 @@ export interface RootRouteChildren {
   PrototypeRoute: typeof PrototypeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
-  TrustCenterRoute: typeof TrustCenterRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AuthSigninRoute: typeof AuthSigninRoute
@@ -749,6 +748,7 @@ export interface RootRouteChildren {
   LoansSachetRoute: typeof LoansSachetRoute
   ErrorsIndexRoute: typeof ErrorsIndexRoute
   LoansIndexRoute: typeof LoansIndexRoute
+  TrustCenterIndexRoute: typeof TrustCenterIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   AppBorrowerApplicationRoute: typeof AppBorrowerApplicationRoute
   AppBorrowerApplicationsRoute: typeof AppBorrowerApplicationsRoute
@@ -895,13 +895,6 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/trust-center': {
-      id: '/trust-center'
-      path: '/trust-center'
-      fullPath: '/trust-center'
-      preLoaderRoute: typeof TrustCenterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -1079,6 +1072,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoansSachetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trust-center/': {
+      id: '/trust-center/'
+      path: '/trust-center'
+      fullPath: '/trust-center/'
+      preLoaderRoute: typeof TrustCenterIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/.mcp/invoke-tool/$tool': {
       id: '/.mcp/invoke-tool/$tool'
       path: '/.mcp/invoke-tool/$tool'
@@ -1179,7 +1179,6 @@ const rootRouteChildren: RootRouteChildren = {
   PrototypeRoute: PrototypeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
-  TrustCenterRoute: TrustCenterRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
@@ -1206,6 +1205,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoansSachetRoute: LoansSachetRoute,
   ErrorsIndexRoute: ErrorsIndexRoute,
   LoansIndexRoute: LoansIndexRoute,
+  TrustCenterIndexRoute: TrustCenterIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   AppBorrowerApplicationRoute: AppBorrowerApplicationRoute,
   AppBorrowerApplicationsRoute: AppBorrowerApplicationsRoute,
