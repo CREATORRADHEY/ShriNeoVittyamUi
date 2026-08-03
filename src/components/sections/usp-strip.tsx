@@ -1,5 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useLayoutEffect, useRef, useState, type SVGProps } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactElement,
+  type SVGProps,
+} from "react";
 
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -75,7 +82,7 @@ type Usp = {
   id: string;
   title: string;
   copy: string;
-  Icon: (props: SVGProps<SVGSVGElement>) => JSX.Element;
+  Icon: (props: SVGProps<SVGSVGElement>) => ReactElement;
   to?: "/for-lenders" | "/how-it-works";
 };
 
@@ -251,7 +258,7 @@ export function UspStrip() {
             <li
               key={usp.id}
               className={cn(
-                "min-w-0 border-border",
+                "relative min-w-0 border-border",
                 index % 2 === 1 && "border-l lg:border-l",
                 index > 1 && "border-t lg:border-t-0",
                 index === 2 && "lg:border-l",
