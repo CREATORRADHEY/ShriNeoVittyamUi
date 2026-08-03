@@ -145,10 +145,20 @@ function HeaderInner() {
             id="mobile-menu"
             className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-white/15 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] lg:hidden"
           >
-            <p className="px-1 pb-2 text-xs font-semibold tracking-wide text-[#b9c6e8] uppercase">
+            <button
+              type="button"
+              aria-expanded={loansOpen}
+              aria-controls="mobile-loans"
+              onClick={() => setLoansOpen((v) => !v)}
+              className="flex min-h-11 w-full items-center justify-between rounded-md px-3 text-base font-medium text-white hover:bg-white/10"
+            >
               {t("nav.loans")}
-            </p>
-            <ul className="mb-3 grid gap-1">
+              <ChevronDown
+                aria-hidden
+                className={`size-5 transition-transform duration-200 ${loansOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+            <ul id="mobile-loans" hidden={!loansOpen} className="mb-3 grid gap-1">
               {products.map((product) => (
                 <li key={product.slug}>
                   <Link
@@ -164,6 +174,7 @@ function HeaderInner() {
                 </li>
               ))}
             </ul>
+
             <ul className="grid gap-1 border-t border-white/15 pt-3">
               {mainLinks.map((link) => (
                 <li key={link.to}>
