@@ -9,6 +9,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { HomeHero } from "@/components/sections/home-hero";
+import { EligibilityWidget } from "@/components/sections/eligibility-widget";
 import { products } from "@/config/products";
 import { formatINR } from "@/lib/format";
 import { PublicShell } from "@/components/layout/public-shell";
@@ -86,6 +87,9 @@ function HomePage() {
           ))}
         </ul>
       </section>
+
+      {/* ───────────────────────── 2b. ELIGIBILITY — prototype entry point */}
+      <EligibilityWidget />
 
       {/* ─────────────────────────────── 3. PRODUCTS — directed composition */}
       <section aria-labelledby="products-title" className="border-b border-border bg-surface">
