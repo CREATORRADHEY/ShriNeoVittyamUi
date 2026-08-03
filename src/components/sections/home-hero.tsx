@@ -1,11 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Mic, ShieldCheck } from "lucide-react";
-import heroDesktop from "@/assets/hero-man-desktop.jpg";
-import heroMobile from "@/assets/hero-man-mobile.jpg";
+import heroDesktopAsset from "@/assets/hero-shop-desktop.jpg.asset.json";
+import heroMobileAsset from "@/assets/hero-shop-mobile.jpg.asset.json";
 import { products } from "@/config/products";
 import { formatINR } from "@/lib/format";
 
-const PHOTO_ALT = "Small-business owner standing confidently outside his workplace.";
+const heroDesktop = heroDesktopAsset.url;
+const heroMobile = heroMobileAsset.url;
+
+const PHOTO_ALT = "Shop owner standing at his kirana store counter, smartphone in hand.";
 
 /**
  * Homepage hero — one static story on a full-bleed navy field.
