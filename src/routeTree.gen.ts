@@ -22,10 +22,13 @@ import { Route as ForBorrowersRouteImport } from './routes/for-borrowers'
 import { Route as GrievanceRedressalRouteImport } from './routes/grievance-redressal'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as KeyFactStatementRouteImport } from './routes/key-fact-statement'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as PrototypeRouteImport } from './routes/prototype'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TrustCenterRouteImport } from './routes/trust-center'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AuthSigninRouteImport } from './routes/auth.signin'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as ErrorsIndexRouteImport } from './routes/errors.index'
@@ -49,6 +52,7 @@ import { Route as LoansHomeRouteImport } from './routes/loans.home'
 import { Route as LoansMortgageRouteImport } from './routes/loans.mortgage'
 import { Route as LoansPersonalRouteImport } from './routes/loans.personal'
 import { Route as LoansSachetRouteImport } from './routes/loans.sachet'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as AppAdminIndexRouteImport } from './routes/app.admin.index'
 import { Route as AppAgentIndexRouteImport } from './routes/app.agent.index'
 import { Route as AppBorrowerIndexRouteImport } from './routes/app.borrower.index'
@@ -125,6 +129,11 @@ const KeyFactStatementRoute = KeyFactStatementRouteImport.update({
   path: '/key-fact-statement',
   getParentRoute: () => rootRouteImport,
 } as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
@@ -145,6 +154,18 @@ const TrustCenterRoute = TrustCenterRouteImport.update({
   path: '/trust-center',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthSigninRoute = AuthSigninRouteImport.update({
   id: '/auth/signin',
   path: '/auth/signin',
@@ -261,6 +282,12 @@ const LoansSachetRoute = LoansSachetRouteImport.update({
   path: '/loans/sachet',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AppAdminIndexRoute = AppAdminIndexRouteImport.update({
   id: '/app/admin/',
   path: '/app/admin/',
@@ -326,10 +353,13 @@ export interface FileRoutesByFullPath {
   '/grievance-redressal': typeof GrievanceRedressalRoute
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
+  '/mcp': typeof McpRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/prototype': typeof PrototypeRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
   '/errors/401': typeof Errors401Route
@@ -353,6 +383,7 @@ export interface FileRoutesByFullPath {
   '/loans/sachet': typeof LoansSachetRoute
   '/errors/': typeof ErrorsIndexRoute
   '/loans/': typeof LoansIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
   '/app/borrower/apply': typeof AppBorrowerApplyRoute
@@ -378,10 +409,13 @@ export interface FileRoutesByTo {
   '/grievance-redressal': typeof GrievanceRedressalRoute
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
+  '/mcp': typeof McpRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/prototype': typeof PrototypeRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
   '/errors/401': typeof Errors401Route
@@ -405,6 +439,7 @@ export interface FileRoutesByTo {
   '/loans/sachet': typeof LoansSachetRoute
   '/errors': typeof ErrorsIndexRoute
   '/loans': typeof LoansIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
   '/app/borrower/apply': typeof AppBorrowerApplyRoute
@@ -431,10 +466,13 @@ export interface FileRoutesById {
   '/grievance-redressal': typeof GrievanceRedressalRoute
   '/how-it-works': typeof HowItWorksRoute
   '/key-fact-statement': typeof KeyFactStatementRoute
+  '/mcp': typeof McpRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/prototype': typeof PrototypeRoute
   '/terms': typeof TermsRoute
   '/trust-center': typeof TrustCenterRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
   '/errors/401': typeof Errors401Route
@@ -458,6 +496,7 @@ export interface FileRoutesById {
   '/loans/sachet': typeof LoansSachetRoute
   '/errors/': typeof ErrorsIndexRoute
   '/loans/': typeof LoansIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
   '/app/borrower/apply': typeof AppBorrowerApplyRoute
@@ -485,10 +524,13 @@ export interface FileRouteTypes {
     | '/grievance-redressal'
     | '/how-it-works'
     | '/key-fact-statement'
+    | '/mcp'
     | '/privacy-policy'
     | '/prototype'
     | '/terms'
     | '/trust-center'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/auth/signin'
     | '/auth/signup'
     | '/errors/401'
@@ -512,6 +554,7 @@ export interface FileRouteTypes {
     | '/loans/sachet'
     | '/errors/'
     | '/loans/'
+    | '/.mcp/invoke-tool/$tool'
     | '/app/borrower/application'
     | '/app/borrower/applications'
     | '/app/borrower/apply'
@@ -537,10 +580,13 @@ export interface FileRouteTypes {
     | '/grievance-redressal'
     | '/how-it-works'
     | '/key-fact-statement'
+    | '/mcp'
     | '/privacy-policy'
     | '/prototype'
     | '/terms'
     | '/trust-center'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/auth/signin'
     | '/auth/signup'
     | '/errors/401'
@@ -564,6 +610,7 @@ export interface FileRouteTypes {
     | '/loans/sachet'
     | '/errors'
     | '/loans'
+    | '/.mcp/invoke-tool/$tool'
     | '/app/borrower/application'
     | '/app/borrower/applications'
     | '/app/borrower/apply'
@@ -589,10 +636,13 @@ export interface FileRouteTypes {
     | '/grievance-redressal'
     | '/how-it-works'
     | '/key-fact-statement'
+    | '/mcp'
     | '/privacy-policy'
     | '/prototype'
     | '/terms'
     | '/trust-center'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/auth/signin'
     | '/auth/signup'
     | '/errors/401'
@@ -616,6 +666,7 @@ export interface FileRouteTypes {
     | '/loans/sachet'
     | '/errors/'
     | '/loans/'
+    | '/.mcp/invoke-tool/$tool'
     | '/app/borrower/application'
     | '/app/borrower/applications'
     | '/app/borrower/apply'
@@ -642,10 +693,13 @@ export interface RootRouteChildren {
   GrievanceRedressalRoute: typeof GrievanceRedressalRoute
   HowItWorksRoute: typeof HowItWorksRoute
   KeyFactStatementRoute: typeof KeyFactStatementRoute
+  McpRoute: typeof McpRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   PrototypeRoute: typeof PrototypeRoute
   TermsRoute: typeof TermsRoute
   TrustCenterRoute: typeof TrustCenterRoute
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AuthSigninRoute: typeof AuthSigninRoute
   AuthSignupRoute: typeof AuthSignupRoute
   Errors401Route: typeof Errors401Route
@@ -669,6 +723,7 @@ export interface RootRouteChildren {
   LoansSachetRoute: typeof LoansSachetRoute
   ErrorsIndexRoute: typeof ErrorsIndexRoute
   LoansIndexRoute: typeof LoansIndexRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   AppBorrowerApplicationRoute: typeof AppBorrowerApplicationRoute
   AppBorrowerApplicationsRoute: typeof AppBorrowerApplicationsRoute
   AppBorrowerApplyRoute: typeof AppBorrowerApplyRoute
@@ -774,6 +829,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KeyFactStatementRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy-policy': {
       id: '/privacy-policy'
       path: '/privacy-policy'
@@ -800,6 +862,20 @@ declare module '@tanstack/react-router' {
       path: '/trust-center'
       fullPath: '/trust-center'
       preLoaderRoute: typeof TrustCenterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/signin': {
@@ -963,6 +1039,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoansSachetRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app/admin/': {
       id: '/app/admin/'
       path: '/app/admin'
@@ -1050,10 +1133,14 @@ const rootRouteChildren: RootRouteChildren = {
   GrievanceRedressalRoute: GrievanceRedressalRoute,
   HowItWorksRoute: HowItWorksRoute,
   KeyFactStatementRoute: KeyFactStatementRoute,
+  McpRoute: McpRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   PrototypeRoute: PrototypeRoute,
   TermsRoute: TermsRoute,
   TrustCenterRoute: TrustCenterRoute,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   AuthSigninRoute: AuthSigninRoute,
   AuthSignupRoute: AuthSignupRoute,
   Errors401Route: Errors401Route,
@@ -1077,6 +1164,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoansSachetRoute: LoansSachetRoute,
   ErrorsIndexRoute: ErrorsIndexRoute,
   LoansIndexRoute: LoansIndexRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   AppBorrowerApplicationRoute: AppBorrowerApplicationRoute,
   AppBorrowerApplicationsRoute: AppBorrowerApplicationsRoute,
   AppBorrowerApplyRoute: AppBorrowerApplyRoute,
