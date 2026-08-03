@@ -283,12 +283,13 @@ type FormState = "idle" | "submitting" | "error" | "recorded";
 
 function LenderEnquiryForm() {
   const [state, setState] = useState<FormState>("idle");
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  type Errors = { institution?: string; name?: string; email?: string; message?: string };
+  const [errors, setErrors] = useState<Errors>({});
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const next: Record<string, string> = {};
+    const next: Errors = {};
     if (!String(data.get("institution") ?? "").trim()) next.institution = "Enter your institution name.";
     if (!String(data.get("name") ?? "").trim()) next.name = "Enter a contact name.";
     const email = String(data.get("email") ?? "").trim();
@@ -367,7 +368,7 @@ function Field({
   id: string;
   label: string;
   type?: string;
-  error?: string;
+  error?: string | undefined;
 }) {
   return (
     <div className="min-w-0">
