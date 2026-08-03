@@ -46,6 +46,30 @@ export function LoansMenu() {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const isOpen = open === "loans";
   const present = usePresence(isOpen);
+  const [box, setBox] = useState<{ left: number; top: number; width: number } | null>(null);
+
+  // One measurement per open — the panel is clamped inside the viewport and
+  // sits directly beneath the (possibly condensed) header.
+  useEffect(() => {
+    if (!isOpen) return;
+    const measure = () => {
+      const rect = rootRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      const width = Math.min(900, window.innerWidth - 48);
+      const left = Math.min(
+        Math.max(24, rect.left + rect.width / 2 - width / 2),
+        window.innerWidth - 24 - width,
+      );
+      setBox({ left, top: rect.bottom, width });
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    window.addEventListener("scroll", measure, { passive: true });
+    return () => {
+      window.removeEventListener("resize", measure);
+      window.removeEventListener("scroll", measure);
+    };
+  }, [isOpen]);
 
   useDisclosureBehaviour({ isOpen, close: closeNow, rootRef, triggerRef });
 
@@ -95,10 +119,11 @@ export function LoansMenu() {
         <div
           id="loans-panel"
           data-state={isOpen ? "open" : "closed"}
-          className="hdr-panel absolute top-full left-1/2 z-50 -translate-x-1/2 pt-2"
+          className="hdr-panel fixed z-50 pt-2"
+          style={{ left: box?.left ?? 0, top: box?.top ?? 0, width: box?.width ?? 0 }}
           onPointerEnter={cancelClose}
         >
-          <div className="w-[min(900px,calc(100vw-3rem))] overflow-hidden rounded-[14px] border border-border bg-surface-warm text-foreground shadow-[var(--shadow-panel)]">
+          <div className="w-full overflow-hidden rounded-[14px] border border-border bg-surface-warm text-foreground shadow-[var(--shadow-panel)]">
             <div className="grid gap-0 md:grid-cols-[1.55fr_1fr]">
               <div className="grid gap-1 p-4 sm:grid-cols-2 md:p-5">
                 {products.map((product) => (
