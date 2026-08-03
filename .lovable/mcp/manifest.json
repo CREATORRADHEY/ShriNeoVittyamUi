@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.1",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "trustworthy-finance-hub",
+      "version": "0.1.0",
+      "title": "Trustworthy Finance Hub"
+    },
+    "tools": [
+      {
+        "name": "list_loan_products",
+        "title": "List loan products",
+        "description": "List every ShriNeo Capital loan product with its indicative amount range, tenure range and indicative interest rate band.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_loan_product",
+        "title": "Get loan product details",
+        "description": "Get full public details for one ShriNeo Capital loan product: eligibility, required documents, FAQs and indicative pricing.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "string",
+              "description": "Product slug: personal, business, home, mortgage or sachet."
+            }
+          },
+          "required": [
+            "slug"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "calculate_emi",
+        "title": "Calculate EMI",
+        "description": "Calculate a reducing-balance monthly EMI, total interest and total repayment for a loan amount, annual interest rate and tenure in months. Indicative estimate only — actual lender terms are final.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "principal": {
+              "type": "number",
+              "description": "Loan amount in rupees, e.g. 500000."
+            },
+            "annualRatePercent": {
+              "type": "number",
+              "description": "Nominal annual interest rate as a percentage, e.g. 12.5."
+            },
+            "tenureMonths": {
+              "type": "number",
+              "description": "Repayment tenure in months, e.g. 24."
+            }
+          },
+          "required": [
+            "principal",
+            "annualRatePercent",
+            "tenureMonths"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_company_info",
+        "title": "Get company and compliance info",
+        "description": "Get ShriNeo Capital's public brand, legal entity, regulatory role and grievance-redressal facts as published on the website.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
