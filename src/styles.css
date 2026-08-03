@@ -612,3 +612,62 @@ textarea {
     opacity: 0.92;
   }
 }
+
+
+/* ============================================================
+   Header disclosure panels + rotating service label
+   ============================================================ */
+
+@keyframes hdr-panel-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes hdr-panel-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-3px); }
+}
+@keyframes hdr-label-in {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hdr-panel[data-state="open"] {
+  animation: hdr-panel-in 180ms var(--ease-enter) both;
+  transform-origin: top center;
+}
+.hdr-panel[data-state="closed"] {
+  animation: hdr-panel-out 140ms var(--ease-exit) both;
+  pointer-events: none;
+}
+.hdr-rotate {
+  animation: hdr-label-in 250ms var(--ease-enter) both;
+}
+
+/* Left-to-right underline indicator for header navigation */
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.35rem;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 160ms var(--ease-standard);
+}
+.nav-underline:hover::after,
+.nav-underline:focus-visible::after,
+.nav-underline[data-open="true"]::after,
+.nav-underline[data-status="active"]::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hdr-panel[data-state="open"],
+  .hdr-panel[data-state="closed"] {
+    animation: none !important;
+    transform: none !important;
+  }
+  .hdr-rotate { animation: none !important; }
+}
