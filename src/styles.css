@@ -128,6 +128,19 @@
   --ink-soft: #0d1e42;
   --ink-foreground: #ffffff;
 
+  /* Warm ivory demonstration surface */
+  --ivory: #f7f3ea;
+  --ivory-border: #e6ddcc;
+  /* SNV Trust Score institutional navy family */
+  --navy-deep: #001a5c;
+  --navy-mid: #00246f;
+  --navy-bright: #002b98;
+  /* SNV Trust Score ring bands (0-40 / 40-70 / 70-100) */
+  --band-low: #c9bca8;
+  --band-mid: #4a7fc1;
+  --band-high: #9fd0ff;
+
+
   --info: #2563eb;
   --info-surface: #eef3ff;
   --success: #2f9b76;
