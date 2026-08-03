@@ -299,7 +299,7 @@ function MotionSystemRoute() {
 
       <Section
         title="Overlays"
-        note="Drawers slide from the right on desktop and rise as a bottom sheet on mobile. Sensitive and security dialogs cannot be dismissed by clicking away."
+        note="Drawers slide from the right on desktop and rise as a bottom sheet on mobile. Sensitive and security dialogs cannot be dismissed by clicking away or with Escape, and their outcome is written to the page rather than shown as a toast."
       >
         <div className="flex flex-wrap gap-3">
           <Button variant="outline" onClick={() => setDrawer(true)}>
@@ -315,7 +315,39 @@ function MotionSystemRoute() {
             Security modal
           </Button>
         </div>
+        {outcome === "withdrawn" ? (
+          <div className="mt-4 max-w-xl">
+            <OutcomeRecord
+              tone="neutral"
+              title="Application withdrawn"
+              body="Nothing was sent to any lender. Your draft is kept for 30 days and can be resumed from Applications."
+              reference="Reference ABC-2291"
+              recordedAt="Recorded 12 June 2026, 10:42"
+              action={
+                <Button variant="outline" size="sm" onClick={() => setOutcome(null)}>
+                  Reset demo
+                </Button>
+              }
+            />
+          </div>
+        ) : null}
+        {outcome === "accepted" ? (
+          <div className="mt-4 max-w-xl">
+            <OutcomeRecord
+              title="Offer accepted — IDFC First, 12.9% APR"
+              body="Your consent was sent to the lender. Disbursal usually completes within two working days. The Key Fact Statement is available in Documents."
+              reference="Agreement SNC-77401"
+              recordedAt="Recorded 12 June 2026, 10:44"
+              action={
+                <Button variant="outline" size="sm" onClick={() => setOutcome(null)}>
+                  Reset demo
+                </Button>
+              }
+            />
+          </div>
+        ) : null}
       </Section>
+
 
       <Section
         title="Upload and verification"
