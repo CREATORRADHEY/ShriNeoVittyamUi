@@ -5,6 +5,7 @@ import { UspStrip } from "@/components/sections/usp-strip";
 import { EligibilityWidget } from "@/components/sections/eligibility-widget";
 import { NeoConversationSection } from "@/components/sections/neo-conversation";
 import { SnvTrustScoreSection } from "@/components/sections/snv-trust-score";
+import { AgentCtaSection } from "@/components/sections/agent-cta";
 import { products } from "@/config/products";
 import { formatINR } from "@/lib/format";
 import { PublicShell } from "@/components/layout/public-shell";
