@@ -361,92 +361,69 @@
   animation: shrineo-nudge var(--motion-standard) var(--ease-standard) 1;
 }
 
-/* --- Overlay timing: retune shadcn/tw-animate defaults to our tokens --- */
-[data-slot="dialog-content"],
-[data-slot="alert-dialog-content"] {
+/* --- Overlay timing: retune Radix / tw-animate defaults to our tokens ---
+   The shadcn primitives in this project do not emit data-slot attributes,
+   so we hook the Radix state attributes they do emit. */
+
+/* Modals, alert dialogs, sheets, drawers */
+[role="dialog"][data-state="open"],
+[role="alertdialog"][data-state="open"] {
   animation-duration: var(--motion-standard);
   animation-timing-function: var(--ease-enter);
-}
-
-[data-slot="dialog-overlay"],
-[data-slot="alert-dialog-overlay"] {
-  animation-duration: var(--motion-standard);
-}
-
-[data-slot="dialog-content"][data-state="closed"],
-[data-slot="alert-dialog-content"][data-state="closed"],
-[data-slot="dialog-overlay"][data-state="closed"] {
-  animation-duration: var(--motion-fast);
-  animation-timing-function: var(--ease-exit);
-}
-
-[data-slot="popover-content"],
-[data-slot="dropdown-menu-content"],
-[data-slot="select-content"] {
-  animation-duration: var(--motion-fast);
-  animation-timing-function: var(--ease-enter);
-}
-
-[data-slot="tooltip-content"] {
-  animation-duration: var(--motion-fast);
-}
-
-[data-slot="sheet-content"] {
-  transition-duration: var(--motion-moderate) !important;
+  transition-duration: var(--motion-moderate);
   transition-timing-function: var(--ease-enter);
 }
 
-[data-slot="sheet-content"][data-state="closed"] {
-  transition-duration: var(--motion-standard) !important;
+[role="dialog"][data-state="closed"],
+[role="alertdialog"][data-state="closed"] {
+  animation-duration: var(--motion-fast);
+  animation-timing-function: var(--ease-exit);
+  transition-duration: var(--motion-standard);
   transition-timing-function: var(--ease-exit);
 }
 
-/* Buttons: press acknowledgement without playfulness. */
-[data-slot="button"] {
-  transition:
-    background-color var(--motion-fast) var(--ease-standard),
-    color var(--motion-fast) var(--ease-standard),
-    border-color var(--motion-fast) var(--ease-standard),
-    transform var(--motion-instant) var(--ease-standard),
-    box-shadow var(--motion-fast) var(--ease-standard);
+/* Backdrops */
+[data-radix-portal] > [data-state][aria-hidden="true"],
+[data-state="open"].fixed.inset-0 {
+  animation-duration: var(--motion-standard);
 }
 
-[data-slot="button"]:not(:disabled):active {
-  transform: translateY(1px);
+/* Anchored surfaces: tooltip, popover, dropdown, select */
+[data-radix-popper-content-wrapper] > * {
+  animation-duration: var(--motion-fast) !important;
+  animation-timing-function: var(--ease-enter);
+}
+
+[data-radix-popper-content-wrapper] > [data-state="closed"] {
+  animation-duration: var(--motion-instant) !important;
+  animation-timing-function: var(--ease-exit);
+}
+
+/* Buttons: press acknowledgement without playfulness. */
+button:not(:disabled):active {
+  transition-duration: var(--motion-instant);
 }
 
 /* Inputs: focus and validation feedback. */
-[data-slot="input"],
-[data-slot="textarea"],
-[data-slot="select-trigger"] {
+input,
+textarea {
   transition:
     border-color var(--motion-fast) var(--ease-standard),
     box-shadow var(--motion-fast) var(--ease-standard),
     background-color var(--motion-fast) var(--ease-standard);
 }
 
-/* Accordion chevron + panel already animate; align the timing. */
-[data-slot="accordion-content"] {
+/* Accordion panel + chevron. */
+[data-radix-collapsible-content],
+[data-state][id^="radix-"][role="region"] {
   animation-duration: var(--motion-standard);
   animation-timing-function: var(--ease-standard);
 }
 
-[data-slot="accordion-trigger"] svg {
+[data-state] > svg.lucide-chevron-down {
   transition: transform var(--motion-standard) var(--ease-standard);
 }
 
-/* Tabs indicator + content crossfade. */
-[data-slot="tabs-trigger"] {
-  transition:
-    background-color var(--motion-standard) var(--ease-standard),
-    color var(--motion-standard) var(--ease-standard),
-    border-color var(--motion-standard) var(--ease-standard),
-    box-shadow var(--motion-standard) var(--ease-standard);
-}
-
-[data-slot="tabs-content"][data-state="active"] {
-  animation: shrineo-fade-in var(--motion-standard) var(--ease-enter) both;
-}
 
 @media (prefers-reduced-motion: reduce) {
   html {
