@@ -32,8 +32,10 @@ export function Reveal({
           observer.disconnect();
         }
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
+      // Trigger once, when ~18% of the element has entered the viewport.
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.18 },
     );
+
     observer.observe(node);
     return () => observer.disconnect();
   }, []);

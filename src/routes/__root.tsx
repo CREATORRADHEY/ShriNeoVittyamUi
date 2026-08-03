@@ -10,12 +10,15 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
+import { RouteTransition } from "@/components/motion/route-transition";
 import { FullPageState, referenceStamp } from "@/components/states/full-page";
 import { NotFoundPage } from "@/components/states/negative-pages";
 import { PrototypeToolbar } from "@/components/prototype/toolbar";
 import { PrototypeProvider } from "@/prototype/state";
 import { I18nProvider } from "../i18n";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
@@ -106,11 +109,14 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider delayDuration={150}>
+      <TooltipProvider delayDuration={150} skipDelayDuration={300}>
         <I18nProvider>
           <PrototypeProvider>
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-            <Outlet />
+            <RouteTransition>
+              <Outlet />
+            </RouteTransition>
+            <Toaster />
             <PrototypeToolbar />
           </PrototypeProvider>
         </I18nProvider>
@@ -118,3 +124,4 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+
