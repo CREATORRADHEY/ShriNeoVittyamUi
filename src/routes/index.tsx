@@ -9,27 +9,16 @@ import {
   Sparkles,
 } from "lucide-react";
 import { HomeHero, ProductStrip } from "@/components/sections/home-hero";
-import photoBusiness from "@/assets/photo-business-owner.jpg";
-import photoFamily from "@/assets/photo-family.jpg";
-import photoAgent from "@/assets/photo-agent.jpg";
 import { products } from "@/config/products";
-import { org } from "@/config/org";
 import { formatINR } from "@/lib/format";
 import { PublicShell } from "@/components/layout/public-shell";
 import { Button } from "@/components/ui/button";
 import { StatusPill } from "@/components/design-system/section";
 import { Reveal } from "@/components/sections/reveal";
 import { FaqGroups } from "@/components/sections/blocks";
-import {
-  AgentAssistFigure,
-  ConsentFigure,
-  CostBreakdownFigure,
-  FundFlowFigure,
-  JourneyFigure,
-} from "@/components/illustrations/core";
+import { ConsentFigure, CostBreakdownFigure } from "@/components/illustrations/core";
 import {
   ApplicationTrackingPanel,
-  BorrowerDashboardPanel,
   OfferComparisonPanel,
 } from "@/components/previews/product-previews";
 
@@ -78,7 +67,6 @@ function HomePage() {
 
       {/* ───────────────── 1b. PRODUCT STRIP — one-click product navigation */}
       <ProductStrip />
-
 
       {/* ─────────────────────────────────────── 2. TRUST STRIP — horizontal */}
       <section
@@ -188,73 +176,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ────────────────────────────────── 4. HOW SHRINEO WORKS — journey */}
-      <section aria-labelledby="how-title" className="border-b border-border bg-background">
-        <div className="container-page py-16 md:py-24">
-          <Reveal className="max-w-2xl">
-            <SectionLabel>The journey</SectionLabel>
-            <h2
-              id="how-title"
-              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] tracking-tight"
-            >
-              From uncertainty to a tracked application.
-            </h2>
-          </Reveal>
-
-          <Reveal className="mt-10 hidden md:block">
-            <JourneyFigure className="h-auto w-full" />
-          </Reveal>
-
-          <ol className="mt-10 grid gap-x-8 gap-y-8 md:mt-8 md:grid-cols-3 lg:grid-cols-6">
-            {[
-              { title: "Tell us what you need", body: "Amount, purpose, tenure.", actor: "You" },
-              { title: "Complete your profile", body: "Each field explains why.", actor: "You" },
-              {
-                title: "Compare eligible offers",
-                body: "Rate, APR, EMI, total.",
-                actor: "ShriNeo",
-              },
-              { title: "Review full loan terms", body: "Key Fact Statement.", actor: "You" },
-              { title: "Send your application", body: "OTP e-sign, timestamped.", actor: "You" },
-              { title: "Track lender response", body: "Every status, dated.", actor: "Lender" },
-            ].map((step, i) => (
-              <Reveal as="li" key={step.title} delay={i * 40} className="relative min-w-0">
-                <div className="flex items-center gap-3 border-t border-border pt-4 md:border-t-0 md:pt-0">
-                  <span className="num text-xs font-semibold text-primary">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span
-                    className={`label-micro ${step.actor === "Lender" ? "text-muted-foreground" : step.actor === "ShriNeo" ? "text-primary" : "text-foreground"}`}
-                  >
-                    {step.actor}
-                  </span>
-                </div>
-                <h3 className="mt-2 text-sm font-semibold">{step.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{step.body}</p>
-              </Reveal>
-            ))}
-          </ol>
-
-          <Reveal className="mt-12 grid gap-8 border-t border-border pt-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
-            <div>
-              <h3 className="text-xl font-semibold tracking-tight">
-                Everything stays visible in one place.
-              </h3>
-              <p className="mt-3 max-w-md text-base text-muted-foreground">
-                Your dashboard keeps the requested amount, the consents you have given and every
-                stage the lender has completed.
-              </p>
-              <Button asChild variant="outline" className="mt-6 min-h-11 rounded-lg">
-                <Link to="/how-it-works">See the full journey</Link>
-              </Button>
-            </div>
-            <div className="min-w-0">
-              <BorrowerDashboardPanel />
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
       {/* ──────────────────────────────────── 5. OFFER COMPARISON — editorial */}
       <section aria-labelledby="compare-title" className="border-b border-border bg-surface">
         <div className="container-page grid gap-10 py-16 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-16 md:py-24">
@@ -347,126 +268,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ────────────────────────────────────── 7. DIRECT FUND FLOW — navy */}
-      <section aria-labelledby="flow-title" className="bg-ink text-ink-foreground">
-        <div className="container-page grid gap-10 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16 md:py-24">
-          <Reveal>
-            <p className="label-micro text-brand-300">Fund flow</p>
-            <h2
-              id="flow-title"
-              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] tracking-tight"
-            >
-              The money moves between you and the lender.
-            </h2>
-            <p className="mt-5 max-w-[44ch] text-base text-ink-foreground/75">
-              ShriNeo helps route and track the application. ShriNeo does not hold or disburse the
-              loan funds.
-            </p>
-            <ul className="mt-8 space-y-3 border-t border-ink-foreground/15 pt-6 text-sm text-ink-foreground/75">
-              {[
-                "Disbursal is credited by the lender to the bank account you verify.",
-                "Repayments are collected by the lender under the mandate you approve.",
-                "ShriNeo never asks for your banking password or a payment OTP.",
-              ].map((point) => (
-                <li key={point} className="flex gap-3">
-                  <span aria-hidden className="mt-2.5 h-px w-4 shrink-0 bg-brand-300" />
-                  <span className="min-w-0">{point}</span>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-          <Reveal delay={80} className="min-w-0">
-            <figure className="rounded-xl border border-ink-foreground/15 bg-background p-4 md:p-6">
-              <FundFlowFigure />
-            </figure>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ───────────────────────────── 8. BUILT FOR BHARAT — photography-led */}
-      <section aria-labelledby="bharat-title" className="border-b border-border bg-surface-warm">
-        <div className="container-page py-16 md:py-24">
-          <div className="grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
-            <Reveal className="min-w-0">
-              <div className="overflow-hidden rounded-[22px] border border-border">
-                <img
-                  src={photoBusiness}
-                  alt="A textile shop owner standing in his store in a north Indian town"
-                  width={1408}
-                  height={1008}
-                  loading="lazy"
-                  className="aspect-[16/10] size-full object-cover"
-                />
-              </div>
-            </Reveal>
-            <Reveal delay={80}>
-              <SectionLabel>Built for Bharat</SectionLabel>
-              <h2
-                id="bharat-title"
-                className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.6rem)] tracking-tight"
-              >
-                Built for people moving forward.
-              </h2>
-              <p className="mt-4 text-base text-muted-foreground">
-                Designed for customers, families, entrepreneurs, and local agents across India.
-              </p>
-            </Reveal>
-          </div>
-
-          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-[0.75fr_0.75fr_1fr] lg:items-stretch">
-            <Reveal className="min-w-0">
-              <figure className="h-full overflow-hidden rounded-xl border border-border bg-card">
-                <img
-                  src={photoFamily}
-                  alt="A young family in their living room discussing a home purchase"
-                  width={1408}
-                  height={1008}
-                  loading="lazy"
-                  className="aspect-[4/3] w-full object-cover"
-                />
-                <figcaption className="px-5 py-4 text-sm">
-                  <span className="label-micro block text-muted-foreground">Family</span>
-                  <span className="mt-1 block">Planning a first home together</span>
-                </figcaption>
-              </figure>
-            </Reveal>
-            <Reveal delay={60} className="min-w-0">
-              <figure className="h-full overflow-hidden rounded-xl border border-border bg-card">
-                <img
-                  src={photoAgent}
-                  alt="A verified ShriNeo agent assisting two customers with a tablet"
-                  width={1200}
-                  height={1008}
-                  loading="lazy"
-                  className="aspect-[4/3] w-full object-cover"
-                />
-                <figcaption className="px-5 py-4 text-sm">
-                  <span className="label-micro block text-muted-foreground">Verified agent</span>
-                  <span className="mt-1 block">Assisting only with your consent</span>
-                </figcaption>
-              </figure>
-            </Reveal>
-            <Reveal delay={120} className="min-w-0">
-              <div className="flex h-full flex-col justify-between rounded-xl border border-border bg-card p-6">
-                <ul className="space-y-4 text-sm">
-                  {[
-                    ["Salaried professional", "Compare offers without a branch visit"],
-                    ["Small business owner", "Working capital assessed on real cash flow"],
-                    ["Family", "Long-tenure options judged on total cost"],
-                    ["Local agent", "Support that stays inside an audited trail"],
-                  ].map(([who, what]) => (
-                    <li key={who} className="border-b border-border pb-4 last:border-0 last:pb-0">
-                      <p className="font-medium">{who}</p>
-                      <p className="mt-0.5 text-muted-foreground">{what}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
       {/* ──────────────────────────────────────────────── 9. NEO — assistant */}
       <section aria-labelledby="neo-title" className="border-b border-border bg-background">
         <div className="container-page grid gap-10 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-16 md:py-24">
@@ -531,60 +332,6 @@ function HomePage() {
                 </div>
               ))}
             </dl>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ─────────────────────────────────── 10. AGENT SUPPORT — human split */}
-      <section aria-labelledby="agent-title" className="border-b border-border bg-surface">
-        <div className="container-page grid gap-10 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16 md:py-24">
-          <Reveal>
-            <SectionLabel>Assisted applications</SectionLabel>
-            <h2
-              id="agent-title"
-              className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.6rem)] tracking-tight"
-            >
-              Get help without giving up control.
-            </h2>
-            <ol className="mt-8 space-y-5 text-sm">
-              {[
-                ["You give consent", "An OTP you approve starts the assistance window."],
-                ["The agent helps", "They complete the application alongside you, never for you."],
-                ["Documents stay inside ShriNeo", "Files are never shared over chat or email."],
-                ["The application stays trackable", "Every action is logged against your account."],
-              ].map(([title, body], i) => (
-                <li key={title} className="flex gap-4">
-                  <span className="num shrink-0 text-xs font-semibold text-primary">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block font-medium">{title}</span>
-                    <span className="mt-0.5 block text-muted-foreground">{body}</span>
-                  </span>
-                </li>
-              ))}
-            </ol>
-            <Button asChild variant="outline" className="mt-8 min-h-11 rounded-lg">
-              <Link to="/for-agents">How agent support works</Link>
-            </Button>
-          </Reveal>
-
-          <Reveal delay={80} className="min-w-0">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <figure className="overflow-hidden rounded-xl border border-border sm:col-span-2">
-                <img
-                  src={photoAgent}
-                  alt="A verified agent guiding two customers through an application on a tablet"
-                  width={1200}
-                  height={1008}
-                  loading="lazy"
-                  className="aspect-[16/9] w-full object-cover"
-                />
-              </figure>
-              <figure className="rounded-xl border border-border bg-card p-4 sm:col-span-2">
-                <AgentAssistFigure />
-              </figure>
-            </div>
           </Reveal>
         </div>
       </section>
@@ -739,46 +486,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────── 12. FINAL CTA — typography */}
-      <section aria-labelledby="cta-title" className="bg-ink text-ink-foreground">
-        <div className="container-page py-20 md:py-28">
-          <div className="max-w-3xl">
-            <h2
-              id="cta-title"
-              className="editorial text-[clamp(2rem,4.6vw,3.25rem)] leading-[1.05] tracking-tight"
-            >
-              Understand your options before you decide.
-            </h2>
-            <p className="mt-6 max-w-[52ch] text-lg text-ink-foreground/75">
-              Review eligible offers, compare complete costs, and track your application in one
-              place.
-            </p>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Button
-                asChild
-                size="lg"
-                variant="secondary"
-                className="min-h-12 rounded-lg px-6 text-base"
-              >
-                <Link to="/auth/signup">
-                  Start your application
-                  <ArrowRight aria-hidden className="size-4" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="min-h-12 rounded-lg border-ink-foreground/30 bg-transparent px-6 text-base text-ink-foreground hover:bg-ink-foreground/10 hover:text-ink-foreground"
-              >
-                <Link to="/for-borrowers">Talk to Neo</Link>
-              </Button>
-            </div>
-            <p className="mt-8 text-sm text-ink-foreground/60">{LENDER_NOTE}</p>
-            <p className="mt-2 text-sm text-ink-foreground/60">{org.roleStatement}</p>
-          </div>
-        </div>
-      </section>
     </PublicShell>
   );
 }
