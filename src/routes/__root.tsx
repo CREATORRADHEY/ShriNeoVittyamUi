@@ -117,6 +117,7 @@ function RootComponent() {
               <Outlet />
             </RouteTransition>
             <Toaster />
+            <CookieConsent />
             <PrototypeToolbar />
           </PrototypeProvider>
         </I18nProvider>
