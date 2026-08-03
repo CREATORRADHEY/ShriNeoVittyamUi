@@ -106,14 +106,24 @@ export function useDisclosureBehaviour({
   close,
   rootRef,
   triggerRef,
+  panelRef,
 }: {
   isOpen: boolean;
   close: () => void;
   rootRef: React.RefObject<HTMLDivElement | null>;
   triggerRef: React.RefObject<HTMLButtonElement | null>;
+  /** Optional portalled panel that also counts as "inside". */
+  panelRef?: React.RefObject<HTMLDivElement | null>;
 }) {
   useEffect(() => {
     if (!isOpen) return;
+
+    const inside = (target: EventTarget | null) => {
+      if (!(target instanceof Node)) return false;
+      if (rootRef.current?.contains(target)) return true;
+      if (panelRef?.current?.contains(target)) return true;
+      return false;
+    };
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
@@ -123,16 +133,15 @@ export function useDisclosureBehaviour({
     };
 
     const onPointerDown = (event: PointerEvent) => {
-      if (!rootRef.current) return;
-      if (event.target instanceof Node && rootRef.current.contains(event.target)) return;
+      if (inside(event.target)) return;
       close();
     };
 
     const onFocusIn = (event: FocusEvent) => {
-      if (!rootRef.current) return;
-      if (event.target instanceof Node && rootRef.current.contains(event.target)) return;
+      if (inside(event.target)) return;
       close();
     };
+
 
     document.addEventListener("keydown", onKeyDown);
     document.addEventListener("pointerdown", onPointerDown);
@@ -142,7 +151,7 @@ export function useDisclosureBehaviour({
       document.removeEventListener("pointerdown", onPointerDown);
       document.removeEventListener("focusin", onFocusIn);
     };
-  }, [isOpen, close, rootRef, triggerRef]);
+  }, [isOpen, close, rootRef, triggerRef, panelRef]);
 }
 
 /** Keeps a panel mounted for its short exit transition. */

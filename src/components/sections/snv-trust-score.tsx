@@ -147,7 +147,7 @@ function TrustScoreRing({ progress, label }: { progress: number; label: string }
               y={label.y + 4}
               textAnchor="middle"
               fill="rgba(185,198,232,0.78)"
-              fontFamily="var(--font-mono)"
+              fontFamily="Poppins, sans-serif"
               fontSize={11}
               fontWeight={500}
             >
@@ -179,7 +179,7 @@ function TrustScoreRing({ progress, label }: { progress: number; label: string }
         y={C + 22}
         textAnchor="middle"
         fill="#FFFFFF"
-        fontFamily="var(--font-mono)"
+        fontFamily="Poppins, sans-serif"
         fontSize={60}
         fontWeight={600}
       >
@@ -198,7 +198,7 @@ function ScaleLabel() {
       y={C + 46}
       textAnchor="middle"
       fill="rgba(185,198,232,0.8)"
-      fontFamily="var(--font-mono)"
+      fontFamily="Poppins, sans-serif"
       fontSize={11.5}
       fontWeight={500}
     >

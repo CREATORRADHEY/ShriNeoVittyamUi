@@ -198,12 +198,44 @@
   }
 }
 
-/* Financial values, IDs, percentages — always tabular */
+/* Customer-facing financial values — Poppins, tabular lining figures.
+   The ₹ symbol and the digits share one family so a value reads as one unit. */
 @utility num {
+  font-family: "Poppins", "Noto Sans Devanagari", system-ui, sans-serif;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  letter-spacing: -0.015em;
+}
+
+/* Small technical metadata only — reference IDs, timestamps, audit rows. */
+@utility mono-meta {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
 }
+
+/* FAQ answer disclosure */
+@keyframes faq-answer-in {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.faq-answer:not([hidden]) {
+  animation: faq-answer-in 220ms var(--ease-enter) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-answer:not([hidden]) {
+    animation: none !important;
+  }
+}
+
 
 @utility editorial {
   font-family: var(--font-serif);
