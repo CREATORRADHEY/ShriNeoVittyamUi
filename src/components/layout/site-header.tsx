@@ -67,7 +67,9 @@ export function SiteHeader() {
                 ShriNeo Capital
               </span>
               {condensed ? null : (
-                <span className="truncate text-[11px] text-[#b9c6e8]">Financial Services</span>
+                <span className="hidden truncate text-[11px] text-[#b9c6e8] sm:block">
+                  Financial Services
+                </span>
               )}
             </span>
             <span className="sr-only">— home</span>
@@ -121,7 +123,7 @@ export function SiteHeader() {
             <div className="hidden md:block [&>div]:border-white/20 [&>div]:bg-transparent [&_svg]:text-[#c8d5f0] [&_button]:text-white/80 [&_button[aria-pressed=true]]:bg-white [&_button[aria-pressed=true]]:text-[#001a5c]">
               <LanguageSwitcher />
             </div>
-            <Link to="/auth/signin" className={`${navLink} hidden md:inline-flex`}>
+            <Link to="/auth/signin" className={`${navLink} max-md:hidden`}>
               {t("nav.login")}
             </Link>
             <Link
