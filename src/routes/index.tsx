@@ -5,11 +5,10 @@ import {
   Banknote,
   FileCheck2,
   Languages,
-  MessagesSquare,
   ShieldCheck,
   Sparkles,
 } from "lucide-react";
-import heroTrio from "@/assets/hero-trio.jpg";
+import { HomeHero, ProductStrip } from "@/components/sections/home-hero";
 import photoBusiness from "@/assets/photo-business-owner.jpg";
 import photoFamily from "@/assets/photo-family.jpg";
 import photoAgent from "@/assets/photo-agent.jpg";
@@ -74,114 +73,12 @@ function HomePage() {
 
   return (
     <PublicShell>
-      {/* ─────────────────────────────────── 1. HERO — full-width editorial */}
-      <section aria-labelledby="hero-title" className="relative overflow-hidden bg-background">
-        {/* soft blue architectural forms */}
-        <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="absolute top-0 right-0 h-full w-[52%] bg-surface" />
-          <div className="absolute top-[-6rem] right-[6%] size-[26rem] rounded-full border border-brand-100" />
-          <div className="absolute top-[8rem] right-[28%] size-[34rem] rounded-full border border-brand-100/70" />
-          <div className="absolute inset-y-0 left-[48%] w-px bg-border" />
-        </div>
+      {/* ─────────────────────── 1. HERO — full-bleed navy, one static story */}
+      <HomeHero />
 
-        <div className="container-page relative grid gap-14 py-14 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-16 lg:py-24">
-          <Reveal>
-            <SectionLabel>RBI-aligned Lending Service Provider</SectionLabel>
-            <h1
-              id="hero-title"
-              className="editorial mt-5 max-w-[16ch] text-[clamp(2.5rem,6vw,4.25rem)] leading-[1.02] tracking-tight"
-            >
-              Bharat Ka Digital Lending Partner.
-            </h1>
-            <p className="mt-6 max-w-[46ch] text-lg text-muted-foreground">
-              Compare eligible loan options, understand every cost, and complete your application
-              with confidence.
-            </p>
+      {/* ───────────────── 1b. PRODUCT STRIP — one-click product navigation */}
+      <ProductStrip />
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Button asChild size="lg" className="min-h-12 rounded-lg px-6 text-base">
-                <Link to="/auth/signup">
-                  Apply for a loan
-                  <ArrowRight aria-hidden className="size-4" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="min-h-12 rounded-lg border-border-strong px-6 text-base"
-              >
-                <Link to="/for-borrowers">
-                  <MessagesSquare aria-hidden className="size-4" />
-                  Talk to Neo
-                </Link>
-              </Button>
-            </div>
-
-            <p className="mt-6 max-w-[46ch] text-sm text-muted-foreground">{LENDER_NOTE}</p>
-          </Reveal>
-
-          {/* composed visual: photograph + two interface layers */}
-          <Reveal delay={90} className="relative min-w-0">
-            <div className="relative mx-auto w-full max-w-[30rem] lg:max-w-none">
-              <div className="overflow-hidden rounded-[22px] border border-border bg-surface">
-                <img
-                  src={heroTrio}
-                  alt="Three ShriNeo Capital customers standing together with folded arms"
-                  width={1280}
-                  height={1280}
-                  fetchPriority="high"
-                  className="aspect-square size-full object-cover object-top"
-                />
-              </div>
-
-              {/* layer 1 — comparison panel */}
-              <div className="relative z-10 -mt-24 ml-auto w-[min(100%,20rem)] rounded-xl border border-border bg-card p-4 shadow-[var(--shadow-panel)] sm:-mr-6">
-                <div className="flex items-center justify-between">
-                  <p className="label-micro text-muted-foreground">Eligible offers</p>
-                  <p className="label-micro text-muted-foreground">Demonstration</p>
-                </div>
-                <ul className="mt-3 space-y-2">
-                  {[
-                    { name: "Aarambh Finance", apr: "12.4%", emi: 9885, best: true },
-                    { name: "Meridian Bank", apr: "12.9%", emi: 9843, best: false },
-                  ].map((row) => (
-                    <li
-                      key={row.name}
-                      className={`flex items-center gap-3 rounded-lg border px-3 py-2.5 ${
-                        row.best ? "border-primary bg-accent" : "border-border bg-card"
-                      }`}
-                    >
-                      <span className="min-w-0 flex-1">
-                        <span className="block truncate text-sm font-medium">{row.name}</span>
-                        <span className="num block text-xs text-muted-foreground">
-                          APR {row.apr}
-                        </span>
-                      </span>
-                      <span className="num shrink-0 text-sm font-semibold">
-                        {formatINR(row.emi)}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* layer 2 — summary + direct transfer indicator */}
-              <div className="relative z-10 mt-3 w-[min(100%,17rem)] rounded-xl border border-border bg-surface p-4 sm:-ml-6">
-                <p className="label-micro text-muted-foreground">Total repayment</p>
-                <p className="num mt-1 text-xl font-semibold tracking-tight">{formatINR(355860)}</p>
-                <div className="mt-3 flex items-center gap-2 border-t border-border pt-3 text-xs text-muted-foreground">
-                  <span className="whitespace-nowrap">Lender</span>
-                  <span aria-hidden className="h-px flex-1 bg-border-strong" />
-                  <ArrowRight aria-hidden className="size-3.5 text-success" />
-                  <span aria-hidden className="h-px flex-1 bg-border-strong" />
-                  <span className="whitespace-nowrap">Your account</span>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
 
       {/* ─────────────────────────────────────── 2. TRUST STRIP — horizontal */}
       <section
