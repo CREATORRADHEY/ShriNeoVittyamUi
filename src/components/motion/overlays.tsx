@@ -56,7 +56,7 @@ function useReturnFocus(open: boolean) {
     }
     const element = trigger.current;
     if (!element || !document.contains(element)) return;
-    const timer = window.setTimeout(() => element.focus({ preventScroll: true }), 0);
+    const timer = window.setTimeout(() => element.focus({ preventScroll: true }), 260);
     return () => window.clearTimeout(timer);
   }, [open]);
 }
