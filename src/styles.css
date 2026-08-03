@@ -671,3 +671,9 @@ textarea {
   }
   .hdr-rotate { animation: none !important; }
 }
+
+/* USP strip — decorative progress line for the active item. */
+@keyframes usp-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
