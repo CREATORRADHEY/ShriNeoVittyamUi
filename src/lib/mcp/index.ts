@@ -24,5 +24,5 @@ export default defineMcp({
   version: "0.1.0",
   instructions:
     "Public tools for ShriNeo Capital, a Lending Service Provider in India. Use `list_loan_products` and `get_loan_product` for product, eligibility and document information, `calculate_emi` for indicative repayment estimates, and `get_company_info` for legal entity and grievance-redressal facts. All figures are indicative; participating lenders set final terms.",
-  tools: [listLoanProductsTool, getLoanProductTool, calculateEmiTool, getCompanyInfoTool],
+  tools,
 });
