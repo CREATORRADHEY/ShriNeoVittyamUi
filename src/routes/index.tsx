@@ -206,11 +206,9 @@ function HomePage() {
       {/* ─────────────────────────────────────── 7. FOR AGENTS — recruitment */}
       <AgentCtaSection />
 
+      {/* ────────────────────── 8. COMMON QUESTIONS — tracking + FAQ (calm) */}
+      <section aria-labelledby="faq-title" className="bg-background">
 
-
-
-      {/* ─────────────────────────────────── 11b. TRACKING + FAQ (white calm) */}
-      <section aria-labelledby="faq-title" className="border-b border-border bg-background">
         <div className="container-page grid gap-12 py-16 lg:grid-cols-[0.9fr_1.1fr] md:py-24">
           <Reveal>
             <SectionLabel>Common questions</SectionLabel>
