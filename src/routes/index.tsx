@@ -9,27 +9,16 @@ import {
   Sparkles,
 } from "lucide-react";
 import { HomeHero, ProductStrip } from "@/components/sections/home-hero";
-import photoBusiness from "@/assets/photo-business-owner.jpg";
-import photoFamily from "@/assets/photo-family.jpg";
-import photoAgent from "@/assets/photo-agent.jpg";
 import { products } from "@/config/products";
-import { org } from "@/config/org";
 import { formatINR } from "@/lib/format";
 import { PublicShell } from "@/components/layout/public-shell";
 import { Button } from "@/components/ui/button";
 import { StatusPill } from "@/components/design-system/section";
 import { Reveal } from "@/components/sections/reveal";
 import { FaqGroups } from "@/components/sections/blocks";
-import {
-  AgentAssistFigure,
-  ConsentFigure,
-  CostBreakdownFigure,
-  FundFlowFigure,
-  JourneyFigure,
-} from "@/components/illustrations/core";
+import { ConsentFigure, CostBreakdownFigure } from "@/components/illustrations/core";
 import {
   ApplicationTrackingPanel,
-  BorrowerDashboardPanel,
   OfferComparisonPanel,
 } from "@/components/previews/product-previews";
 
