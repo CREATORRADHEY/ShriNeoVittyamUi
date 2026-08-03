@@ -199,10 +199,7 @@ function HomePage() {
           </Reveal>
         </div>
       </section>
-      {/* ────────────────────── 6. SNV TRUST SCORE — beyond-bureau signals */}
-      <SnvTrustScoreSection />
-
-      {/* ─────────────────────────────────────── 7. FOR AGENTS — recruitment */}
+      {/* ─────────────────────────────────────── 6. FOR AGENTS — recruitment */}
       <AgentCtaSection />
 
 
