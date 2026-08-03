@@ -620,3 +620,25 @@ textarea {
     opacity: 0.92;
   }
 }
+
+/* Homepage how-it-works connector — draws once, never loops. */
+@utility line-draw {
+  transform-origin: left center;
+  animation: shrineo-line-draw 700ms var(--ease-standard) both;
+}
+
+@keyframes shrineo-line-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .line-draw {
+    animation: none !important;
+    transform: none !important;
+  }
+}
