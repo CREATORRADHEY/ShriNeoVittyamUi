@@ -283,8 +283,9 @@ function HomePage() {
         </div>
       </section>
 
-      {/* ────────── 8. SNV TRUST SCORE — beyond-bureau signals, above footer */}
-      <SnvTrustScoreSection />
+      {/* ───────────────────────────── 9. BLOG — teasers, directly above footer */}
+      <BlogTeaserSection />
+
 
 
     </PublicShell>
