@@ -17,10 +17,8 @@ import { HomeFaq } from "@/components/sections/home-faq";
 import { HowItWorksSection } from "@/components/sections/how-it-works";
 import { homeContent } from "@/content/home-content";
 import { useI18n } from "@/i18n";
-import {
-  ApplicationTrackingPanel,
-  OfferComparisonPanel,
-} from "@/components/previews/product-previews";
+import { OfferComparisonPanel } from "@/components/previews/product-previews";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
