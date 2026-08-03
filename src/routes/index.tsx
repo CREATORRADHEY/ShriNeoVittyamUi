@@ -68,25 +68,8 @@ function HomePage() {
 
 
 
-      {/* ─────────────────────────────────────── 2. TRUST STRIP — horizontal */}
-      <section
-        aria-label="How ShriNeo protects you"
-        className="border-y border-border bg-background"
-      >
-        <ul className="container-page grid gap-x-10 gap-y-6 py-8 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            { icon: Banknote, label: "Direct lender-to-borrower disbursal" },
-            { icon: FileCheck2, label: "Clear costs before signing" },
-            { icon: ShieldCheck, label: "Purpose-specific consent" },
-            { icon: Languages, label: "English and Hindi support" },
-          ].map((item) => (
-            <li key={item.label} className="flex items-start gap-3">
-              <item.icon aria-hidden className="mt-0.5 size-5 shrink-0 stroke-[1.4] text-primary" />
-              <span className="min-w-0 text-sm leading-snug font-medium">{item.label}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
+      {/* ─────────────────────────────────── 2. USP STRIP — platform promise */}
+      <UspStrip />
 
       {/* ───────────────────────── 2b. ELIGIBILITY — prototype entry point */}
       <EligibilityWidget />
