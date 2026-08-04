@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as AccountAggregatorRouteImport } from './routes/account-aggregator'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CompareOffersRouteImport } from './routes/compare-offers'
@@ -19,6 +20,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as DigitalLendingDisclosuresRouteImport } from './routes/digital-lending-disclosures'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ForAgentsRouteImport } from './routes/for-agents'
 import { Route as ForBorrowersRouteImport } from './routes/for-borrowers'
 import { Route as ForLendersRouteImport } from './routes/for-lenders'
@@ -28,9 +30,11 @@ import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as KeyFactStatementRouteImport } from './routes/key-fact-statement'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MotionRouteImport } from './routes/motion'
+import { Route as PartnerEnquiryRouteImport } from './routes/partner-enquiry'
 import { Route as PressRouteImport } from './routes/press'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SystemStatusRouteImport } from './routes/system-status'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
@@ -93,6 +97,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccessibilityRoute = AccessibilityRouteImport.update({
+  id: '/accessibility',
+  path: '/accessibility',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AccountAggregatorRoute = AccountAggregatorRouteImport.update({
   id: '/account-aggregator',
   path: '/account-aggregator',
@@ -127,6 +136,11 @@ const DigitalLendingDisclosuresRoute =
 const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
   id: '/emi-calculator',
   path: '/emi-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForAgentsRoute = ForAgentsRouteImport.update({
@@ -174,6 +188,11 @@ const MotionRoute = MotionRouteImport.update({
   path: '/motion',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PartnerEnquiryRoute = PartnerEnquiryRouteImport.update({
+  id: '/partner-enquiry',
+  path: '/partner-enquiry',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PressRoute = PressRouteImport.update({
   id: '/press',
   path: '/press',
@@ -187,6 +206,11 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SystemStatusRoute = SystemStatusRouteImport.update({
+  id: '/system-status',
+  path: '/system-status',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TermsRoute = TermsRouteImport.update({
@@ -431,6 +455,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/404': typeof R404Route
   '/about': typeof AboutRoute
+  '/accessibility': typeof AccessibilityRoute
   '/account-aggregator': typeof AccountAggregatorRoute
   '/careers': typeof CareersRoute
   '/compare-offers': typeof CompareOffersRoute
@@ -438,6 +463,7 @@ export interface FileRoutesByFullPath {
   '/cookie-policy': typeof CookiePolicyRoute
   '/digital-lending-disclosures': typeof DigitalLendingDisclosuresRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/faq': typeof FaqRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
   '/for-lenders': typeof ForLendersRoute
@@ -447,9 +473,11 @@ export interface FileRoutesByFullPath {
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
   '/motion': typeof MotionRoute
+  '/partner-enquiry': typeof PartnerEnquiryRoute
   '/press': typeof PressRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/system-status': typeof SystemStatusRoute
   '/terms': typeof TermsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -501,6 +529,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/404': typeof R404Route
   '/about': typeof AboutRoute
+  '/accessibility': typeof AccessibilityRoute
   '/account-aggregator': typeof AccountAggregatorRoute
   '/careers': typeof CareersRoute
   '/compare-offers': typeof CompareOffersRoute
@@ -508,6 +537,7 @@ export interface FileRoutesByTo {
   '/cookie-policy': typeof CookiePolicyRoute
   '/digital-lending-disclosures': typeof DigitalLendingDisclosuresRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/faq': typeof FaqRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
   '/for-lenders': typeof ForLendersRoute
@@ -517,9 +547,11 @@ export interface FileRoutesByTo {
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
   '/motion': typeof MotionRoute
+  '/partner-enquiry': typeof PartnerEnquiryRoute
   '/press': typeof PressRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/system-status': typeof SystemStatusRoute
   '/terms': typeof TermsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -572,6 +604,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/404': typeof R404Route
   '/about': typeof AboutRoute
+  '/accessibility': typeof AccessibilityRoute
   '/account-aggregator': typeof AccountAggregatorRoute
   '/careers': typeof CareersRoute
   '/compare-offers': typeof CompareOffersRoute
@@ -579,6 +612,7 @@ export interface FileRoutesById {
   '/cookie-policy': typeof CookiePolicyRoute
   '/digital-lending-disclosures': typeof DigitalLendingDisclosuresRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/faq': typeof FaqRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
   '/for-lenders': typeof ForLendersRoute
@@ -588,9 +622,11 @@ export interface FileRoutesById {
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
   '/motion': typeof MotionRoute
+  '/partner-enquiry': typeof PartnerEnquiryRoute
   '/press': typeof PressRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/system-status': typeof SystemStatusRoute
   '/terms': typeof TermsRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -644,6 +680,7 @@ export interface FileRouteTypes {
     | '/'
     | '/404'
     | '/about'
+    | '/accessibility'
     | '/account-aggregator'
     | '/careers'
     | '/compare-offers'
@@ -651,6 +688,7 @@ export interface FileRouteTypes {
     | '/cookie-policy'
     | '/digital-lending-disclosures'
     | '/emi-calculator'
+    | '/faq'
     | '/for-agents'
     | '/for-borrowers'
     | '/for-lenders'
@@ -660,9 +698,11 @@ export interface FileRouteTypes {
     | '/key-fact-statement'
     | '/mcp'
     | '/motion'
+    | '/partner-enquiry'
     | '/press'
     | '/privacy-policy'
     | '/sitemap.xml'
+    | '/system-status'
     | '/terms'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -714,6 +754,7 @@ export interface FileRouteTypes {
     | '/'
     | '/404'
     | '/about'
+    | '/accessibility'
     | '/account-aggregator'
     | '/careers'
     | '/compare-offers'
@@ -721,6 +762,7 @@ export interface FileRouteTypes {
     | '/cookie-policy'
     | '/digital-lending-disclosures'
     | '/emi-calculator'
+    | '/faq'
     | '/for-agents'
     | '/for-borrowers'
     | '/for-lenders'
@@ -730,9 +772,11 @@ export interface FileRouteTypes {
     | '/key-fact-statement'
     | '/mcp'
     | '/motion'
+    | '/partner-enquiry'
     | '/press'
     | '/privacy-policy'
     | '/sitemap.xml'
+    | '/system-status'
     | '/terms'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -784,6 +828,7 @@ export interface FileRouteTypes {
     | '/'
     | '/404'
     | '/about'
+    | '/accessibility'
     | '/account-aggregator'
     | '/careers'
     | '/compare-offers'
@@ -791,6 +836,7 @@ export interface FileRouteTypes {
     | '/cookie-policy'
     | '/digital-lending-disclosures'
     | '/emi-calculator'
+    | '/faq'
     | '/for-agents'
     | '/for-borrowers'
     | '/for-lenders'
@@ -800,9 +846,11 @@ export interface FileRouteTypes {
     | '/key-fact-statement'
     | '/mcp'
     | '/motion'
+    | '/partner-enquiry'
     | '/press'
     | '/privacy-policy'
     | '/sitemap.xml'
+    | '/system-status'
     | '/terms'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
@@ -855,6 +903,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   R404Route: typeof R404Route
   AboutRoute: typeof AboutRoute
+  AccessibilityRoute: typeof AccessibilityRoute
   AccountAggregatorRoute: typeof AccountAggregatorRoute
   CareersRoute: typeof CareersRoute
   CompareOffersRoute: typeof CompareOffersRoute
@@ -862,6 +911,7 @@ export interface RootRouteChildren {
   CookiePolicyRoute: typeof CookiePolicyRoute
   DigitalLendingDisclosuresRoute: typeof DigitalLendingDisclosuresRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
+  FaqRoute: typeof FaqRoute
   ForAgentsRoute: typeof ForAgentsRoute
   ForBorrowersRoute: typeof ForBorrowersRoute
   ForLendersRoute: typeof ForLendersRoute
@@ -871,9 +921,11 @@ export interface RootRouteChildren {
   KeyFactStatementRoute: typeof KeyFactStatementRoute
   McpRoute: typeof McpRoute
   MotionRoute: typeof MotionRoute
+  PartnerEnquiryRoute: typeof PartnerEnquiryRoute
   PressRoute: typeof PressRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SystemStatusRoute: typeof SystemStatusRoute
   TermsRoute: typeof TermsRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
@@ -945,6 +997,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/accessibility': {
+      id: '/accessibility'
+      path: '/accessibility'
+      fullPath: '/accessibility'
+      preLoaderRoute: typeof AccessibilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/account-aggregator': {
       id: '/account-aggregator'
       path: '/account-aggregator'
@@ -992,6 +1051,13 @@ declare module '@tanstack/react-router' {
       path: '/emi-calculator'
       fullPath: '/emi-calculator'
       preLoaderRoute: typeof EmiCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/for-agents': {
@@ -1057,6 +1123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MotionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/partner-enquiry': {
+      id: '/partner-enquiry'
+      path: '/partner-enquiry'
+      fullPath: '/partner-enquiry'
+      preLoaderRoute: typeof PartnerEnquiryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/press': {
       id: '/press'
       path: '/press'
@@ -1076,6 +1149,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/system-status': {
+      id: '/system-status'
+      path: '/system-status'
+      fullPath: '/system-status'
+      preLoaderRoute: typeof SystemStatusRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/terms': {
@@ -1407,6 +1487,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   R404Route: R404Route,
   AboutRoute: AboutRoute,
+  AccessibilityRoute: AccessibilityRoute,
   AccountAggregatorRoute: AccountAggregatorRoute,
   CareersRoute: CareersRoute,
   CompareOffersRoute: CompareOffersRoute,
@@ -1414,6 +1495,7 @@ const rootRouteChildren: RootRouteChildren = {
   CookiePolicyRoute: CookiePolicyRoute,
   DigitalLendingDisclosuresRoute: DigitalLendingDisclosuresRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
+  FaqRoute: FaqRoute,
   ForAgentsRoute: ForAgentsRoute,
   ForBorrowersRoute: ForBorrowersRoute,
   ForLendersRoute: ForLendersRoute,
@@ -1423,9 +1505,11 @@ const rootRouteChildren: RootRouteChildren = {
   KeyFactStatementRoute: KeyFactStatementRoute,
   McpRoute: McpRoute,
   MotionRoute: MotionRoute,
+  PartnerEnquiryRoute: PartnerEnquiryRoute,
   PressRoute: PressRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SystemStatusRoute: SystemStatusRoute,
   TermsRoute: TermsRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
