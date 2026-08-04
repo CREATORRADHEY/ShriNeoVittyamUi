@@ -28,6 +28,7 @@ import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as KeyFactStatementRouteImport } from './routes/key-fact-statement'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as MotionRouteImport } from './routes/motion'
+import { Route as PressRouteImport } from './routes/press'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsRouteImport } from './routes/terms'
@@ -171,6 +172,11 @@ const McpRoute = McpRouteImport.update({
 const MotionRoute = MotionRouteImport.update({
   id: '/motion',
   path: '/motion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PressRoute = PressRouteImport.update({
+  id: '/press',
+  path: '/press',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
@@ -441,6 +447,7 @@ export interface FileRoutesByFullPath {
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
   '/motion': typeof MotionRoute
+  '/press': typeof PressRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -510,6 +517,7 @@ export interface FileRoutesByTo {
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
   '/motion': typeof MotionRoute
+  '/press': typeof PressRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -580,6 +588,7 @@ export interface FileRoutesById {
   '/key-fact-statement': typeof KeyFactStatementRoute
   '/mcp': typeof McpRoute
   '/motion': typeof MotionRoute
+  '/press': typeof PressRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -651,6 +660,7 @@ export interface FileRouteTypes {
     | '/key-fact-statement'
     | '/mcp'
     | '/motion'
+    | '/press'
     | '/privacy-policy'
     | '/sitemap.xml'
     | '/terms'
@@ -720,6 +730,7 @@ export interface FileRouteTypes {
     | '/key-fact-statement'
     | '/mcp'
     | '/motion'
+    | '/press'
     | '/privacy-policy'
     | '/sitemap.xml'
     | '/terms'
@@ -789,6 +800,7 @@ export interface FileRouteTypes {
     | '/key-fact-statement'
     | '/mcp'
     | '/motion'
+    | '/press'
     | '/privacy-policy'
     | '/sitemap.xml'
     | '/terms'
@@ -859,6 +871,7 @@ export interface RootRouteChildren {
   KeyFactStatementRoute: typeof KeyFactStatementRoute
   McpRoute: typeof McpRoute
   MotionRoute: typeof MotionRoute
+  PressRoute: typeof PressRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
@@ -1042,6 +1055,13 @@ declare module '@tanstack/react-router' {
       path: '/motion'
       fullPath: '/motion'
       preLoaderRoute: typeof MotionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/press': {
+      id: '/press'
+      path: '/press'
+      fullPath: '/press'
+      preLoaderRoute: typeof PressRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy-policy': {
@@ -1403,6 +1423,7 @@ const rootRouteChildren: RootRouteChildren = {
   KeyFactStatementRoute: KeyFactStatementRoute,
   McpRoute: McpRoute,
   MotionRoute: MotionRoute,
+  PressRoute: PressRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
