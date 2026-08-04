@@ -71,7 +71,7 @@ function HeaderInner() {
     >
       <nav aria-label="Primary" className="container-page">
         <div
-          className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 transition-[min-height] duration-[250ms] ease-out lg:grid-cols-[auto_1fr_auto]"
+          className="flex items-center justify-between gap-3 transition-[min-height] duration-[250ms] ease-out"
           style={{ minHeight: condensed ? 68 : 86 }}
         >
           <Link to="/" className="flex shrink-0 items-center gap-2.5">
@@ -83,7 +83,7 @@ function HeaderInner() {
                 theme === "dark" ? "brightness-0 invert" : ""
               }`}
             />
-            <span className="hidden flex-col leading-tight xl:flex">
+            <span className="hidden flex-col leading-tight 2xl:flex">
               <span className="whitespace-nowrap text-[17px] font-semibold tracking-tight text-[color:var(--hdr-fg)]">
                 ShriNeo Capital
               </span>
@@ -96,7 +96,7 @@ function HeaderInner() {
             <span className="sr-only">— home</span>
           </Link>
 
-          <ul className="hidden min-w-0 items-center justify-center gap-0 lg:flex">
+          <ul className="hidden flex-1 items-center justify-center gap-0 lg:flex">
             <li>
               <LoansMenu />
             </li>
