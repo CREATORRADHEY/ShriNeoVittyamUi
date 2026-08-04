@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { products } from "@/config/products";
 import { formatINR } from "@/lib/format";
 import { PublicShell } from "@/components/layout/public-shell";
-import { Section, SectionHeading, StatusPill } from "@/components/design-system/section";
+import { Section, SectionHeading } from "@/components/design-system/section";
 import { EmiCalculator } from "@/components/loans/emi-calculator";
 import {
   EditorialHero,
@@ -148,10 +148,8 @@ function LoansIndex() {
                     <span className="min-w-0">
                       <span className="flex flex-wrap items-center gap-2">
                         <span className="text-base font-semibold">{product.name}</span>
-                        {product.phase2 ? (
-                          <StatusPill tone="warning">Coming in Phase 2</StatusPill>
-                        ) : null}
                       </span>
+
                       <span className="mt-1.5 block text-sm text-muted-foreground">
                         {product.summary}
                       </span>
