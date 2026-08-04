@@ -14,7 +14,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { RouteTransition } from "@/components/motion/route-transition";
 import { CookieConsent } from "@/components/motion/cookie-consent";
 import { FullPageState, referenceStamp } from "@/components/states/full-page";
-import { NotFoundPage } from "@/components/states/negative-pages";
+import { DevNoticePage } from "@/components/states/dev-notice";
 import { PrototypeToolbar } from "@/components/prototype/toolbar";
 import { PrototypeProvider } from "@/prototype/state";
 import { I18nProvider } from "../i18n";
