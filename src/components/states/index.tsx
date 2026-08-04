@@ -781,7 +781,7 @@ export function TableState({
     },
     "no-results": {
       tone: "neutral" as Tone,
-      title: "No matching results.",
+      title: "No matching results",
       body: "No records match the filters you've applied.",
       cta: "Clear filters",
     },
@@ -793,25 +793,25 @@ export function TableState({
     },
     stale: {
       tone: "warning" as Tone,
-      title: "Showing saved data.",
+      title: "Showing saved data",
       body: "Live values could not be refreshed. Figures may have moved since they were saved.",
       cta: "Refresh",
     },
     restricted: {
       tone: "warning" as Tone,
-      title: "Restricted for your role.",
+      title: "Restricted for your role",
       body: "You don't have permission to view these records.",
       cta: "Request access",
     },
     offline: {
       tone: "offline" as Tone,
-      title: "You're offline.",
+      title: "You're offline",
       body: "Records already loaded on this device stay available.",
       cta: "Retry connection",
     },
     partial: {
       tone: "warning" as Tone,
-      title: "Some rows are incomplete.",
+      title: "Some rows are incomplete",
       body: "One source didn't respond. Missing values are shown as “—”, not as zero.",
       cta: "Retry",
     },

@@ -7,7 +7,6 @@ import {
   BookOpen,
   ChevronDown,
   FileWarning,
-  LifeBuoy,
   Mail,
   MessageCircle,
   MessageSquare,
@@ -37,7 +36,7 @@ const productBlurbs: Record<string, string> = {
 };
 
 export const triggerClass =
-  "nav-underline relative inline-flex min-h-11 items-center gap-1 rounded-md px-3 text-sm font-medium text-white/90 transition-colors duration-150 hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none";
+  "nav-underline relative inline-flex min-h-11 items-center gap-1 rounded-md px-2.5 text-[14px] font-medium whitespace-nowrap text-[color:var(--hdr-fg)] opacity-90 transition-opacity duration-150 hover:opacity-100 focus-visible:ring-2 focus-visible:ring-[color:var(--hdr-fg)] focus-visible:outline-none";
 
 /* ------------------------------------------------------------------ loans */
 
@@ -130,7 +129,7 @@ export function LoansMenu() {
             });
           }
         }}
-        className={cn(triggerClass, "data-[open=true]:text-white")}
+        className={cn(triggerClass, "data-[open=true]:opacity-100")}
       >
         {t("nav.loans")}
         <ChevronDown
@@ -229,6 +228,28 @@ export function LoansMenu() {
 
 /* -------------------------------------------------------------- need help */
 
+/** Question-mark-in-circle, per Website Change Requirements v1.0 §5. */
+function QuestionMarkCircle() {
+  return (
+    <svg
+      aria-hidden
+      width="15"
+      height="15"
+      viewBox="0 0 15 15"
+      fill="none"
+      className="shrink-0"
+      stroke="#0051AE"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="7.5" cy="7.5" r="6" />
+      <path d="M5.8 5.7a1.75 1.75 0 0 1 3.4.6c0 1.17-1.7 1.45-1.7 2.55" />
+      <path d="M7.5 11.1h.01" />
+    </svg>
+  );
+}
+
 export const supportOptions = [
   { key: "neo", icon: MessageCircle, to: "/for-borrowers", meta: "menu.help.neoHours" },
   { key: "whatsapp", icon: MessageSquare, to: "/contact", meta: "menu.help.hours" },
@@ -292,9 +313,9 @@ export function NeedHelpPill() {
         onFocus={() => setPaused(true)}
         onBlur={() => setPaused(false)}
         onClick={() => toggle("help")}
-        className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 text-sm font-medium text-[#cfe0ff] transition-[background-color,border-color,color] duration-150 hover:border-white/35 hover:bg-white/12 hover:text-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
+        className="inline-flex h-10 min-h-11 items-center gap-2 rounded-full border border-[#D6E5F7] bg-[#E6F1FB] px-4 text-sm font-semibold text-[#002B98] transition-colors duration-150 hover:border-[#0051AE] focus-visible:ring-2 focus-visible:ring-[#0051AE] focus-visible:outline-none"
       >
-        <LifeBuoy aria-hidden className="size-4 stroke-[1.5]" />
+        <QuestionMarkCircle />
         <span className="relative block h-5 min-w-[86px] overflow-hidden text-left">
           <span key={labelKey} className={reduced ? "block leading-5" : "hdr-rotate block leading-5"}>
             {t(labelKey)}
@@ -302,7 +323,7 @@ export function NeedHelpPill() {
         </span>
         <ChevronDown
           aria-hidden
-          className={cn("size-3.5 transition-transform duration-150", isOpen && "rotate-180")}
+          className={cn("size-[10px] opacity-55 transition-transform duration-150", isOpen && "rotate-180")}
         />
       </button>
 

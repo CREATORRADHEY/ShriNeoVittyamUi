@@ -82,7 +82,7 @@ function HomePage() {
               id="products-title"
               className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] tracking-tight"
             >
-              One process. Five ways forward.
+              One process, five ways forward
             </h2>
             <p className="mt-4 text-base text-muted-foreground">
               Amounts are indicative ranges configured with participating lenders and confirmed at
@@ -177,7 +177,7 @@ function HomePage() {
               id="compare-title"
               className="editorial mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] tracking-tight"
             >
-              Compare before you choose.
+              Compare before you choose
             </h2>
             <p className="mt-5 max-w-[42ch] text-base text-muted-foreground">
               Review rates, fees, EMI, tenure, and total repayment side by side before sending your

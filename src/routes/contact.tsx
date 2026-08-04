@@ -79,7 +79,7 @@ function ContactPage() {
             id="contact-title"
             className="editorial text-[clamp(2rem,5vw,3rem)] tracking-tight text-balance"
           >
-            Talk to a person who can actually help.
+            Talk to a person who can actually help
           </h1>
           <p className="mt-5 text-lg text-muted-foreground">
             For questions about products, applications or agent registration. If you wish to raise a

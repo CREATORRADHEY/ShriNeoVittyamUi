@@ -54,7 +54,7 @@ function GrievancePage() {
             id="grievance-title"
             className="editorial text-[clamp(2rem,5vw,3rem)] tracking-tight text-balance"
           >
-            Every complaint gets a name, a number and a timeline.
+            Every complaint gets a name, a number and a timeline
           </h1>
           <p className="mt-5 text-lg text-muted-foreground">
             {org.legalEntity} maintains a grievance process for the ShriNeo Capital platform. Use it

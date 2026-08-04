@@ -8,14 +8,20 @@
  * ShriNeo Capital design system
  * "Calm financial confidence for Bharat."
  * Blue-led, mostly white / neutral surfaces, restrained motion.
- * Type roles: Inter (product UI) / Source Serif 4 (editorial) /
- *             IBM Plex Mono (financial values) / Noto Sans Devanagari (Hindi)
+ * Type roles: Poppins (all UI, headings, body, Devanagari) /
+ *             IBM Plex Mono (amounts, rates, IDs, dates — tabular figures)
+ * Inter and Source Serif 4 are removed from the product entirely.
  */
 
 @theme inline {
-  --font-sans: "Inter", "Noto Sans Devanagari", system-ui, -apple-system, sans-serif;
-  --font-serif: "Source Serif 4", "Noto Serif Devanagari", Georgia, serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-ui:
+    "Poppins", "Noto Sans Devanagari", "Noto Sans Bengali", "Noto Sans Gujarati", "Noto Sans Tamil",
+    "Noto Sans Telugu", "Noto Sans Kannada", "Noto Sans Oriya", system-ui, sans-serif;
+  --font-num: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-sans: var(--font-ui);
+  --font-serif: var(--font-ui);
+  --font-mono: var(--font-num);
+
 
   --radius-xs: 4px;
   --radius-sm: 6px;
@@ -194,18 +200,19 @@
 
   [lang="hi"] body,
   :lang(hi) {
-    font-family: "Noto Sans Devanagari", "Inter", system-ui, sans-serif;
+    font-family: var(--font-ui);
   }
 }
 
-/* Customer-facing financial values — Poppins, tabular lining figures.
-   The ₹ symbol and the digits share one family so a value reads as one unit. */
+/* Customer-facing financial values — IBM Plex Mono, tabular lining figures.
+   Digits line up in columns and 0/O, 1/l/I stay clearly distinct. */
 @utility num {
-  font-family: "Poppins", "Noto Sans Devanagari", system-ui, sans-serif;
+  font-family: var(--font-num);
   font-variant-numeric: tabular-nums lining-nums;
   font-feature-settings: "tnum" 1, "lnum" 1;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.005em;
 }
+
 
 /* Small technical metadata only — reference IDs, timestamps, audit rows. */
 @utility mono-meta {
@@ -520,7 +527,7 @@ textarea {
    ============================================================ */
 
 .font-display {
-  font-family: "Poppins", "Noto Sans Devanagari", system-ui, sans-serif;
+  font-family: var(--font-ui);
 }
 
 /* Canonical brand navy gradient — exact values from the approved landing
@@ -706,7 +713,7 @@ textarea {
   pointer-events: none;
 }
 .hdr-rotate {
-  animation: hdr-label-in 250ms var(--ease-enter) both;
+  animation: hdr-label-in 450ms cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 /* Left-to-right underline indicator for header navigation */
@@ -764,4 +771,48 @@ textarea {
     rgba(0, 0, 0, 0.05) 90%,
     rgba(0, 0, 0, 0) 100%
   );
+}
+
+/* ============================================================
+   Header themes — both options are fully opaque (v1.0 §3)
+   ============================================================ */
+
+header[data-hdr-theme] {
+  --hdr-fg: #ffffff;
+  --hdr-fg-soft: #b9c6e8;
+  --hdr-hairline: rgba(255, 255, 255, 0.14);
+}
+
+/* Option A — light header */
+header[data-hdr-theme="light"] {
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #ece7dd;
+  box-shadow: none;
+  --hdr-fg: #002b98;
+  --hdr-fg-soft: #5b657d;
+  --hdr-hairline: #ece7dd;
+}
+
+header[data-hdr-theme="light"][data-condensed="true"] {
+  box-shadow: 0 4px 18px -8px rgba(0, 10, 40, 0.18);
+}
+
+/* Option B — solid dark header */
+header[data-hdr-theme="dark"] {
+  background: #001a5c;
+  backdrop-filter: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: none;
+}
+
+header[data-hdr-theme="dark"][data-condensed="true"] {
+  box-shadow: 0 6px 22px -10px rgba(0, 8, 60, 0.55);
+}
+
+header[data-hdr-theme] {
+  transition:
+    box-shadow 0.25s ease-out,
+    height 0.25s ease-out;
+  overflow: visible;
 }

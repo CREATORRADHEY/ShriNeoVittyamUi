@@ -52,12 +52,12 @@ export function HomeHero() {
                 className="font-display mt-6 max-w-[660px] text-[clamp(2.375rem,3.7vw,3.625rem)] leading-[1.08] font-semibold tracking-[-0.02em] text-white"
               >
                 <span className="block md:whitespace-nowrap">Your Dreams,</span>
-                <span className="block md:whitespace-nowrap">Our Responsibility.</span>
+                <span className="block md:whitespace-nowrap">Our Responsibility</span>
               </h1>
 
-              <p className="hero-on-navy font-display mt-5 max-w-[550px] text-[clamp(1rem,1.4vw,1.25rem)] leading-[1.55]">
-                Built for customers. Designed for agents.
-                <br className="hidden md:inline" /> Supported by banks. Powered by trust.
+              <p className="font-display mt-5 max-w-[550px] text-[clamp(1rem,1.4vw,1.25rem)] leading-[1.55] text-[#B9C6E8]">
+                Built for customers. Designed for agents
+                <br className="hidden md:inline" /> Supported by banks. Powered by trust
               </p>
 
               <div className="mt-9 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
@@ -70,17 +70,20 @@ export function HomeHero() {
                 </Link>
                 <Link
                   to="/for-borrowers"
-                  className="font-display inline-flex min-h-[44px] items-center justify-center gap-2 text-base font-medium text-white underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none sm:justify-start"
+                  className="font-display inline-flex min-h-11 items-center gap-[9px] self-start border-b border-white/45 pb-1 text-[16.5px] font-medium tracking-[-0.01em] text-white transition-colors duration-150 hover:border-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
                 >
-                  <Mic aria-hidden className="hero-icon size-4 stroke-[1.5]" />
+                  <Mic
+                    aria-hidden
+                    className="h-[18px] w-4 shrink-0 stroke-[1.4] text-white"
+                  />
                   Ask Neo
-                  <ArrowRight aria-hidden className="size-3.5" />
                 </Link>
               </div>
 
+
               <p className="hero-on-navy mt-7 flex max-w-[46ch] items-start gap-2 text-sm leading-relaxed">
                 <ShieldCheck aria-hidden className="hero-icon mt-0.5 size-4 shrink-0 stroke-[1.4]" />
-                Direct bank-to-borrower transfer — ShriNeo never holds your funds.
+                Direct bank-to-borrower transfer — ShriNeo never holds your funds
               </p>
             </div>
 
