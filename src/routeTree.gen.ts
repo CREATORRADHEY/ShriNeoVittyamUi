@@ -33,6 +33,7 @@ import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AuthSigninRouteImport } from './routes/auth.signin'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as ErrorsIndexRouteImport } from './routes/errors.index'
 import { Route as Errors401RouteImport } from './routes/errors.401'
 import { Route as Errors403RouteImport } from './routes/errors.403'
@@ -193,6 +194,11 @@ const AuthSigninRoute = AuthSigninRouteImport.update({
 const AuthSignupRoute = AuthSignupRouteImport.update({
   id: '/auth/signup',
   path: '/auth/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ErrorsIndexRoute = ErrorsIndexRouteImport.update({
@@ -445,6 +451,7 @@ export interface FileRoutesByFullPath {
   '/trust-center/rbi-compliance': typeof TrustCenterRbiComplianceRoute
   '/trust-center/security': typeof TrustCenterSecurityRoute
   '/trust-center/snv-trust-score': typeof TrustCenterSnvTrustScoreRoute
+  '/blog/': typeof BlogIndexRoute
   '/errors/': typeof ErrorsIndexRoute
   '/loans/': typeof LoansIndexRoute
   '/prototype/': typeof PrototypeIndexRoute
@@ -510,6 +517,7 @@ export interface FileRoutesByTo {
   '/trust-center/rbi-compliance': typeof TrustCenterRbiComplianceRoute
   '/trust-center/security': typeof TrustCenterSecurityRoute
   '/trust-center/snv-trust-score': typeof TrustCenterSnvTrustScoreRoute
+  '/blog': typeof BlogIndexRoute
   '/errors': typeof ErrorsIndexRoute
   '/loans': typeof LoansIndexRoute
   '/prototype': typeof PrototypeIndexRoute
@@ -576,6 +584,7 @@ export interface FileRoutesById {
   '/trust-center/rbi-compliance': typeof TrustCenterRbiComplianceRoute
   '/trust-center/security': typeof TrustCenterSecurityRoute
   '/trust-center/snv-trust-score': typeof TrustCenterSnvTrustScoreRoute
+  '/blog/': typeof BlogIndexRoute
   '/errors/': typeof ErrorsIndexRoute
   '/loans/': typeof LoansIndexRoute
   '/prototype/': typeof PrototypeIndexRoute
@@ -643,6 +652,7 @@ export interface FileRouteTypes {
     | '/trust-center/rbi-compliance'
     | '/trust-center/security'
     | '/trust-center/snv-trust-score'
+    | '/blog/'
     | '/errors/'
     | '/loans/'
     | '/prototype/'
@@ -708,6 +718,7 @@ export interface FileRouteTypes {
     | '/trust-center/rbi-compliance'
     | '/trust-center/security'
     | '/trust-center/snv-trust-score'
+    | '/blog'
     | '/errors'
     | '/loans'
     | '/prototype'
@@ -773,6 +784,7 @@ export interface FileRouteTypes {
     | '/trust-center/rbi-compliance'
     | '/trust-center/security'
     | '/trust-center/snv-trust-score'
+    | '/blog/'
     | '/errors/'
     | '/loans/'
     | '/prototype/'
@@ -839,6 +851,7 @@ export interface RootRouteChildren {
   TrustCenterRbiComplianceRoute: typeof TrustCenterRbiComplianceRoute
   TrustCenterSecurityRoute: typeof TrustCenterSecurityRoute
   TrustCenterSnvTrustScoreRoute: typeof TrustCenterSnvTrustScoreRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   ErrorsIndexRoute: typeof ErrorsIndexRoute
   LoansIndexRoute: typeof LoansIndexRoute
   PrototypeIndexRoute: typeof PrototypeIndexRoute
@@ -1024,6 +1037,13 @@ declare module '@tanstack/react-router' {
       path: '/auth/signup'
       fullPath: '/auth/signup'
       preLoaderRoute: typeof AuthSignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/errors/': {
@@ -1352,6 +1372,7 @@ const rootRouteChildren: RootRouteChildren = {
   TrustCenterRbiComplianceRoute: TrustCenterRbiComplianceRoute,
   TrustCenterSecurityRoute: TrustCenterSecurityRoute,
   TrustCenterSnvTrustScoreRoute: TrustCenterSnvTrustScoreRoute,
+  BlogIndexRoute: BlogIndexRoute,
   ErrorsIndexRoute: ErrorsIndexRoute,
   LoansIndexRoute: LoansIndexRoute,
   PrototypeIndexRoute: PrototypeIndexRoute,
