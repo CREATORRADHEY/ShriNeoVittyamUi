@@ -83,7 +83,7 @@ function HeaderInner() {
                 theme === "dark" ? "brightness-0 invert" : ""
               }`}
             />
-            <span className="flex flex-col leading-tight">
+            <span className="hidden flex-col leading-tight xl:flex">
               <span className="whitespace-nowrap text-[17px] font-semibold tracking-tight text-[color:var(--hdr-fg)]">
                 ShriNeo Capital
               </span>
@@ -96,7 +96,7 @@ function HeaderInner() {
             <span className="sr-only">— home</span>
           </Link>
 
-          <ul className="hidden min-w-0 items-center justify-center gap-0.5 lg:flex">
+          <ul className="hidden min-w-0 items-center justify-center gap-0 lg:flex">
             <li>
               <LoansMenu />
             </li>

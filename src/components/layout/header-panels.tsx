@@ -36,7 +36,7 @@ const productBlurbs: Record<string, string> = {
 };
 
 export const triggerClass =
-  "nav-underline relative inline-flex min-h-11 items-center gap-1 rounded-md px-3 text-sm font-medium text-[color:var(--hdr-fg)] opacity-90 transition-opacity duration-150 hover:opacity-100 focus-visible:ring-2 focus-visible:ring-[color:var(--hdr-fg)] focus-visible:outline-none";
+  "nav-underline relative inline-flex min-h-11 items-center gap-1 rounded-md px-2.5 text-[14px] font-medium whitespace-nowrap text-[color:var(--hdr-fg)] opacity-90 transition-opacity duration-150 hover:opacity-100 focus-visible:ring-2 focus-visible:ring-[color:var(--hdr-fg)] focus-visible:outline-none";
 
 /* ------------------------------------------------------------------ loans */
 
