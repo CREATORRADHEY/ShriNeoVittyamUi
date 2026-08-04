@@ -96,7 +96,7 @@ function HeaderInner() {
             <span className="sr-only">— home</span>
           </Link>
 
-          <ul className="hidden flex-1 items-center justify-center gap-0 lg:flex">
+          <ul className="hidden flex-1 items-center justify-center gap-0 xl:flex">
             <li>
               <LoansMenu />
             </li>
@@ -121,7 +121,7 @@ function HeaderInner() {
             </div>
             <Link
               to="/auth/signin"
-              className="inline-flex min-h-11 items-center rounded-md border border-[color:var(--hdr-hairline)] px-3 text-sm font-medium text-[color:var(--hdr-fg)] transition-[background-color,border-color] duration-150 hover:bg-[color:var(--hdr-fg)]/10 focus-visible:ring-2 focus-visible:ring-[color:var(--hdr-fg)] focus-visible:outline-none max-xl:hidden"
+              className="inline-flex min-h-11 items-center rounded-md border border-[color:var(--hdr-hairline)] px-3 text-sm font-medium text-[color:var(--hdr-fg)] transition-[background-color,border-color] duration-150 hover:bg-[color:var(--hdr-fg)]/10 focus-visible:ring-2 focus-visible:ring-[color:var(--hdr-fg)] focus-visible:outline-none max-2xl:hidden"
             >
               {t("nav.login")}
             </Link>
@@ -140,7 +140,7 @@ function HeaderInner() {
                 closeNow();
                 setOpen((v) => !v);
               }}
-              className="inline-grid size-11 place-items-center rounded-md border border-[color:var(--hdr-hairline)] text-[color:var(--hdr-fg)] lg:hidden"
+              className="inline-grid size-11 place-items-center rounded-md border border-[color:var(--hdr-hairline)] text-[color:var(--hdr-fg)] xl:hidden"
             >
               {open ? (
                 <X aria-hidden className="size-5" />
@@ -154,7 +154,7 @@ function HeaderInner() {
         {open ? (
           <div
             id="mobile-menu"
-            className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-[color:var(--hdr-hairline)] py-4 pb-[max(1rem,env(safe-area-inset-bottom))] lg:hidden"
+            className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto border-t border-[color:var(--hdr-hairline)] py-4 pb-[max(1rem,env(safe-area-inset-bottom))] xl:hidden"
           >
             <button
               type="button"
