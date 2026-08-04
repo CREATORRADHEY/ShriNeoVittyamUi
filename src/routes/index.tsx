@@ -144,12 +144,8 @@ function HomePage() {
                       className="size-5 shrink-0 stroke-[1.3] text-primary transition-transform duration-[220ms] ease-[cubic-bezier(0.2,0,0,1)] group-hover:scale-110 motion-reduce:transition-none"
                     />
 
-                    <h3 className="mt-4 flex flex-wrap items-center gap-2 text-base font-semibold">
-                      {product.name}
-                      {product.phase2 ? (
-                        <StatusPill tone="warning">Coming in Phase 2</StatusPill>
-                      ) : null}
-                    </h3>
+                    <h3 className="mt-4 text-base font-semibold">{product.name}</h3>
+
                     <p className="mt-2 text-sm text-muted-foreground">{product.summary}</p>
                     <p className="num mt-auto pt-4 text-xs font-medium text-foreground">
                       {formatINR(product.range.min, { compact: true })} –{" "}

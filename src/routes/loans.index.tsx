@@ -148,10 +148,8 @@ function LoansIndex() {
                     <span className="min-w-0">
                       <span className="flex flex-wrap items-center gap-2">
                         <span className="text-base font-semibold">{product.name}</span>
-                        {product.phase2 ? (
-                          <StatusPill tone="warning">Coming in Phase 2</StatusPill>
-                        ) : null}
                       </span>
+
                       <span className="mt-1.5 block text-sm text-muted-foreground">
                         {product.summary}
                       </span>
