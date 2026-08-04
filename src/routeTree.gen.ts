@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as R404RouteImport } from './routes/404'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AccountAggregatorRouteImport } from './routes/account-aggregator'
+import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CompareOffersRouteImport } from './routes/compare-offers'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
@@ -94,6 +95,11 @@ const AboutRoute = AboutRouteImport.update({
 const AccountAggregatorRoute = AccountAggregatorRouteImport.update({
   id: '/account-aggregator',
   path: '/account-aggregator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareersRoute = CareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompareOffersRoute = CompareOffersRouteImport.update({
@@ -420,6 +426,7 @@ export interface FileRoutesByFullPath {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/account-aggregator': typeof AccountAggregatorRoute
+  '/careers': typeof CareersRoute
   '/compare-offers': typeof CompareOffersRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
@@ -488,6 +495,7 @@ export interface FileRoutesByTo {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/account-aggregator': typeof AccountAggregatorRoute
+  '/careers': typeof CareersRoute
   '/compare-offers': typeof CompareOffersRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
@@ -557,6 +565,7 @@ export interface FileRoutesById {
   '/404': typeof R404Route
   '/about': typeof AboutRoute
   '/account-aggregator': typeof AccountAggregatorRoute
+  '/careers': typeof CareersRoute
   '/compare-offers': typeof CompareOffersRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
@@ -627,6 +636,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/account-aggregator'
+    | '/careers'
     | '/compare-offers'
     | '/contact'
     | '/cookie-policy'
@@ -695,6 +705,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/account-aggregator'
+    | '/careers'
     | '/compare-offers'
     | '/contact'
     | '/cookie-policy'
@@ -763,6 +774,7 @@ export interface FileRouteTypes {
     | '/404'
     | '/about'
     | '/account-aggregator'
+    | '/careers'
     | '/compare-offers'
     | '/contact'
     | '/cookie-policy'
@@ -832,6 +844,7 @@ export interface RootRouteChildren {
   R404Route: typeof R404Route
   AboutRoute: typeof AboutRoute
   AccountAggregatorRoute: typeof AccountAggregatorRoute
+  CareersRoute: typeof CareersRoute
   CompareOffersRoute: typeof CompareOffersRoute
   ContactRoute: typeof ContactRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
@@ -924,6 +937,13 @@ declare module '@tanstack/react-router' {
       path: '/account-aggregator'
       fullPath: '/account-aggregator'
       preLoaderRoute: typeof AccountAggregatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/compare-offers': {
@@ -1368,6 +1388,7 @@ const rootRouteChildren: RootRouteChildren = {
   R404Route: R404Route,
   AboutRoute: AboutRoute,
   AccountAggregatorRoute: AccountAggregatorRoute,
+  CareersRoute: CareersRoute,
   CompareOffersRoute: CompareOffersRoute,
   ContactRoute: ContactRoute,
   CookiePolicyRoute: CookiePolicyRoute,
