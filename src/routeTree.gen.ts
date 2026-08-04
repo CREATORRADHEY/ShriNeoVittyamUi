@@ -16,6 +16,7 @@ import { Route as AccountAggregatorRouteImport } from './routes/account-aggregat
 import { Route as CompareOffersRouteImport } from './routes/compare-offers'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
+import { Route as DigitalLendingDisclosuresRouteImport } from './routes/digital-lending-disclosures'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as ForAgentsRouteImport } from './routes/for-agents'
 import { Route as ForBorrowersRouteImport } from './routes/for-borrowers'
@@ -110,6 +111,12 @@ const CookiePolicyRoute = CookiePolicyRouteImport.update({
   path: '/cookie-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DigitalLendingDisclosuresRoute =
+  DigitalLendingDisclosuresRouteImport.update({
+    id: '/digital-lending-disclosures',
+    path: '/digital-lending-disclosures',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
   id: '/emi-calculator',
   path: '/emi-calculator',
@@ -416,6 +423,7 @@ export interface FileRoutesByFullPath {
   '/compare-offers': typeof CompareOffersRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
+  '/digital-lending-disclosures': typeof DigitalLendingDisclosuresRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
@@ -483,6 +491,7 @@ export interface FileRoutesByTo {
   '/compare-offers': typeof CompareOffersRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
+  '/digital-lending-disclosures': typeof DigitalLendingDisclosuresRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
@@ -551,6 +560,7 @@ export interface FileRoutesById {
   '/compare-offers': typeof CompareOffersRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
+  '/digital-lending-disclosures': typeof DigitalLendingDisclosuresRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/for-agents': typeof ForAgentsRoute
   '/for-borrowers': typeof ForBorrowersRoute
@@ -620,6 +630,7 @@ export interface FileRouteTypes {
     | '/compare-offers'
     | '/contact'
     | '/cookie-policy'
+    | '/digital-lending-disclosures'
     | '/emi-calculator'
     | '/for-agents'
     | '/for-borrowers'
@@ -687,6 +698,7 @@ export interface FileRouteTypes {
     | '/compare-offers'
     | '/contact'
     | '/cookie-policy'
+    | '/digital-lending-disclosures'
     | '/emi-calculator'
     | '/for-agents'
     | '/for-borrowers'
@@ -754,6 +766,7 @@ export interface FileRouteTypes {
     | '/compare-offers'
     | '/contact'
     | '/cookie-policy'
+    | '/digital-lending-disclosures'
     | '/emi-calculator'
     | '/for-agents'
     | '/for-borrowers'
@@ -822,6 +835,7 @@ export interface RootRouteChildren {
   CompareOffersRoute: typeof CompareOffersRoute
   ContactRoute: typeof ContactRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
+  DigitalLendingDisclosuresRoute: typeof DigitalLendingDisclosuresRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
   ForAgentsRoute: typeof ForAgentsRoute
   ForBorrowersRoute: typeof ForBorrowersRoute
@@ -931,6 +945,13 @@ declare module '@tanstack/react-router' {
       path: '/cookie-policy'
       fullPath: '/cookie-policy'
       preLoaderRoute: typeof CookiePolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/digital-lending-disclosures': {
+      id: '/digital-lending-disclosures'
+      path: '/digital-lending-disclosures'
+      fullPath: '/digital-lending-disclosures'
+      preLoaderRoute: typeof DigitalLendingDisclosuresRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/emi-calculator': {
@@ -1350,6 +1371,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompareOffersRoute: CompareOffersRoute,
   ContactRoute: ContactRoute,
   CookiePolicyRoute: CookiePolicyRoute,
+  DigitalLendingDisclosuresRoute: DigitalLendingDisclosuresRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
   ForAgentsRoute: ForAgentsRoute,
   ForBorrowersRoute: ForBorrowersRoute,
