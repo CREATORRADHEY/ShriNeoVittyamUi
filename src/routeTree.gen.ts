@@ -34,6 +34,7 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as AuthSigninRouteImport } from './routes/auth.signin'
 import { Route as AuthSignupRouteImport } from './routes/auth.signup'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ErrorsIndexRouteImport } from './routes/errors.index'
 import { Route as Errors401RouteImport } from './routes/errors.401'
 import { Route as Errors403RouteImport } from './routes/errors.403'
@@ -199,6 +200,11 @@ const AuthSignupRoute = AuthSignupRouteImport.update({
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ErrorsIndexRoute = ErrorsIndexRouteImport.update({
@@ -427,6 +433,7 @@ export interface FileRoutesByFullPath {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/errors/401': typeof Errors401Route
   '/errors/403': typeof Errors403Route
   '/errors/410': typeof Errors410Route
@@ -493,6 +500,7 @@ export interface FileRoutesByTo {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/errors/401': typeof Errors401Route
   '/errors/403': typeof Errors403Route
   '/errors/410': typeof Errors410Route
@@ -560,6 +568,7 @@ export interface FileRoutesById {
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/auth/signin': typeof AuthSigninRoute
   '/auth/signup': typeof AuthSignupRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/errors/401': typeof Errors401Route
   '/errors/403': typeof Errors403Route
   '/errors/410': typeof Errors410Route
@@ -628,6 +637,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/auth/signin'
     | '/auth/signup'
+    | '/blog/$slug'
     | '/errors/401'
     | '/errors/403'
     | '/errors/410'
@@ -694,6 +704,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/auth/signin'
     | '/auth/signup'
+    | '/blog/$slug'
     | '/errors/401'
     | '/errors/403'
     | '/errors/410'
@@ -760,6 +771,7 @@ export interface FileRouteTypes {
     | '/.well-known/oauth-protected-resource'
     | '/auth/signin'
     | '/auth/signup'
+    | '/blog/$slug'
     | '/errors/401'
     | '/errors/403'
     | '/errors/410'
@@ -827,6 +839,7 @@ export interface RootRouteChildren {
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AuthSigninRoute: typeof AuthSigninRoute
   AuthSignupRoute: typeof AuthSignupRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   Errors401Route: typeof Errors401Route
   Errors403Route: typeof Errors403Route
   Errors410Route: typeof Errors410Route
@@ -1044,6 +1057,13 @@ declare module '@tanstack/react-router' {
       path: '/blog'
       fullPath: '/blog/'
       preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/errors/': {
@@ -1348,6 +1368,7 @@ const rootRouteChildren: RootRouteChildren = {
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   AuthSigninRoute: AuthSigninRoute,
   AuthSignupRoute: AuthSignupRoute,
+  BlogSlugRoute: BlogSlugRoute,
   Errors401Route: Errors401Route,
   Errors403Route: Errors403Route,
   Errors410Route: Errors410Route,
