@@ -36,7 +36,7 @@ function AboutPage() {
             id="about-title"
             className="editorial text-[clamp(2rem,5vw,3rem)] tracking-tight text-balance"
           >
-            Credit should be understandable before it is signed.
+            Credit should be understandable before it is signed
           </h1>
           <p className="mt-5 text-lg text-muted-foreground">
             ShriNeo Capital exists to make borrowing legible for people who have been served badly

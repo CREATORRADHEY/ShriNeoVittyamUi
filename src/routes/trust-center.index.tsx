@@ -196,7 +196,7 @@ function TrustCenterPage() {
           <div className="max-w-xl">
             <MessageSquareWarning aria-hidden className="mb-3 size-5 text-primary" />
             <h2 id="grievance-cta" className="text-xl font-semibold">
-              Something went wrong? Raise it formally.
+              Something went wrong? Raise it formally
             </h2>
             <p className="mt-2 text-sm text-muted-foreground">
               Complaints receive a reference number, an acknowledgement within 3 working days, and a

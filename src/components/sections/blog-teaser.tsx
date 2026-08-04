@@ -48,7 +48,7 @@ export function BlogTeaserSection() {
               id="blog-title"
               className="editorial mt-4 text-[clamp(1.75rem,3.2vw,2.4rem)] tracking-tight"
             >
-              Understand borrowing before you borrow.
+              Understand borrowing before you borrow
             </h2>
           </div>
           <Link

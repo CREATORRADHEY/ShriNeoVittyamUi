@@ -24,7 +24,7 @@ type HomeContent = {
 
 const en: HomeContent = {
   hiwEyebrow: "How it works",
-  hiwTitle: "Four steps, start to finish.",
+  hiwTitle: "Four steps, start to finish",
   hiwLead: "No branch visit, and no paperwork you cannot read for yourself.",
   steps: [
     {
@@ -45,7 +45,7 @@ const en: HomeContent = {
     },
   ],
   faqEyebrow: "Questions",
-  faqTitle: "Answers before you apply.",
+  faqTitle: "Answers before you apply",
   faqCats: ["For borrowers", "For agents", "General"],
   faq: [
     [
@@ -131,7 +131,7 @@ const en: HomeContent = {
 
 const hi: HomeContent = {
   hiwEyebrow: "यह कैसे काम करता है",
-  hiwTitle: "शुरू से अंत तक, चार कदम।",
+  hiwTitle: "शुरू से अंत तक, चार कदम",
   hiwLead: "न शाखा के चक्कर, न ऐसे कागज़ जो आप ख़ुद पढ़ न सकें।",
   steps: [
     {
@@ -152,7 +152,7 @@ const hi: HomeContent = {
     },
   ],
   faqEyebrow: "सवाल",
-  faqTitle: "आवेदन से पहले, आपके सवालों के जवाब।",
+  faqTitle: "आवेदन से पहले, आपके सवालों के जवाब",
   faqCats: ["ग्राहकों के लिए", "एजेंट्स के लिए", "सामान्य"],
   faq: [
     [
@@ -236,7 +236,7 @@ const hi: HomeContent = {
   ],
 };
 
-const dictionaries: Record<Language, HomeContent> = { en, hi };
+const dictionaries: Partial<Record<Language, HomeContent>> = { en, hi };
 
 export function homeContent(language: Language): HomeContent {
   return dictionaries[language] ?? en;
