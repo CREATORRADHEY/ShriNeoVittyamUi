@@ -75,20 +75,13 @@ function HeaderInner() {
           style={{ minHeight: condensed ? 68 : 86 }}
         >
           <Link to="/" className="flex shrink-0 items-center gap-2.5">
-            <span
-              className={
-                theme === "dark"
-                  ? "flex shrink-0 items-center justify-center rounded-[10px] bg-white p-1.5"
-                  : "flex shrink-0 items-center"
-              }
-            >
-              <img
-                src={logo.url}
-                alt="ShriNeo Capital"
-                style={{ height: logoHeight, transition: "height .25s ease-out" }}
-                className="w-auto shrink-0 object-contain"
-              />
-            </span>
+            <img
+              src={logo.url}
+              alt="ShriNeo Capital"
+              style={{ height: logoHeight, transition: "height .25s ease-out" }}
+              className="w-auto shrink-0 object-contain"
+            />
+
 
             <span className="hidden flex-col leading-tight 2xl:flex">
               <span className="whitespace-nowrap text-[17px] font-semibold tracking-tight text-[color:var(--hdr-fg)]">
