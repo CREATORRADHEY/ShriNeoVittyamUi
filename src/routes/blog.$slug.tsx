@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { PublicShell } from "@/components/layout/public-shell";
 import { PageHero } from "@/components/sections/blocks";
 import { Section } from "@/components/design-system/section";
-import { blogArticles, getArticle } from "@/content/blog";
+import { blogArticles, getArticle, type BlogArticle } from "@/content/blog";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function BlogArticlePage() {
-  const { article } = Route.useLoaderData();
+  const { article } = Route.useLoaderData() as { article: BlogArticle };
   const others = blogArticles.filter((item) => item.slug !== article.slug);
 
   return (
