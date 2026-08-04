@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { products } from "@/config/products";
 import { formatINR } from "@/lib/format";
 import { PublicShell } from "@/components/layout/public-shell";
-import { Section, SectionHeading, StatusPill } from "@/components/design-system/section";
+import { Section, SectionHeading } from "@/components/design-system/section";
 import { EmiCalculator } from "@/components/loans/emi-calculator";
 import {
   EditorialHero,

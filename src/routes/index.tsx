@@ -11,7 +11,7 @@ import { BlogTeaserSection } from "@/components/sections/blog-teaser";
 import { products } from "@/config/products";
 import { formatINR } from "@/lib/format";
 import { PublicShell } from "@/components/layout/public-shell";
-import { StatusPill } from "@/components/design-system/section";
+
 import { Reveal } from "@/components/sections/reveal";
 import { HomeFaq } from "@/components/sections/home-faq";
 import { HowItWorksSection } from "@/components/sections/how-it-works";
