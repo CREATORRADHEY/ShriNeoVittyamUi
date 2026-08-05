@@ -209,7 +209,9 @@ export function NeoChatWidget() {
   const base = `calc(1rem + env(safe-area-inset-bottom) + ${dockOffset}px)`;
   const panelBottom = `calc(4.75rem + env(safe-area-inset-bottom) + ${dockOffset}px)`;
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <>
       {/* ------------------------------------------------------------ panel */}
       <div
