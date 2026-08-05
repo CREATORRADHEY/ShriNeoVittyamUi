@@ -67,6 +67,15 @@ const COPY: Record<"en" | "hi", Copy> = {
     fallback:
       "I can help with amounts, documents, EMI and comparison. This preview uses sample answers — the live assistant is being connected.",
     disclaimer: "Sample responses. Neo never asks for an OTP, PIN or payment.",
+    more: "More options",
+    camera: "Camera",
+    cameraHint: "Photograph a document",
+    mic: "Voice message",
+    micHint: "Speak instead of typing",
+    micStop: "Stop recording",
+    cameraNote: "Document capture opens the camera in the live assistant. In this preview nothing is uploaded.",
+    micNote: "Voice input is being connected. In this preview nothing is recorded or sent.",
+
   },
   hi: {
     title: "Neo",
