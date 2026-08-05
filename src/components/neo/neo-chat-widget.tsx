@@ -1,4 +1,4 @@
-import { ArrowUp, X } from "lucide-react";
+import { ArrowUp, Camera, MoreVertical, Square, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
