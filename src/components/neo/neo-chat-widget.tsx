@@ -220,6 +220,48 @@ export function NeoChatWidget() {
     [reply, typing],
   );
 
+  const note = useCallback((text: string) => {
+    setMessages((prev) => [...prev, { id: nextId(), from: "neo", text }]);
+  }, []);
+
+  const onCamera = useCallback(() => {
+    setMenuOpen(false);
+    note(copy.cameraNote);
+    inputRef.current?.focus();
+  }, [copy.cameraNote, note]);
+
+  const onMic = useCallback(() => {
+    setMenuOpen(false);
+    setRecording((was) => {
+      if (was) return false;
+      note(copy.micNote);
+      const id = window.setTimeout(() => setRecording(false), 2400);
+      timers.current.push(id);
+      return true;
+    });
+  }, [copy.micNote, note]);
+
+  // Dismiss the composer menu on outside press or Escape.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onDown = (event: PointerEvent) => {
+      if (!(event.target instanceof Node)) return;
+      if (menuRef.current?.contains(event.target)) return;
+      setMenuOpen(false);
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("keydown", onKey, true);
+    return () => {
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("keydown", onKey, true);
+    };
+  }, [menuOpen]);
+
+
+
   // Keep clear of the development-only prototype toolbar docked at the bottom.
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
