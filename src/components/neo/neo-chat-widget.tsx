@@ -1,4 +1,4 @@
-import { ArrowUp, X } from "lucide-react";
+import { ArrowUp, Camera, MoreVertical, Square, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -24,7 +24,16 @@ type Copy = {
   answers: { match: string[]; text: string }[];
   fallback: string;
   disclaimer: string;
+  more: string;
+  camera: string;
+  cameraHint: string;
+  mic: string;
+  micHint: string;
+  micStop: string;
+  cameraNote: string;
+  micNote: string;
 };
+
 
 const COPY: Record<"en" | "hi", Copy> = {
   en: {
@@ -58,6 +67,15 @@ const COPY: Record<"en" | "hi", Copy> = {
     fallback:
       "I can help with amounts, documents, EMI and comparison. This preview uses sample answers — the live assistant is being connected.",
     disclaimer: "Sample responses. Neo never asks for an OTP, PIN or payment.",
+    more: "More options",
+    camera: "Camera",
+    cameraHint: "Photograph a document",
+    mic: "Voice message",
+    micHint: "Speak instead of typing",
+    micStop: "Stop recording",
+    cameraNote: "Document capture opens the camera in the live assistant. In this preview nothing is uploaded.",
+    micNote: "Voice input is being connected. In this preview nothing is recorded or sent.",
+
   },
   hi: {
     title: "Neo",
@@ -86,6 +104,15 @@ const COPY: Record<"en" | "hi", Copy> = {
     fallback:
       "मैं राशि, कागज़, EMI और तुलना में मदद कर सकता हूँ। यह नमूना उत्तर है — असली सहायक जल्द जुड़ेगा।",
     disclaimer: "नमूना उत्तर। Neo कभी OTP, PIN या भुगतान नहीं माँगता।",
+    more: "और विकल्प",
+    camera: "कैमरा",
+    cameraHint: "कागज़ की फ़ोटो लीजिए",
+    mic: "आवाज़ से पूछें",
+    micHint: "टाइप करने के बजाय बोलिए",
+    micStop: "रिकॉर्डिंग बंद करें",
+    cameraNote: "असली सहायक में कैमरा खुलेगा। इस नमूने में कुछ भी अपलोड नहीं होता।",
+    micNote: "आवाज़ सुविधा जल्द जुड़ेगी। इस नमूने में कुछ भी रिकॉर्ड नहीं होता।",
+
   },
 };
 
@@ -120,10 +147,15 @@ export function NeoChatWidget() {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [draft, setDraft] = useState("");
   const [typing, setTyping] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [recording, setRecording] = useState(false);
+
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const launcherRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
   const timers = useRef<number[]>([]);
 
   useEffect(
@@ -189,6 +221,48 @@ export function NeoChatWidget() {
     },
     [reply, typing],
   );
+
+  const note = useCallback((text: string) => {
+    setMessages((prev) => [...prev, { id: nextId(), from: "neo", text }]);
+  }, []);
+
+  const onCamera = useCallback(() => {
+    setMenuOpen(false);
+    note(copy.cameraNote);
+    inputRef.current?.focus();
+  }, [copy.cameraNote, note]);
+
+  const onMic = useCallback(() => {
+    setMenuOpen(false);
+    setRecording((was) => {
+      if (was) return false;
+      note(copy.micNote);
+      const id = window.setTimeout(() => setRecording(false), 2400);
+      timers.current.push(id);
+      return true;
+    });
+  }, [copy.micNote, note]);
+
+  // Dismiss the composer menu on outside press or Escape.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onDown = (event: PointerEvent) => {
+      if (!(event.target instanceof Node)) return;
+      if (menuRef.current?.contains(event.target)) return;
+      setMenuOpen(false);
+    };
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("keydown", onKey, true);
+    return () => {
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("keydown", onKey, true);
+    };
+  }, [menuOpen]);
+
+
 
   // Keep clear of the development-only prototype toolbar docked at the bottom.
   const [mounted, setMounted] = useState(false);
@@ -326,7 +400,62 @@ export function NeoChatWidget() {
             className="border-t border-[#ECE7DD] bg-white px-3 pt-3 pb-2.5"
           >
             <div className="flex items-end gap-2 rounded-xl border border-[#E2E7F0] bg-[#FBFCFE] px-3 py-2 transition-colors focus-within:border-[#0051AE]">
+              {/* three-dot menu: camera + mic */}
+              <div ref={menuRef} className="relative shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setMenuOpen((value) => !value)}
+                  aria-haspopup="menu"
+                  aria-expanded={menuOpen}
+                  aria-label={copy.more}
+                  className={cn(
+                    "flex size-8 items-center justify-center rounded-lg border border-transparent text-[#5B657D] transition-colors",
+                    menuOpen ? "border-[#D6E5F7] bg-[#E6F1FB] text-[#002B98]" : "hover:bg-[#EFEADF] hover:text-[#002B98]",
+                  )}
+                >
+                  <MoreVertical aria-hidden className="size-4" />
+                </button>
+                {menuOpen ? (
+                  <div
+                    role="menu"
+                    aria-label={copy.more}
+                    className="absolute bottom-[calc(100%+8px)] left-0 z-10 w-56 overflow-hidden rounded-xl border border-[#E7DFCE] bg-white py-1 shadow-[0_20px_44px_-22px_rgba(0,26,92,0.55)] animate-in fade-in slide-in-from-bottom-1 duration-150 motion-reduce:animate-none"
+                  >
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={onCamera}
+                      className="flex w-full items-start gap-3 px-3 py-2.5 text-left transition-colors hover:bg-[#F7F3EA]"
+                    >
+                      <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg bg-[#E6F1FB] text-[#0051AE]">
+                        <Camera aria-hidden className="size-4" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-[13.5px] font-semibold text-[#002B98]">{copy.camera}</span>
+                        <span className="block text-[11.5px] leading-snug text-[#5B657D]">{copy.cameraHint}</span>
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={onMic}
+                      className="flex w-full items-start gap-3 px-3 py-2.5 text-left transition-colors hover:bg-[#F7F3EA]"
+                    >
+                      <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg bg-[#E6F1FB] text-[#0051AE]">
+                        {recording ? <Square aria-hidden className="size-3.5" /> : <MicIcon className="size-4" />}
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-[13.5px] font-semibold text-[#002B98]">
+                          {recording ? copy.micStop : copy.mic}
+                        </span>
+                        <span className="block text-[11.5px] leading-snug text-[#5B657D]">{copy.micHint}</span>
+                      </span>
+                    </button>
+                  </div>
+                ) : null}
+              </div>
               <textarea
+
                 ref={inputRef}
                 rows={1}
                 value={draft}
