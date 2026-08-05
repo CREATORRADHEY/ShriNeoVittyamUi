@@ -72,15 +72,53 @@ import { Route as TrustCenterSecurityRouteImport } from './routes/trust-center.s
 import { Route as TrustCenterSnvTrustScoreRouteImport } from './routes/trust-center.snv-trust-score'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as AppAdminIndexRouteImport } from './routes/app.admin.index'
+import { Route as AppAdminAgentsRouteImport } from './routes/app.admin.agents'
+import { Route as AppAdminAuditRouteImport } from './routes/app.admin.audit'
+import { Route as AppAdminBorrowersRouteImport } from './routes/app.admin.borrowers'
+import { Route as AppAdminCmsRouteImport } from './routes/app.admin.cms'
+import { Route as AppAdminConsentRouteImport } from './routes/app.admin.consent'
+import { Route as AppAdminFraudRouteImport } from './routes/app.admin.fraud'
+import { Route as AppAdminLendersRouteImport } from './routes/app.admin.lenders'
+import { Route as AppAdminLoansRouteImport } from './routes/app.admin.loans'
+import { Route as AppAdminReportsRouteImport } from './routes/app.admin.reports'
+import { Route as AppAdminSettingsRouteImport } from './routes/app.admin.settings'
+import { Route as AppAdminSystemRouteImport } from './routes/app.admin.system'
+import { Route as AppAdminTrustScoreRouteImport } from './routes/app.admin.trust-score'
 import { Route as AppAgentIndexRouteImport } from './routes/app.agent.index'
+import { Route as AppAgentAnalyticsRouteImport } from './routes/app.agent.analytics'
+import { Route as AppAgentCommissionsRouteImport } from './routes/app.agent.commissions'
+import { Route as AppAgentFilesRouteImport } from './routes/app.agent.files'
+import { Route as AppAgentLeadsRouteImport } from './routes/app.agent.leads'
+import { Route as AppAgentNotificationsRouteImport } from './routes/app.agent.notifications'
+import { Route as AppAgentProfileRouteImport } from './routes/app.agent.profile'
+import { Route as AppAgentResourcesRouteImport } from './routes/app.agent.resources'
+import { Route as AppAgentStartRouteImport } from './routes/app.agent.start'
+import { Route as AppAgentSupportRouteImport } from './routes/app.agent.support'
+import { Route as AppAgentTrainingRouteImport } from './routes/app.agent.training'
 import { Route as AppBorrowerIndexRouteImport } from './routes/app.borrower.index'
+import { Route as AppBorrowerAgentsRouteImport } from './routes/app.borrower.agents'
 import { Route as AppBorrowerApplicationRouteImport } from './routes/app.borrower.application'
 import { Route as AppBorrowerApplicationsRouteImport } from './routes/app.borrower.applications'
 import { Route as AppBorrowerApplyRouteImport } from './routes/app.borrower.apply'
 import { Route as AppBorrowerDocumentsRouteImport } from './routes/app.borrower.documents'
+import { Route as AppBorrowerLoansRouteImport } from './routes/app.borrower.loans'
+import { Route as AppBorrowerMessagesRouteImport } from './routes/app.borrower.messages'
+import { Route as AppBorrowerNotificationsRouteImport } from './routes/app.borrower.notifications'
 import { Route as AppBorrowerOffersRouteImport } from './routes/app.borrower.offers'
 import { Route as AppBorrowerPaymentsRouteImport } from './routes/app.borrower.payments'
+import { Route as AppBorrowerProfileRouteImport } from './routes/app.borrower.profile'
+import { Route as AppBorrowerScoresRouteImport } from './routes/app.borrower.scores'
+import { Route as AppBorrowerSupportRouteImport } from './routes/app.borrower.support'
 import { Route as AppLenderIndexRouteImport } from './routes/app.lender.index'
+import { Route as AppLenderApiStatusRouteImport } from './routes/app.lender.api-status'
+import { Route as AppLenderAuditRouteImport } from './routes/app.lender.audit'
+import { Route as AppLenderBillingRouteImport } from './routes/app.lender.billing'
+import { Route as AppLenderPortfolioRouteImport } from './routes/app.lender.portfolio'
+import { Route as AppLenderReviewsRouteImport } from './routes/app.lender.reviews'
+import { Route as AppLenderRiskRouteImport } from './routes/app.lender.risk'
+import { Route as AppLenderSettingsRouteImport } from './routes/app.lender.settings'
+import { Route as AppLenderTeamRouteImport } from './routes/app.lender.team'
+import { Route as AppLenderWorkbenchRouteImport } from './routes/app.lender.workbench'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -405,14 +443,129 @@ const AppAdminIndexRoute = AppAdminIndexRouteImport.update({
   path: '/app/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppAdminAgentsRoute = AppAdminAgentsRouteImport.update({
+  id: '/app/admin/agents',
+  path: '/app/admin/agents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAdminAuditRoute = AppAdminAuditRouteImport.update({
+  id: '/app/admin/audit',
+  path: '/app/admin/audit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAdminBorrowersRoute = AppAdminBorrowersRouteImport.update({
+  id: '/app/admin/borrowers',
+  path: '/app/admin/borrowers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAdminCmsRoute = AppAdminCmsRouteImport.update({
+  id: '/app/admin/cms',
+  path: '/app/admin/cms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAdminConsentRoute = AppAdminConsentRouteImport.update({
+  id: '/app/admin/consent',
+  path: '/app/admin/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAdminFraudRoute = AppAdminFraudRouteImport.update({
+  id: '/app/admin/fraud',
+  path: '/app/admin/fraud',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAdminLendersRoute = AppAdminLendersRouteImport.update({
+  id: '/app/admin/lenders',
+  path: '/app/admin/lenders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAdminLoansRoute = AppAdminLoansRouteImport.update({
+  id: '/app/admin/loans',
+  path: '/app/admin/loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAdminReportsRoute = AppAdminReportsRouteImport.update({
+  id: '/app/admin/reports',
+  path: '/app/admin/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAdminSettingsRoute = AppAdminSettingsRouteImport.update({
+  id: '/app/admin/settings',
+  path: '/app/admin/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAdminSystemRoute = AppAdminSystemRouteImport.update({
+  id: '/app/admin/system',
+  path: '/app/admin/system',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAdminTrustScoreRoute = AppAdminTrustScoreRouteImport.update({
+  id: '/app/admin/trust-score',
+  path: '/app/admin/trust-score',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppAgentIndexRoute = AppAgentIndexRouteImport.update({
   id: '/app/agent/',
   path: '/app/agent/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppAgentAnalyticsRoute = AppAgentAnalyticsRouteImport.update({
+  id: '/app/agent/analytics',
+  path: '/app/agent/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAgentCommissionsRoute = AppAgentCommissionsRouteImport.update({
+  id: '/app/agent/commissions',
+  path: '/app/agent/commissions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAgentFilesRoute = AppAgentFilesRouteImport.update({
+  id: '/app/agent/files',
+  path: '/app/agent/files',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAgentLeadsRoute = AppAgentLeadsRouteImport.update({
+  id: '/app/agent/leads',
+  path: '/app/agent/leads',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAgentNotificationsRoute = AppAgentNotificationsRouteImport.update({
+  id: '/app/agent/notifications',
+  path: '/app/agent/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAgentProfileRoute = AppAgentProfileRouteImport.update({
+  id: '/app/agent/profile',
+  path: '/app/agent/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAgentResourcesRoute = AppAgentResourcesRouteImport.update({
+  id: '/app/agent/resources',
+  path: '/app/agent/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAgentStartRoute = AppAgentStartRouteImport.update({
+  id: '/app/agent/start',
+  path: '/app/agent/start',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAgentSupportRoute = AppAgentSupportRouteImport.update({
+  id: '/app/agent/support',
+  path: '/app/agent/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppAgentTrainingRoute = AppAgentTrainingRouteImport.update({
+  id: '/app/agent/training',
+  path: '/app/agent/training',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppBorrowerIndexRoute = AppBorrowerIndexRouteImport.update({
   id: '/app/borrower/',
   path: '/app/borrower/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBorrowerAgentsRoute = AppBorrowerAgentsRouteImport.update({
+  id: '/app/borrower/agents',
+  path: '/app/borrower/agents',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppBorrowerApplicationRoute = AppBorrowerApplicationRouteImport.update({
@@ -435,6 +588,22 @@ const AppBorrowerDocumentsRoute = AppBorrowerDocumentsRouteImport.update({
   path: '/app/borrower/documents',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppBorrowerLoansRoute = AppBorrowerLoansRouteImport.update({
+  id: '/app/borrower/loans',
+  path: '/app/borrower/loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBorrowerMessagesRoute = AppBorrowerMessagesRouteImport.update({
+  id: '/app/borrower/messages',
+  path: '/app/borrower/messages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBorrowerNotificationsRoute =
+  AppBorrowerNotificationsRouteImport.update({
+    id: '/app/borrower/notifications',
+    path: '/app/borrower/notifications',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AppBorrowerOffersRoute = AppBorrowerOffersRouteImport.update({
   id: '/app/borrower/offers',
   path: '/app/borrower/offers',
@@ -445,9 +614,69 @@ const AppBorrowerPaymentsRoute = AppBorrowerPaymentsRouteImport.update({
   path: '/app/borrower/payments',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppBorrowerProfileRoute = AppBorrowerProfileRouteImport.update({
+  id: '/app/borrower/profile',
+  path: '/app/borrower/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBorrowerScoresRoute = AppBorrowerScoresRouteImport.update({
+  id: '/app/borrower/scores',
+  path: '/app/borrower/scores',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBorrowerSupportRoute = AppBorrowerSupportRouteImport.update({
+  id: '/app/borrower/support',
+  path: '/app/borrower/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppLenderIndexRoute = AppLenderIndexRouteImport.update({
   id: '/app/lender/',
   path: '/app/lender/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppLenderApiStatusRoute = AppLenderApiStatusRouteImport.update({
+  id: '/app/lender/api-status',
+  path: '/app/lender/api-status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppLenderAuditRoute = AppLenderAuditRouteImport.update({
+  id: '/app/lender/audit',
+  path: '/app/lender/audit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppLenderBillingRoute = AppLenderBillingRouteImport.update({
+  id: '/app/lender/billing',
+  path: '/app/lender/billing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppLenderPortfolioRoute = AppLenderPortfolioRouteImport.update({
+  id: '/app/lender/portfolio',
+  path: '/app/lender/portfolio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppLenderReviewsRoute = AppLenderReviewsRouteImport.update({
+  id: '/app/lender/reviews',
+  path: '/app/lender/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppLenderRiskRoute = AppLenderRiskRouteImport.update({
+  id: '/app/lender/risk',
+  path: '/app/lender/risk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppLenderSettingsRoute = AppLenderSettingsRouteImport.update({
+  id: '/app/lender/settings',
+  path: '/app/lender/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppLenderTeamRoute = AppLenderTeamRouteImport.update({
+  id: '/app/lender/team',
+  path: '/app/lender/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppLenderWorkbenchRoute = AppLenderWorkbenchRouteImport.update({
+  id: '/app/lender/workbench',
+  path: '/app/lender/workbench',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -514,12 +743,50 @@ export interface FileRoutesByFullPath {
   '/prototype/': typeof PrototypeIndexRoute
   '/trust-center/': typeof TrustCenterIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/app/admin/agents': typeof AppAdminAgentsRoute
+  '/app/admin/audit': typeof AppAdminAuditRoute
+  '/app/admin/borrowers': typeof AppAdminBorrowersRoute
+  '/app/admin/cms': typeof AppAdminCmsRoute
+  '/app/admin/consent': typeof AppAdminConsentRoute
+  '/app/admin/fraud': typeof AppAdminFraudRoute
+  '/app/admin/lenders': typeof AppAdminLendersRoute
+  '/app/admin/loans': typeof AppAdminLoansRoute
+  '/app/admin/reports': typeof AppAdminReportsRoute
+  '/app/admin/settings': typeof AppAdminSettingsRoute
+  '/app/admin/system': typeof AppAdminSystemRoute
+  '/app/admin/trust-score': typeof AppAdminTrustScoreRoute
+  '/app/agent/analytics': typeof AppAgentAnalyticsRoute
+  '/app/agent/commissions': typeof AppAgentCommissionsRoute
+  '/app/agent/files': typeof AppAgentFilesRoute
+  '/app/agent/leads': typeof AppAgentLeadsRoute
+  '/app/agent/notifications': typeof AppAgentNotificationsRoute
+  '/app/agent/profile': typeof AppAgentProfileRoute
+  '/app/agent/resources': typeof AppAgentResourcesRoute
+  '/app/agent/start': typeof AppAgentStartRoute
+  '/app/agent/support': typeof AppAgentSupportRoute
+  '/app/agent/training': typeof AppAgentTrainingRoute
+  '/app/borrower/agents': typeof AppBorrowerAgentsRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
   '/app/borrower/apply': typeof AppBorrowerApplyRoute
   '/app/borrower/documents': typeof AppBorrowerDocumentsRoute
+  '/app/borrower/loans': typeof AppBorrowerLoansRoute
+  '/app/borrower/messages': typeof AppBorrowerMessagesRoute
+  '/app/borrower/notifications': typeof AppBorrowerNotificationsRoute
   '/app/borrower/offers': typeof AppBorrowerOffersRoute
   '/app/borrower/payments': typeof AppBorrowerPaymentsRoute
+  '/app/borrower/profile': typeof AppBorrowerProfileRoute
+  '/app/borrower/scores': typeof AppBorrowerScoresRoute
+  '/app/borrower/support': typeof AppBorrowerSupportRoute
+  '/app/lender/api-status': typeof AppLenderApiStatusRoute
+  '/app/lender/audit': typeof AppLenderAuditRoute
+  '/app/lender/billing': typeof AppLenderBillingRoute
+  '/app/lender/portfolio': typeof AppLenderPortfolioRoute
+  '/app/lender/reviews': typeof AppLenderReviewsRoute
+  '/app/lender/risk': typeof AppLenderRiskRoute
+  '/app/lender/settings': typeof AppLenderSettingsRoute
+  '/app/lender/team': typeof AppLenderTeamRoute
+  '/app/lender/workbench': typeof AppLenderWorkbenchRoute
   '/app/admin/': typeof AppAdminIndexRoute
   '/app/agent/': typeof AppAgentIndexRoute
   '/app/borrower/': typeof AppBorrowerIndexRoute
@@ -588,12 +855,50 @@ export interface FileRoutesByTo {
   '/prototype': typeof PrototypeIndexRoute
   '/trust-center': typeof TrustCenterIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/app/admin/agents': typeof AppAdminAgentsRoute
+  '/app/admin/audit': typeof AppAdminAuditRoute
+  '/app/admin/borrowers': typeof AppAdminBorrowersRoute
+  '/app/admin/cms': typeof AppAdminCmsRoute
+  '/app/admin/consent': typeof AppAdminConsentRoute
+  '/app/admin/fraud': typeof AppAdminFraudRoute
+  '/app/admin/lenders': typeof AppAdminLendersRoute
+  '/app/admin/loans': typeof AppAdminLoansRoute
+  '/app/admin/reports': typeof AppAdminReportsRoute
+  '/app/admin/settings': typeof AppAdminSettingsRoute
+  '/app/admin/system': typeof AppAdminSystemRoute
+  '/app/admin/trust-score': typeof AppAdminTrustScoreRoute
+  '/app/agent/analytics': typeof AppAgentAnalyticsRoute
+  '/app/agent/commissions': typeof AppAgentCommissionsRoute
+  '/app/agent/files': typeof AppAgentFilesRoute
+  '/app/agent/leads': typeof AppAgentLeadsRoute
+  '/app/agent/notifications': typeof AppAgentNotificationsRoute
+  '/app/agent/profile': typeof AppAgentProfileRoute
+  '/app/agent/resources': typeof AppAgentResourcesRoute
+  '/app/agent/start': typeof AppAgentStartRoute
+  '/app/agent/support': typeof AppAgentSupportRoute
+  '/app/agent/training': typeof AppAgentTrainingRoute
+  '/app/borrower/agents': typeof AppBorrowerAgentsRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
   '/app/borrower/apply': typeof AppBorrowerApplyRoute
   '/app/borrower/documents': typeof AppBorrowerDocumentsRoute
+  '/app/borrower/loans': typeof AppBorrowerLoansRoute
+  '/app/borrower/messages': typeof AppBorrowerMessagesRoute
+  '/app/borrower/notifications': typeof AppBorrowerNotificationsRoute
   '/app/borrower/offers': typeof AppBorrowerOffersRoute
   '/app/borrower/payments': typeof AppBorrowerPaymentsRoute
+  '/app/borrower/profile': typeof AppBorrowerProfileRoute
+  '/app/borrower/scores': typeof AppBorrowerScoresRoute
+  '/app/borrower/support': typeof AppBorrowerSupportRoute
+  '/app/lender/api-status': typeof AppLenderApiStatusRoute
+  '/app/lender/audit': typeof AppLenderAuditRoute
+  '/app/lender/billing': typeof AppLenderBillingRoute
+  '/app/lender/portfolio': typeof AppLenderPortfolioRoute
+  '/app/lender/reviews': typeof AppLenderReviewsRoute
+  '/app/lender/risk': typeof AppLenderRiskRoute
+  '/app/lender/settings': typeof AppLenderSettingsRoute
+  '/app/lender/team': typeof AppLenderTeamRoute
+  '/app/lender/workbench': typeof AppLenderWorkbenchRoute
   '/app/admin': typeof AppAdminIndexRoute
   '/app/agent': typeof AppAgentIndexRoute
   '/app/borrower': typeof AppBorrowerIndexRoute
@@ -663,12 +968,50 @@ export interface FileRoutesById {
   '/prototype/': typeof PrototypeIndexRoute
   '/trust-center/': typeof TrustCenterIndexRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/app/admin/agents': typeof AppAdminAgentsRoute
+  '/app/admin/audit': typeof AppAdminAuditRoute
+  '/app/admin/borrowers': typeof AppAdminBorrowersRoute
+  '/app/admin/cms': typeof AppAdminCmsRoute
+  '/app/admin/consent': typeof AppAdminConsentRoute
+  '/app/admin/fraud': typeof AppAdminFraudRoute
+  '/app/admin/lenders': typeof AppAdminLendersRoute
+  '/app/admin/loans': typeof AppAdminLoansRoute
+  '/app/admin/reports': typeof AppAdminReportsRoute
+  '/app/admin/settings': typeof AppAdminSettingsRoute
+  '/app/admin/system': typeof AppAdminSystemRoute
+  '/app/admin/trust-score': typeof AppAdminTrustScoreRoute
+  '/app/agent/analytics': typeof AppAgentAnalyticsRoute
+  '/app/agent/commissions': typeof AppAgentCommissionsRoute
+  '/app/agent/files': typeof AppAgentFilesRoute
+  '/app/agent/leads': typeof AppAgentLeadsRoute
+  '/app/agent/notifications': typeof AppAgentNotificationsRoute
+  '/app/agent/profile': typeof AppAgentProfileRoute
+  '/app/agent/resources': typeof AppAgentResourcesRoute
+  '/app/agent/start': typeof AppAgentStartRoute
+  '/app/agent/support': typeof AppAgentSupportRoute
+  '/app/agent/training': typeof AppAgentTrainingRoute
+  '/app/borrower/agents': typeof AppBorrowerAgentsRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
   '/app/borrower/apply': typeof AppBorrowerApplyRoute
   '/app/borrower/documents': typeof AppBorrowerDocumentsRoute
+  '/app/borrower/loans': typeof AppBorrowerLoansRoute
+  '/app/borrower/messages': typeof AppBorrowerMessagesRoute
+  '/app/borrower/notifications': typeof AppBorrowerNotificationsRoute
   '/app/borrower/offers': typeof AppBorrowerOffersRoute
   '/app/borrower/payments': typeof AppBorrowerPaymentsRoute
+  '/app/borrower/profile': typeof AppBorrowerProfileRoute
+  '/app/borrower/scores': typeof AppBorrowerScoresRoute
+  '/app/borrower/support': typeof AppBorrowerSupportRoute
+  '/app/lender/api-status': typeof AppLenderApiStatusRoute
+  '/app/lender/audit': typeof AppLenderAuditRoute
+  '/app/lender/billing': typeof AppLenderBillingRoute
+  '/app/lender/portfolio': typeof AppLenderPortfolioRoute
+  '/app/lender/reviews': typeof AppLenderReviewsRoute
+  '/app/lender/risk': typeof AppLenderRiskRoute
+  '/app/lender/settings': typeof AppLenderSettingsRoute
+  '/app/lender/team': typeof AppLenderTeamRoute
+  '/app/lender/workbench': typeof AppLenderWorkbenchRoute
   '/app/admin/': typeof AppAdminIndexRoute
   '/app/agent/': typeof AppAgentIndexRoute
   '/app/borrower/': typeof AppBorrowerIndexRoute
@@ -739,12 +1082,50 @@ export interface FileRouteTypes {
     | '/prototype/'
     | '/trust-center/'
     | '/.mcp/invoke-tool/$tool'
+    | '/app/admin/agents'
+    | '/app/admin/audit'
+    | '/app/admin/borrowers'
+    | '/app/admin/cms'
+    | '/app/admin/consent'
+    | '/app/admin/fraud'
+    | '/app/admin/lenders'
+    | '/app/admin/loans'
+    | '/app/admin/reports'
+    | '/app/admin/settings'
+    | '/app/admin/system'
+    | '/app/admin/trust-score'
+    | '/app/agent/analytics'
+    | '/app/agent/commissions'
+    | '/app/agent/files'
+    | '/app/agent/leads'
+    | '/app/agent/notifications'
+    | '/app/agent/profile'
+    | '/app/agent/resources'
+    | '/app/agent/start'
+    | '/app/agent/support'
+    | '/app/agent/training'
+    | '/app/borrower/agents'
     | '/app/borrower/application'
     | '/app/borrower/applications'
     | '/app/borrower/apply'
     | '/app/borrower/documents'
+    | '/app/borrower/loans'
+    | '/app/borrower/messages'
+    | '/app/borrower/notifications'
     | '/app/borrower/offers'
     | '/app/borrower/payments'
+    | '/app/borrower/profile'
+    | '/app/borrower/scores'
+    | '/app/borrower/support'
+    | '/app/lender/api-status'
+    | '/app/lender/audit'
+    | '/app/lender/billing'
+    | '/app/lender/portfolio'
+    | '/app/lender/reviews'
+    | '/app/lender/risk'
+    | '/app/lender/settings'
+    | '/app/lender/team'
+    | '/app/lender/workbench'
     | '/app/admin/'
     | '/app/agent/'
     | '/app/borrower/'
@@ -813,12 +1194,50 @@ export interface FileRouteTypes {
     | '/prototype'
     | '/trust-center'
     | '/.mcp/invoke-tool/$tool'
+    | '/app/admin/agents'
+    | '/app/admin/audit'
+    | '/app/admin/borrowers'
+    | '/app/admin/cms'
+    | '/app/admin/consent'
+    | '/app/admin/fraud'
+    | '/app/admin/lenders'
+    | '/app/admin/loans'
+    | '/app/admin/reports'
+    | '/app/admin/settings'
+    | '/app/admin/system'
+    | '/app/admin/trust-score'
+    | '/app/agent/analytics'
+    | '/app/agent/commissions'
+    | '/app/agent/files'
+    | '/app/agent/leads'
+    | '/app/agent/notifications'
+    | '/app/agent/profile'
+    | '/app/agent/resources'
+    | '/app/agent/start'
+    | '/app/agent/support'
+    | '/app/agent/training'
+    | '/app/borrower/agents'
     | '/app/borrower/application'
     | '/app/borrower/applications'
     | '/app/borrower/apply'
     | '/app/borrower/documents'
+    | '/app/borrower/loans'
+    | '/app/borrower/messages'
+    | '/app/borrower/notifications'
     | '/app/borrower/offers'
     | '/app/borrower/payments'
+    | '/app/borrower/profile'
+    | '/app/borrower/scores'
+    | '/app/borrower/support'
+    | '/app/lender/api-status'
+    | '/app/lender/audit'
+    | '/app/lender/billing'
+    | '/app/lender/portfolio'
+    | '/app/lender/reviews'
+    | '/app/lender/risk'
+    | '/app/lender/settings'
+    | '/app/lender/team'
+    | '/app/lender/workbench'
     | '/app/admin'
     | '/app/agent'
     | '/app/borrower'
@@ -887,12 +1306,50 @@ export interface FileRouteTypes {
     | '/prototype/'
     | '/trust-center/'
     | '/.mcp/invoke-tool/$tool'
+    | '/app/admin/agents'
+    | '/app/admin/audit'
+    | '/app/admin/borrowers'
+    | '/app/admin/cms'
+    | '/app/admin/consent'
+    | '/app/admin/fraud'
+    | '/app/admin/lenders'
+    | '/app/admin/loans'
+    | '/app/admin/reports'
+    | '/app/admin/settings'
+    | '/app/admin/system'
+    | '/app/admin/trust-score'
+    | '/app/agent/analytics'
+    | '/app/agent/commissions'
+    | '/app/agent/files'
+    | '/app/agent/leads'
+    | '/app/agent/notifications'
+    | '/app/agent/profile'
+    | '/app/agent/resources'
+    | '/app/agent/start'
+    | '/app/agent/support'
+    | '/app/agent/training'
+    | '/app/borrower/agents'
     | '/app/borrower/application'
     | '/app/borrower/applications'
     | '/app/borrower/apply'
     | '/app/borrower/documents'
+    | '/app/borrower/loans'
+    | '/app/borrower/messages'
+    | '/app/borrower/notifications'
     | '/app/borrower/offers'
     | '/app/borrower/payments'
+    | '/app/borrower/profile'
+    | '/app/borrower/scores'
+    | '/app/borrower/support'
+    | '/app/lender/api-status'
+    | '/app/lender/audit'
+    | '/app/lender/billing'
+    | '/app/lender/portfolio'
+    | '/app/lender/reviews'
+    | '/app/lender/risk'
+    | '/app/lender/settings'
+    | '/app/lender/team'
+    | '/app/lender/workbench'
     | '/app/admin/'
     | '/app/agent/'
     | '/app/borrower/'
@@ -962,12 +1419,50 @@ export interface RootRouteChildren {
   PrototypeIndexRoute: typeof PrototypeIndexRoute
   TrustCenterIndexRoute: typeof TrustCenterIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
+  AppAdminAgentsRoute: typeof AppAdminAgentsRoute
+  AppAdminAuditRoute: typeof AppAdminAuditRoute
+  AppAdminBorrowersRoute: typeof AppAdminBorrowersRoute
+  AppAdminCmsRoute: typeof AppAdminCmsRoute
+  AppAdminConsentRoute: typeof AppAdminConsentRoute
+  AppAdminFraudRoute: typeof AppAdminFraudRoute
+  AppAdminLendersRoute: typeof AppAdminLendersRoute
+  AppAdminLoansRoute: typeof AppAdminLoansRoute
+  AppAdminReportsRoute: typeof AppAdminReportsRoute
+  AppAdminSettingsRoute: typeof AppAdminSettingsRoute
+  AppAdminSystemRoute: typeof AppAdminSystemRoute
+  AppAdminTrustScoreRoute: typeof AppAdminTrustScoreRoute
+  AppAgentAnalyticsRoute: typeof AppAgentAnalyticsRoute
+  AppAgentCommissionsRoute: typeof AppAgentCommissionsRoute
+  AppAgentFilesRoute: typeof AppAgentFilesRoute
+  AppAgentLeadsRoute: typeof AppAgentLeadsRoute
+  AppAgentNotificationsRoute: typeof AppAgentNotificationsRoute
+  AppAgentProfileRoute: typeof AppAgentProfileRoute
+  AppAgentResourcesRoute: typeof AppAgentResourcesRoute
+  AppAgentStartRoute: typeof AppAgentStartRoute
+  AppAgentSupportRoute: typeof AppAgentSupportRoute
+  AppAgentTrainingRoute: typeof AppAgentTrainingRoute
+  AppBorrowerAgentsRoute: typeof AppBorrowerAgentsRoute
   AppBorrowerApplicationRoute: typeof AppBorrowerApplicationRoute
   AppBorrowerApplicationsRoute: typeof AppBorrowerApplicationsRoute
   AppBorrowerApplyRoute: typeof AppBorrowerApplyRoute
   AppBorrowerDocumentsRoute: typeof AppBorrowerDocumentsRoute
+  AppBorrowerLoansRoute: typeof AppBorrowerLoansRoute
+  AppBorrowerMessagesRoute: typeof AppBorrowerMessagesRoute
+  AppBorrowerNotificationsRoute: typeof AppBorrowerNotificationsRoute
   AppBorrowerOffersRoute: typeof AppBorrowerOffersRoute
   AppBorrowerPaymentsRoute: typeof AppBorrowerPaymentsRoute
+  AppBorrowerProfileRoute: typeof AppBorrowerProfileRoute
+  AppBorrowerScoresRoute: typeof AppBorrowerScoresRoute
+  AppBorrowerSupportRoute: typeof AppBorrowerSupportRoute
+  AppLenderApiStatusRoute: typeof AppLenderApiStatusRoute
+  AppLenderAuditRoute: typeof AppLenderAuditRoute
+  AppLenderBillingRoute: typeof AppLenderBillingRoute
+  AppLenderPortfolioRoute: typeof AppLenderPortfolioRoute
+  AppLenderReviewsRoute: typeof AppLenderReviewsRoute
+  AppLenderRiskRoute: typeof AppLenderRiskRoute
+  AppLenderSettingsRoute: typeof AppLenderSettingsRoute
+  AppLenderTeamRoute: typeof AppLenderTeamRoute
+  AppLenderWorkbenchRoute: typeof AppLenderWorkbenchRoute
   AppAdminIndexRoute: typeof AppAdminIndexRoute
   AppAgentIndexRoute: typeof AppAgentIndexRoute
   AppBorrowerIndexRoute: typeof AppBorrowerIndexRoute
@@ -1417,6 +1912,90 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/admin/agents': {
+      id: '/app/admin/agents'
+      path: '/app/admin/agents'
+      fullPath: '/app/admin/agents'
+      preLoaderRoute: typeof AppAdminAgentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/admin/audit': {
+      id: '/app/admin/audit'
+      path: '/app/admin/audit'
+      fullPath: '/app/admin/audit'
+      preLoaderRoute: typeof AppAdminAuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/admin/borrowers': {
+      id: '/app/admin/borrowers'
+      path: '/app/admin/borrowers'
+      fullPath: '/app/admin/borrowers'
+      preLoaderRoute: typeof AppAdminBorrowersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/admin/cms': {
+      id: '/app/admin/cms'
+      path: '/app/admin/cms'
+      fullPath: '/app/admin/cms'
+      preLoaderRoute: typeof AppAdminCmsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/admin/consent': {
+      id: '/app/admin/consent'
+      path: '/app/admin/consent'
+      fullPath: '/app/admin/consent'
+      preLoaderRoute: typeof AppAdminConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/admin/fraud': {
+      id: '/app/admin/fraud'
+      path: '/app/admin/fraud'
+      fullPath: '/app/admin/fraud'
+      preLoaderRoute: typeof AppAdminFraudRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/admin/lenders': {
+      id: '/app/admin/lenders'
+      path: '/app/admin/lenders'
+      fullPath: '/app/admin/lenders'
+      preLoaderRoute: typeof AppAdminLendersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/admin/loans': {
+      id: '/app/admin/loans'
+      path: '/app/admin/loans'
+      fullPath: '/app/admin/loans'
+      preLoaderRoute: typeof AppAdminLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/admin/reports': {
+      id: '/app/admin/reports'
+      path: '/app/admin/reports'
+      fullPath: '/app/admin/reports'
+      preLoaderRoute: typeof AppAdminReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/admin/settings': {
+      id: '/app/admin/settings'
+      path: '/app/admin/settings'
+      fullPath: '/app/admin/settings'
+      preLoaderRoute: typeof AppAdminSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/admin/system': {
+      id: '/app/admin/system'
+      path: '/app/admin/system'
+      fullPath: '/app/admin/system'
+      preLoaderRoute: typeof AppAdminSystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/admin/trust-score': {
+      id: '/app/admin/trust-score'
+      path: '/app/admin/trust-score'
+      fullPath: '/app/admin/trust-score'
+      preLoaderRoute: typeof AppAdminTrustScoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app/agent/': {
       id: '/app/agent/'
       path: '/app/agent'
@@ -1424,11 +2003,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppAgentIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/agent/analytics': {
+      id: '/app/agent/analytics'
+      path: '/app/agent/analytics'
+      fullPath: '/app/agent/analytics'
+      preLoaderRoute: typeof AppAgentAnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/agent/commissions': {
+      id: '/app/agent/commissions'
+      path: '/app/agent/commissions'
+      fullPath: '/app/agent/commissions'
+      preLoaderRoute: typeof AppAgentCommissionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/agent/files': {
+      id: '/app/agent/files'
+      path: '/app/agent/files'
+      fullPath: '/app/agent/files'
+      preLoaderRoute: typeof AppAgentFilesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/agent/leads': {
+      id: '/app/agent/leads'
+      path: '/app/agent/leads'
+      fullPath: '/app/agent/leads'
+      preLoaderRoute: typeof AppAgentLeadsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/agent/notifications': {
+      id: '/app/agent/notifications'
+      path: '/app/agent/notifications'
+      fullPath: '/app/agent/notifications'
+      preLoaderRoute: typeof AppAgentNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/agent/profile': {
+      id: '/app/agent/profile'
+      path: '/app/agent/profile'
+      fullPath: '/app/agent/profile'
+      preLoaderRoute: typeof AppAgentProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/agent/resources': {
+      id: '/app/agent/resources'
+      path: '/app/agent/resources'
+      fullPath: '/app/agent/resources'
+      preLoaderRoute: typeof AppAgentResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/agent/start': {
+      id: '/app/agent/start'
+      path: '/app/agent/start'
+      fullPath: '/app/agent/start'
+      preLoaderRoute: typeof AppAgentStartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/agent/support': {
+      id: '/app/agent/support'
+      path: '/app/agent/support'
+      fullPath: '/app/agent/support'
+      preLoaderRoute: typeof AppAgentSupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/agent/training': {
+      id: '/app/agent/training'
+      path: '/app/agent/training'
+      fullPath: '/app/agent/training'
+      preLoaderRoute: typeof AppAgentTrainingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app/borrower/': {
       id: '/app/borrower/'
       path: '/app/borrower'
       fullPath: '/app/borrower/'
       preLoaderRoute: typeof AppBorrowerIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/borrower/agents': {
+      id: '/app/borrower/agents'
+      path: '/app/borrower/agents'
+      fullPath: '/app/borrower/agents'
+      preLoaderRoute: typeof AppBorrowerAgentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app/borrower/application': {
@@ -1459,6 +2115,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBorrowerDocumentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/borrower/loans': {
+      id: '/app/borrower/loans'
+      path: '/app/borrower/loans'
+      fullPath: '/app/borrower/loans'
+      preLoaderRoute: typeof AppBorrowerLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/borrower/messages': {
+      id: '/app/borrower/messages'
+      path: '/app/borrower/messages'
+      fullPath: '/app/borrower/messages'
+      preLoaderRoute: typeof AppBorrowerMessagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/borrower/notifications': {
+      id: '/app/borrower/notifications'
+      path: '/app/borrower/notifications'
+      fullPath: '/app/borrower/notifications'
+      preLoaderRoute: typeof AppBorrowerNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app/borrower/offers': {
       id: '/app/borrower/offers'
       path: '/app/borrower/offers'
@@ -1473,11 +2150,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBorrowerPaymentsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/borrower/profile': {
+      id: '/app/borrower/profile'
+      path: '/app/borrower/profile'
+      fullPath: '/app/borrower/profile'
+      preLoaderRoute: typeof AppBorrowerProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/borrower/scores': {
+      id: '/app/borrower/scores'
+      path: '/app/borrower/scores'
+      fullPath: '/app/borrower/scores'
+      preLoaderRoute: typeof AppBorrowerScoresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/borrower/support': {
+      id: '/app/borrower/support'
+      path: '/app/borrower/support'
+      fullPath: '/app/borrower/support'
+      preLoaderRoute: typeof AppBorrowerSupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app/lender/': {
       id: '/app/lender/'
       path: '/app/lender'
       fullPath: '/app/lender/'
       preLoaderRoute: typeof AppLenderIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/lender/api-status': {
+      id: '/app/lender/api-status'
+      path: '/app/lender/api-status'
+      fullPath: '/app/lender/api-status'
+      preLoaderRoute: typeof AppLenderApiStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/lender/audit': {
+      id: '/app/lender/audit'
+      path: '/app/lender/audit'
+      fullPath: '/app/lender/audit'
+      preLoaderRoute: typeof AppLenderAuditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/lender/billing': {
+      id: '/app/lender/billing'
+      path: '/app/lender/billing'
+      fullPath: '/app/lender/billing'
+      preLoaderRoute: typeof AppLenderBillingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/lender/portfolio': {
+      id: '/app/lender/portfolio'
+      path: '/app/lender/portfolio'
+      fullPath: '/app/lender/portfolio'
+      preLoaderRoute: typeof AppLenderPortfolioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/lender/reviews': {
+      id: '/app/lender/reviews'
+      path: '/app/lender/reviews'
+      fullPath: '/app/lender/reviews'
+      preLoaderRoute: typeof AppLenderReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/lender/risk': {
+      id: '/app/lender/risk'
+      path: '/app/lender/risk'
+      fullPath: '/app/lender/risk'
+      preLoaderRoute: typeof AppLenderRiskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/lender/settings': {
+      id: '/app/lender/settings'
+      path: '/app/lender/settings'
+      fullPath: '/app/lender/settings'
+      preLoaderRoute: typeof AppLenderSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/lender/team': {
+      id: '/app/lender/team'
+      path: '/app/lender/team'
+      fullPath: '/app/lender/team'
+      preLoaderRoute: typeof AppLenderTeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/lender/workbench': {
+      id: '/app/lender/workbench'
+      path: '/app/lender/workbench'
+      fullPath: '/app/lender/workbench'
+      preLoaderRoute: typeof AppLenderWorkbenchRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -1547,12 +2308,50 @@ const rootRouteChildren: RootRouteChildren = {
   PrototypeIndexRoute: PrototypeIndexRoute,
   TrustCenterIndexRoute: TrustCenterIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
+  AppAdminAgentsRoute: AppAdminAgentsRoute,
+  AppAdminAuditRoute: AppAdminAuditRoute,
+  AppAdminBorrowersRoute: AppAdminBorrowersRoute,
+  AppAdminCmsRoute: AppAdminCmsRoute,
+  AppAdminConsentRoute: AppAdminConsentRoute,
+  AppAdminFraudRoute: AppAdminFraudRoute,
+  AppAdminLendersRoute: AppAdminLendersRoute,
+  AppAdminLoansRoute: AppAdminLoansRoute,
+  AppAdminReportsRoute: AppAdminReportsRoute,
+  AppAdminSettingsRoute: AppAdminSettingsRoute,
+  AppAdminSystemRoute: AppAdminSystemRoute,
+  AppAdminTrustScoreRoute: AppAdminTrustScoreRoute,
+  AppAgentAnalyticsRoute: AppAgentAnalyticsRoute,
+  AppAgentCommissionsRoute: AppAgentCommissionsRoute,
+  AppAgentFilesRoute: AppAgentFilesRoute,
+  AppAgentLeadsRoute: AppAgentLeadsRoute,
+  AppAgentNotificationsRoute: AppAgentNotificationsRoute,
+  AppAgentProfileRoute: AppAgentProfileRoute,
+  AppAgentResourcesRoute: AppAgentResourcesRoute,
+  AppAgentStartRoute: AppAgentStartRoute,
+  AppAgentSupportRoute: AppAgentSupportRoute,
+  AppAgentTrainingRoute: AppAgentTrainingRoute,
+  AppBorrowerAgentsRoute: AppBorrowerAgentsRoute,
   AppBorrowerApplicationRoute: AppBorrowerApplicationRoute,
   AppBorrowerApplicationsRoute: AppBorrowerApplicationsRoute,
   AppBorrowerApplyRoute: AppBorrowerApplyRoute,
   AppBorrowerDocumentsRoute: AppBorrowerDocumentsRoute,
+  AppBorrowerLoansRoute: AppBorrowerLoansRoute,
+  AppBorrowerMessagesRoute: AppBorrowerMessagesRoute,
+  AppBorrowerNotificationsRoute: AppBorrowerNotificationsRoute,
   AppBorrowerOffersRoute: AppBorrowerOffersRoute,
   AppBorrowerPaymentsRoute: AppBorrowerPaymentsRoute,
+  AppBorrowerProfileRoute: AppBorrowerProfileRoute,
+  AppBorrowerScoresRoute: AppBorrowerScoresRoute,
+  AppBorrowerSupportRoute: AppBorrowerSupportRoute,
+  AppLenderApiStatusRoute: AppLenderApiStatusRoute,
+  AppLenderAuditRoute: AppLenderAuditRoute,
+  AppLenderBillingRoute: AppLenderBillingRoute,
+  AppLenderPortfolioRoute: AppLenderPortfolioRoute,
+  AppLenderReviewsRoute: AppLenderReviewsRoute,
+  AppLenderRiskRoute: AppLenderRiskRoute,
+  AppLenderSettingsRoute: AppLenderSettingsRoute,
+  AppLenderTeamRoute: AppLenderTeamRoute,
+  AppLenderWorkbenchRoute: AppLenderWorkbenchRoute,
   AppAdminIndexRoute: AppAdminIndexRoute,
   AppAgentIndexRoute: AppAgentIndexRoute,
   AppBorrowerIndexRoute: AppBorrowerIndexRoute,
