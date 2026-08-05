@@ -24,7 +24,16 @@ type Copy = {
   answers: { match: string[]; text: string }[];
   fallback: string;
   disclaimer: string;
+  more: string;
+  camera: string;
+  cameraHint: string;
+  mic: string;
+  micHint: string;
+  micStop: string;
+  cameraNote: string;
+  micNote: string;
 };
+
 
 const COPY: Record<"en" | "hi", Copy> = {
   en: {
