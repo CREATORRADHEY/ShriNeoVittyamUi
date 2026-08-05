@@ -1,5 +1,6 @@
 import { ArrowUp, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 import { useI18n } from "@/i18n";
 import { usePrefersReducedMotion } from "@/lib/motion";
@@ -190,6 +191,9 @@ export function NeoChatWidget() {
   );
 
   // Keep clear of the development-only prototype toolbar docked at the bottom.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   const [dockOffset, setDockOffset] = useState(0);
   useEffect(() => {
     const measure = () => {
@@ -371,6 +375,7 @@ export function NeoChatWidget() {
         </span>
         <span className="text-[13.5px] font-semibold tracking-[-0.01em]">{copy.title}</span>
       </button>
-    </>
+    </>,
+    document.body,
   );
 }
