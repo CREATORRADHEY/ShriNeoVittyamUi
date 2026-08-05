@@ -400,7 +400,62 @@ export function NeoChatWidget() {
             className="border-t border-[#ECE7DD] bg-white px-3 pt-3 pb-2.5"
           >
             <div className="flex items-end gap-2 rounded-xl border border-[#E2E7F0] bg-[#FBFCFE] px-3 py-2 transition-colors focus-within:border-[#0051AE]">
+              {/* three-dot menu: camera + mic */}
+              <div ref={menuRef} className="relative shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setMenuOpen((value) => !value)}
+                  aria-haspopup="menu"
+                  aria-expanded={menuOpen}
+                  aria-label={copy.more}
+                  className={cn(
+                    "flex size-8 items-center justify-center rounded-lg border border-transparent text-[#5B657D] transition-colors",
+                    menuOpen ? "border-[#D6E5F7] bg-[#E6F1FB] text-[#002B98]" : "hover:bg-[#EFEADF] hover:text-[#002B98]",
+                  )}
+                >
+                  <MoreVertical aria-hidden className="size-4" />
+                </button>
+                {menuOpen ? (
+                  <div
+                    role="menu"
+                    aria-label={copy.more}
+                    className="absolute bottom-[calc(100%+8px)] left-0 z-10 w-56 overflow-hidden rounded-xl border border-[#E7DFCE] bg-white py-1 shadow-[0_20px_44px_-22px_rgba(0,26,92,0.55)] animate-in fade-in slide-in-from-bottom-1 duration-150 motion-reduce:animate-none"
+                  >
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={onCamera}
+                      className="flex w-full items-start gap-3 px-3 py-2.5 text-left transition-colors hover:bg-[#F7F3EA]"
+                    >
+                      <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg bg-[#E6F1FB] text-[#0051AE]">
+                        <Camera aria-hidden className="size-4" />
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-[13.5px] font-semibold text-[#002B98]">{copy.camera}</span>
+                        <span className="block text-[11.5px] leading-snug text-[#5B657D]">{copy.cameraHint}</span>
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      role="menuitem"
+                      onClick={onMic}
+                      className="flex w-full items-start gap-3 px-3 py-2.5 text-left transition-colors hover:bg-[#F7F3EA]"
+                    >
+                      <span className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg bg-[#E6F1FB] text-[#0051AE]">
+                        {recording ? <Square aria-hidden className="size-3.5" /> : <MicIcon className="size-4" />}
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block text-[13.5px] font-semibold text-[#002B98]">
+                          {recording ? copy.micStop : copy.mic}
+                        </span>
+                        <span className="block text-[11.5px] leading-snug text-[#5B657D]">{copy.micHint}</span>
+                      </span>
+                    </button>
+                  </div>
+                ) : null}
+              </div>
               <textarea
+
                 ref={inputRef}
                 rows={1}
                 value={draft}
