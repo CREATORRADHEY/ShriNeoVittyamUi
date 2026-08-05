@@ -4,7 +4,6 @@ import { PortalPage, type PortalPageSpec } from "@/components/portal/portal-page
 
 const spec: PortalPageSpec = {
     "role": "lender",
-    "slug": "risk",
     "title": "Risk",
     "subtitle": "Early warning indicators against your configured thresholds.",
     "kpis": [

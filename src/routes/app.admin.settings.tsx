@@ -4,7 +4,6 @@ import { PortalPage, type PortalPageSpec } from "@/components/portal/portal-page
 
 const spec: PortalPageSpec = {
     "role": "admin",
-    "slug": "settings",
     "title": "Settings",
     "subtitle": "Platform configuration and access control.",
     "panels": [

@@ -4,7 +4,6 @@ import { PortalPage, type PortalPageSpec } from "@/components/portal/portal-page
 
 const spec: PortalPageSpec = {
     "role": "borrower",
-    "slug": "messages",
     "title": "Messages",
     "subtitle": "Conversations with your lender, your agent and ShriNeo support.",
     "table": {

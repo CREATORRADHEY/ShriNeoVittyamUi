@@ -4,7 +4,6 @@ import { PortalPage, type PortalPageSpec } from "@/components/portal/portal-page
 
 const spec: PortalPageSpec = {
     "role": "lender",
-    "slug": "billing",
     "title": "Billing and ledgers",
     "subtitle": "Sourcing fees, invoices and reconciliation.",
     "kpis": [

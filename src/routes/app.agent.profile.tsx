@@ -4,7 +4,6 @@ import { PortalPage, type PortalPageSpec } from "@/components/portal/portal-page
 
 const spec: PortalPageSpec = {
     "role": "agent",
-    "slug": "profile",
     "title": "Profile",
     "subtitle": "Your identity, coverage and payout details.",
     "panels": [

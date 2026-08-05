@@ -4,7 +4,6 @@ import { PortalPage, type PortalPageSpec } from "@/components/portal/portal-page
 
 const spec: PortalPageSpec = {
     "role": "admin",
-    "slug": "trust-score",
     "title": "SNV Trust Score",
     "subtitle": "Model version, drift and fairness monitoring.",
     "kpis": [

@@ -4,7 +4,6 @@ import { PortalPage, type PortalPageSpec } from "@/components/portal/portal-page
 
 const spec: PortalPageSpec = {
     "role": "borrower",
-    "slug": "scores",
     "title": "Scores",
     "subtitle": "Your bureau score and your SNV Trust Score, explained side by side.",
     "kpis": [
