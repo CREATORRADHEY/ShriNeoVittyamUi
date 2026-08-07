@@ -51,16 +51,14 @@ function HeaderInner() {
     };
   }, [open]);
 
-  // Primary navigation order — Website Change Requirements v1.0 §13.
+  // Primary navigation order — Website Change Requirements v1.0 §5 override.
+  // For Borrowers / For Agents / For Lenders are in the footer SOLUTIONS column only.
   const mainLinks = [
-    { to: "/for-borrowers", label: t("nav.forBorrowers", "For Borrowers") },
-    { to: "/for-agents", label: t("nav.forAgents") },
-    { to: "/for-lenders", label: t("nav.forLenders", "For Lenders") },
     { to: "/trust-center", label: t("nav.trust") },
     { to: "/about", label: t("nav.about") },
   ] as const;
 
-  const logoHeight = condensed ? "38px" : "clamp(44px, 3.6vw, 54px)";
+  const logoHeight = condensed ? "44px" : "clamp(54px, 4.4vw, 68px)";
 
   return (
     <header
@@ -69,10 +67,10 @@ function HeaderInner() {
       data-menu-open={open}
       className="font-display sticky top-0 z-[1000]"
     >
-      <nav aria-label="Primary" className="container-page">
+      <nav aria-label="Primary" className="mx-auto w-full max-w-[1320px] px-4 md:px-6">
         <div
           className="flex items-center justify-between gap-3 transition-[min-height] duration-[250ms] ease-out"
-          style={{ minHeight: condensed ? 68 : 86 }}
+          style={{ minHeight: condensed ? 60 : 76 }}
         >
           <Link to="/" className="flex shrink-0 items-center gap-2.5">
             <img
@@ -83,12 +81,12 @@ function HeaderInner() {
             />
 
 
-            <span className="hidden flex-col leading-tight 2xl:flex">
-              <span className="whitespace-nowrap text-[17px] font-semibold tracking-tight text-[color:var(--hdr-fg)]">
+            <span className="flex flex-col leading-tight">
+              <span className="whitespace-nowrap text-[18px] md:text-[20px] font-semibold tracking-tight text-[color:var(--hdr-fg)]">
                 ShriNeo Capital
               </span>
               {condensed ? null : (
-                <span className="hidden whitespace-nowrap text-[11px] text-[color:var(--hdr-fg-soft)] 2xl:block">
+                <span className="hidden whitespace-nowrap text-[10.5px] md:text-[11.5px] text-[color:var(--hdr-fg-soft)] sm:block">
                   Bharat Ka Digital Lending Partner
                 </span>
               )}

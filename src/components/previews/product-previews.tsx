@@ -15,32 +15,23 @@ const DEMO = {
 
 const offers = [
   {
-    lender: "Aarambh Finance",
-    rate: 11.5,
+    lender: "IDFC First Bank",
     apr: 12.4,
     emi: 9885,
-    fee: 3540,
-    total: 355860,
     match: "Lowest total cost for your profile",
     selected: true,
   },
   {
-    lender: "Meridian Bank",
-    rate: 11.2,
+    lender: "Bajaj Finserv",
     apr: 12.9,
     emi: 9843,
-    fee: 6000,
-    total: 360348,
-    match: "Lowest headline rate, higher fee",
+    match: "Lower headline rate, higher fee",
     selected: false,
   },
   {
-    lender: "Setu Capital NBFC",
-    rate: 12.6,
+    lender: "Bank of India",
     apr: 13.1,
     emi: 10061,
-    fee: 2500,
-    total: 364696,
     match: "Fastest indicative decision",
     selected: false,
   },
@@ -50,13 +41,31 @@ function Chrome({
   title,
   children,
   note = "Demonstration data",
+  demoStrip = false,
 }: {
   title: string;
   children: React.ReactNode;
   note?: string;
+  demoStrip?: boolean;
 }) {
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-panel)]">
+      {demoStrip ? (
+        <div
+          className="w-full px-4 py-1.5 text-center"
+          style={{
+            background: "#FBEEDA",
+            color: "#C9761A",
+            fontFamily: "var(--font-num)",
+            fontSize: "11px",
+            fontWeight: 600,
+            textTransform: "uppercase",
+            letterSpacing: "0.12em",
+          }}
+        >
+          DEMONSTRATION DATA
+        </div>
+      ) : null}
       <div className="flex items-center justify-between gap-3 border-b border-border bg-surface px-4 py-2.5">
         <p className="truncate text-xs font-semibold text-foreground">{title}</p>
         <p className="label-micro shrink-0 text-muted-foreground">{note}</p>
@@ -70,7 +79,7 @@ function Chrome({
 
 export function OfferComparisonPanel() {
   return (
-    <Chrome title="Compare eligible offers · Personal Loan">
+    <Chrome title="Compare eligible offers · Personal Loan" demoStrip>
       <div className="flex flex-wrap items-baseline justify-between gap-2 pb-3">
         <p className="text-sm text-muted-foreground">
           <span className="num font-medium text-foreground">{formatINR(DEMO.amount)}</span> over{" "}
@@ -80,18 +89,19 @@ export function OfferComparisonPanel() {
       </div>
 
       <div className="-mx-1 overflow-x-auto">
-        <table className="w-full min-w-[520px] border-collapse text-sm">
+        <table className="w-full min-w-[320px] border-collapse text-sm">
           <caption className="sr-only">
-            Three demonstration lender offers compared on rate, APR, EMI, processing fee and total
-            repayment
+            Three demonstration lender offers compared on APR and monthly EMI
           </caption>
           <thead>
             <tr className="border-y border-border text-left">
-              {["Lender", "Rate", "APR", "EMI", "Fee", "Total repayment"].map((head, i) => (
+              {["Lender", "APR", "EMI"].map((head, i) => (
                 <th
                   key={head}
                   scope="col"
-                  className={`label-micro py-2 font-semibold text-muted-foreground ${i === 0 ? "pl-1" : "text-right"}`}
+                  className={`label-micro py-2 font-semibold text-muted-foreground ${
+                    i === 0 ? "pl-1 w-full" : "text-right pl-4"
+                  }`}
                 >
                   {head}
                 </th>
@@ -129,15 +139,8 @@ export function OfferComparisonPanel() {
                     </span>
                   </span>
                 </th>
-                <td className="num py-3 text-right align-top">{offer.rate}%</td>
-                <td className="num py-3 text-right align-top font-medium">{offer.apr}%</td>
-                <td className="num py-3 text-right align-top">{formatINR(offer.emi)}</td>
-                <td className="num py-3 text-right align-top text-muted-foreground">
-                  {formatINR(offer.fee)}
-                </td>
-                <td className="num py-3 pr-1 text-right align-top font-semibold">
-                  {formatINR(offer.total)}
-                </td>
+                <td className="num py-3 pl-4 text-right align-top font-medium">{offer.apr}%</td>
+                <td className="num py-3 pl-4 text-right align-top">{formatINR(offer.emi)}</td>
               </tr>
             ))}
           </tbody>
@@ -179,7 +182,7 @@ export function BorrowerDashboardPanel() {
           {[
             { label: "Key Fact Statement reviewed", meta: "12 Mar, 10:24" },
             { label: "Consent recorded (bank statements)", meta: "12 Mar, 10:26" },
-            { label: "Application sent to Aarambh Finance", meta: "12 Mar, 10:31" },
+            { label: "Application sent to IDFC First Bank", meta: "12 Mar, 10:31" },
           ].map((row) => (
             <li key={row.label} className="flex items-center gap-3 px-3 py-2.5 text-sm">
               <Check aria-hidden className="size-4 shrink-0 text-success" />

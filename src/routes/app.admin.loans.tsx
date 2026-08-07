@@ -41,7 +41,7 @@ const spec: PortalPageSpec = {
         [
           "SNV-24-117411",
           "Business",
-          "Aarambh Finance",
+          "IDFC First Bank",
           "₹9,50,000",
           "4d",
           {

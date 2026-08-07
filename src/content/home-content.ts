@@ -25,7 +25,7 @@ type HomeContent = {
 const en: HomeContent = {
   hiwEyebrow: "How it works",
   hiwTitle: "Four steps, start to finish",
-  hiwLead: "No branch visit, and no paperwork you cannot read for yourself.",
+  hiwLead: "No branch visit, and no paperwork you cannot read for yourself",
   steps: [
     {
       title: "Tell us what you need",
@@ -132,7 +132,7 @@ const en: HomeContent = {
 const hi: HomeContent = {
   hiwEyebrow: "यह कैसे काम करता है",
   hiwTitle: "शुरू से अंत तक, चार कदम",
-  hiwLead: "न शाखा के चक्कर, न ऐसे कागज़ जो आप ख़ुद पढ़ न सकें।",
+  hiwLead: "न शाखा के चक्कर, न ऐसे कागज़ जो आप ख़ुद पढ़ न सकें",
   steps: [
     {
       title: "बताइए आपको क्या चाहिए",

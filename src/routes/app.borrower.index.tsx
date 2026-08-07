@@ -58,14 +58,14 @@ function BorrowerDashboard() {
       <InlineState
         tone="info"
         title="Your KYC is not complete yet"
-        explanation="You can compare products and calculate EMIs now. Submitting an application and receiving lender offers stay unavailable until KYC is verified."
+        explanation="You can compare products and calculate EMIs now. Submitting an application and receiving lender offers stay unavailable until KYC is verified"
         actions={[{ label: "Complete KYC", variant: "default" }]}
       />
     ) : account === "action-required" ? (
       <InlineState
         tone="warning"
         title="Four items need your attention"
-        explanation="A document request, an offer expiring in 2 days, a pending e-Sign and a failed mandate are waiting on you."
+        explanation="A document request, an offer expiring in 2 days, a pending e-Sign and a failed mandate are waiting on you"
         actions={[{ label: "Review what's needed", to: "/app/borrower/applications" }]}
       />
     ) : data === "offline" ? (
@@ -94,13 +94,13 @@ function BorrowerDashboard() {
       {account === "restricted" || account === "suspended" ? (
         <RestrictedState
           borrowerVoice
-          reason="Your account is temporarily in review, so new applications and payments are paused. You can still view your loan summary, statements and documents."
+          reason="Your account is temporarily in review, so new applications and payments are paused. You can still view your loan summary, statements and documents"
           reviewWindow="within 3 working days"
         />
       ) : data === "failed" ? (
         <RetryPanel
-          title="We couldn't load your dashboard."
-          explanation="Your account details did not load on this attempt. This is a problem on our side, not with your loan or your repayments."
+          title="We couldn't load your dashboard"
+          explanation="Your account details did not load on this attempt. This is a problem on our side, not with your loan or your repayments"
         />
       ) : data === "loading" ? (
         <div className="space-y-5">
@@ -130,7 +130,7 @@ function NewBorrower() {
         <h2 className="editorial text-2xl text-foreground">Welcome to ShriNeo Capital</h2>
         <p className="mt-2 max-w-[60ch] text-muted-foreground">
           You haven't started an application yet. Compare what participating lenders can offer,
-          understand the full cost, and apply when you're ready.
+          understand the full cost, and apply when you're ready
         </p>
         <div className="mt-5 flex flex-col gap-2 sm:flex-row">
           <Button asChild>
@@ -148,7 +148,7 @@ function NewBorrower() {
       <InlineState
         tone="info"
         title="Verify your identity to receive offers"
-        explanation="KYC is required before participating lenders can review your application. It usually takes about four minutes."
+        explanation="KYC is required before participating lenders can review your application. It usually takes about four minutes"
         actions={[{ label: "Complete KYC", variant: "default" }]}
       />
 
@@ -172,22 +172,22 @@ function NewBorrower() {
 
       <div className="grid gap-4 md:grid-cols-2">
         <EmptyState
-          title="You haven't started an application yet."
-          explanation="Your progress is saved automatically once you begin, so you can pause and return."
+          title="You haven't started an application yet"
+          explanation="Your progress is saved automatically once you begin, so you can pause and return"
           actions={[{ label: "Explore loan options", to: "/app/borrower/apply" }]}
         />
         <EmptyState
-          title="You don't have an active loan."
-          explanation="Active loans, EMI dates and statements will appear here once a lender disburses."
+          title="You don't have an active loan"
+          explanation="Active loans, EMI dates and statements will appear here once a lender disburses"
           actions={[{ label: "View loan products", to: "/loans", variant: "outline" }]}
         />
       </div>
 
-      <SectionCard title="Prefer help from a person?" description="Verified agents assist with documents and lender questions.">
+      <SectionCard title="Prefer help from a person?" description="Verified agents assist with documents and lender questions">
         <div className="flex flex-wrap items-center gap-3">
           <Users aria-hidden className="size-5 text-primary" />
           <p className="text-sm text-muted-foreground">
-            Agents can only act on your file after you approve a consent request on your own mobile.
+            Agents can only act on your file after you approve a consent request on your own mobile
           </p>
           <Button asChild size="sm" variant="outline">
             <Link to="/app/borrower/agents">Find a verified agent</Link>
@@ -210,14 +210,14 @@ function ActiveBorrower({
   const timeline = [
     {
       label: "Application submitted",
-      meaning: "Your details were sent to participating lenders for review.",
+      meaning: "Your details were sent to participating lenders for review",
       timestamp: "08 Mar 2026, 11:04",
       source: "ShriNeo Capital",
       state: "done" as const,
     },
     {
       label: "Documents verified",
-      meaning: "Identity, address and income documents passed verification checks.",
+      meaning: "Identity, address and income documents passed verification checks",
       timestamp: "09 Mar 2026, 16:20",
       source: "Verification partner",
       state: "done" as const,
@@ -225,17 +225,17 @@ function ActiveBorrower({
     {
       label: APPLICATION_LABEL[application as keyof typeof APPLICATION_LABEL] ?? "Lender review",
       meaning:
-        "Participating lenders are still reviewing your application. This is normal and does not indicate a decision.",
+        "Participating lenders are still reviewing your application. This is normal and does not indicate a decision",
       timestamp: "10 Mar 2026, 09:45",
       source: "Participating lender",
-      nextAction: "No action needed from you right now.",
+      nextAction: "No action needed from you right now",
       expected: "Most responses arrive within 2 working days",
       state: "current" as const,
       tone: "info" as const,
     },
     {
       label: "Offer ready",
-      meaning: "You'll compare offers side by side, with the full cost shown before you sign.",
+      meaning: "You'll compare offers side by side, with the full cost shown before you sign",
       timestamp: "Pending",
       source: "ShriNeo Capital",
       state: "upcoming" as const,
@@ -248,7 +248,7 @@ function ActiveBorrower({
         <KpiCard
           label="Next EMI"
           value={formatINR(9885)}
-          hint="Due 05 Apr 2026 · Aarambh Finance"
+          hint="Due 05 Apr 2026 · IDFC First Bank"
           state={data === "stale" ? "stale" : "ready"}
         />
         <KpiCard
@@ -277,8 +277,8 @@ function ActiveBorrower({
             <InlineState
               tone="warning"
               title="One document is still needed"
-              explanation="A clearer photo of your address proof was requested by the participating lender on 11 Mar."
-              safety="Your application stays saved while this is outstanding."
+              explanation="A clearer photo of your address proof was requested by the participating lender on 11 Mar"
+              safety="Your application stays saved while this is outstanding"
               actions={[
                 { label: "Upload document", to: "/app/borrower/documents", variant: "default" },
                 { label: "See what changed", to: "/app/borrower/applications" },
@@ -303,7 +303,7 @@ function ActiveBorrower({
           />
         </SectionCard>
 
-        <SectionCard title="Active loan" description="Aarambh Finance · Personal loan">
+        <SectionCard title="Active loan" description="IDFC First Bank · Personal loan">
           <dl className="grid grid-cols-2 gap-4 text-sm">
             <div>
               <dt className="text-muted-foreground">Next EMI</dt>
@@ -315,7 +315,7 @@ function ActiveBorrower({
             </div>
             <div>
               <dt className="text-muted-foreground">Lender</dt>
-              <dd className="mt-1 text-foreground">Aarambh Finance</dd>
+              <dd className="mt-1 text-foreground">IDFC First Bank</dd>
             </div>
             <div>
               <dt className="text-muted-foreground">Outstanding</dt>
@@ -335,7 +335,7 @@ function ActiveBorrower({
           </div>
           <p className="mt-4 text-xs text-muted-foreground">
             Repayments are collected by the participating lender. ShriNeo Capital does not hold your
-            funds.
+            funds
           </p>
         </SectionCard>
       </div>

@@ -282,7 +282,6 @@ export function NeedHelpPill() {
 
   useEffect(() => {
     if (reduced || paused || isOpen) {
-      setIndex(0);
       return;
     }
     const timer = setInterval(() => setIndex((i) => (i + 1) % ROTATING.length), 5000);

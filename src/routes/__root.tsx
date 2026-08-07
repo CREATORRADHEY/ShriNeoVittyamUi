@@ -19,6 +19,7 @@ import { PrototypeToolbar } from "@/components/prototype/toolbar";
 import { PrototypeProvider } from "@/prototype/state";
 import { I18nProvider } from "../i18n";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { SplashLoader } from "@/components/layout/splash-loader";
 
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
@@ -114,10 +115,10 @@ function RootComponent() {
       <TooltipProvider delayDuration={150} skipDelayDuration={300}>
         <I18nProvider>
           <PrototypeProvider>
-            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
             <RouteTransition>
               <Outlet />
             </RouteTransition>
+            <SplashLoader />
             <Toaster />
             <CookieConsent />
             <PrototypeToolbar />

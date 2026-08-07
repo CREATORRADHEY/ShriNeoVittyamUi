@@ -45,7 +45,7 @@ const SERVICES = [
   { name: "KYC provider", state: "Operational", tone: "success" as const },
   { name: "Account Aggregator", state: "Degraded — slow responses", tone: "warning" as const },
   { name: "Credit bureau", state: "Operational", tone: "success" as const },
-  { name: "Lender API — Aarambh", state: "Incident — retries queued", tone: "error" as const },
+  { name: "Lender API — IDFC First", state: "Incident — retries queued", tone: "error" as const },
   { name: "Payments and mandates", state: "Operational", tone: "success" as const },
 ];
 
@@ -66,8 +66,8 @@ function AdminDashboard() {
     <InlineState
       tone="error"
       title="Platform incident — one lender integration is down"
-      explanation="Applications routed to Aarambh Finance are queued and retried automatically. Other partners are unaffected."
-      safety="No application has been rejected because of this incident."
+      explanation="Applications routed to IDFC First Bank are queued and retried automatically. Other partners are unaffected"
+      safety="No application has been rejected because of this incident"
       actions={[{ label: "Open incident timeline", to: "/app/admin/system" }, { label: "Notify partners" }]}
     />
   ) : account === "action-required" ? (

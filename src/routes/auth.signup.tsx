@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 import { AuthShell } from "@/components/layout/auth-shell";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { PartialDataState } from "@/components/design-system/states";
+import { usePrototype } from "@/prototype/state";
 
 export const Route = createFileRoute("/auth/signup")({
   head: () => ({
@@ -31,20 +32,23 @@ export const Route = createFileRoute("/auth/signup")({
 });
 
 const schema = z.object({
-  name: z.string().trim().min(2, "Enter your full name.").max(100),
+  name: z.string().trim().min(2, "Enter your full name").max(100),
   phone: z
     .string()
     .trim()
-    .regex(/^[6-9][0-9]{9}$/, "Enter a valid 10-digit Indian mobile number."),
-  role: z.enum(["borrower", "agent"]),
-  terms: z.literal("on", { message: "Please accept the terms to continue." }),
+    .regex(/^[6-9][0-9]{9}$/, "Enter a valid 10-digit Indian mobile number"),
+  isAgent: z.string().optional(),
+  terms: z.literal("on", { message: "Please accept the terms to continue" }),
 });
 
-type Errors = Partial<Record<"name" | "phone" | "role" | "terms", string>>;
+type Errors = Partial<Record<"name" | "phone" | "terms", string>>;
 
 function SignUpPage() {
   const [errors, setErrors] = useState<Errors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [isAgentChecked, setIsAgentChecked] = useState(false);
+  const navigate = useNavigate();
+  const prototype = usePrototype();
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -62,6 +66,13 @@ function SignUpPage() {
     }
     setErrors({});
     setSubmitted(true);
+
+    const isAgent = data.isAgent === "on";
+    // Set prototype state and route
+    prototype.set("role", isAgent ? "agent" : "borrower");
+    setTimeout(() => {
+      navigate({ to: isAgent ? "/app/agent" : "/app/borrower" });
+    }, 1500);
   }
 
   return (
@@ -115,29 +126,25 @@ function SignUpPage() {
           ) : null}
         </div>
 
-        <fieldset>
-          <legend className="mb-2 text-sm font-medium">I am joining as</legend>
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              { value: "borrower", label: "A borrower" },
-              { value: "agent", label: "An agent" },
-            ].map((option, index) => (
-              <label
-                key={option.value}
-                className="flex min-h-11 cursor-pointer items-center gap-2 rounded-md border border-input px-3 text-sm has-[:checked]:border-primary has-[:checked]:bg-accent"
-              >
-                <input
-                  type="radio"
-                  name="role"
-                  value={option.value}
-                  defaultChecked={index === 0}
-                  className="size-4 accent-[var(--primary)]"
-                />
-                {option.label}
-              </label>
-            ))}
+        <div className="flex flex-col gap-1.5">
+          <div className="flex items-start gap-3">
+            <Checkbox
+              id="isAgent"
+              name="isAgent"
+              className="mt-0.5"
+              checked={isAgentChecked}
+              onCheckedChange={(checked) => setIsAgentChecked(Boolean(checked))}
+            />
+            <Label htmlFor="isAgent" className="text-sm leading-snug font-normal">
+              Are you a loan agent?
+            </Label>
           </div>
-        </fieldset>
+          {isAgentChecked ? (
+            <p className="pl-7 text-xs text-muted-foreground">
+              You will be asked to complete KYC and agent verification after sign-up
+            </p>
+          ) : null}
+        </div>
 
         <div className="flex items-start gap-3">
           <Checkbox id="terms" name="terms" className="mt-0.5" />
@@ -150,7 +157,6 @@ function SignUpPage() {
             <Link to="/privacy-policy" className="text-primary underline">
               Privacy Policy
             </Link>
-            .
           </Label>
         </div>
         {errors.terms ? (
@@ -170,7 +176,7 @@ function SignUpPage() {
 
       {submitted ? (
         <div className="mt-5">
-          <PartialDataState body="Registration is not live yet, so no OTP has been sent and no account has been created. This form will work once the secure account service is connected." />
+          <PartialDataState body="Registration successful! Directing you to your workspace..." />
         </div>
       ) : null}
     </AuthShell>

@@ -201,6 +201,9 @@ function HomePage() {
           </Reveal>
           <Reveal delay={80} className="min-w-0">
             <OfferComparisonPanel />
+            <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
+              Lender names shown are illustrative of the institutions ShriNeo is built to integrate with. All trademarks are the property of their respective owners. No partnership, endorsement or affiliation is implied.
+            </p>
           </Reveal>
         </div>
       </section>

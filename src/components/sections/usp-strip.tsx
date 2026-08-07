@@ -18,50 +18,44 @@ const svg: SVGProps<SVGSVGElement> = {
   focusable: false,
 };
 
-/** Central platform node linked to three neutral institution nodes. */
-function PlatformNetworkIcon(props: SVGProps<SVGSVGElement>) {
+/** Classical Bank/Building Icon for Lenders platform */
+function BankIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg {...svg} {...props}>
-      <rect x="9" y="9.5" width="6" height="5" rx="1.2" />
-      <path d="M12 9.5V6.5M6.5 17.5 9.6 14M17.5 17.5 14.4 14" />
-      <path d="M9.5 6.5h5M4 20.5v-2.2l2.5-1.4 2.5 1.4v2.2M15 20.5v-2.2l2.5-1.4 2.5 1.4v2.2" />
-      <path d="M4 20.5h5M15 20.5h5M9.5 3.5h5v3h-5z" />
+      <path d="M3 22h18" />
+      <path d="M6 18v-7M10 18v-7M14 18v-7M18 18v-7" />
+      <path d="M3 11h18M12 2 3 7h18z" />
     </svg>
   );
 }
 
-/** Four connected workflow stages on a structured path. */
-function WorkflowStagesIcon(props: SVGProps<SVGSVGElement>) {
+/** Document/Sheet Icon for Workflow Stages */
+function DocumentIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg {...svg} {...props}>
-      <rect x="2.75" y="4.5" width="5" height="5" rx="1.2" />
-      <rect x="16.25" y="4.5" width="5" height="5" rx="1.2" />
-      <rect x="16.25" y="14.5" width="5" height="5" rx="1.2" />
-      <rect x="2.75" y="14.5" width="5" height="5" rx="1.2" />
-      <path d="M7.75 7h8.5M18.75 9.5v5M16.25 17h-8.5M5.25 14.5v-5" />
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
     </svg>
   );
 }
 
-/** Payment moving between two parties with a confirmation marker. */
-function RepaymentFlowIcon(props: SVGProps<SVGSVGElement>) {
+/** User/Person Silhouette Icon for Repayment */
+function UserIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg {...svg} {...props}>
-      <rect x="2.5" y="7.5" width="5.5" height="9" rx="1.4" />
-      <rect x="16" y="7.5" width="5.5" height="9" rx="1.4" />
-      <path d="M8.75 10.25h6.5M15.25 10.25l-1.9-1.7M15.25 13.75h-6.5M8.75 13.75l1.9 1.7" />
-      <path d="m10.4 19.9 1.3 1.3 2.6-2.7" />
+      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
     </svg>
   );
 }
 
-/** Live notification bell with broadcast waves. */
-function StatusTimelineIcon(props: SVGProps<SVGSVGElement>) {
+/** Circular Reload/Refresh Icon for Status/Updates */
+function RefreshIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg {...svg} {...props}>
-      <path d="M9.4 17.2a2.6 2.6 0 0 0 5.2 0" />
-      <path d="M6 17.2h12l-1.5-2v-3.6a4.5 4.5 0 0 0-9 0V15.2z" />
-      <path d="M18.9 5.1a6.9 6.9 0 0 1 2 3.1M5.1 5.1a6.9 6.9 0 0 0-2 3.1" />
+      <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+      <path d="M16 3h5v5M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+      <path d="M8 21H3v-5" />
     </svg>
   );
 }
@@ -82,17 +76,17 @@ const USPS: Usp[] = [
   {
     id: "platform",
     title: "One platform for multiple banks and NBFCs",
-    Icon: PlatformNetworkIcon,
+    Icon: BankIcon,
     to: "/for-lenders",
   },
   {
     id: "management",
     title: "End-to-end management",
-    Icon: WorkflowStagesIcon,
+    Icon: DocumentIcon,
     to: "/how-it-works",
   },
-  { id: "repayments", title: "Real-time repayments", Icon: RepaymentFlowIcon },
-  { id: "updates", title: "Real-time updates", Icon: StatusTimelineIcon },
+  { id: "repayments", title: "Real-time repayments", Icon: UserIcon },
+  { id: "updates", title: "Real-time updates", Icon: RefreshIcon },
 ];
 
 /* ------------------------------------------------------------------ strip */
@@ -100,7 +94,7 @@ const USPS: Usp[] = [
 function Item({ usp }: { usp: Usp }) {
   const content = (
     <>
-      <usp.Icon className="size-[20px] shrink-0 text-primary/85 transition-colors duration-200 group-hover:text-primary-hover" />
+      <usp.Icon className="size-[18px] shrink-0 text-primary/85 transition-colors duration-200 group-hover:text-primary-hover" />
       <span className="whitespace-nowrap text-[13px] font-medium leading-none text-foreground/85 transition-colors duration-200 group-hover:text-foreground">
         {usp.title}
       </span>

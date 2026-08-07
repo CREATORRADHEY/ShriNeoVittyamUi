@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Mic, ShieldCheck } from "lucide-react";
-import heroDesktopAsset from "@/assets/hero-man-desktop.jpg";
-import heroMobileAsset from "@/assets/hero-man-mobile.jpg";
+import heroDesktopAsset from "@/assets/hero-shop-desktop.jpg";
+import heroMobileAsset from "@/assets/hero-shop-mobile.jpg";
 import { products } from "@/config/products";
 import { formatINR } from "@/lib/format";
 
@@ -27,12 +27,12 @@ export function HomeHero() {
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <img
           src={heroDesktop}
-          alt=""
+          alt={PHOTO_ALT}
           width={1537}
           height={1023}
           fetchPriority="high"
           decoding="async"
-          className="hero-photo hero-photo-in absolute inset-y-0 right-0 hidden h-full w-[54%] object-cover object-[68%_center] md:block"
+          className="hero-photo hero-photo-in absolute inset-y-0 right-0 hidden h-full w-[54%] object-cover object-[74%_46%] md:block"
         />
         {/* Layer 4 — left-weighted grade for text contrast */}
         <div className="hero-grade absolute inset-0 hidden md:block" />
@@ -95,7 +95,7 @@ export function HomeHero() {
                 width={818}
                 height={1023}
                 fetchPriority="high"
-                className="hero-photo-mobile hero-photo-in aspect-[4/5] w-full object-cover object-top"
+                className="hero-photo-mobile hero-photo-in aspect-[4/5] w-full object-cover object-[68%_top]"
               />
               <div
                 aria-hidden

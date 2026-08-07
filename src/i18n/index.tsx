@@ -53,6 +53,10 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   const setLanguage = useCallback((next: Language) => {
     setLanguageState(next);
     window.localStorage.setItem(STORAGE_KEY, next);
+    if (typeof document !== "undefined") {
+      const locale = LANGUAGES.find((l) => l.value === next)?.locale ?? next;
+      document.documentElement.lang = locale;
+    }
   }, []);
 
   const t = useCallback(

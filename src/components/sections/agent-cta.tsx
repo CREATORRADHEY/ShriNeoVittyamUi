@@ -43,10 +43,10 @@ export function AgentCtaSection() {
       >
         <img
           src={agentPhotoSrc}
-          alt=""
+          alt="A professional ShriNeo agent in a suit holding a smartphone"
           loading="lazy"
           decoding="async"
-          className="absolute inset-0 size-full object-cover object-[26%_42%] [filter:saturate(0.92)_contrast(1.03)_brightness(0.97)]"
+          className="absolute inset-0 size-full object-cover object-[26%_top] [filter:saturate(0.92)_contrast(1.03)_brightness(0.97)]"
         />
         <div className="absolute inset-0 bg-[#0A2A7A] opacity-[0.42] mix-blend-soft-light" />
         <div className="absolute inset-0 mix-blend-multiply [background:linear-gradient(270deg,#001A5C_0%,#002472_20%,rgba(0,40,130,0.62)_38%,rgba(0,43,152,0.18)_56%,rgba(0,43,152,0)_74%)]" />
@@ -61,7 +61,7 @@ export function AgentCtaSection() {
           alt="A ShriNeo agent outside a small business, holding a smartphone."
           loading="lazy"
           decoding="async"
-          className="absolute inset-0 size-full object-cover object-[32%_36%]"
+          className="absolute inset-0 size-full object-cover object-[32%_top]"
         />
       </div>
 

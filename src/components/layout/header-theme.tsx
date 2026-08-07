@@ -38,31 +38,5 @@ export function useHeaderTheme(): Value {
 
 /** Development-only comparison switch. Never rendered in a production build. */
 export function HeaderThemeSwitch() {
-  const { theme, setTheme } = useHeaderTheme();
-  if (!import.meta.env.DEV) return null;
-
-  return (
-    <div
-      role="group"
-      aria-label="Header option (development only)"
-      className="hidden items-center gap-1 rounded-md border border-[color:var(--hdr-hairline)] p-0.5 xl:inline-flex"
-    >
-      {(["light", "dark"] as const).map((option) => (
-        <button
-          key={option}
-          type="button"
-          aria-pressed={theme === option}
-          onClick={() => setTheme(option)}
-          className="min-h-11 rounded-sm px-2 text-[11px] font-medium text-[color:var(--hdr-fg-soft)] aria-pressed:bg-[color:var(--hdr-fg)] aria-pressed:text-[color:var(--hdr-bg-contrast,#fff)] aria-pressed:mix-blend-normal"
-          style={
-            theme === option
-              ? { background: "var(--hdr-fg)", color: theme === "light" ? "#fff" : "#001a5c" }
-              : undefined
-          }
-        >
-          {option === "light" ? "A" : "B"}
-        </button>
-      ))}
-    </div>
-  );
+  return null;
 }

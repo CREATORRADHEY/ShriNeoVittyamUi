@@ -48,7 +48,7 @@ const spec: PortalPageSpec = {
           }
         ],
         [
-          "Aarambh Finance",
+          "IDFC First Bank",
           "Personal, Business",
           "92%",
           "44%",

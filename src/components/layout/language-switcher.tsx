@@ -18,7 +18,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
 
   // When English is active the switch label appears in an alternate script, so
   // a user who cannot read English can still find the control.
-  const switchLabel = language === "en" ? "भाषा चुनें" : "Choose language";
+  const switchLabel = language === "en" ? "भाषा बदलें" : "Choose language";
 
   useEffect(() => {
     if (!open) return;
@@ -57,7 +57,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
         className="inline-flex h-11 items-center gap-2 rounded-[8px] border border-[#ECE7DD] bg-white px-[13px] text-sm font-medium text-[#002B98] transition-colors duration-150 hover:border-[#C9D9EE] focus-visible:ring-2 focus-visible:ring-[#0051AE] focus-visible:outline-none"
       >
         <Globe aria-hidden className="size-[15px] shrink-0 stroke-[1.5] text-[#0051AE]" />
-        <span className="max-[1600px]:sr-only">{switchLabel}</span>
+        <span className="hidden lg:inline">{switchLabel}</span>
         <span className="num text-[11px] text-[#5B657D]">{current.code}</span>
         <ChevronDown
           aria-hidden

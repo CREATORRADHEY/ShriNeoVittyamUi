@@ -57,16 +57,16 @@ function LenderDashboard() {
       <InlineState
         tone="warning"
         title="Sanction limit at 92% of the configured monthly cap"
-        explanation="New applications will continue to route to you until the cap is reached, then they pause automatically."
-        safety="Files already sanctioned are unaffected."
+        explanation="New applications will continue to route to you until the cap is reached, then they pause automatically"
+        safety="Files already sanctioned are unaffected"
         actions={[{ label: "Review limit configuration" }, { label: "Contact partnership desk" }]}
       />
     ) : data === "failed" ? (
       <InlineState
         tone="error"
         title="Decision API is not responding"
-        explanation="Automated decisioning is paused. Files are queued in order and none have been rejected by default."
-        safety="No application was auto-declined during this window."
+        explanation="Automated decisioning is paused. Files are queued in order and none have been rejected by default"
+        safety="No application was auto-declined during this window"
         actions={[{ label: "Open API status", to: "/app/lender/api-status" }, { label: "Retry connection" }]}
       />
     ) : data === "stale" ? (
@@ -81,7 +81,7 @@ function LenderDashboard() {
     <PortalShell
       role="lender"
       title="Credit operations"
-      subtitle="Aarambh Finance · demonstration environment"
+      subtitle="IDFC First Bank · demonstration environment"
       banner={banner}
       actions={
         <div className="flex items-center gap-2">

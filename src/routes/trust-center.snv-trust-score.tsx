@@ -61,7 +61,7 @@ function TrustScorePage() {
       <PageHero
         eyebrow="Trust Center"
         title="SNV Trust Score, explained without the mystique."
-        body="It is an advisory pre-screening indicator that helps route your application to lenders whose criteria you plausibly match. It is not a credit score, and it cannot approve or decline a loan."
+        body="It is an advisory pre-screening indicator operating on a 0–100 scale that helps route your application to lenders whose criteria you plausibly match. It is not a credit score, and it cannot approve or decline a loan."
         actions={
           <Button asChild size="lg" className="min-h-11">
             <Link to="/trust-center">Back to Trust Center</Link>
@@ -105,7 +105,7 @@ function TrustScorePage() {
             <SectionHeading
               id="what-title"
               title="What it is, and who it may help"
-              body="The score summarises how ready your application is for assessment — not how creditworthy you are."
+              body="Operating on a 0–100 scale, the score summarises how ready and complete your application is for assessment — not how creditworthy you are."
             />
             <ul className="mt-8 space-y-4">
               {[

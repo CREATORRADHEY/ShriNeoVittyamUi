@@ -14,6 +14,7 @@ import { Route as R404RouteImport } from './routes/404'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as AccountAggregatorRouteImport } from './routes/account-aggregator'
+import { Route as AssistanceChoiceRouteImport } from './routes/assistance-choice'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as CompareOffersRouteImport } from './routes/compare-offers'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -143,6 +144,11 @@ const AccessibilityRoute = AccessibilityRouteImport.update({
 const AccountAggregatorRoute = AccountAggregatorRouteImport.update({
   id: '/account-aggregator',
   path: '/account-aggregator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssistanceChoiceRoute = AssistanceChoiceRouteImport.update({
+  id: '/assistance-choice',
+  path: '/assistance-choice',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersRoute = CareersRouteImport.update({
@@ -686,6 +692,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
   '/account-aggregator': typeof AccountAggregatorRoute
+  '/assistance-choice': typeof AssistanceChoiceRoute
   '/careers': typeof CareersRoute
   '/compare-offers': typeof CompareOffersRoute
   '/contact': typeof ContactRoute
@@ -798,6 +805,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
   '/account-aggregator': typeof AccountAggregatorRoute
+  '/assistance-choice': typeof AssistanceChoiceRoute
   '/careers': typeof CareersRoute
   '/compare-offers': typeof CompareOffersRoute
   '/contact': typeof ContactRoute
@@ -911,6 +919,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
   '/account-aggregator': typeof AccountAggregatorRoute
+  '/assistance-choice': typeof AssistanceChoiceRoute
   '/careers': typeof CareersRoute
   '/compare-offers': typeof CompareOffersRoute
   '/contact': typeof ContactRoute
@@ -1025,6 +1034,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/accessibility'
     | '/account-aggregator'
+    | '/assistance-choice'
     | '/careers'
     | '/compare-offers'
     | '/contact'
@@ -1137,6 +1147,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/accessibility'
     | '/account-aggregator'
+    | '/assistance-choice'
     | '/careers'
     | '/compare-offers'
     | '/contact'
@@ -1249,6 +1260,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/accessibility'
     | '/account-aggregator'
+    | '/assistance-choice'
     | '/careers'
     | '/compare-offers'
     | '/contact'
@@ -1362,6 +1374,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AccessibilityRoute: typeof AccessibilityRoute
   AccountAggregatorRoute: typeof AccountAggregatorRoute
+  AssistanceChoiceRoute: typeof AssistanceChoiceRoute
   CareersRoute: typeof CareersRoute
   CompareOffersRoute: typeof CompareOffersRoute
   ContactRoute: typeof ContactRoute
@@ -1504,6 +1517,13 @@ declare module '@tanstack/react-router' {
       path: '/account-aggregator'
       fullPath: '/account-aggregator'
       preLoaderRoute: typeof AccountAggregatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assistance-choice': {
+      id: '/assistance-choice'
+      path: '/assistance-choice'
+      fullPath: '/assistance-choice'
+      preLoaderRoute: typeof AssistanceChoiceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -2250,6 +2270,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AccessibilityRoute: AccessibilityRoute,
   AccountAggregatorRoute: AccountAggregatorRoute,
+  AssistanceChoiceRoute: AssistanceChoiceRoute,
   CareersRoute: CareersRoute,
   CompareOffersRoute: CompareOffersRoute,
   ContactRoute: ContactRoute,

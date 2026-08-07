@@ -113,16 +113,17 @@ function AgentDashboard() {
               state={data === "stale" ? "stale" : data === "empty" ? "empty" : "ready"}
             />
             <KpiCard
-              label="Clawback adjustment"
-              value={account === "action-required" ? `− ${formatINR(6400)}` : formatINR(0)}
-              hint="First-payment default recovery"
-              tone={account === "action-required" ? "warning" : "neutral"}
+              label="Recovery adjustment"
+              value={formatINR(0)}
+              hint="Case-linked only · appealable"
+              tone="neutral"
+              title="Any recovery is linked to a specific loan case. Your wallet balance is never reduced below zero. Adjustments can be reviewed within 30 days by contacting support."
             />
           </div>
 
           <SectionCard
             title="Work queue"
-            description="Consent status is shown on every row — no file can progress without borrower approval."
+            description="Consent status is shown on every row — no file can progress without borrower approval"
             actions={<StatusBadge tone="info">Filtered: active</StatusBadge>}
           >
             <div className="overflow-x-auto">
@@ -168,14 +169,14 @@ function AgentDashboard() {
             <div className="grid gap-4 md:grid-cols-2">
               <EmptyState
                 compact
-                title="No new leads are assigned right now."
-                explanation="Leads are distributed as borrowers request assistance in your service area."
+                title="No new leads are assigned right now"
+                explanation="Leads are distributed as borrowers request assistance in your service area"
                 actions={[{ label: "Start an application with borrower consent", to: "/app/agent/start" }]}
               />
               <EmptyState
                 compact
-                title="No commission has been earned yet."
-                explanation="Commission becomes eligible after a participating lender confirms disbursal."
+                title="No commission has been earned yet"
+                explanation="Commission becomes eligible after a participating lender confirms disbursal"
                 actions={[{ label: "How commission works", to: "/for-agents", variant: "outline" }]}
               />
             </div>
@@ -186,7 +187,7 @@ function AgentDashboard() {
                   <UserCheck aria-hidden className="mt-0.5 size-5 text-primary" />
                   <p className="text-sm text-muted-foreground">
                     Every file requires an OTP approved by the borrower on their own mobile. There is
-                    no bypass, and every consent event is recorded.
+                    no bypass, and every consent event is recorded
                   </p>
                 </div>
                 <Button asChild size="sm" variant="outline" className="mt-4">
@@ -221,7 +222,7 @@ function AgentDashboard() {
             </div>
           )}
 
-          <SectionCard title="Compliance" description="Renewals keep your verified status active.">
+          <SectionCard title="Compliance" description="Renewals keep your verified status active">
             <div className="flex flex-wrap items-center gap-3">
               <ShieldCheck aria-hidden className="size-5 text-primary" />
               <StatusBadge tone={account === "new" ? "warning" : "success"}>

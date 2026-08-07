@@ -51,7 +51,7 @@ const spec: PortalPageSpec = {
         [
           "SNV-LN-19022",
           "Business loan",
-          "Aarambh Finance",
+          "IDFC First Bank",
           "₹2,00,000",
           "₹0",
           {

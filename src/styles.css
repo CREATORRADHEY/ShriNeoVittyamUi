@@ -778,41 +778,19 @@ textarea {
    ============================================================ */
 
 header[data-hdr-theme] {
-  --hdr-fg: #ffffff;
-  --hdr-fg-soft: #b9c6e8;
-  --hdr-hairline: rgba(255, 255, 255, 0.14);
-}
-
-/* Option A — light header */
-header[data-hdr-theme="light"] {
-  background: rgba(255, 255, 255, 0.96);
+  background: #F0F4FC; /* Light blue tint from user image */
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid #ece7dd;
+  border-bottom: 1px solid #D2DFFA;
   box-shadow: none;
   --hdr-fg: #002b98;
   --hdr-fg-soft: #5b657d;
-  --hdr-hairline: #ece7dd;
-}
-
-header[data-hdr-theme="light"][data-condensed="true"] {
-  box-shadow: 0 4px 18px -8px rgba(0, 10, 40, 0.18);
-}
-
-/* Option B — solid dark header */
-header[data-hdr-theme="dark"] {
-  background: #001a5c;
-  backdrop-filter: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: none;
-}
-
-header[data-hdr-theme="dark"][data-condensed="true"] {
-  box-shadow: 0 6px 22px -10px rgba(0, 8, 60, 0.55);
-}
-
-header[data-hdr-theme] {
+  --hdr-hairline: #D2DFFA;
   transition:
     box-shadow 0.25s ease-out,
     height 0.25s ease-out;
   overflow: visible;
+}
+
+header[data-hdr-theme][data-condensed="true"] {
+  box-shadow: 0 4px 18px -8px rgba(0, 10, 40, 0.12);
 }
