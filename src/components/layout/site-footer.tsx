@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/shrineo-logo.png.asset.json";
+import logo from "@/assets/shrineo-logo.png";
 import { products } from "@/config/products";
 import { configured, org } from "@/config/org";
 
@@ -38,7 +38,7 @@ export function SiteFooter() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-16">
           <div className="max-w-xs">
             <span className="inline-flex rounded-[10px] bg-white px-3.5 py-2.5">
-              <img src={logo.url} alt="ShriNeo Capital" className="block h-11 w-auto object-contain" />
+              <img src={logo} alt="ShriNeo Capital" className="block h-11 w-auto object-contain" />
             </span>
             <p className="mt-5 text-[15px] leading-relaxed text-[#B9C6E8]">
               Digital Lending Partner for Bharat.

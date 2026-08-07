@@ -1,12 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Mic, ShieldCheck } from "lucide-react";
-import heroDesktopAsset from "@/assets/hero-shop-desktop.jpg.asset.json";
-import heroMobileAsset from "@/assets/hero-shop-mobile.jpg.asset.json";
+import heroDesktopAsset from "@/assets/hero-man-desktop.jpg";
+import heroMobileAsset from "@/assets/hero-man-mobile.jpg";
 import { products } from "@/config/products";
 import { formatINR } from "@/lib/format";
 
-const heroDesktop = heroDesktopAsset.url;
-const heroMobile = heroMobileAsset.url;
+const heroDesktop = heroDesktopAsset;
+const heroMobile = heroMobileAsset;
 
 const PHOTO_ALT = "Shop owner standing at his kirana store counter, smartphone in hand.";
 

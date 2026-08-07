@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { ShieldCheck } from "lucide-react";
-import logo from "@/assets/shrineo-logo.png.asset.json";
+import logo from "@/assets/shrineo-logo.png";
 import { org } from "@/config/org";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 
@@ -21,7 +21,7 @@ export function AuthShell({
       <header className="border-b border-border bg-background">
         <div className="container-page flex items-center justify-between gap-4 py-3">
           <Link to="/" className="flex min-w-0 items-center gap-2.5">
-            <img src={logo.url} alt="" width={36} height={36} className="size-9 object-contain" />
+            <img src={logo} alt="" width={36} height={36} className="size-9 object-contain" />
             <span className="truncate text-base font-semibold">ShriNeo Capital</span>
             <span className="sr-only">— home</span>
           </Link>

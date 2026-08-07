@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import agentPhoto from "@/assets/agent-outside-business.jpg.asset.json";
+import agentPhotoSrc from "@/assets/photo-agent-suit.jpg";
 import { Reveal } from "@/components/sections/reveal";
 
 const BENEFITS = [
@@ -42,7 +42,7 @@ export function AgentCtaSection() {
         className="agent-photo-field absolute inset-y-0 left-0 hidden w-[52%] min-w-[320px] isolate overflow-hidden lg:block"
       >
         <img
-          src={agentPhoto.url}
+          src={agentPhotoSrc}
           alt=""
           loading="lazy"
           decoding="async"
@@ -57,7 +57,7 @@ export function AgentCtaSection() {
       {/* Mobile / tablet: a photographic band above the copy. */}
       <div className="relative z-[1] h-[240px] w-full overflow-hidden leading-[0] sm:h-[300px] lg:hidden">
         <img
-          src={agentPhoto.url}
+          src={agentPhotoSrc}
           alt="A ShriNeo agent outside a small business, holding a smartphone."
           loading="lazy"
           decoding="async"

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ChevronDown, Menu, X } from "lucide-react";
-import logo from "@/assets/shrineo-logo.png.asset.json";
+import logo from "@/assets/shrineo-logo.png";
 import { products } from "@/config/products";
 import { useI18n } from "@/i18n";
 import { LanguageSwitcher } from "./language-switcher";
@@ -76,7 +76,7 @@ function HeaderInner() {
         >
           <Link to="/" className="flex shrink-0 items-center gap-2.5">
             <img
-              src={logo.url}
+              src={logo}
               alt="ShriNeo Capital"
               style={{ height: logoHeight, transition: "height .25s ease-out" }}
               className="w-auto shrink-0 object-contain"
