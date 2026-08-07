@@ -608,8 +608,8 @@ textarea {
 }
 
 .hero-photo-mobile {
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 22%, #000 46%);
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 22%, #000 46%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 8%);
 }
 
 /* Layer 4 — left-weighted grade guaranteeing text contrast. */
@@ -628,9 +628,9 @@ textarea {
 .hero-grade-mobile {
   background: linear-gradient(
     180deg,
-    color-mix(in oklab, #001a5c 94%, transparent) 0%,
-    color-mix(in oklab, #001a5c 55%, transparent) 34%,
-    transparent 62%
+    color-mix(in oklab, #001a5c 30%, transparent) 0%,
+    color-mix(in oklab, #001a5c 10%, transparent) 12%,
+    transparent 32%
   );
 }
 
