@@ -218,10 +218,14 @@ Before opening a PR: `npm run lint` and `npm run build` must both pass.
 
 ---
 
-## 8. Build with Lovable
+## 8. Custom UI & Interactive Features
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/83e2364f-37cf-45ae-a14f-42b793cf9100).
+The following high-fidelity components and interactive flows are built into this frontend release:
 
-- **Ship faster** — describe what you want to build and Lovable handles the code.
-- **Stay in sync** — every change made in Lovable is committed straight to this repository.
-- **Full ownership** — this code is yours. Push to `main` on GitHub and your changes sync back into Lovable.
+* **Bespoke Visual Illustrations**: The **Assistance Choice** panel (`/how-it-works`) features real-time, interactive CSS/SVG vector cards:
+  - *Direct vs. Agent*: Shows a split choice representation of self-service and verified local agent guidance.
+  - *Phone Masking*: Visualizes the data routing channel with a masked number representation (`+91 ••••• ••482`) and `[HIDDEN]` status cards.
+  - *Zero-Fee E-Sign*: Renders a simulated secure OTP authorization block confirming `₹0 Agent Fee` and input validations.
+* **Premium Splash Loader** ([splash-loader.tsx](file:///src/components/layout/splash-loader.tsx)): An animated preloader displaying the brand emblem with smooth fade-in/out micro-transitions on first site load or page reloads.
+* **Animated Trust Gauge**: The SNV Trust Score panel (`/trust-center/snv-trust-score`) features a dynamic SVG ring gauge that animates up to the indicative level, mapping out application completeness metrics.
+
