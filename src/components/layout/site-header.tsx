@@ -119,7 +119,7 @@ function HeaderInner() {
             </div>
             <Link
               to="/auth/signin"
-              className="inline-flex min-h-11 items-center rounded-md border border-[color:var(--hdr-hairline)] px-3 text-sm font-medium text-[color:var(--hdr-fg)] transition-[background-color,border-color] duration-150 hover:bg-[color:var(--hdr-fg)]/10 focus-visible:ring-2 focus-visible:ring-[color:var(--hdr-fg)] focus-visible:outline-none hidden sm:inline-flex"
+              className="hidden sm:inline-flex min-h-11 items-center rounded-md border border-[color:var(--hdr-hairline)] px-3 text-sm font-medium text-[color:var(--hdr-fg)] transition-[background-color,border-color] duration-150 hover:bg-[color:var(--hdr-fg)]/10 focus-visible:ring-2 focus-visible:ring-[color:var(--hdr-fg)] focus-visible:outline-none"
             >
               {t("nav.login")}
             </Link>
