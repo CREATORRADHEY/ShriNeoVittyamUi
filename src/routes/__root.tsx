@@ -16,10 +16,9 @@ import { CookieConsent } from "@/components/motion/cookie-consent";
 import { FullPageState, referenceStamp } from "@/components/states/full-page";
 import { DevNoticePage } from "@/components/states/dev-notice";
 import { PrototypeToolbar } from "@/components/prototype/toolbar";
+import { reportLovableError } from "../lib/lovable-error-reporting";
 import { PrototypeProvider } from "@/prototype/state";
 import { I18nProvider } from "../i18n";
-import { reportLovableError } from "../lib/lovable-error-reporting";
-import { SplashLoader } from "@/components/layout/splash-loader";
 
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
@@ -118,7 +117,6 @@ function RootComponent() {
             <RouteTransition>
               <Outlet />
             </RouteTransition>
-            <SplashLoader />
             <Toaster />
             <CookieConsent />
             <PrototypeToolbar />
