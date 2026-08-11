@@ -168,17 +168,16 @@ export function HowItWorksSection() {
   );
 }
 
-/* ─────────────────────────────────────────────────────────────
-   HOW WOULD YOU LIKE TO APPLY — Interactive multi-step widget
-   ───────────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════
+   HOW WOULD YOU LIKE TO APPLY — Bank-grade structured widget
+   ═══════════════════════════════════════════════════════════ */
 
 function HowApplyBlock({ shown }: { shown: boolean }) {
   const [route, setRoute] = useState<"guided" | "self">("guided");
-  const [step, setStep] = useState(0); // 0=need, 1=language, 2=connect
+  const [step, setStep] = useState(0);
   const [selectedNeed, setSelectedNeed] = useState<string | null>("first-loan");
   const [selectedLang, setSelectedLang] = useState<"en" | "hi">("en");
 
-  // Reset wizard when switching route
   const handleRouteChange = (r: "guided" | "self") => {
     setRoute(r);
     setStep(0);
@@ -186,49 +185,57 @@ function HowApplyBlock({ shown }: { shown: boolean }) {
     setSelectedLang("en");
   };
 
-  const canContinue = step === 0 ? !!selectedNeed : step === 1 ? true : false;
+  const canContinue = step === 0 ? !!selectedNeed : true;
 
   return (
     <div
       className={cn(
-        "mt-14 rounded-2xl border border-[#DDE7F5] bg-white shadow-[0_8px_40px_-16px_rgba(0,43,152,0.12)] overflow-hidden",
-        "transition-[opacity,transform] duration-[500ms] ease-out",
-        shown ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+        /* Outer shell: 10–12px radius, single border, white bg — financial workspace */
+        "mt-14 overflow-hidden rounded-[10px] border border-[#DDE5F0] bg-white shadow-[0_4px_24px_-8px_rgba(0,43,152,0.08)]",
+        "transition-[opacity,transform] duration-500 ease-out",
+        shown ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
       )}
     >
-      {/* ── Header ── */}
-      <div className="border-b border-[#EEF3FB] bg-[#FAFBFF] px-6 py-8 text-center sm:px-10">
-        <h3 className="font-display text-[clamp(22px,2.4vw,30px)] font-bold tracking-[-0.025em] text-[#002B98]">
-          How would you like to apply?
-        </h3>
-        <p className="mt-2 text-[15px] text-[#5B657D]">
-          Choose a self-service journey or get step-by-step help from a verified local agent.
-        </p>
+      {/* ── INTRO AREA: heading + route selection ── */}
+      <div className="border-b border-[#E6ECF4] px-6 pb-7 pt-7 sm:px-10">
+        {/* Centered heading group */}
+        <div className="mx-auto max-w-[640px] text-center">
+          <h3 className="font-display text-[clamp(22px,2vw,30px)] font-semibold tracking-[-0.022em] text-[#002B98]">
+            How would you like to apply?
+          </h3>
+          <p className="mt-2 text-[15px] leading-[1.6] text-[#5B657D]">
+            Choose a self-service journey or get step-by-step help from a verified local agent.
+          </p>
 
-        {/* Route Toggle */}
-        <div className="mt-6 inline-grid grid-cols-2 gap-3 sm:flex sm:gap-4">
-          <RouteToggle
-            id="route-guided"
-            active={route === "guided"}
-            icon={<Headphones className="size-4 shrink-0" />}
-            label="Apply with guidance"
-            sub="A verified agent helps you"
-            onClick={() => handleRouteChange("guided")}
-          />
-          <RouteToggle
-            id="route-self"
-            active={route === "self"}
-            icon={<User className="size-4 shrink-0" />}
-            label="Apply on my own"
-            sub="Complete the digital journey yourself"
-            onClick={() => handleRouteChange("self")}
-          />
+          {/* Route cards — centered, max 740px wide, 2-column */}
+          <div
+            className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2"
+            role="radiogroup"
+            aria-label="Application route"
+          >
+            <RouteCard
+              id="route-guided"
+              active={route === "guided"}
+              icon={<Headphones aria-hidden className="size-[18px] shrink-0" />}
+              label="Apply with guidance"
+              sub="A verified agent helps you"
+              onClick={() => handleRouteChange("guided")}
+            />
+            <RouteCard
+              id="route-self"
+              active={route === "self"}
+              icon={<User aria-hidden className="size-[18px] shrink-0" />}
+              label="Apply on my own"
+              sub="Complete the digital journey yourself"
+              onClick={() => handleRouteChange("self")}
+            />
+          </div>
         </div>
       </div>
 
-      {/* ── Body ── */}
+      {/* ── APPLICATION WORKSPACE: left wizard + right panel ── */}
       {route === "guided" ? (
-        <GuidedFlow
+        <GuidedWorkspace
           step={step}
           setStep={setStep}
           selectedNeed={selectedNeed}
@@ -238,14 +245,14 @@ function HowApplyBlock({ shown }: { shown: boolean }) {
           canContinue={canContinue}
         />
       ) : (
-        <SelfServiceFlow />
+        <SelfWorkspace />
       )}
     </div>
   );
 }
 
-/* ─── Route toggle button ─── */
-function RouteToggle({
+/* ─── Route selection card ─── */
+function RouteCard({
   id,
   active,
   icon,
@@ -264,65 +271,93 @@ function RouteToggle({
     <button
       type="button"
       id={id}
+      role="radio"
+      aria-checked={active}
       onClick={onClick}
       className={cn(
-        "flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE] sm:min-w-[200px]",
+        /* 8px radius, structured card, no pill */
+        "flex w-full items-center gap-3 rounded-[8px] border px-4 py-3 text-left",
+        "transition-[border-color,background-color,box-shadow] duration-[160ms]",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE] focus-visible:ring-offset-1",
         active
-          ? "border-[#002B98] bg-white shadow-[0_2px_12px_rgba(0,43,152,0.12)]"
-          : "border-[#DDE7F5] bg-[#F7F9FF] hover:border-[#B8CBEE] hover:bg-white"
+          ? "border-[1.5px] border-[#0051AE] bg-[#F5F8FF] shadow-[0_2px_8px_rgba(0,81,174,0.08)]"
+          : "border-[#D8E3F2] bg-white hover:border-[#AFC6E8] hover:bg-[#F8FAFD]",
       )}
     >
-      <span className={cn(
-        "flex size-9 shrink-0 items-center justify-center rounded-lg",
-        active ? "bg-[#002B98] text-white" : "bg-[#E6F1FB] text-[#0051AE]"
-      )}>
+      {/* Icon tile */}
+      <span
+        className={cn(
+          "flex size-9 shrink-0 items-center justify-center rounded-[6px] transition-colors duration-[160ms]",
+          active ? "bg-[#002B98] text-white" : "bg-[#EAF3FC] text-[#0051AE]",
+        )}
+      >
         {icon}
       </span>
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2">
-          <span className={cn("text-[13px] font-semibold", active ? "text-[#002B98]" : "text-[#2C3A5A]")}>
-            {label}
-          </span>
-          {active && (
-            <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-[#002B98]">
-              <Check className="size-2.5 text-white" strokeWidth={3} />
-            </span>
-          )}
-        </div>
-        <p className="mt-0.5 text-[11px] leading-tight text-[#5B657D]">{sub}</p>
+
+      {/* Text */}
+      <div className="min-w-0 flex-1 text-left">
+        <p className={cn("text-[13.5px] font-semibold leading-tight", active ? "text-[#002B98]" : "text-[#0A286F]")}>
+          {label}
+        </p>
+        <p className="mt-0.5 text-[11.5px] leading-tight text-[#5B657D]">{sub}</p>
       </div>
+
+      {/* Selection indicator */}
+      {active ? (
+        <span
+          aria-hidden
+          className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#002B98]"
+        >
+          <Check className="size-3 text-white" strokeWidth={2.5} />
+        </span>
+      ) : (
+        <span aria-hidden className="size-5 shrink-0 rounded-full border-2 border-[#C8D6E8]" />
+      )}
     </button>
   );
 }
 
-/* ─── Progress bar ─── */
+/* ─── Stepper ─── */
 function StepProgress({ current }: { current: number }) {
   return (
-    <div className="flex items-center gap-0" aria-label="Application steps">
+    <div
+      className="flex items-center"
+      role="progressbar"
+      aria-valuemin={0}
+      aria-valuemax={STEPS.length - 1}
+      aria-valuenow={current}
+      aria-label={`Step ${current + 1} of ${STEPS.length}: ${STEPS[current]}`}
+    >
       {STEPS.map((label, i) => {
         const done = i < current;
         const active = i === current;
         return (
           <div key={label} className="flex items-center">
             <div className="flex items-center gap-2">
-              <span className={cn(
-                "flex size-[26px] shrink-0 items-center justify-center rounded-full text-[11px] font-bold transition-colors duration-200",
-                done ? "bg-[#002B98] text-white" : active ? "bg-[#002B98] text-white" : "bg-[#E6F1FB] text-[#8898B0]"
-              )}>
-                {done ? <Check className="size-3" strokeWidth={3} /> : String(i + 1).padStart(2, "0")}
+              <span
+                className={cn(
+                  "flex size-[26px] shrink-0 items-center justify-center rounded-full text-[11px] font-bold transition-colors duration-200",
+                  done || active ? "bg-[#002B98] text-white" : "bg-[#E6EFF9] text-[#7A92B4]",
+                )}
+              >
+                {done ? <Check className="size-[11px]" strokeWidth={2.5} /> : String(i + 1).padStart(2, "0")}
               </span>
-              <span className={cn(
-                "text-[12px] font-medium transition-colors duration-200",
-                active ? "text-[#002B98]" : done ? "text-[#002B98]" : "text-[#8898B0]"
-              )}>
+              <span
+                className={cn(
+                  "text-[12px] font-medium whitespace-nowrap transition-colors duration-200",
+                  active ? "text-[#002B98]" : done ? "text-[#5175A8]" : "text-[#7A92B4]",
+                )}
+              >
                 {label}
               </span>
             </div>
             {i < STEPS.length - 1 && (
-              <span className={cn(
-                "mx-3 h-px w-12 sm:w-20 transition-colors duration-500",
-                i < current ? "bg-[#002B98]" : "bg-[#DDE7F5]"
-              )} />
+              <span
+                className={cn(
+                  "mx-3 h-px w-10 shrink-0 transition-colors duration-500 sm:w-16",
+                  i < current ? "bg-[#002B98]" : "bg-[#D8E3F2]",
+                )}
+              />
             )}
           </div>
         );
@@ -331,8 +366,8 @@ function StepProgress({ current }: { current: number }) {
   );
 }
 
-/* ─── Guided application flow ─── */
-function GuidedFlow({
+/* ─── Guided Application Workspace ─── */
+function GuidedWorkspace({
   step,
   setStep,
   selectedNeed,
@@ -350,34 +385,43 @@ function GuidedFlow({
   canContinue: boolean;
 }) {
   return (
-    <div className="grid lg:grid-cols-[1fr_360px]">
-      {/* Left: wizard */}
-      <div className="border-b border-[#EEF3FB] px-6 py-7 sm:px-10 lg:border-b-0 lg:border-r">
-        {/* Progress */}
-        <div className="mb-7 overflow-x-auto">
+    /* 70/30 grid — left: work area, right: agent panel.
+       On mobile they stack. On lg they sit side by side with no gap
+       (the panel feels attached to the shell). */
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] xl:grid-cols-[1fr_360px]">
+      {/* ── LEFT: Wizard ── */}
+      <div className="border-b border-[#E6ECF4] px-6 py-7 sm:px-10 lg:border-b-0 lg:border-r lg:py-8">
+        {/* Stepper */}
+        <div className="overflow-x-auto">
           <StepProgress current={step} />
         </div>
 
         {/* Step content */}
-        <div className="transition-all duration-200">
+        <div className="mt-8">
           {step === 0 && (
-            <Step0NeedSelector selectedNeed={selectedNeed} setSelectedNeed={setSelectedNeed} />
+            <Step0NeedSelector
+              selectedNeed={selectedNeed}
+              setSelectedNeed={setSelectedNeed}
+            />
           )}
           {step === 1 && (
-            <Step1Language selectedLang={selectedLang} setSelectedLang={setSelectedLang} />
+            <Step1Language
+              selectedLang={selectedLang}
+              setSelectedLang={setSelectedLang}
+            />
           )}
           {step === 2 && (
             <Step2Connect selectedNeed={selectedNeed} selectedLang={selectedLang} />
           )}
         </div>
 
-        {/* Navigation */}
-        <div className="mt-8 flex items-center gap-3">
+        {/* Navigation row */}
+        <div className="mt-6 flex items-center gap-3">
           {step > 0 && (
             <button
               type="button"
               onClick={() => setStep(step - 1)}
-              className="rounded-lg border border-[#DDE7F5] bg-white px-5 py-2.5 text-[13px] font-semibold text-[#002B98] transition-colors hover:bg-[#EEF3FB]"
+              className="h-12 min-w-[80px] rounded-[8px] border border-[#D8E3F2] bg-white px-5 text-[13px] font-semibold text-[#002B98] transition-colors hover:border-[#AFC6E8] hover:bg-[#F5F8FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]"
             >
               Back
             </button>
@@ -388,34 +432,34 @@ function GuidedFlow({
               onClick={() => canContinue && setStep(step + 1)}
               disabled={!canContinue}
               className={cn(
-                "flex flex-1 items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-[13px] font-semibold text-white transition-all",
+                "flex h-12 flex-1 items-center justify-center gap-2 rounded-[8px] text-[13.5px] font-semibold text-white transition-colors duration-150",
                 canContinue
-                  ? "bg-[#E8A020] hover:bg-[#D08818] shadow-sm"
-                  : "bg-[#E8A020]/50 cursor-not-allowed"
+                  ? "bg-[#E8A020] hover:bg-[#CC8C18] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E8A020]"
+                  : "cursor-not-allowed bg-[#E8A020]/40",
               )}
             >
               Continue
-              <ArrowRight className="size-4" />
+              <ArrowRight aria-hidden className="size-4" />
             </button>
           ) : (
             <Link
               to="/auth/signup"
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#002B98] px-5 py-2.5 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-[#001A5C]"
+              className="flex h-12 flex-1 items-center justify-center gap-2 rounded-[8px] bg-[#002B98] text-[13.5px] font-semibold text-white transition-colors hover:bg-[#001A5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]"
             >
               Connect with an agent
-              <ArrowRight className="size-4" />
+              <ArrowRight aria-hidden className="size-4" />
             </Link>
           )}
         </div>
       </div>
 
-      {/* Right: agent trust card */}
-      <AgentTrustCard />
+      {/* ── RIGHT: Agent trust panel ── */}
+      <AgentTrustPanel />
     </div>
   );
 }
 
-/* ─── Step 0: What makes applying easier? ─── */
+/* ─── Step 0: Need selector ─── */
 function Step0NeedSelector({
   selectedNeed,
   setSelectedNeed,
@@ -425,13 +469,19 @@ function Step0NeedSelector({
 }) {
   return (
     <div>
-      <p className="mb-1 font-mono text-[10px] font-semibold tracking-[0.12em] uppercase text-[#0051AE]">
+      <p className="font-mono text-[10.5px] font-semibold tracking-[0.13em] uppercase text-[#0051AE]">
         Verified agent assistance
       </p>
-      <h4 className="mb-5 text-[18px] font-bold tracking-[-0.015em] text-[#002B98]">
+      <h4 className="mt-1.5 text-[20px] font-semibold tracking-[-0.018em] text-[#002B98]">
         What would make applying easier?
       </h4>
-      <div className="grid gap-3 sm:grid-cols-2">
+
+      {/* 2×2 structured option grid — uniform 8px radius cards */}
+      <div
+        className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2"
+        role="radiogroup"
+        aria-label="What you need help with"
+      >
         {GUIDED_NEEDS.map((need) => {
           const Icon = need.icon;
           const active = selectedNeed === need.id;
@@ -439,35 +489,48 @@ function Step0NeedSelector({
             <button
               key={need.id}
               type="button"
+              role="radio"
+              aria-checked={active}
               onClick={() => setSelectedNeed(need.id)}
               className={cn(
-                "group flex items-center gap-3.5 rounded-xl border p-4 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]",
+                /* Structured 8px card — no large radius */
+                "grid grid-cols-[36px_1fr_20px] items-center gap-3 rounded-[8px] border px-4 py-[14px] text-left",
+                "transition-[border-color,background-color,transform] duration-[160ms]",
+                "hover:-translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE] focus-visible:ring-offset-1",
                 active
-                  ? "border-[#002B98] bg-[#EEF3FB] shadow-sm"
-                  : "border-[#DDE7F5] bg-white hover:border-[#B8CBEE] hover:bg-[#F7F9FF]"
+                  ? "border-[1.5px] border-[#0051AE] bg-[#F4F8FF]"
+                  : "border-[#D8E3F2] bg-white hover:border-[#AFC6E8] hover:bg-[#F8FAFD]",
               )}
             >
-              <span className={cn(
-                "flex size-8 shrink-0 items-center justify-center rounded-lg transition-colors",
-                active ? "bg-[#002B98] text-white" : "bg-[#E6F1FB] text-[#0051AE] group-hover:bg-[#D6E8F7]"
-              )}>
-                <Icon className="size-4" />
+              {/* Icon */}
+              <span
+                className={cn(
+                  "flex size-9 items-center justify-center rounded-[6px] transition-colors duration-[160ms]",
+                  active ? "bg-[#002B98] text-white" : "bg-[#EAF3FC] text-[#0051AE]",
+                )}
+              >
+                <Icon aria-hidden className="size-[17px]" />
               </span>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center justify-between gap-2">
-                  <span className={cn("text-[13px] font-semibold", active ? "text-[#002B98]" : "text-[#1A2B4A]")}>
-                    {need.label}
-                  </span>
-                  {active ? (
-                    <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-[#002B98]">
-                      <Check className="size-2.5 text-white" strokeWidth={3} />
-                    </span>
-                  ) : (
-                    <ChevronRight className="size-3.5 shrink-0 text-[#8898B0] transition-transform group-hover:translate-x-0.5" />
-                  )}
-                </div>
-                <p className="mt-0.5 text-[11px] leading-snug text-[#5B657D]">{need.sub}</p>
+
+              {/* Text */}
+              <div className="min-w-0">
+                <p className={cn("text-[13.5px] font-semibold leading-tight", active ? "text-[#002B98]" : "text-[#0A286F]")}>
+                  {need.label}
+                </p>
+                <p className="mt-0.5 text-[12px] leading-snug text-[#5B657D]">{need.sub}</p>
               </div>
+
+              {/* Action indicator */}
+              {active ? (
+                <span
+                  aria-hidden
+                  className="flex size-5 items-center justify-center rounded-full bg-[#002B98]"
+                >
+                  <Check className="size-[11px] text-white" strokeWidth={2.5} />
+                </span>
+              ) : (
+                <ChevronRight aria-hidden className="size-4 text-[#A8BAD0]" />
+              )}
             </button>
           );
         })}
@@ -490,43 +553,56 @@ function Step1Language({
   ];
   return (
     <div>
-      <p className="mb-1 font-mono text-[10px] font-semibold tracking-[0.12em] uppercase text-[#0051AE]">
+      <p className="font-mono text-[10.5px] font-semibold tracking-[0.13em] uppercase text-[#0051AE]">
         Language preference
       </p>
-      <h4 className="mb-5 text-[18px] font-bold tracking-[-0.015em] text-[#002B98]">
+      <h4 className="mt-1.5 text-[20px] font-semibold tracking-[-0.018em] text-[#002B98]">
         Which language do you prefer?
       </h4>
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div
+        className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2"
+        role="radiogroup"
+        aria-label="Preferred language"
+      >
         {langs.map((lang) => {
           const active = selectedLang === lang.id;
           return (
             <button
               key={lang.id}
               type="button"
+              role="radio"
+              aria-checked={active}
               onClick={() => setSelectedLang(lang.id)}
               className={cn(
-                "flex items-center justify-between rounded-xl border p-4 text-left transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]",
+                "flex items-center justify-between rounded-[8px] border px-4 py-[14px] text-left",
+                "transition-[border-color,background-color] duration-[160ms]",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]",
                 active
-                  ? "border-[#002B98] bg-[#EEF3FB] shadow-sm"
-                  : "border-[#DDE7F5] bg-white hover:border-[#B8CBEE]"
+                  ? "border-[1.5px] border-[#0051AE] bg-[#F4F8FF]"
+                  : "border-[#D8E3F2] bg-white hover:border-[#AFC6E8] hover:bg-[#F8FAFD]",
               )}
             >
               <div>
-                <p className={cn("text-[15px] font-bold", active ? "text-[#002B98]" : "text-[#1A2B4A]")}>
+                <p className={cn("text-[15px] font-bold", active ? "text-[#002B98]" : "text-[#0A286F]")}>
                   {lang.native}
                 </p>
-                <p className="text-[11px] text-[#5B657D]">{lang.label}</p>
+                <p className="text-[11.5px] text-[#5B657D]">{lang.label}</p>
               </div>
-              {active && (
-                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#002B98]">
-                  <Check className="size-3 text-white" strokeWidth={3} />
+              {active ? (
+                <span
+                  aria-hidden
+                  className="flex size-5 shrink-0 items-center justify-center rounded-full bg-[#002B98]"
+                >
+                  <Check className="size-[11px] text-white" strokeWidth={2.5} />
                 </span>
+              ) : (
+                <span aria-hidden className="size-5 shrink-0 rounded-full border-2 border-[#C8D6E8]" />
               )}
             </button>
           );
         })}
       </div>
-      <p className="mt-4 text-[12px] text-[#5B657D]">
+      <p className="mt-4 text-[12px] leading-relaxed text-[#5B657D]">
         A verified agent who speaks your preferred language will be matched with you.
       </p>
     </div>
@@ -545,28 +621,28 @@ function Step2Connect({
   const langLabel = selectedLang === "hi" ? "Hindi (हिन्दी)" : "English";
   return (
     <div>
-      <p className="mb-1 font-mono text-[10px] font-semibold tracking-[0.12em] uppercase text-[#0051AE]">
+      <p className="font-mono text-[10.5px] font-semibold tracking-[0.13em] uppercase text-[#0051AE]">
         Ready to connect
       </p>
-      <h4 className="mb-5 text-[18px] font-bold tracking-[-0.015em] text-[#002B98]">
+      <h4 className="mt-1.5 text-[20px] font-semibold tracking-[-0.018em] text-[#002B98]">
         Your preferences are set
       </h4>
-      <div className="space-y-3">
+      <div className="mt-5 divide-y divide-[#E6ECF4] rounded-[8px] border border-[#D8E3F2] bg-[#F8FAFD]">
         {[
           { label: "Help with", value: needLabel },
           { label: "Language", value: langLabel },
           { label: "Agent type", value: "ShriNeo verified agent" },
-          { label: "Your details", value: "Kept masked until you consent" },
+          { label: "Contact details", value: "Masked until you consent" },
         ].map((row) => (
-          <div key={row.label} className="flex items-center justify-between rounded-lg border border-[#DDE7F5] bg-[#F7F9FF] px-4 py-3">
-            <span className="text-[12px] text-[#5B657D]">{row.label}</span>
+          <div key={row.label} className="flex items-center justify-between px-4 py-3">
+            <span className="text-[12.5px] text-[#5B657D]">{row.label}</span>
             <span className="text-[13px] font-semibold text-[#002B98]">{row.value}</span>
           </div>
         ))}
       </div>
-      <div className="mt-4 flex items-center gap-2 rounded-lg border border-[#DDE7F5] bg-[#F7F9FF] px-4 py-3">
-        <Lock className="size-3.5 shrink-0 text-[#5B657D]" />
-        <p className="text-[11px] text-[#5B657D]">
+      <div className="mt-3 flex items-start gap-2 rounded-[6px] border border-[#D8E3F2] bg-[#F8FAFD] px-3.5 py-3">
+        <Lock aria-hidden className="mt-0.5 size-3.5 shrink-0 text-[#7A92B4]" />
+        <p className="text-[11.5px] leading-snug text-[#5B657D]">
           Your contact details stay masked and are shared only with your consent.
         </p>
       </div>
@@ -574,63 +650,59 @@ function Step2Connect({
   );
 }
 
-/* ─── Right panel: Agent trust card ─── */
-function AgentTrustCard() {
+/* ─── Right: Agent trust panel ─── */
+function AgentTrustPanel() {
   return (
-    <div className="relative flex flex-col overflow-hidden bg-[#002272] p-6 sm:p-8">
-      {/* Agent photo */}
-      <div className="relative mb-5 h-[180px] w-full overflow-hidden rounded-xl sm:h-[200px]">
+    /* Flush right panel — feels part of the workspace shell, not a separate floating card */
+    <div className="flex flex-col bg-[#002272] px-7 py-7 lg:px-8 lg:py-8">
+      {/* Agent photo — 8px radius */}
+      <div className="relative overflow-hidden rounded-[8px]">
         <img
           src={agentPhotoSrc}
-          alt="A verified ShriNeo agent"
-          className="h-full w-full object-cover object-[center_20%]"
+          alt="A ShriNeo verified agent"
+          className="h-[180px] w-full object-cover object-[center_18%] sm:h-[200px] lg:h-[190px]"
           loading="lazy"
           decoding="async"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#002272]/60 to-transparent" />
-        <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-[#22C55E]/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
-          <span className="size-1.5 rounded-full bg-white" />
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#001650]/55 to-transparent" />
+        {/* Verified badge — pill is acceptable for status chips */}
+        <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-[#22C55E]/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-sm">
+          <span aria-hidden className="size-[6px] rounded-full bg-white" />
           Verified agent
         </span>
       </div>
 
-      {/* Trust bullets */}
-      <h4 className="text-[17px] font-bold leading-snug text-white">
+      {/* Trust copy */}
+      <h4 className="mt-5 text-[17px] font-bold leading-[1.35] text-white">
         Guidance, while you stay in control.
       </h4>
-      <ul className="mt-4 space-y-2.5">
+
+      <ul aria-label="Agent assistance guarantees" className="mt-4 space-y-3">
         {[
           "Explains options and documents",
           "Cannot accept an offer for you",
           "Application stays tracked on ShriNeo",
         ].map((point) => (
           <li key={point} className="flex items-start gap-2.5">
-            <Check className="mt-0.5 size-3.5 shrink-0 text-[#22C55E]" strokeWidth={2.5} />
+            <Check aria-hidden className="mt-0.5 size-3.5 shrink-0 text-[#22C55E]" strokeWidth={2.5} />
             <span className="text-[13px] leading-snug text-white/80">{point}</span>
           </li>
         ))}
       </ul>
 
-      {/* Privacy note */}
-      <div className="mt-5 flex items-start gap-2 rounded-lg border border-white/10 bg-white/5 px-3.5 py-3">
-        <ShieldCheck className="mt-0.5 size-3.5 shrink-0 text-white/50" />
-        <p className="text-[11px] leading-snug text-white/50">
+      {/* Privacy notice — 6–8px radius, controlled opacity borders */}
+      <div className="mt-5 flex items-start gap-2.5 rounded-[7px] border border-white/[0.18] bg-white/[0.06] px-3.5 py-3">
+        <ShieldCheck aria-hidden className="mt-0.5 size-3.5 shrink-0 text-white/50" />
+        <p className="text-[11.5px] leading-snug text-white/55">
           Your contact details stay masked and are shared only with your consent.
         </p>
-      </div>
-
-      {/* Decorative background dots */}
-      <div aria-hidden className="pointer-events-none absolute top-4 right-4 grid grid-cols-4 gap-1.5 opacity-10">
-        {Array.from({ length: 16 }).map((_, i) => (
-          <span key={i} className="size-1 rounded-full bg-white" />
-        ))}
       </div>
     </div>
   );
 }
 
-/* ─── Self-service flow ─── */
-function SelfServiceFlow() {
+/* ─── Self-service workspace ─── */
+function SelfWorkspace() {
   const steps = [
     {
       num: "01",
@@ -645,50 +717,53 @@ function SelfServiceFlow() {
     {
       num: "03",
       title: "Choose and e-sign",
-      body: "Select your preferred offer, review the Key Fact Statement, and sign digitally. No physical branch visit needed.",
+      body: "Select your preferred offer, review the Key Fact Statement, and sign digitally. No branch visit needed.",
     },
   ];
 
   return (
-    <div className="grid lg:grid-cols-[1fr_360px]">
-      <div className="border-b border-[#EEF3FB] px-6 py-7 sm:px-10 lg:border-b-0 lg:border-r">
-        <p className="mb-1 font-mono text-[10px] font-semibold tracking-[0.12em] uppercase text-[#0051AE]">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] xl:grid-cols-[1fr_360px]">
+      {/* Left: steps */}
+      <div className="border-b border-[#E6ECF4] px-6 py-7 sm:px-10 lg:border-b-0 lg:border-r lg:py-8">
+        <p className="font-mono text-[10.5px] font-semibold tracking-[0.13em] uppercase text-[#0051AE]">
           Digital journey
         </p>
-        <h4 className="mb-6 text-[18px] font-bold tracking-[-0.015em] text-[#002B98]">
+        <h4 className="mt-1.5 text-[20px] font-semibold tracking-[-0.018em] text-[#002B98]">
           Three steps, entirely online
         </h4>
-        <ol className="space-y-4">
+
+        <ol className="mt-6 space-y-1">
           {steps.map((s, i) => (
-            <li key={s.num} className="flex gap-4">
-              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#E6F1FB] text-[11px] font-bold text-[#0051AE]">
-                {s.num}
-              </span>
-              <div className="min-w-0 flex-1 pt-0.5">
-                <p className="text-[14px] font-semibold text-[#002B98]">{s.title}</p>
-                <p className="mt-1 text-[13px] leading-relaxed text-[#5B657D]">{s.body}</p>
-                {i < steps.length - 1 && (
-                  <div className="ml-[-24px] mt-4 h-px w-[calc(100%+24px)] bg-[#EEF3FB]" />
-                )}
+            <li key={s.num}>
+              <div className="flex gap-4 py-4">
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-[#E6EFF9] text-[11px] font-bold text-[#0051AE]">
+                  {s.num}
+                </span>
+                <div className="min-w-0 flex-1 pt-0.5">
+                  <p className="text-[14px] font-semibold text-[#002B98]">{s.title}</p>
+                  <p className="mt-1 text-[13px] leading-relaxed text-[#5B657D]">{s.body}</p>
+                </div>
               </div>
+              {i < steps.length - 1 && <div className="h-px bg-[#E6ECF4]" />}
             </li>
           ))}
         </ol>
-        <div className="mt-8">
+
+        <div className="mt-6">
           <Link
             to="/auth/signup"
-            className="flex items-center justify-center gap-2 rounded-lg bg-[#002B98] px-5 py-2.5 text-[13px] font-semibold text-white shadow-sm transition-colors hover:bg-[#001A5C]"
+            className="flex h-12 w-full items-center justify-center gap-2 rounded-[8px] bg-[#002B98] text-[13.5px] font-semibold text-white transition-colors hover:bg-[#001A5C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]"
           >
             Start my application
-            <ArrowRight className="size-4" />
+            <ArrowRight aria-hidden className="size-4" />
           </Link>
         </div>
       </div>
 
-      {/* Right panel: key self-service facts */}
-      <div className="bg-[#FAFBFF] px-6 py-7 sm:px-8">
-        <p className="mb-4 text-[13px] font-semibold text-[#002B98]">Why self-service?</p>
-        <ul className="space-y-4">
+      {/* Right: key facts panel */}
+      <div className="bg-[#FAFBFF] px-6 py-7 sm:px-8 lg:py-8">
+        <p className="text-[13px] font-semibold text-[#002B98]">Why self-service?</p>
+        <ul aria-label="Self-service advantages" className="mt-4 space-y-4">
           {[
             { icon: Zap, title: "~6 minutes", sub: "Average time to complete the application" },
             { icon: ShieldCheck, title: "Fully secure", sub: "Aadhaar eKYC + DigiLocker verification" },
@@ -696,8 +771,8 @@ function SelfServiceFlow() {
             { icon: Globe2, title: "English & Hindi", sub: "Full UI available in both languages" },
           ].map(({ icon: Icon, title, sub }) => (
             <li key={title} className="flex items-start gap-3">
-              <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#E6F1FB] text-[#0051AE]">
-                <Icon className="size-4" />
+              <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-[6px] bg-[#E6EFF9] text-[#0051AE]">
+                <Icon aria-hidden className="size-[17px]" />
               </span>
               <div>
                 <p className="text-[13px] font-semibold text-[#002B98]">{title}</p>
