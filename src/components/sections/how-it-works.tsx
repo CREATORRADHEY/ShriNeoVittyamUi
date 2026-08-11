@@ -196,29 +196,23 @@ function HowApplyBlock({ shown }: { shown: boolean }) {
         shown ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
       )}
     >
-      {/* ── INTRO AREA: agent photo as bg, heading + route cards on top ── */}
-      <div className="relative overflow-hidden border-b border-[#E6ECF4]">
-        {/* Agent photo — background of heading area */}
-        <img
-          src={agentPhotoSrc}
-          alt=""
-          aria-hidden
-          className="absolute inset-0 h-full w-full object-cover object-[center_18%]"
-          loading="eager"
-          decoding="async"
-        />
-        {/* Gradient overlay — ensures text readability */}
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-gradient-to-b from-[#001650]/85 via-[#001650]/75 to-[#001650]/90"
+      {/* ── INTRO AREA: Clean light-themed header matching bank-grade style ── */}
+      <div className="relative overflow-hidden border-b border-[#E6ECF4] bg-gradient-to-b from-[#FAFBFF] to-white px-6 pb-8 pt-8 text-center sm:px-10">
+        {/* Subtle grid accent background */}
+        <div 
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(#002B98 1px, transparent 1px)",
+            backgroundSize: "20px 20px"
+          }}
         />
 
-        {/* Centered heading group — sits above the photo */}
-        <div className="relative z-10 mx-auto max-w-[640px] px-6 pb-8 pt-8 text-center sm:px-10">
-          <h3 className="font-display text-[clamp(22px,2vw,30px)] font-semibold tracking-[-0.022em] text-white">
+        {/* Centered heading group */}
+        <div className="relative z-10 mx-auto max-w-[640px]">
+          <h3 className="font-display text-[clamp(22px,2vw,30px)] font-semibold tracking-[-0.022em] text-[#002B98]">
             How would you like to apply?
           </h3>
-          <p className="mt-2 text-[15px] leading-[1.6] text-white/75">
+          <p className="mt-2 text-[15px] leading-[1.6] text-[#5B657D]">
             Choose a self-service journey or get step-by-step help from a verified local agent.
           </p>
 
@@ -665,34 +659,67 @@ function Step2Connect({
   );
 }
 
-/* ─── Right: Agent trust panel (no image — plain navy) ─── */
+/* ─── Right: Agent trust panel (Vector Badge Visual System) ─── */
 function AgentTrustPanel() {
   return (
-    <div className="flex flex-col justify-center bg-[#001E6C] px-7 py-8 lg:px-8">
-      {/* Verified badge */}
-      <span className="mb-5 inline-flex w-fit items-center gap-1.5 rounded-full bg-[#22C55E]/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-white">
-        <span aria-hidden className="size-[6px] rounded-full bg-white" />
-        Verified agent
-      </span>
+    <div className="flex flex-col justify-between bg-[#002272] px-7 py-8 lg:px-8">
+      <div>
+        {/* Premium Digital Security / Verification Console Card */}
+        <div className="relative overflow-hidden rounded-[8px] border border-white/[0.12] bg-[#001A5C] p-5 shadow-inner">
+          {/* Subtle glowing orb indicator */}
+          <div className="absolute -right-8 -top-8 size-24 rounded-full bg-emerald-500/10 blur-xl" />
+          
+          <div className="flex items-center justify-between">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-[#22C55E]">
+              <span className="size-[5px] rounded-full bg-[#22C55E] animate-pulse" />
+              Secure Matcher
+            </span>
+            <span className="text-[10px] font-mono text-white/40">ID: SNV-VERIFIED</span>
+          </div>
 
-      {/* Trust heading */}
-      <h4 className="text-[20px] font-bold leading-[1.3] text-white">
-        Guidance, while you stay in control.
-      </h4>
+          {/* Connection Vector Diagram */}
+          <div className="my-5 flex items-center justify-center gap-4">
+            <div className="flex size-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/90">
+              <User className="size-5" />
+            </div>
+            
+            {/* Animated/pulse matching connection lines */}
+            <div className="flex flex-1 items-center justify-between px-1">
+              <span className="size-1 rounded-full bg-[#22C55E]" />
+              <span className="h-[2px] flex-1 bg-gradient-to-r from-[#22C55E] via-[#22C55E]/40 to-white/15" />
+              <span className="size-1 rounded-full bg-white/30" />
+            </div>
 
-      {/* Bullets */}
-      <ul aria-label="Agent assistance guarantees" className="mt-5 space-y-3">
-        {[
-          "Explains options and documents",
-          "Cannot accept an offer for you",
-          "Application stays tracked on ShriNeo",
-        ].map((point) => (
-          <li key={point} className="flex items-start gap-2.5">
-            <Check aria-hidden className="mt-0.5 size-3.5 shrink-0 text-[#22C55E]" strokeWidth={2.5} />
-            <span className="text-[13.5px] leading-snug text-white/80">{point}</span>
-          </li>
-        ))}
-      </ul>
+            <div className="flex size-10 items-center justify-center rounded-lg border border-[#22C55E]/30 bg-[#22C55E]/5 text-[#22C55E]">
+              <ShieldCheck className="size-5" />
+            </div>
+          </div>
+
+          <div className="text-center">
+            <p className="text-[12.5px] font-semibold text-white">Direct secure link setup</p>
+            <p className="mt-0.5 text-[11px] text-white/60">Masking call routes and documents</p>
+          </div>
+        </div>
+
+        {/* Trust heading */}
+        <h4 className="mt-6 text-[18px] font-bold leading-[1.35] text-white">
+          Guidance, while you stay in control.
+        </h4>
+
+        {/* Bullets */}
+        <ul aria-label="Agent assistance guarantees" className="mt-4 space-y-3">
+          {[
+            "Explains options and documents",
+            "Cannot accept an offer for you",
+            "Application stays tracked on ShriNeo",
+          ].map((point) => (
+            <li key={point} className="flex items-start gap-2.5">
+              <Check aria-hidden className="mt-0.5 size-3.5 shrink-0 text-[#22C55E]" strokeWidth={2.5} />
+              <span className="text-[13px] leading-snug text-white/80">{point}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {/* Privacy notice */}
       <div className="mt-6 flex items-start gap-2.5 rounded-[7px] border border-white/[0.18] bg-white/[0.06] px-3.5 py-3">
