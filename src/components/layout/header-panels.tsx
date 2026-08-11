@@ -206,14 +206,17 @@ export function LoansMenu() {
                   {t("menu.loans.action")}
                   <ArrowRight aria-hidden className="size-4" />
                 </a>
-                <Link
-                  to="/for-borrowers"
-                  onClick={closeNow}
-                  className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[10px] border border-border text-sm font-medium text-primary transition-colors duration-150 hover:bg-brand-50"
+                <button
+                  type="button"
+                  onClick={() => {
+                    closeNow();
+                    window.dispatchEvent(new CustomEvent("shrineo:open-neo"));
+                  }}
+                  className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[10px] border border-border text-sm font-medium text-primary transition-colors duration-150 hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                 >
                   {t("menu.help.neo")}
                   <ArrowRight aria-hidden className="size-4" />
-                </Link>
+                </button>
               </div>
             </div>
           </div>
@@ -338,18 +341,15 @@ export function NeedHelpPill() {
               {t("menu.help.title")}
             </p>
             <ul className="grid gap-1 sm:grid-cols-2">
-              {supportOptions.map((option) => (
-                <li key={option.key}>
-                  <Link
-                    to={option.to}
-                    onClick={closeNow}
-                    className="group flex min-h-11 items-start gap-2.5 rounded-[10px] border border-transparent p-2.5 transition-[background-color,border-color] duration-150 hover:border-brand-200 hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-                  >
+              {supportOptions.map((option) => {
+                const isNeo = option.key === "neo";
+                const content = (
+                  <>
                     <option.icon
                       aria-hidden
                       className="mt-0.5 size-4 shrink-0 stroke-[1.5] text-primary"
                     />
-                    <span className="min-w-0 flex-1">
+                    <span className="min-w-0 flex-1 text-left">
                       <span className="flex items-center justify-between gap-1.5">
                         <span className="text-sm font-medium">{t(`menu.help.${option.key}`)}</span>
                         <ArrowRight
@@ -361,9 +361,34 @@ export function NeedHelpPill() {
                         {t(option.meta)}
                       </span>
                     </span>
-                  </Link>
-                </li>
-              ))}
+                  </>
+                );
+
+                return (
+                  <li key={option.key}>
+                    {isNeo ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          closeNow();
+                          window.dispatchEvent(new CustomEvent("shrineo:open-neo"));
+                        }}
+                        className="group flex w-full min-h-11 items-start gap-2.5 rounded-[10px] border border-transparent p-2.5 transition-[background-color,border-color] duration-150 hover:border-brand-200 hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+                      >
+                        {content}
+                      </button>
+                    ) : (
+                      <Link
+                        to={option.to}
+                        onClick={closeNow}
+                        className="group flex min-h-11 items-start gap-2.5 rounded-[10px] border border-transparent p-2.5 transition-[background-color,border-color] duration-150 hover:border-brand-200 hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+                      >
+                        {content}
+                      </Link>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
