@@ -653,49 +653,58 @@ function Step2Connect({
 /* ─── Right: Agent trust panel ─── */
 function AgentTrustPanel() {
   return (
-    /* Flush right panel — feels part of the workspace shell, not a separate floating card */
-    <div className="flex flex-col bg-[#002272] px-7 py-7 lg:px-8 lg:py-8">
-      {/* Agent photo — 8px radius */}
-      <div className="relative overflow-hidden rounded-[8px]">
-        <img
-          src={agentPhotoSrc}
-          alt="A ShriNeo verified agent"
-          className="h-[180px] w-full object-cover object-[center_18%] sm:h-[200px] lg:h-[190px]"
-          loading="lazy"
-          decoding="async"
-        />
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#001650]/55 to-transparent" />
-        {/* Verified badge — pill is acceptable for status chips */}
-        <span className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-[#22C55E]/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-sm">
+    /* Full-bleed panel — image covers the entire right column,
+       trust copy sits on a deep gradient overlay at the bottom */
+    <div className="relative min-h-[340px] overflow-hidden lg:min-h-0">
+      {/* Agent photo — fills entire panel */}
+      <img
+        src={agentPhotoSrc}
+        alt="A ShriNeo verified agent"
+        className="absolute inset-0 h-full w-full object-cover object-[center_15%]"
+        loading="lazy"
+        decoding="async"
+      />
+
+      {/* Deep gradient — bottom two-thirds, ensures text legibility */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-t from-[#001650] via-[#001650]/80 via-[40%] to-transparent"
+      />
+
+      {/* Content overlay — pinned to bottom */}
+      <div className="absolute inset-x-0 bottom-0 flex flex-col px-7 pb-7 pt-0 lg:px-8 lg:pb-8">
+        {/* Verified badge */}
+        <span className="mb-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-[#22C55E]/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-sm">
           <span aria-hidden className="size-[6px] rounded-full bg-white" />
           Verified agent
         </span>
-      </div>
 
-      {/* Trust copy */}
-      <h4 className="mt-5 text-[17px] font-bold leading-[1.35] text-white">
-        Guidance, while you stay in control.
-      </h4>
+        {/* Trust heading */}
+        <h4 className="text-[17px] font-bold leading-[1.35] text-white">
+          Guidance, while you stay in control.
+        </h4>
 
-      <ul aria-label="Agent assistance guarantees" className="mt-4 space-y-3">
-        {[
-          "Explains options and documents",
-          "Cannot accept an offer for you",
-          "Application stays tracked on ShriNeo",
-        ].map((point) => (
-          <li key={point} className="flex items-start gap-2.5">
-            <Check aria-hidden className="mt-0.5 size-3.5 shrink-0 text-[#22C55E]" strokeWidth={2.5} />
-            <span className="text-[13px] leading-snug text-white/80">{point}</span>
-          </li>
-        ))}
-      </ul>
+        {/* Bullets */}
+        <ul aria-label="Agent assistance guarantees" className="mt-3 space-y-2.5">
+          {[
+            "Explains options and documents",
+            "Cannot accept an offer for you",
+            "Application stays tracked on ShriNeo",
+          ].map((point) => (
+            <li key={point} className="flex items-start gap-2.5">
+              <Check aria-hidden className="mt-0.5 size-3.5 shrink-0 text-[#22C55E]" strokeWidth={2.5} />
+              <span className="text-[13px] leading-snug text-white/85">{point}</span>
+            </li>
+          ))}
+        </ul>
 
-      {/* Privacy notice — 6–8px radius, controlled opacity borders */}
-      <div className="mt-5 flex items-start gap-2.5 rounded-[7px] border border-white/[0.18] bg-white/[0.06] px-3.5 py-3">
-        <ShieldCheck aria-hidden className="mt-0.5 size-3.5 shrink-0 text-white/50" />
-        <p className="text-[11.5px] leading-snug text-white/55">
-          Your contact details stay masked and are shared only with your consent.
-        </p>
+        {/* Privacy notice */}
+        <div className="mt-4 flex items-start gap-2.5 rounded-[7px] border border-white/[0.18] bg-white/[0.06] px-3.5 py-3 backdrop-blur-sm">
+          <ShieldCheck aria-hidden className="mt-0.5 size-3.5 shrink-0 text-white/50" />
+          <p className="text-[11.5px] leading-snug text-white/60">
+            Your contact details stay masked and are shared only with your consent.
+          </p>
+        </div>
       </div>
     </div>
   );
