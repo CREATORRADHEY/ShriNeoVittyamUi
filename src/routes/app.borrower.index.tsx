@@ -29,6 +29,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { formatINR } from "@/lib/format";
 import { APPLICATION_LABEL, usePrototype } from "@/prototype/state";
+import { useI18n } from "@/i18n";
 
 export const Route = createFileRoute("/app/borrower/")({
   head: () => ({
@@ -52,6 +53,7 @@ export const Route = createFileRoute("/app/borrower/")({
 
 function BorrowerDashboard() {
   const { account, data, application } = usePrototype();
+  const { t } = useI18n();
 
   const banner =
     account === "partial" ? (
@@ -79,14 +81,14 @@ function BorrowerDashboard() {
   return (
     <PortalShell
       role="borrower"
-      title="Namaste, Rohit"
-      subtitle="Demonstration data — no live lender information is shown"
+      title={t("portal.borrower.greeting", "Namaste, Rohit")}
+      subtitle={t("portal.subtitle.demo", "Demonstration data — no live lender information is shown")}
       banner={banner}
       actions={
         <Button asChild size="sm">
           <Link to="/app/borrower/apply">
             <Sparkles aria-hidden className="size-4" />
-            Apply
+            {t("portal.nav.apply", "Apply")}
           </Link>
         </Button>
       }

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
-import { NeoChatWidget } from "@/components/neo/neo-chat-widget";
+
 import { useI18n } from "@/i18n";
 
 export function PublicShell({ children }: { children: ReactNode }) {
@@ -20,7 +20,6 @@ export function PublicShell({ children }: { children: ReactNode }) {
         {children}
       </main>
       <SiteFooter />
-      <NeoChatWidget />
     </div>
   );
 }

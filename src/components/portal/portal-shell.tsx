@@ -38,6 +38,8 @@ import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from 
 import { org } from "@/config/org";
 import { cn } from "@/lib/utils";
 import { DEVICE_WIDTH, ROLE_LABEL, usePrototype, type Role } from "@/prototype/state";
+import { LanguageSwitcher } from "@/components/layout/language-switcher";
+import { useI18n } from "@/i18n";
 
 export type NavItem = { label: string; to: string; icon: ComponentType<{ className?: string }>; primary?: boolean };
 
@@ -108,11 +110,13 @@ const DENSITY: Record<Role, { pad: string; gap: string; maxW: string; label: str
 function NavList({ role, onNavigate }: { role: Role; onNavigate?: () => void }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const compact = role === "lender" || role === "admin";
+  const { t } = useI18n();
   return (
     <nav aria-label={`${ROLE_LABEL[role]} portal`} className="flex flex-col gap-0.5">
       {PORTAL_NAV[role].map((item) => {
         const active = pathname === item.to;
         const Icon = item.icon;
+        const key = `portal.nav.${item.label.toLowerCase().replace(/[^a-z0-9]/g, "")}`;
         return (
           <Link
             key={item.to}
@@ -128,7 +132,7 @@ function NavList({ role, onNavigate }: { role: Role; onNavigate?: () => void }) 
             )}
           >
             <Icon aria-hidden className="size-4 shrink-0" />
-            <span className="truncate">{item.label}</span>
+            <span className="truncate">{t(key, item.label)}</span>
           </Link>
         );
       })}
@@ -212,7 +216,10 @@ export function PortalShell({
                 Search files, IDs, partners
               </div>
             ) : null}
-            {actions}
+            <div className="flex items-center gap-3">
+              <LanguageSwitcher />
+              {actions}
+            </div>
           </div>
           {banner ? <div className={cn("border-t border-border", role === "borrower" ? "px-5 py-3" : "px-4 py-2.5")}>{banner}</div> : null}
         </header>
@@ -231,6 +238,7 @@ export function PortalShell({
         >
           {primary.map((item) => {
             const Icon = item.icon;
+            const key = `portal.nav.${item.label.toLowerCase().replace(/[^a-z0-9]/g, "")}`;
             return (
               <Link
                 key={item.to}
@@ -240,7 +248,7 @@ export function PortalShell({
                 activeOptions={{ exact: true }}
               >
                 <Icon aria-hidden className="size-5" />
-                <span className="truncate">{item.label.split(" ")[0]}</span>
+                <span className="truncate">{t(key, item.label).split(" ")[0]}</span>
               </Link>
             );
           })}

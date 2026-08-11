@@ -19,6 +19,7 @@ import { PrototypeToolbar } from "@/components/prototype/toolbar";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { PrototypeProvider } from "@/prototype/state";
 import { I18nProvider } from "../i18n";
+import { NeoChatWidget } from "@/components/neo/neo-chat-widget";
 
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
@@ -118,6 +119,7 @@ function RootComponent() {
               <Outlet />
             </RouteTransition>
             <Toaster />
+            <NeoChatWidget />
             <CookieConsent />
             <PrototypeToolbar />
           </PrototypeProvider>
