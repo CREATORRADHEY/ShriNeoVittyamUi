@@ -196,18 +196,33 @@ function HowApplyBlock({ shown }: { shown: boolean }) {
         shown ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
       )}
     >
-      {/* ── INTRO AREA: heading + route selection ── */}
-      <div className="border-b border-[#E6ECF4] px-6 pb-7 pt-7 sm:px-10">
-        {/* Centered heading group */}
-        <div className="mx-auto max-w-[640px] text-center">
-          <h3 className="font-display text-[clamp(22px,2vw,30px)] font-semibold tracking-[-0.022em] text-[#002B98]">
+      {/* ── INTRO AREA: agent photo as bg, heading + route cards on top ── */}
+      <div className="relative overflow-hidden border-b border-[#E6ECF4]">
+        {/* Agent photo — background of heading area */}
+        <img
+          src={agentPhotoSrc}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover object-[center_18%]"
+          loading="eager"
+          decoding="async"
+        />
+        {/* Gradient overlay — ensures text readability */}
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-b from-[#001650]/85 via-[#001650]/75 to-[#001650]/90"
+        />
+
+        {/* Centered heading group — sits above the photo */}
+        <div className="relative z-10 mx-auto max-w-[640px] px-6 pb-8 pt-8 text-center sm:px-10">
+          <h3 className="font-display text-[clamp(22px,2vw,30px)] font-semibold tracking-[-0.022em] text-white">
             How would you like to apply?
           </h3>
-          <p className="mt-2 text-[15px] leading-[1.6] text-[#5B657D]">
+          <p className="mt-2 text-[15px] leading-[1.6] text-white/75">
             Choose a self-service journey or get step-by-step help from a verified local agent.
           </p>
 
-          {/* Route cards — centered, max 740px wide, 2-column */}
+          {/* Route cards */}
           <div
             className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2"
             role="radiogroup"
@@ -650,61 +665,41 @@ function Step2Connect({
   );
 }
 
-/* ─── Right: Agent trust panel ─── */
+/* ─── Right: Agent trust panel (no image — plain navy) ─── */
 function AgentTrustPanel() {
   return (
-    /* Full-bleed panel — image covers the entire right column,
-       trust copy sits on a deep gradient overlay at the bottom */
-    <div className="relative min-h-[340px] overflow-hidden lg:min-h-0">
-      {/* Agent photo — fills entire panel */}
-      <img
-        src={agentPhotoSrc}
-        alt="A ShriNeo verified agent"
-        className="absolute inset-0 h-full w-full object-cover object-[center_15%]"
-        loading="lazy"
-        decoding="async"
-      />
+    <div className="flex flex-col justify-center bg-[#001E6C] px-7 py-8 lg:px-8">
+      {/* Verified badge */}
+      <span className="mb-5 inline-flex w-fit items-center gap-1.5 rounded-full bg-[#22C55E]/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-white">
+        <span aria-hidden className="size-[6px] rounded-full bg-white" />
+        Verified agent
+      </span>
 
-      {/* Deep gradient — bottom two-thirds, ensures text legibility */}
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-t from-[#001650] via-[#001650]/80 via-[40%] to-transparent"
-      />
+      {/* Trust heading */}
+      <h4 className="text-[20px] font-bold leading-[1.3] text-white">
+        Guidance, while you stay in control.
+      </h4>
 
-      {/* Content overlay — pinned to bottom */}
-      <div className="absolute inset-x-0 bottom-0 flex flex-col px-7 pb-7 pt-0 lg:px-8 lg:pb-8">
-        {/* Verified badge */}
-        <span className="mb-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-[#22C55E]/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-white backdrop-blur-sm">
-          <span aria-hidden className="size-[6px] rounded-full bg-white" />
-          Verified agent
-        </span>
+      {/* Bullets */}
+      <ul aria-label="Agent assistance guarantees" className="mt-5 space-y-3">
+        {[
+          "Explains options and documents",
+          "Cannot accept an offer for you",
+          "Application stays tracked on ShriNeo",
+        ].map((point) => (
+          <li key={point} className="flex items-start gap-2.5">
+            <Check aria-hidden className="mt-0.5 size-3.5 shrink-0 text-[#22C55E]" strokeWidth={2.5} />
+            <span className="text-[13.5px] leading-snug text-white/80">{point}</span>
+          </li>
+        ))}
+      </ul>
 
-        {/* Trust heading */}
-        <h4 className="text-[17px] font-bold leading-[1.35] text-white">
-          Guidance, while you stay in control.
-        </h4>
-
-        {/* Bullets */}
-        <ul aria-label="Agent assistance guarantees" className="mt-3 space-y-2.5">
-          {[
-            "Explains options and documents",
-            "Cannot accept an offer for you",
-            "Application stays tracked on ShriNeo",
-          ].map((point) => (
-            <li key={point} className="flex items-start gap-2.5">
-              <Check aria-hidden className="mt-0.5 size-3.5 shrink-0 text-[#22C55E]" strokeWidth={2.5} />
-              <span className="text-[13px] leading-snug text-white/85">{point}</span>
-            </li>
-          ))}
-        </ul>
-
-        {/* Privacy notice */}
-        <div className="mt-4 flex items-start gap-2.5 rounded-[7px] border border-white/[0.18] bg-white/[0.06] px-3.5 py-3 backdrop-blur-sm">
-          <ShieldCheck aria-hidden className="mt-0.5 size-3.5 shrink-0 text-white/50" />
-          <p className="text-[11.5px] leading-snug text-white/60">
-            Your contact details stay masked and are shared only with your consent.
-          </p>
-        </div>
+      {/* Privacy notice */}
+      <div className="mt-6 flex items-start gap-2.5 rounded-[7px] border border-white/[0.18] bg-white/[0.06] px-3.5 py-3">
+        <ShieldCheck aria-hidden className="mt-0.5 size-3.5 shrink-0 text-white/50" />
+        <p className="text-[11.5px] leading-snug text-white/55">
+          Your contact details stay masked and are shared only with your consent.
+        </p>
       </div>
     </div>
   );
