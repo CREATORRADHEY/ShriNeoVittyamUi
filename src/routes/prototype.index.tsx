@@ -265,6 +265,142 @@ function PrototypeNavigator() {
           </div>
         </section>
 
+        <section aria-labelledby="neo-qa-title" className="mt-12">
+          <h2 id="neo-qa-title" className="text-sm font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+            Neo Assistant States (Design QA)
+          </h2>
+          <div className="mt-4 grid gap-5 rounded-xl border border-border bg-card p-5 md:grid-cols-3">
+            <div>
+              <p className="label-micro text-muted-foreground">Primary View States</p>
+              <div className="mt-2 flex flex-col gap-1.5">
+                {[
+                  { label: "State 1: Compact Launcher", state: "minimized" },
+                  { label: "State 2: Greeting Onboarding", state: "greeting" },
+                  { label: "State 3: Full Welcoming Panel", state: "open" }
+                ].map((item) => (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={() => {
+                      window.dispatchEvent(
+                        new CustomEvent("shrineo:neo-override", {
+                          detail: { state: item.state, voiceState: "idle", messages: null }
+                        })
+                      );
+                    }}
+                    className="flex items-center justify-between rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground transition-colors hover:border-primary hover:bg-accent"
+                  >
+                    <span>{item.label}</span>
+                    <ArrowRight className="size-3.5 text-muted-foreground" />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <p className="label-micro text-muted-foreground">Voice Search / Microphone States</p>
+              <div className="mt-2 flex flex-col gap-1.5">
+                {[
+                  { label: "Voice State: Listening…", voiceState: "listening" },
+                  { label: "Voice State: Understanding…", voiceState: "understanding" },
+                  { label: "Voice State: Permission Denied", voiceState: "permission_denied" },
+                  { label: "Voice State: Device Error", voiceState: "error" },
+                  { label: "Voice State: System Offline", voiceState: "offline" }
+                ].map((item) => (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={() => {
+                      window.dispatchEvent(
+                        new CustomEvent("shrineo:neo-override", {
+                          detail: { state: "open", voiceState: item.voiceState }
+                        })
+                      );
+                    }}
+                    className="flex items-center justify-between rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground transition-colors hover:border-primary hover:bg-accent"
+                  >
+                    <span>{item.label}</span>
+                    <ArrowRight className="size-3.5 text-[#E8A020]" />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <p className="label-micro text-muted-foreground">Interactive Overrides</p>
+              <div className="mt-2 flex flex-col gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    window.dispatchEvent(
+                      new CustomEvent("shrineo:neo-override", {
+                        detail: {
+                          state: "open",
+                          voiceState: "idle",
+                          messages: [
+                            { id: "qa1", from: "neo", text: "Welcome! Click any of the quick actions below to see how I help you." },
+                            { id: "qa2", from: "you", text: "What is SNV Trust Score?" },
+                            { id: "qa3", from: "neo", text: "SNV Trust Score is our proprietary indicator of creditworthiness based on transactional bank aggregator data rather than traditional bureau details alone." }
+                          ]
+                        }
+                      })
+                    );
+                  }}
+                  className="flex items-center justify-between rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground transition-colors hover:border-primary hover:bg-accent"
+                >
+                  <span>Active Conversation State</span>
+                  <ArrowRight className="size-3.5 text-muted-foreground" />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    window.dispatchEvent(
+                      new CustomEvent("shrineo:neo-override", {
+                        detail: {
+                          state: "open",
+                          voiceState: "idle",
+                          messages: [
+                            { id: "m1", from: "neo", text: "How can I help you understand loans, documents, or rates today?" },
+                            { id: "m2", from: "you", text: "Tell me about Sachet loans." },
+                            { id: "m3", from: "neo", text: "Sachet loans are micro-credit options from ₹10,000 to ₹1 Lakh with flexible short-term repayment terms designed for small micro-enterprises." },
+                            { id: "m4", from: "you", text: "What documents do I need to prepare?" },
+                            { id: "m5", from: "neo", text: "Generally just identity eKYC (Aadhaar/PAN) and 6 months bank statement uploads. Some lenders request shop license proof." },
+                            { id: "m6", from: "you", text: "How fast is disbursal?" },
+                            { id: "m7", from: "neo", text: "Verified disbursal typically takes under 2 hours once matching offers are signed and e-mandate setup is complete." },
+                            { id: "m8", from: "you", text: "What if I repay early?" },
+                            { id: "m9", from: "neo", text: "Most participating lenders offer zero-fee prepayment on micro sachet loans, but confirm terms in the Key Fact Statement first." }
+                          ]
+                        }
+                      })
+                    );
+                  }}
+                  className="flex items-center justify-between rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground transition-colors hover:border-primary hover:bg-accent"
+                >
+                  <span>Long Conversation Scroll State</span>
+                  <ArrowRight className="size-3.5 text-muted-foreground" />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    window.localStorage.removeItem("shrineo.neoGreetingSeen");
+                    window.dispatchEvent(
+                      new CustomEvent("shrineo:neo-override", {
+                        detail: { state: "greeting", voiceState: "idle" }
+                      })
+                    );
+                  }}
+                  className="flex items-center justify-between rounded-md border border-[#E9E1D2] bg-[#FAF8F5] px-3 py-2 text-sm font-semibold text-[#806126] transition-colors hover:border-[#C19842] hover:bg-[#FAF8F5]"
+                >
+                  <span>Reset & Show Onboarding Greeting</span>
+                  <ArrowRight className="size-3.5 text-[#806126]" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <p className="mt-12 border-t border-border pt-5 text-xs text-muted-foreground">
           {org.brandLine} · {org.roleStatement} · Prototype build: no authentication, no live lender
           data, no payment execution.

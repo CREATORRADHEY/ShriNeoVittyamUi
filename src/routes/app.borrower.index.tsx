@@ -188,12 +188,23 @@ function NewBorrower() {
       <SectionCard title="Prefer help from a person?" description="Verified agents assist with documents and lender questions">
         <div className="flex flex-wrap items-center gap-3">
           <Users aria-hidden className="size-5 text-primary" />
-          <p className="text-sm text-muted-foreground">
-            Agents can only act on your file after you approve a consent request on your own mobile
+          <p className="text-sm text-muted-foreground flex-1 min-w-[200px]">
+            Agents can only act on your file after you approve a consent request on your own mobile.
           </p>
-          <Button asChild size="sm" variant="outline">
-            <Link to="/app/borrower/agents">Find a verified agent</Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button asChild size="sm" variant="outline">
+              <Link to="/app/borrower/agents">Find a verified agent</Link>
+            </Button>
+            <Button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent("shrineo:open-neo"))}
+              size="sm"
+              variant="ghost"
+              className="text-primary hover:underline hover:bg-neutral-50"
+            >
+              Talk to Neo
+            </Button>
+          </div>
         </div>
       </SectionCard>
     </>

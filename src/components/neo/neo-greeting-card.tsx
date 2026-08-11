@@ -11,51 +11,68 @@ interface NeoGreetingCardProps {
   dockOffset: number;
 }
 
-export function NeoGreetingCard({ onAccept, onDismiss, visible, dockOffset }: NeoGreetingCardProps) {
+export function NeoGreetingCard({
+  onAccept,
+  onDismiss,
+  visible,
+  dockOffset,
+}: NeoGreetingCardProps) {
   const { t } = useI18n();
   const [mounted, setMounted] = useState(false);
+  const [showText, setShowText] = useState(false);
 
   useEffect(() => {
     if (visible) {
-      const id = setTimeout(() => setMounted(true), 80);
+      setMounted(true);
+      // Stagger text entry by 60ms to let the character appear first
+      const id = setTimeout(() => setShowText(true), 60);
       return () => clearTimeout(id);
     } else {
       setMounted(false);
+      setShowText(false);
     }
   }, [visible]);
 
   if (!visible) return null;
 
-  const cardBottom = 72 + dockOffset;
+  const cardBottom = 96 + dockOffset;
 
   return (
     <div
       style={{ bottom: `${cardBottom}px` }}
       className={cn(
-        "fixed right-4 z-40 w-[calc(100vw-32px)] max-w-[390px] rounded-[18px] border border-[#DDE7F5] bg-white p-5 pr-6 shadow-[0_20px_55px_-24px_rgba(0,43,152,0.32)] sm:right-6 sm:w-[420px] sm:max-w-none sm:p-6",
-        "origin-bottom-right transition-all duration-[300ms] ease-[cubic-bezier(0.2,0,0,1)]",
-        mounted ? "translate-y-0 scale-100 opacity-100" : "translate-y-3 scale-[0.985] opacity-0"
+        /* Greeting card: fixed on bottom right (24-30px padding on desktop, 16px on mobile) */
+        "fixed right-4 z-40 w-[calc(100vw-32px)] max-w-[390px] rounded-[18px] border border-[#DDE7F5] bg-white p-5 shadow-[0_20px_55px_-24px_rgba(0,43,152,0.32)] sm:right-6 sm:w-[430px] sm:max-w-none sm:p-6",
+        "origin-bottom-right transition-all duration-[280ms] ease-[cubic-bezier(0.2,0,0,1)]",
+        mounted ? "translate-y-0 scale-100 opacity-100" : "translate-y-3.5 scale-[0.985] opacity-0"
       )}
     >
-      {/* Close button */}
+      {/* Close button (Dismiss control) */}
       <button
         type="button"
         onClick={onDismiss}
         aria-label="Dismiss Neo greeting"
-        className="absolute top-3.5 right-3.5 flex size-8 items-center justify-center rounded-full text-[#5B657D] transition-colors hover:bg-neutral-100 hover:text-neutral-900"
+        className="absolute right-3.5 top-3.5 flex size-8 items-center justify-center rounded-full text-[#5B657D] transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]"
       >
         <X aria-hidden className="size-4 shrink-0" />
       </button>
 
-      {/* Main layout: left avatar (escapes top), right copy */}
-      <div className="flex gap-4 sm:gap-5">
-        {/* Waving Neo character (escapes top boundary) */}
+      {/* Main card grid: 2-column layout */}
+      <div className="flex gap-4 sm:gap-6">
+        {/* Left Side: Waving Neo character (escapes/overflows card top) */}
         <div className="relative w-[110px] shrink-0 sm:w-[130px]">
+          {/* Restrained blue atmospheric treatment behind Neo */}
+          <div 
+            aria-hidden="true"
+            className="absolute bottom-[-20px] left-1/2 h-[160px] w-[140px] -translate-x-1/2 rounded-full bg-gradient-to-t from-[#E6F1FB]/80 to-transparent blur-[20px]"
+          />
+
           <img
             src={neoGreetingSrc}
             alt=""
             className={cn(
-              "absolute left-0 bottom-[-20px] h-[210px] w-auto max-w-none object-contain",
+              /* Neo is approximately 180-205px tall, extends past top of card */
+              "absolute bottom-[-20px] left-[-10px] h-[195px] w-[150px] max-w-none object-contain",
               "transition-transform duration-[350ms] ease-out",
               mounted ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
             )}
@@ -63,18 +80,18 @@ export function NeoGreetingCard({ onAccept, onDismiss, visible, dockOffset }: Ne
           />
         </div>
 
-        {/* Copy & CTA */}
+        {/* Right Side: Greeting Copy & CTA (staggered entrance) */}
         <div
           className={cn(
             "flex min-w-0 flex-1 flex-col justify-center pt-2",
-            "transition-all duration-[300ms] delay-[60ms] ease-out",
-            mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+            "transition-all duration-[240ms] ease-out",
+            showText ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
           )}
         >
-          <h3 className="editorial text-lg font-bold text-[#002B98] leading-tight sm:text-xl">
+          <h3 className="font-display text-lg font-bold leading-tight text-[#002B98] sm:text-xl">
             {t("neo.greeting.title", "Hi! I’m Neo 👋")}
           </h3>
-          <p className="mt-2 text-xs leading-[1.5] text-[#5B657D] sm:text-sm">
+          <p className="mt-2 text-[13px] leading-relaxed text-[#5B657D] sm:text-[14px]">
             {t(
               "neo.greeting.body",
               "I can help you understand loans, documents, costs and the application process"
@@ -85,7 +102,7 @@ export function NeoGreetingCard({ onAccept, onDismiss, visible, dockOffset }: Ne
             type="button"
             onClick={onAccept}
             aria-label="Talk to Neo"
-            className="group mt-4 inline-flex items-center justify-center gap-1.5 rounded-[10px] bg-[#002B98] px-4 py-2.5 text-center text-xs font-semibold text-white shadow-sm transition-all hover:bg-[#001A5C] hover:shadow-md active:translate-y-px"
+            className="group mt-4 inline-flex h-10 items-center justify-center gap-1.5 rounded-[10px] bg-[#002B98] px-4 text-center text-[13px] font-semibold text-white shadow-sm transition-all hover:bg-[#001A5C] hover:shadow-md active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]"
           >
             {t("neo.greeting.cta", "Talk to Neo")}
             <ArrowRight aria-hidden className="size-3.5 transition-transform group-hover:translate-x-0.5" />

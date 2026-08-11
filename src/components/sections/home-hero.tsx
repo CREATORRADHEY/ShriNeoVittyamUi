@@ -68,8 +68,9 @@ export function HomeHero() {
                   Apply for a loan
                   <ArrowRight aria-hidden className="size-4" />
                 </Link>
-                <Link
-                  to="/for-borrowers"
+                <button
+                  type="button"
+                  onClick={() => window.dispatchEvent(new CustomEvent("shrineo:open-neo"))}
                   className="font-display inline-flex min-h-11 items-center gap-[9px] self-start border-b border-white/45 pb-1 text-[16.5px] font-medium tracking-[-0.01em] text-white transition-colors duration-150 hover:border-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
                 >
                   <Mic
@@ -77,7 +78,7 @@ export function HomeHero() {
                     className="h-[18px] w-4 shrink-0 stroke-[1.4] text-white"
                   />
                   Ask Neo
-                </Link>
+                </button>
               </div>
 
 

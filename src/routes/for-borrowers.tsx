@@ -198,17 +198,26 @@ export function ForBorrowersPage() {
           </div>
           <ul className="grid gap-3">
             {[
-              "“What does APR include?”",
-              "“Why do you need my bank statement?”",
-              "“What happens if I miss an EMI?”",
-              "“Can I close this loan early?”",
+              "What does APR include?",
+              "Why do you need my bank statement?",
+              "What happens if I miss an EMI?",
+              "Can I close this loan early?",
             ].map((q) => (
-              <li
-                key={q}
-                className="flex items-center gap-3 rounded-lg border border-border bg-card p-4 text-sm"
-              >
-                <CircleHelp aria-hidden className="size-4 shrink-0 text-muted-foreground" />
-                {q}
+              <li key={q}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    window.dispatchEvent(
+                      new CustomEvent("shrineo:open-neo", {
+                        detail: { message: q }
+                      })
+                    );
+                  }}
+                  className="flex w-full items-center gap-3 rounded-lg border border-border bg-card p-4 text-left text-sm font-medium text-foreground transition-colors hover:border-[#0051AE] hover:bg-[#F5F8FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]"
+                >
+                  <CircleHelp aria-hidden className="size-4 shrink-0 text-muted-foreground" />
+                  “{q}”
+                </button>
               </li>
             ))}
           </ul>

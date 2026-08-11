@@ -107,46 +107,151 @@ export function PrototypeToolbar() {
       </div>
 
       {p.toolbarOpen ? (
-        <div className="mx-auto grid max-w-[1600px] gap-3 border-t border-border px-3 py-3 md:grid-cols-2 xl:grid-cols-5">
-          <Group
-            legend="Role"
-            options={ROLES}
-            labels={ROLE_LABEL}
-            value={p.role}
-            onChange={(v) => p.set("role", v)}
-          />
-          <Group
-            legend="Account scenario"
-            options={ACCOUNT_SCENARIOS}
-            labels={ACCOUNT_LABEL}
-            value={p.account}
-            onChange={(v) => p.set("account", v)}
-          />
-          <Group
-            legend="Data scenario"
-            options={DATA_SCENARIOS}
-            labels={DATA_LABEL}
-            value={p.data}
-            onChange={(v) => p.set("data", v)}
-          />
-          <Group
-            legend="Application scenario"
-            options={APPLICATION_SCENARIOS}
-            labels={APPLICATION_LABEL}
-            value={p.application}
-            onChange={(v) => p.set("application", v)}
-          />
-          <div className="space-y-2">
+        <div className="mx-auto flex flex-col gap-4 border-t border-border px-3 py-3">
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
             <Group
-              legend="Device"
-              options={DEVICES}
-              labels={DEVICE_LABEL}
-              value={p.device}
-              onChange={(v) => p.set("device", v)}
+              legend="Role"
+              options={ROLES}
+              labels={ROLE_LABEL}
+              value={p.role}
+              onChange={(v) => p.set("role", v)}
             />
-            <Button asChild size="sm" variant="secondary" className="w-full">
-              <Link to={ROLE_HOME[p.role]}>Open {ROLE_LABEL[p.role]} dashboard</Link>
-            </Button>
+            <Group
+              legend="Account scenario"
+              options={ACCOUNT_SCENARIOS}
+              labels={ACCOUNT_LABEL}
+              value={p.account}
+              onChange={(v) => p.set("account", v)}
+            />
+            <Group
+              legend="Data scenario"
+              options={DATA_SCENARIOS}
+              labels={DATA_LABEL}
+              value={p.data}
+              onChange={(v) => p.set("data", v)}
+            />
+            <Group
+              legend="Application scenario"
+              options={APPLICATION_SCENARIOS}
+              labels={APPLICATION_LABEL}
+              value={p.application}
+              onChange={(v) => p.set("application", v)}
+            />
+            <div className="space-y-2">
+              <Group
+                legend="Device"
+                options={DEVICES}
+                labels={DEVICE_LABEL}
+                value={p.device}
+                onChange={(v) => p.set("device", v)}
+              />
+              <Button asChild size="sm" variant="secondary" className="w-full">
+                <Link to={ROLE_HOME[p.role]}>Open {ROLE_LABEL[p.role]} dashboard</Link>
+              </Button>
+            </div>
+          </div>
+
+          {/* Development-only Neo controls section */}
+          <div className="border-t border-border pt-3">
+            <p className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-2">
+              Neo Assistant States (Design QA)
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              {/* Neo View overrides */}
+              <div className="flex flex-wrap gap-1">
+                {[
+                  { label: "State 1: Launcher", state: "minimized" },
+                  { label: "State 2: Greeting", state: "greeting" },
+                  { label: "State 3: Full Assistant", state: "open" }
+                ].map((item) => (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={() => {
+                      window.dispatchEvent(
+                        new CustomEvent("shrineo:neo-override", {
+                          detail: { state: item.state, voiceState: "idle" }
+                        })
+                      );
+                    }}
+                    className="rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-medium text-foreground hover:bg-accent"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Voice state overrides */}
+              <div className="flex flex-wrap gap-1 border-l border-border pl-3">
+                {[
+                  { label: "Listening", voiceState: "listening" },
+                  { label: "Understanding", voiceState: "understanding" },
+                  { label: "Microphone Denied", voiceState: "permission_denied" },
+                  { label: "Error", voiceState: "error" },
+                  { label: "Offline", voiceState: "offline" }
+                ].map((item) => (
+                  <button
+                    key={item.label}
+                    type="button"
+                    onClick={() => {
+                      window.dispatchEvent(
+                        new CustomEvent("shrineo:neo-override", {
+                          detail: { state: "open", voiceState: item.voiceState }
+                        })
+                      );
+                    }}
+                    className="rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-medium text-foreground hover:bg-[#FFF2EB]"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Language and Reset overrides */}
+              <div className="flex items-center gap-2 border-l border-border pl-3 ml-auto">
+                <button
+                  type="button"
+                  onClick={() => {
+                    window.dispatchEvent(
+                      new CustomEvent("shrineo:neo-override", {
+                        detail: { language: "hi" }
+                      })
+                    );
+                  }}
+                  className="rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-medium text-foreground hover:bg-accent"
+                >
+                  Force Hindi (हिन्दी)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    window.dispatchEvent(
+                      new CustomEvent("shrineo:neo-override", {
+                        detail: { language: "en" }
+                      })
+                    );
+                  }}
+                  className="rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-medium text-foreground hover:bg-accent"
+                >
+                  Force English
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    // Clear persistent memory to allow designers to re-trigger onboarding greeting card
+                    window.localStorage.removeItem("shrineo.neoGreetingSeen");
+                    window.dispatchEvent(
+                      new CustomEvent("shrineo:neo-override", {
+                        detail: { state: "greeting", voiceState: "idle" }
+                      })
+                    );
+                  }}
+                  className="rounded-md border border-[#E9E1D2] bg-[#FAF8F5] px-2.5 py-1 text-[11px] font-semibold text-[#806126] hover:bg-[#EFEADF]"
+                >
+                  Reset Neo Introduction
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       ) : null}
