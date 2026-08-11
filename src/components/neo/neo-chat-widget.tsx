@@ -4,7 +4,7 @@ import { useLocation } from "@tanstack/react-router";
 import { useI18n } from "@/i18n";
 import { usePrefersReducedMotion } from "@/lib/motion";
 import { usePrototype } from "@/prototype/state";
-import { Msg, NeoView } from "./neo-types";
+import { Msg } from "./neo-types";
 import { NeoLauncher } from "./neo-launcher";
 import { NeoGreetingCard } from "./neo-greeting-card";
 import { NeoPanel } from "./neo-panel";
@@ -20,7 +20,14 @@ export function NeoChatWidget() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const prototypeState = usePrototype();
 
-  const [view, setView] = useState<NeoView>("minimized");
+  // Lifecycle states:
+  // idle: initial delay state (nothing visible)
+  // minimized: launcher visible
+  // greeting: greeting card visible
+  // open: chat panel open
+  const [view, setView] = useState<"idle" | "minimized" | "greeting" | "open">("idle");
+  const [hasDismissedGreeting, setHasDismissedGreeting] = useState(false);
+
   const [messages, setMessages] = useState<Msg[]>([]);
   const [typing, setTyping] = useState(false);
   const [recording, setRecording] = useState(false);
@@ -67,79 +74,27 @@ export function NeoChatWidget() {
     };
   }, []);
 
-  // Onboarding Greeting Card trigger logic (First eligible visit)
+  // Onboarding Greeting Card trigger logic (First eligible visit on EVERY reload)
   useEffect(() => {
     if (isLenderOrAdmin || !mounted) return;
 
-    try {
-      const greetingSeen = window.localStorage.getItem(STORAGE_KEY) === "true";
-      if (!greetingSeen) {
-        // First session: show greeting card 2 seconds after page is visually stable
-        const id = window.setTimeout(() => {
-          setView("greeting");
-        }, 2000);
-        timers.current.push(id);
-        return () => window.clearTimeout(id);
-      } else {
-        // Returning session: launcher is default entry point
-        setView("minimized");
-      }
-    } catch {
-      // Storage fallback: use minimized launcher
-      setView("minimized");
+    if (!hasDismissedGreeting && view === "idle") {
+      // First session on load: show greeting card 2 seconds after page is visually stable.
+      // During these 2 seconds, view is "idle", meaning launcher is completely hidden.
+      const id = window.setTimeout(() => {
+        setView("greeting");
+      }, 2000);
+      timers.current.push(id);
+      return () => window.clearTimeout(id);
     }
-  }, [mounted, isLenderOrAdmin]);
-
-  // Subscribe to external trigger clicks (e.g. buttons with data-trigger-neo or talk to neo links)
-  useEffect(() => {
-    const handleOpenNeo = (e: Event) => {
-      const customEvent = e as CustomEvent;
-      setView("open");
-      
-      // Persist seen state when opened from external trigger
-      try {
-        window.localStorage.setItem(STORAGE_KEY, "true");
-      } catch {
-        /* fallback */
-      }
-
-      if (customEvent.detail?.message) {
-        onSendMessage(customEvent.detail.message);
-      }
-    };
-
-    window.addEventListener("shrineo:open-neo", handleOpenNeo);
-    return () => window.removeEventListener("shrineo:open-neo", handleOpenNeo);
-  }, []);
-
-  // Subscribe to Design QA overrides (prototype state controls)
-  useEffect(() => {
-    const handleOverride = (e: Event) => {
-      const customEvent = e as CustomEvent;
-      const data = customEvent.detail;
-      if (data.state) setView(data.state);
-      if (data.voiceState) setVoiceState(data.voiceState);
-      if (data.language) setLanguage(data.language);
-      if (data.messages) {
-        setMessages(data.messages);
-      } else if (data.state === "open" && messages.length === 0) {
-        // Default panel open greeting
-        setMessages([{ id: nextId(), from: "neo", text: t("neo.greeting", "Namaste. I'm Neo. How can I help you today?") }]);
-      }
-    };
-
-    window.addEventListener("shrineo:neo-override", handleOverride);
-    return () => window.removeEventListener("shrineo:neo-override", handleOverride);
-  }, [t, setLanguage, messages.length]);
+  }, [mounted, isLenderOrAdmin, hasDismissedGreeting, view]);
 
   // Handle message sending and responses
   const getContextualAnswer = (lowerText: string): string => {
-    // Phase 4: Financial safety, context-aware constraints, & application status checks
     const appState = prototypeState.application;
     const accountState = prototypeState.account;
     const dataState = prototypeState.data;
 
-    // Check query types
     if (lowerText.includes("loan") || lowerText.includes("borrow") || lowerText.includes("option")) {
       return "We offer several structured loan options matched directly from participating banks and NBFCs:\n\n• Personal Loan: ₹50,000 – ₹15 Lakhs\n• Business Loan: ₹1 Lakh – ₹50 Lakhs\n• Home Loan: ₹10 Lakhs – ₹5 Crores\n• Sachet Loan: ₹10,000 – ₹1 Lakh\n\nWould you like to check what you qualify for?";
     }
@@ -153,7 +108,6 @@ export function NeoChatWidget() {
     }
 
     if (lowerText.includes("status") || lowerText.includes("track") || lowerText.includes("progress")) {
-      // Dynamic verification status check
       if (accountState === "new" || dataState === "empty") {
         return "I don't see any active loan application for your profile yet. You can choose a loan product and submit your application from the dashboard.";
       }
@@ -192,7 +146,6 @@ export function NeoChatWidget() {
     }
 
     if (lowerText.includes("trust") || lowerText.includes("score") || lowerText.includes("snv")) {
-      // Financial safety rule: do not fabricate unless active profile is populated
       if (accountState === "active" && dataState === "populated") {
         return "Your SNV Trust Score is verified at **78/100** (Excellent). This is based on Aadhaar eKYC validity, account aggregator transactions, and prompt repayment history.";
       }
@@ -224,6 +177,49 @@ export function NeoChatWidget() {
     [prefersReducedMotion, prototypeState]
   );
 
+  // Subscribe to external trigger clicks (e.g. buttons with data-trigger-neo or talk to neo links)
+  useEffect(() => {
+    const handleOpenNeo = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      setView("open");
+      setHasDismissedGreeting(true);
+
+      if (customEvent.detail?.message) {
+        onSendMessage(customEvent.detail.message);
+      }
+    };
+
+    window.addEventListener("shrineo:open-neo", handleOpenNeo);
+    return () => window.removeEventListener("shrineo:open-neo", handleOpenNeo);
+  }, [onSendMessage]);
+
+  // Subscribe to Design QA overrides (prototype state controls)
+  useEffect(() => {
+    const handleOverride = (e: Event) => {
+      const customEvent = e as CustomEvent;
+      const data = customEvent.detail;
+      if (data.state) {
+        setView(data.state);
+        if (data.state === "greeting") {
+          setHasDismissedGreeting(false);
+        } else if (data.state === "open" || data.state === "minimized") {
+          setHasDismissedGreeting(true);
+        }
+      }
+      if (data.voiceState) setVoiceState(data.voiceState);
+      if (data.language) setLanguage(data.language);
+      if (data.messages) {
+        setMessages(data.messages);
+      } else if (data.state === "open" && messages.length === 0) {
+        // Default panel open greeting
+        setMessages([{ id: nextId(), from: "neo", text: t("neo.greeting", "Namaste. I'm Neo. How can I help you today?") }]);
+      }
+    };
+
+    window.addEventListener("shrineo:neo-override", handleOverride);
+    return () => window.removeEventListener("shrineo:neo-override", handleOverride);
+  }, [t, setLanguage, messages.length]);
+
   const handleLanguageToggle = () => {
     const nextLang = language === "hi" ? "en" : "hi";
     setLanguage(nextLang);
@@ -232,6 +228,7 @@ export function NeoChatWidget() {
   // Lifecycle state transition handlers
   const handleOpenPanel = () => {
     setView("open");
+    setHasDismissedGreeting(true);
     // Seed initial welcome message if empty
     if (messages.length === 0) {
       setMessages([
@@ -242,21 +239,10 @@ export function NeoChatWidget() {
         },
       ]);
     }
-    // Set greeting seen in persistent storage
-    try {
-      window.localStorage.setItem(STORAGE_KEY, "true");
-    } catch {
-      /* fallback */
-    }
   };
 
   const handleGreetingAccept = () => {
-    // Persist seen state
-    try {
-      window.localStorage.setItem(STORAGE_KEY, "true");
-    } catch {
-      /* fallback */
-    }
+    setHasDismissedGreeting(true);
     setView("open");
     if (messages.length === 0) {
       setMessages([
@@ -270,12 +256,7 @@ export function NeoChatWidget() {
   };
 
   const handleGreetingDismiss = () => {
-    // Persist seen state
-    try {
-      window.localStorage.setItem(STORAGE_KEY, "true");
-    } catch {
-      /* fallback */
-    }
+    setHasDismissedGreeting(true);
     setView("minimized");
   };
 
@@ -283,12 +264,15 @@ export function NeoChatWidget() {
 
   return createPortal(
     <>
-      {/* State 1: Compact Avatar Launcher */}
-      <NeoLauncher
-        open={view === "open" || view === "greeting"}
-        onClick={handleOpenPanel}
-        dockOffset={dockOffset}
-      />
+      {/* State 1: Compact Avatar Launcher.
+          Rendered ONLY after greeting card is closed/dismissed and the panel is not currently open. */}
+      {hasDismissedGreeting && (
+        <NeoLauncher
+          open={view === "open"}
+          onClick={handleOpenPanel}
+          dockOffset={dockOffset}
+        />
+      )}
 
       {/* State 2: Floating Greeting Onboarding Card */}
       <NeoGreetingCard
