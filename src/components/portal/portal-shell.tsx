@@ -156,6 +156,7 @@ export function PortalShell({
   children: ReactNode;
 }) {
   const { device } = usePrototype();
+  const { t } = useI18n();
   const d = DENSITY[role];
   const framed = device !== "desktop";
   const primary = PORTAL_NAV[role].filter((i) => i.primary).slice(0, 4);
