@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import agentPhotoSrc from "@/assets/photo-agent-suit.jpg";
+import agentPhotoSrc from "@/assets/photo-agent-suit.png";
 import { Reveal } from "@/components/sections/reveal";
 
 const BENEFITS = [
