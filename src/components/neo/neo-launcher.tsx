@@ -41,6 +41,7 @@ export function NeoLauncher({ onClick, open, dockOffset }: NeoLauncherProps) {
       onClick={onClick}
       aria-label="Open Neo assistant"
       aria-expanded={open}
+      tabIndex={open ? -1 : undefined}
       style={{ bottom: `${baseBottom}px` }}
       className={cn(
         /* Launcher positioning: fixed on bottom right (24px padding on desktop, 16px on mobile) */

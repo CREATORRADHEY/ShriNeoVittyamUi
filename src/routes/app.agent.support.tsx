@@ -115,7 +115,7 @@ function AgentSupportPage() {
           <div>
             <p className="font-semibold text-sm">Escalation SLA Timers</p>
             <p className="mt-1 leading-relaxed">
-              Lenders matched on ShriNeo are bound to a **48-hour SLA** for first-time credit checks. If a file is stuck beyond this window, use the "Escalate Stuck File" action. This sends a priority notification to the bank's operational supervisor.
+              Lenders matched on ShriNeo are bound to a <strong>48-hour SLA</strong> for first-time credit checks. If a file is stuck beyond this window, use the "Escalate Stuck File" action. This sends a priority notification to the bank's operational supervisor.
             </p>
           </div>
         </div>

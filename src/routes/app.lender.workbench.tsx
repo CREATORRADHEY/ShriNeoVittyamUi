@@ -55,10 +55,6 @@ function LenderWorkbenchPage() {
   const [infoReqText, setInfoReqText] = useState("");
   const [infoReqDueDate, setInfoReqDueDate] = useState("2026-03-20");
   const [infoReqInternalNotes, setInfoReqInternalNotes] = useState("");
-  
-  const [outwardRequests, setOutwardRequests] = useState([
-    { id: "REQ-884021", detail: "Electricity bill mismatch clarification", status: "Sent" }
-  ]);
 
   // Decision state
   const [decisionMode, setDecisionMode] = useState<"none" | "approve" | "reject" | "fraud">("none");
@@ -83,12 +79,6 @@ function LenderWorkbenchPage() {
     e.preventDefault();
     if (!infoReqText.trim()) return;
     const newReqId = `REQ-${Math.floor(800000 + Math.random() * 199999)}`;
-    const newReq = {
-      id: newReqId,
-      detail: `${infoReqField} request: "${infoReqText}" (Due: ${infoReqDueDate})`,
-      status: "Sent"
-    };
-    setOutwardRequests(prev => [newReq, ...prev]);
     
     // Also log this query in audit ledger
     const auditMsg = `Clarification raised (${newReqId}) for item "${infoReqField}". Reason: "${infoReqText}". Internal notes: "${infoReqInternalNotes || 'None'}"`;
@@ -409,11 +399,13 @@ function LenderWorkbenchPage() {
             {/* OUTWARD INFO QUERIES */}
             <SectionCard title="Action Centre Queries">
               <div className="space-y-3">
-                {outwardRequests.map((req) => (
+                {requests.map((req) => (
                   <div key={req.id} className="p-2.5 rounded border border-border bg-surface flex justify-between items-center">
                     <div>
                       <p className="font-semibold text-foreground">{req.id}</p>
-                      <p className="text-[10px] text-muted-foreground mt-0.5">{req.detail}</p>
+                      <p className="text-[10px] text-muted-foreground mt-0.5">
+                        {req.requiredItem} request: "{req.reason}" (Due: {req.dueDate})
+                      </p>
                     </div>
                     <span className="text-[10px] text-blue-700 font-semibold uppercase">{req.status}</span>
                   </div>
@@ -471,7 +463,7 @@ function LenderWorkbenchPage() {
 
               <div className="space-y-3">
                 <p className="text-muted-foreground text-[10px] leading-relaxed">
-                  This request will populate instantly in the borrower's **Action Centre** checklist. SMS notifications will be dispatched automatically.
+                  This request will populate instantly in the borrower's <strong>Action Centre</strong> checklist. SMS notifications will be dispatched automatically.
                 </p>
                 
                 <div>

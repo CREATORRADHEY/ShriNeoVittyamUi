@@ -135,6 +135,7 @@ function DocumentsPage() {
                       size="sm"
                       variant="outline"
                       disabled={account === "suspended"}
+                      aria-label={d.status === "Required" || d.status === "Rejected" ? `Upload ${d.name}` : `Download ${d.name}`}
                       onClick={() => {
                         if (d.status === "Required" || d.status === "Rejected") {
                           triggerUploadAction(d.id, d.name);

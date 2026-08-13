@@ -260,7 +260,7 @@ function FindAgentPage() {
               <div className="p-3 bg-red-50 text-red-900 border-b border-red-200 text-[10px] flex items-start gap-1">
                 <ShieldAlert className="size-4 shrink-0 mt-0.5" />
                 <p>
-                  **Safety Warning**: Never share passwords, bank PINs, credit card numbers, CVVs, or OTP codes with anyone, including verified agents.
+                  <strong>Safety Warning</strong>: Never share passwords, bank PINs, credit card numbers, CVVs, or OTP codes with anyone, including verified agents.
                 </p>
               </div>
 

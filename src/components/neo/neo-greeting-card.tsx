@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { X, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/i18n";
@@ -20,21 +20,34 @@ export function NeoGreetingCard({
   const { t } = useI18n();
   const [mounted, setMounted] = useState(false);
   const [showText, setShowText] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let id: any;
     if (visible) {
       setMounted(true);
       // Stagger text entry by 60ms to let the character appear first
-      id = setTimeout(() => setShowText(true), 60);
+      id = setTimeout(() => {
+        setShowText(true);
+        cardRef.current?.focus();
+      }, 60);
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          onDismiss();
+        }
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        window.removeEventListener("keydown", handleKeyDown);
+        if (id) clearTimeout(id);
+      };
     } else {
       setMounted(false);
       setShowText(false);
+      return () => {};
     }
-    return () => {
-      if (id) clearTimeout(id);
-    };
-  }, [visible]);
+  }, [visible, onDismiss]);
 
   if (!visible) return null;
 
@@ -42,6 +55,10 @@ export function NeoGreetingCard({
 
   return (
     <div
+      ref={cardRef}
+      tabIndex={-1}
+      role="dialog"
+      aria-label="Neo greeting card"
       style={{ bottom: `${cardBottom}px` }}
       className={cn(
         /* Greeting card: fixed on bottom right (moved closer to edge: right-2/sm:right-3) */
@@ -55,7 +72,7 @@ export function NeoGreetingCard({
         type="button"
         onClick={onDismiss}
         aria-label="Dismiss Neo greeting"
-        className="absolute right-1 top-1 flex h-11 w-11 items-center justify-center rounded-full text-[#5B657D] transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]"
+        className="absolute right-1 top-1 z-10 flex h-11 w-11 items-center justify-center rounded-full text-[#5B657D] transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]"
       >
         <X aria-hidden className="size-4 shrink-0" />
       </button>

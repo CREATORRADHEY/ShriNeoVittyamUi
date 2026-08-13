@@ -211,7 +211,7 @@ function AgentCommissionsPage() {
 
                 <div className="space-y-3 text-xs">
                   <p className="text-muted-foreground">
-                    Appealing clawback adjustment for **{selectedCommId}**. Under statutory guidelines, early prepayment disputes are reviewed by ShriNeo GRO committee.
+                    Appealing clawback adjustment for <strong>{selectedCommId}</strong>. Under statutory guidelines, early prepayment disputes are reviewed by ShriNeo GRO committee.
                   </p>
                   <div>
                     <label htmlFor="disp-details" className="block text-xs font-semibold text-muted-foreground mb-1">Appeal Reason & Details</label>

@@ -152,7 +152,7 @@ function PaymentsPage() {
                           <StatusBadge tone={tone}>{status}</StatusBadge>
                         </td>
                         <td className="px-3 py-3">
-                          <Button size="sm" variant="ghost" onClick={() => toast.success(`Receipt for ${date} downloaded.`)}>Download</Button>
+                          <Button size="sm" variant="ghost" aria-label={`Download payment receipt for ${date}`} onClick={() => toast.success(`Receipt for ${date} downloaded.`)}>Download</Button>
                         </td>
                       </tr>
                     ))}

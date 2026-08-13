@@ -3043,7 +3043,7 @@ export function ApplicationFlow() {
                   className="size-4 mt-0.5"
                 />
                 <label htmlFor="lender-sharing-consent-toggle" className="text-xs font-semibold text-foreground leading-snug">
-                  I agree to share my application details, bank cashflow summaries, and credit score with the selected regulated partner lenders. **I understand that the regulated lender makes the final underwriting credit decision.**
+                  I agree to share my application details, bank cashflow summaries, and credit score with the selected regulated partner lenders. <strong>I understand that the regulated lender makes the final underwriting credit decision.</strong>
                 </label>
               </div>
             </div>
@@ -3176,8 +3176,9 @@ export function ApplicationFlow() {
                               type="button"
                               onClick={() => setActiveKfsOffer(offer)}
                               className="text-[#0051AE] inline-flex items-center gap-1 hover:underline font-bold"
+                              aria-label={`View ${offer.lender} Key Fact Statement`}
                             >
-                              View KFS
+                              View {offer.lender} KFS
                               <ExternalLink className="size-3" />
                             </button>
                           </td>

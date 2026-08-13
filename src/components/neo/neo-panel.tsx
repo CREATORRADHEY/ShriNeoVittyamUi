@@ -104,9 +104,27 @@ export function NeoPanel({
     },
   ];
 
+  // Escape key close handler
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
+  // Focus input when opened
+  useEffect(() => {
+    setTimeout(() => inputRef.current?.focus(), 150);
+  }, []);
+
   return (
     <div
       style={{ bottom: `${panelBottom}px` }}
+      role="dialog"
+      aria-label="Neo assistant panel"
       className={cn(
         /* Responsive sizing: full bottom sheet on mobile, fixed panel on desktop */
         "fixed right-0 z-50 w-full bg-white border border-[#DDE7F5] shadow-[0_20px_55px_-24px_rgba(0,43,152,0.32)]",

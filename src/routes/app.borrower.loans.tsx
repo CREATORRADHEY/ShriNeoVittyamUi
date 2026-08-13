@@ -161,7 +161,7 @@ function BorrowerLoansPage() {
 
                 <SectionCard title="Lender Support Bridge">
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    This account is managed directly by **SBI Digital Finance**. For credit queries or restructuring options, visit their portal.
+                    This account is managed directly by <strong>SBI Digital Finance</strong>. For credit queries or restructuring options, visit their portal.
                   </p>
                   <Button variant="outline" size="sm" className="mt-4 w-full flex items-center gap-1.5 justify-center" onClick={() => window.open("https://sbi.co.in", "_blank")}>
                     Go to SBI Support <ExternalLink className="size-3.5" />

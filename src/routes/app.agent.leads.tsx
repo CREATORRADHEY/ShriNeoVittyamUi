@@ -240,7 +240,7 @@ function AgentLeadsPage() {
                     </button>
                   </div>
                   <div className="p-2.5 bg-red-50 text-red-900 border-b border-red-200 text-[9px]">
-                    **Warning**: Never ask the client for password, PIN, CVV or OTP codes.
+                    <strong>Warning</strong>: Never ask the client for password, PIN, CVV or OTP codes.
                   </div>
                   <div className="flex-1 overflow-y-auto p-3 space-y-2 text-xs">
                     {chatHistory.map((c, i) => (

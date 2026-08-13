@@ -6,6 +6,7 @@ import { Link } from "@tanstack/react-router";
 import { PageState, SupportEscalation, type StateAction, type Tone } from "@/components/states";
 import { org } from "@/config/org";
 import { ROLE_HOME, ROLE_LABEL, usePrototype } from "@/prototype/state";
+import logo from "@/assets/shrineo-logo.png";
 
 /** A calm financial-path figure: one route ends, a marked alternate continues. */
 export function PathFigure({ variant = "diverge" }: { variant?: "diverge" | "system" | "signal" }) {
@@ -134,8 +135,9 @@ export function FullPageState({
     <main className="min-h-dvh bg-background">
       <div className="mx-auto flex min-h-dvh max-w-6xl flex-col px-5 py-8 sm:px-8">
         <header className="flex items-center justify-between gap-4">
-          <Link to="/" className="flex items-center gap-2">
-            <span className="editorial text-lg text-foreground">{org.brandName}</span>
+          <Link to="/" className="flex items-center gap-2.5">
+            <img src={logo} alt="ShriNeo Capital logo" className="h-7 w-auto object-contain" />
+            <span className="text-base font-semibold text-[#0A286F] tracking-tight">{org.brandName}</span>
           </Link>
           {code ? (
             <span className="num rounded-full border border-border bg-surface px-2.5 py-1 text-xs text-muted-foreground">

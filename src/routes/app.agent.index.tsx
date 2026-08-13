@@ -464,7 +464,7 @@ function AgentOnboardingDashboard({ payoutSkipped, setPayoutSkipped }: Onboardin
                       className="mt-0.5 size-4 rounded border-gray-300"
                     />
                     <Label htmlFor="agree1" className="leading-relaxed font-normal">
-                      I acknowledge that ShriNeo Capital is a **zero-fee platform** for borrowers. I will never collect processing fees or commissions directly from any applicant.
+                      I acknowledge that ShriNeo Capital is a <strong>zero-fee platform</strong> for borrowers. I will never collect processing fees or commissions directly from any applicant.
                     </Label>
                   </div>
                   <div className="flex items-start gap-2">

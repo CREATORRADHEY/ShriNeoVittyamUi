@@ -563,7 +563,7 @@ function Step1Language({
   return (
     <div>
       <p className="font-mono text-[10.5px] font-semibold tracking-[0.13em] uppercase text-[#0051AE]">
-        Language preference
+        Preferred Communication Language
       </p>
       <h4 className="mt-1.5 text-[20px] font-semibold tracking-[-0.018em] text-[#002B98]">
         Which language do you prefer?
@@ -571,7 +571,7 @@ function Step1Language({
       <div
         className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2"
         role="radiogroup"
-        aria-label="Preferred language"
+        aria-label="Preferred Communication Language"
       >
         {langs.map((lang) => {
           const active = selectedLang === lang.id;

@@ -121,7 +121,7 @@ function BorrowerSupportPage() {
           <div>
             <p className="font-semibold text-sm">RBI Ombudsman Redressal</p>
             <p className="mt-1 leading-relaxed">
-              If your complaint remains unresolved for 30 days or is rejected by our Grievance Redressal Officer, you are entitled to escalate directly to the **RBI Integrated Ombudsman** under the Integrated Ombudsman Scheme.
+              If your complaint remains unresolved for 30 days or is rejected by our Grievance Redressal Officer, you are entitled to escalate directly to the <strong>RBI Integrated Ombudsman</strong> under the Integrated Ombudsman Scheme.
             </p>
             <Button size="xs" variant="outline" className="mt-2 text-blue-900 border-blue-300 hover:bg-blue-100" onClick={() => window.open("https://cms.rbi.org.in", "_blank")}>
               Go to RBI CMS Portal
@@ -217,7 +217,7 @@ function BorrowerSupportPage() {
                 <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-red-900 text-xs flex gap-1.5 items-start">
                   <ShieldAlert className="size-5 shrink-0 mt-0.5 text-red-600" />
                   <p>
-                    **EMERGENCY REPORT**: Stop and submit this form immediately if an agent, clerk, or third-party has requested payments, fees, or OTP codes.
+                    <strong>EMERGENCY REPORT</strong>: Stop and submit this form immediately if an agent, clerk, or third-party has requested payments, fees, or OTP codes.
                   </p>
                 </div>
               )}

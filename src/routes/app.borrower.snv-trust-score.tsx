@@ -65,7 +65,7 @@ function SnvTrustScorePage() {
           <div>
             <p className="font-semibold text-sm">Advisory Notification Only</p>
             <p className="mt-1">
-              The SNV Trust Score is advisory. **The regulated underwriting lender makes the final credit decision.** No proprietary scoring weights or internals are exposed.
+              The SNV Trust Score is advisory. <strong>The regulated underwriting lender makes the final credit decision.</strong> No proprietary scoring weights or internals are exposed.
             </p>
           </div>
         </div>

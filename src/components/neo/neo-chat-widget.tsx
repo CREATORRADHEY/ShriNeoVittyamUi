@@ -35,6 +35,7 @@ export function NeoChatWidget() {
   const [dockOffset, setDockOffset] = useState(0);
 
   const timers = useRef<number[]>([]);
+  const activeElementRef = useRef<HTMLElement | null>(null);
 
   // Clear timers on unmount
   useEffect(() => {
@@ -245,6 +246,7 @@ export function NeoChatWidget() {
 
   // Lifecycle state transition handlers
   const handleOpenPanel = () => {
+    activeElementRef.current = document.activeElement as HTMLElement;
     setView("open");
     setHasDismissedGreeting(true);
     try {
@@ -265,6 +267,7 @@ export function NeoChatWidget() {
   };
 
   const handleGreetingAccept = () => {
+    activeElementRef.current = document.activeElement as HTMLElement;
     setHasDismissedGreeting(true);
     setView("open");
     try {
@@ -325,6 +328,11 @@ export function NeoChatWidget() {
             } catch {
               /* ignore */
             }
+            setTimeout(() => {
+              if (activeElementRef.current) {
+                activeElementRef.current.focus();
+              }
+            }, 50);
           }}
           messages={messages}
           onSendMessage={onSendMessage}

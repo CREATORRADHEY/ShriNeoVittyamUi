@@ -182,7 +182,7 @@ function CibilScorePage() {
               <div className="rounded-lg border border-[#DDE7F5] bg-white p-5 space-y-3">
                 <h4 className="font-semibold text-sm text-foreground">How ShriNeo resolves thin files:</h4>
                 <p className="text-xs text-muted-foreground">
-                  Our **advisory SNV Trust Score** reads bank account deposits, cashflow stability, and utility mandates, allowing you to qualify even with no bureau records.
+                  Our <strong>advisory SNV Trust Score</strong> reads bank account deposits, cashflow stability, and utility mandates, allowing you to qualify even with no bureau records.
                 </p>
                 <Button size="sm" asChild>
                   <Link to="/app/borrower/snv-trust-score">Go to SNV Trust Score</Link>
