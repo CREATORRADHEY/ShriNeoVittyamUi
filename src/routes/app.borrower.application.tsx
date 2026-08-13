@@ -701,6 +701,10 @@ export function ApplicationFlow() {
                     onChange={(e) => setProductSubtype(e.target.value)}
                     className="flex h-10 w-full rounded-md border border-[#DDE7F5] bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   >
+                    <option value="Home Equity / Loan Against Property">
+                      Home Equity / Loan Against Property
+                    </option>
+                    <option value="Repair & Renovation">Repair & Renovation</option>
                     <option value="Commercial Property LAP">Commercial Property LAP</option>
                     <option value="Residential Property LAP">Residential Property LAP</option>
                     <option value="Plot LAP">Plot LAP</option>
@@ -2132,6 +2136,10 @@ export function ApplicationFlow() {
                         onChange={(e) => setProductSubtype(e.target.value)}
                         className="flex h-10 w-full rounded-md border border-[#DDE7F5] bg-background px-3 py-2 text-sm"
                       >
+                        <option value="Home Equity / Loan Against Property">
+                          Home Equity / Loan Against Property
+                        </option>
+                        <option value="Repair & Renovation">Repair & Renovation</option>
                         <option value="Commercial Property LAP">Commercial Property LAP</option>
                         <option value="Residential Property LAP">Residential Property LAP</option>
                         <option value="Plot LAP">Plot LAP</option>
