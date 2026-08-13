@@ -226,6 +226,9 @@ The following high-fidelity components and interactive flows are built into this
   - *Direct vs. Agent*: Shows a split choice representation of self-service and verified local agent guidance.
   - *Phone Masking*: Visualizes the data routing channel with a masked number representation (`+91 ••••• ••482`) and `[HIDDEN]` status cards.
   - *Zero-Fee E-Sign*: Renders a simulated secure OTP authorization block confirming `₹0 Agent Fee` and input validations.
-* **Premium Splash Loader** ([splash-loader.tsx](file:///src/components/layout/splash-loader.tsx)): An animated preloader displaying the brand emblem with smooth fade-in/out micro-transitions on first site load or page reloads.
+* **Premium Splash Loader** ([splash-loader.tsx](file:///Users/divyanshdusad/ShriNeoVittyamUi/src/components/layout/splash-loader.tsx)): An animated preloader displaying the brand emblem with smooth fade-in/out micro-transitions on first site load or page reloads.
 * **Animated Trust Gauge**: The SNV Trust Score panel (`/trust-center/snv-trust-score`) features a dynamic SVG ring gauge that animates up to the indicative level, mapping out application completeness metrics.
+* **Interactive Underwriter Workbench**: Lender offer parameters (amount, interest rate, tenure, and upfront processing fees) feature interactive sliders/inputs that dynamically recalculate EMI values and update the KFS preview box. Outward queries support document checklists, due dates, and separate internal notes.
+* **Bilingual Agent Onboarding & On-screen Quiz**: Onboarding wizard tracks mobile and email OTP checks, zero-fee sourcing guidelines checklists, bank skipping triggers (with persistent warnings), and a policy knowledge assessment quiz with instant training certificate generation.
+* **Interactive Admin Detail Panels**: Complete data oversight centers for Borrowers (locks, cool-offs), Agents (suspension, credentials), Lenders (routing weights, API status), Loans (pipeline timeline events), Fraud Control (device ID tracking, selfie mismatch reviews), Data Governance (auditable RBI consent ledgers), and Model Governance (PSI drift tracking, manual underwriter overrides).
 
