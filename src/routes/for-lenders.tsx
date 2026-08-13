@@ -124,7 +124,10 @@ function ForLendersPage() {
                     <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
                       {column.items.map((item) => (
                         <li key={item} className="flex gap-2">
-                          <span aria-hidden className="mt-2 size-1 shrink-0 rounded-full bg-primary" />
+                          <span
+                            aria-hidden
+                            className="mt-2 size-1 shrink-0 rounded-full bg-primary"
+                          />
                           <span className="min-w-0">{item}</span>
                         </li>
                       ))}
@@ -186,7 +189,10 @@ function ForLendersPage() {
                 {[
                   { label: "Borrower account", meta: "Own bank account, verified" },
                   { label: "Participating lender", meta: "Disburses and collects directly" },
-                  { label: "ShriNeo Capital", meta: "Sourcing, consent and servicing support only" },
+                  {
+                    label: "ShriNeo Capital",
+                    meta: "Sourcing, consent and servicing support only",
+                  },
                 ].map((row) => (
                   <div
                     key={row.label}
@@ -258,7 +264,10 @@ function ForLendersPage() {
             />
             <p className="mt-6 text-sm text-muted-foreground">
               Prefer email? Write to{" "}
-              <a className="font-medium text-primary underline" href="mailto:partnerships@shrineocapital.com">
+              <a
+                className="font-medium text-primary underline"
+                href="mailto:partnerships@shrineocapital.com"
+              >
                 partnerships@shrineocapital.com
               </a>
               .
@@ -290,7 +299,8 @@ function LenderEnquiryForm() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const next: Errors = {};
-    if (!String(data.get("institution") ?? "").trim()) next.institution = "Enter your institution name.";
+    if (!String(data.get("institution") ?? "").trim())
+      next.institution = "Enter your institution name.";
     if (!String(data.get("name") ?? "").trim()) next.name = "Enter a contact name.";
     const email = String(data.get("email") ?? "").trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) next.email = "Enter a valid work email address.";
@@ -313,7 +323,10 @@ function LenderEnquiryForm() {
         <p className="mt-2 text-sm text-muted-foreground">
           This environment has no connected backend, so nothing was sent and no one has received
           this enquiry. To reach the partnerships team now, email{" "}
-          <a className="font-medium text-primary underline" href="mailto:partnerships@shrineocapital.com">
+          <a
+            className="font-medium text-primary underline"
+            href="mailto:partnerships@shrineocapital.com"
+          >
             partnerships@shrineocapital.com
           </a>
           .

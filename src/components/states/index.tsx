@@ -31,9 +31,21 @@ export type Tone = "info" | "success" | "warning" | "error" | "neutral" | "offli
 
 const TONE: Record<
   Tone,
-  { icon: ComponentType<{ className?: string }>; text: string; surface: string; border: string; label: string }
+  {
+    icon: ComponentType<{ className?: string }>;
+    text: string;
+    surface: string;
+    border: string;
+    label: string;
+  }
 > = {
-  info: { icon: Info, text: "text-info", surface: "bg-info-surface", border: "border-info/25", label: "Information" },
+  info: {
+    icon: Info,
+    text: "text-info",
+    surface: "bg-info-surface",
+    border: "border-info/25",
+    label: "Information",
+  },
   success: {
     icon: CheckCircle2,
     text: "text-success",
@@ -130,7 +142,13 @@ function ActionButton({ action, full }: { action: StateAction; full?: boolean | 
   );
 }
 
-export function ActionRow({ actions, full }: { actions: StateAction[]; full?: boolean | undefined }) {
+export function ActionRow({
+  actions,
+  full,
+}: {
+  actions: StateAction[];
+  full?: boolean | undefined;
+}) {
   if (!actions.length) return null;
   return (
     <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
@@ -183,7 +201,9 @@ export function PageState({
         className,
       )}
     >
-      <div className={cn("flex flex-col gap-6", !compact && "sm:flex-row sm:items-start sm:gap-10")}>
+      <div
+        className={cn("flex flex-col gap-6", !compact && "sm:flex-row sm:items-start sm:gap-10")}
+      >
         <div className="min-w-0 flex-1">
           <span
             className={cn(
@@ -360,7 +380,9 @@ export function OfflineState({ resumeTo }: { resumeTo?: string }) {
       safety="Nothing you have entered has been discarded. Your last saved draft is intact."
       actions={[
         { label: "Retry connection", onClick: () => window.location.reload() },
-        ...(resumeTo ? [{ label: "Return to saved draft", to: resumeTo, variant: "outline" as const }] : []),
+        ...(resumeTo
+          ? [{ label: "Return to saved draft", to: resumeTo, variant: "outline" as const }]
+          : []),
       ]}
       support="Offline-safe content: your saved draft, uploaded document list and EMI calculator."
     />
@@ -379,16 +401,24 @@ export function RestrictedState({
   return (
     <PageState
       tone="warning"
-      title={borrowerVoice ? "This page isn't available for your account." : "You don't have access to this page."}
+      title={
+        borrowerVoice
+          ? "This page isn't available for your account."
+          : "You don't have access to this page."
+      }
       explanation={
         borrowerVoice
-          ? reason ?? "Some activity is paused while our team completes a review of your account."
+          ? (reason ?? "Some activity is paused while our team completes a review of your account.")
           : "Your current role does not include permission to view or change this information."
       }
       safety="Your application data and any repayment records remain safe and unchanged."
       actions={[
         { label: "Return to dashboard", to: "/prototype" },
-        { label: borrowerVoice ? "Contact support" : "Request access", to: "/contact", variant: "outline" },
+        {
+          label: borrowerVoice ? "Contact support" : "Request access",
+          to: "/contact",
+          variant: "outline",
+        },
       ]}
       {...(reviewWindow ? { support: `Expected review completion: ${reviewWindow}.` } : {})}
     />
@@ -403,7 +433,9 @@ export function MaintenanceState({ window: w }: { window?: string }) {
       explanation="Planned platform work is in progress. This is not an outage and no action is needed from you."
       safety="Applications, documents and repayment records are unaffected and remain saved."
       actions={[{ label: "Refresh status", onClick: () => window.location.reload() }]}
-      support={w ? `Expected return to service: ${w}.` : "Expected return time will be published here."}
+      support={
+        w ? `Expected return to service: ${w}.` : "Expected return time will be published here."
+      }
     />
   );
 }
@@ -455,7 +487,9 @@ export function OfflineBanner() {
     >
       <Signal aria-hidden className="size-4 text-muted-foreground" />
       <span className="font-medium">You're offline.</span>
-      <span className="text-muted-foreground">Saved information stays available on this device.</span>
+      <span className="text-muted-foreground">
+        Saved information stays available on this device.
+      </span>
     </div>
   );
 }
@@ -580,7 +614,10 @@ export function NamedLoading({ label }: { label: string }) {
   return (
     <div className="rounded-xl border border-border bg-card p-6" role="status" aria-live="polite">
       <div className="flex items-center gap-3">
-        <RefreshCw aria-hidden className="size-4 animate-spin text-info motion-reduce:animate-none" />
+        <RefreshCw
+          aria-hidden
+          className="size-4 animate-spin text-info motion-reduce:animate-none"
+        />
         <p className="text-sm font-medium text-foreground">{label}</p>
       </div>
       <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-surface-strong">
@@ -606,7 +643,9 @@ export function LongWaitPanel({
     <div className="rounded-xl border border-border bg-card p-6">
       <div className="flex items-center gap-2">
         <Clock aria-hidden className="size-4 text-info" />
-        <p className="text-sm font-semibold text-foreground">In progress — you don't need to wait here</p>
+        <p className="text-sm font-semibold text-foreground">
+          In progress — you don't need to wait here
+        </p>
       </div>
       <ol className="mt-4 space-y-3">
         {stages.map((s, i) => {
@@ -673,7 +712,11 @@ export function StatusTimeline({ items }: { items: TimelineItem[] }) {
   return (
     <ol className="relative space-y-6 border-l border-border pl-6">
       {items.map((item) => {
-        const v = TONE[item.tone ?? (item.state === "done" ? "success" : item.state === "current" ? "info" : "neutral")];
+        const v =
+          TONE[
+            item.tone ??
+              (item.state === "done" ? "success" : item.state === "current" ? "info" : "neutral")
+          ];
         const Icon = v.icon;
         return (
           <li key={item.label} className="relative">
@@ -719,8 +762,8 @@ export function ErrorSummary({ errors }: { errors: { id: string; message: string
       className="rounded-lg border border-destructive/25 bg-error-surface p-4"
     >
       <p id="error-summary-title" className="text-sm font-semibold text-foreground">
-        {errors.length} {errors.length === 1 ? "detail needs" : "details need"} your attention before
-        you continue
+        {errors.length} {errors.length === 1 ? "detail needs" : "details need"} your attention
+        before you continue
       </p>
       <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
         {errors.map((e) => (
@@ -752,7 +795,8 @@ export function TableState({
   entity = "records",
   onRetry,
 }: {
-  kind: "loading" | "empty" | "no-results" | "failed" | "stale" | "restricted" | "offline" | "partial";
+  kind:
+    "loading" | "empty" | "no-results" | "failed" | "stale" | "restricted" | "offline" | "partial";
   columns: number;
   entity?: string;
   onRetry?: () => void;
@@ -852,16 +896,36 @@ export function ChartState({
   label: string;
 }) {
   const map: Record<typeof kind, { tone: Tone; title: string; body: string }> = {
-    loading: { tone: "info", title: `Preparing ${label}`, body: "Plotting the latest confirmed values." },
-    empty: { tone: "neutral", title: "Nothing to plot yet", body: "This chart appears once activity is recorded." },
+    loading: {
+      tone: "info",
+      title: `Preparing ${label}`,
+      body: "Plotting the latest confirmed values.",
+    },
+    empty: {
+      tone: "neutral",
+      title: "Nothing to plot yet",
+      body: "This chart appears once activity is recorded.",
+    },
     failed: {
       tone: "error",
       title: `We couldn't draw ${label}`,
       body: "The data request didn't complete. Underlying records are unaffected.",
     },
-    stale: { tone: "warning", title: "Saved values shown", body: "Live refresh failed; the last confirmed series is plotted." },
-    partial: { tone: "warning", title: "Incomplete series", body: "One period is missing and is shown as a gap, not as zero." },
-    restricted: { tone: "warning", title: "Restricted for your role", body: "This metric is not available to your permissions." },
+    stale: {
+      tone: "warning",
+      title: "Saved values shown",
+      body: "Live refresh failed; the last confirmed series is plotted.",
+    },
+    partial: {
+      tone: "warning",
+      title: "Incomplete series",
+      body: "One period is missing and is shown as a gap, not as zero.",
+    },
+    restricted: {
+      tone: "warning",
+      title: "Restricted for your role",
+      body: "This metric is not available to your permissions.",
+    },
   };
   const m = map[kind];
   const v = TONE[m.tone];
@@ -900,7 +964,12 @@ export function KpiCard({
       ) : state === "empty" ? (
         <p className="mt-2 num text-2xl text-muted-foreground">—</p>
       ) : (
-        <p className={cn("num mt-2 text-2xl font-semibold", TONE[tone].text === "text-muted-foreground" ? "text-foreground" : TONE[tone].text)}>
+        <p
+          className={cn(
+            "num mt-2 text-2xl font-semibold",
+            TONE[tone].text === "text-muted-foreground" ? "text-foreground" : TONE[tone].text,
+          )}
+        >
           {value}
         </p>
       )}

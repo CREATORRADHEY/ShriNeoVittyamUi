@@ -268,23 +268,25 @@ export function CookiePreferenceModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent
-        className={DIALOG_CLASS}
-        onInteractOutside={(event) => event.preventDefault()}
-      >
+      <DialogContent className={DIALOG_CLASS} onInteractOutside={(event) => event.preventDefault()}>
         <DialogHeader>
           <p className="label-micro text-muted-foreground">Cookie preferences</p>
           <DialogTitle className="editorial text-xl">Choose what we may store</DialogTitle>
           <DialogDescription>
-            Strictly necessary cookies keep sign-in and security working and cannot be switched
-            off. Everything else is your choice, and you can change it later.
+            Strictly necessary cookies keep sign-in and security working and cannot be switched off.
+            Everything else is your choice, and you can change it later.
           </DialogDescription>
         </DialogHeader>
 
         <ul className="space-y-3">
           <li className="rounded-lg border border-border bg-surface p-4">
             <div className="flex items-start gap-3">
-              <Checkbox id="cookie-essential" checked disabled aria-describedby="cookie-essential-note" />
+              <Checkbox
+                id="cookie-essential"
+                checked
+                disabled
+                aria-describedby="cookie-essential-note"
+              />
               <div className="min-w-0">
                 <label htmlFor="cookie-essential" className="text-sm font-medium">
                   Strictly necessary

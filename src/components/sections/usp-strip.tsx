@@ -60,7 +60,6 @@ function RefreshIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-
 /* -------------------------------------------------------------------- data */
 
 type Usp = {
@@ -145,9 +144,7 @@ export function UspStrip() {
             "[mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]",
           )}
         >
-          <ul
-            className="flex w-max items-center [animation:usp-marquee_34s_linear_infinite] group-hover/marquee:[animation-play-state:paused] focus-within:[animation-play-state:paused]"
-          >
+          <ul className="flex w-max items-center [animation:usp-marquee_34s_linear_infinite] group-hover/marquee:[animation-play-state:paused] focus-within:[animation-play-state:paused]">
             {track.map((usp, index) => (
               <li
                 key={`${usp.id}-${index}`}

@@ -1,6 +1,18 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, ChevronRight, Headphones, User, ShieldCheck, PlusCircle, FileText, Globe2, Zap, Lock } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  ChevronRight,
+  Headphones,
+  User,
+  ShieldCheck,
+  PlusCircle,
+  FileText,
+  Globe2,
+  Zap,
+  Lock,
+} from "lucide-react";
 import { useI18n } from "@/i18n";
 import { homeContent } from "@/content/home-content";
 import { usePrefersReducedMotion } from "@/lib/motion";
@@ -37,10 +49,25 @@ const STEP_ICONS: ReactNode[] = [
 
 /** Need options shown in step 1 of the guided flow */
 const GUIDED_NEEDS = [
-  { id: "first-loan", label: "First loan", sub: "Understand every step before you apply", icon: PlusCircle },
-  { id: "loan-options", label: "Loan options", sub: "Compare suitable options with clear explanations", icon: Zap },
+  {
+    id: "first-loan",
+    label: "First loan",
+    sub: "Understand every step before you apply",
+    icon: PlusCircle,
+  },
+  {
+    id: "loan-options",
+    label: "Loan options",
+    sub: "Compare suitable options with clear explanations",
+    icon: Zap,
+  },
   { id: "documents", label: "Documents", sub: "Know what may be needed and why", icon: FileText },
-  { id: "my-language", label: "My language", sub: "Get guidance in the language you prefer", icon: Globe2 },
+  {
+    id: "my-language",
+    label: "My language",
+    sub: "Get guidance in the language you prefer",
+    icon: Globe2,
+  },
 ];
 
 /** Steps shown in the progress bar */
@@ -199,11 +226,11 @@ function HowApplyBlock({ shown }: { shown: boolean }) {
       {/* ── INTRO AREA: Clean light-themed header matching bank-grade style ── */}
       <div className="relative overflow-hidden border-b border-[#E6ECF4] bg-gradient-to-b from-[#FAFBFF] to-white px-6 pb-8 pt-8 text-center sm:px-10">
         {/* Subtle grid accent background */}
-        <div 
+        <div
           className="absolute inset-0 opacity-[0.03] pointer-events-none"
           style={{
             backgroundImage: "radial-gradient(#002B98 1px, transparent 1px)",
-            backgroundSize: "20px 20px"
+            backgroundSize: "20px 20px",
           }}
         />
 
@@ -305,7 +332,12 @@ function RouteCard({
 
       {/* Text */}
       <div className="min-w-0 flex-1 text-left">
-        <p className={cn("text-[13.5px] font-semibold leading-tight", active ? "text-[#002B98]" : "text-[#0A286F]")}>
+        <p
+          className={cn(
+            "text-[13.5px] font-semibold leading-tight",
+            active ? "text-[#002B98]" : "text-[#0A286F]",
+          )}
+        >
           {label}
         </p>
         <p className="mt-0.5 text-[11.5px] leading-tight text-[#5B657D]">{sub}</p>
@@ -349,7 +381,11 @@ function StepProgress({ current }: { current: number }) {
                   done || active ? "bg-[#002B98] text-white" : "bg-[#E6EFF9] text-[#7A92B4]",
                 )}
               >
-                {done ? <Check className="size-[11px]" strokeWidth={2.5} /> : String(i + 1).padStart(2, "0")}
+                {done ? (
+                  <Check className="size-[11px]" strokeWidth={2.5} />
+                ) : (
+                  String(i + 1).padStart(2, "0")
+                )}
               </span>
               <span
                 className={cn(
@@ -408,20 +444,12 @@ function GuidedWorkspace({
         {/* Step content */}
         <div className="mt-8">
           {step === 0 && (
-            <Step0NeedSelector
-              selectedNeed={selectedNeed}
-              setSelectedNeed={setSelectedNeed}
-            />
+            <Step0NeedSelector selectedNeed={selectedNeed} setSelectedNeed={setSelectedNeed} />
           )}
           {step === 1 && (
-            <Step1Language
-              selectedLang={selectedLang}
-              setSelectedLang={setSelectedLang}
-            />
+            <Step1Language selectedLang={selectedLang} setSelectedLang={setSelectedLang} />
           )}
-          {step === 2 && (
-            <Step2Connect selectedNeed={selectedNeed} selectedLang={selectedLang} />
-          )}
+          {step === 2 && <Step2Connect selectedNeed={selectedNeed} selectedLang={selectedLang} />}
         </div>
 
         {/* Navigation row */}
@@ -523,7 +551,12 @@ function Step0NeedSelector({
 
               {/* Text */}
               <div className="min-w-0">
-                <p className={cn("text-[13.5px] font-semibold leading-tight", active ? "text-[#002B98]" : "text-[#0A286F]")}>
+                <p
+                  className={cn(
+                    "text-[13.5px] font-semibold leading-tight",
+                    active ? "text-[#002B98]" : "text-[#0A286F]",
+                  )}
+                >
                   {need.label}
                 </p>
                 <p className="mt-0.5 text-[12px] leading-snug text-[#5B657D]">{need.sub}</p>
@@ -592,7 +625,12 @@ function Step1Language({
               )}
             >
               <div>
-                <p className={cn("text-[15px] font-bold", active ? "text-[#002B98]" : "text-[#0A286F]")}>
+                <p
+                  className={cn(
+                    "text-[15px] font-bold",
+                    active ? "text-[#002B98]" : "text-[#0A286F]",
+                  )}
+                >
                   {lang.native}
                 </p>
                 <p className="text-[11.5px] text-[#5B657D]">{lang.label}</p>
@@ -605,7 +643,10 @@ function Step1Language({
                   <Check className="size-[11px] text-white" strokeWidth={2.5} />
                 </span>
               ) : (
-                <span aria-hidden className="size-5 shrink-0 rounded-full border-2 border-[#C8D6E8]" />
+                <span
+                  aria-hidden
+                  className="size-5 shrink-0 rounded-full border-2 border-[#C8D6E8]"
+                />
               )}
             </button>
           );
@@ -668,7 +709,7 @@ function AgentTrustPanel() {
         <div className="relative overflow-hidden rounded-[8px] border border-white/[0.12] bg-[#001A5C] p-5 shadow-inner">
           {/* Subtle glowing orb indicator */}
           <div className="absolute -right-8 -top-8 size-24 rounded-full bg-emerald-500/10 blur-xl" />
-          
+
           <div className="flex items-center justify-between">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-[#22C55E]">
               <span className="size-[5px] rounded-full bg-[#22C55E] animate-pulse" />
@@ -682,7 +723,7 @@ function AgentTrustPanel() {
             <div className="flex size-10 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-white/90">
               <User className="size-5" />
             </div>
-            
+
             {/* Animated/pulse matching connection lines */}
             <div className="flex flex-1 items-center justify-between px-1">
               <span className="size-1 rounded-full bg-[#22C55E]" />
@@ -714,7 +755,11 @@ function AgentTrustPanel() {
             "Application stays tracked on ShriNeo",
           ].map((point) => (
             <li key={point} className="flex items-start gap-2.5">
-              <Check aria-hidden className="mt-0.5 size-3.5 shrink-0 text-[#22C55E]" strokeWidth={2.5} />
+              <Check
+                aria-hidden
+                className="mt-0.5 size-3.5 shrink-0 text-[#22C55E]"
+                strokeWidth={2.5}
+              />
               <span className="text-[13px] leading-snug text-white/80">{point}</span>
             </li>
           ))}
@@ -797,7 +842,11 @@ function SelfWorkspace() {
         <ul aria-label="Self-service advantages" className="mt-4 space-y-4">
           {[
             { icon: Zap, title: "~6 minutes", sub: "Average time to complete the application" },
-            { icon: ShieldCheck, title: "Fully secure", sub: "Aadhaar eKYC + DigiLocker verification" },
+            {
+              icon: ShieldCheck,
+              title: "Fully secure",
+              sub: "Aadhaar eKYC + DigiLocker verification",
+            },
             { icon: Lock, title: "OTP-only signing", sub: "Only you can accept an offer or sign" },
             { icon: Globe2, title: "English & Hindi", sub: "Full UI available in both languages" },
           ].map(({ icon: Icon, title, sub }) => (

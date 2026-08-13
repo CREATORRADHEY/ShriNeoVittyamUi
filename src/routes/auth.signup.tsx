@@ -72,7 +72,7 @@ function SignUpPage() {
     }
 
     setErrors({});
-    
+
     // Duplicate mobile number check (9876543210 is our canonical fixture borrower)
     if (data["phone"] === "9876543210") {
       toast.warning("Mobile number is already registered. Redirecting to sign in...", {
@@ -87,7 +87,9 @@ function SignUpPage() {
     // Save form data and show OTP screen
     setFormData(data);
     setShowOtpInput(true);
-    toast.success(`One-time password (OTP) sent to +91 ${data["phone"]}. Simulating code "123456".`);
+    toast.success(
+      `One-time password (OTP) sent to +91 ${data["phone"]}. Simulating code "123456".`,
+    );
   }
 
   function onVerifyOtp() {
@@ -103,7 +105,7 @@ function SignUpPage() {
     // Set prototype state and route
     prototype.set("role", isAgent ? "agent" : "borrower");
     toast.success("Account verified successfully!");
-    
+
     setTimeout(() => {
       navigate({ to: isAgent ? "/app/agent" : "/app/borrower" });
     }, 1500);
@@ -112,7 +114,11 @@ function SignUpPage() {
   return (
     <AuthShell
       title="Create your account"
-      subtitle={showOtpInput ? "Enter the verification code sent to your phone." : "Takes a minute. Nothing is shared with any lender until you ask us to."}
+      subtitle={
+        showOtpInput
+          ? "Enter the verification code sent to your phone."
+          : "Takes a minute. Nothing is shared with any lender until you ask us to."
+      }
       footer={
         <>
           Already registered?{" "}
@@ -211,7 +217,8 @@ function SignUpPage() {
       ) : (
         <div className="grid gap-5">
           <div className="text-xs text-muted-foreground bg-surface border border-border rounded-lg p-3">
-            OTP is sent to the registered mobile number. For prototype testing, enter simulated code <span className="font-semibold text-foreground">123456</span>.
+            OTP is sent to the registered mobile number. For prototype testing, enter simulated code{" "}
+            <span className="font-semibold text-foreground">123456</span>.
           </div>
           <div>
             <Label htmlFor="otp" className="mb-1.5 block text-sm font-medium">

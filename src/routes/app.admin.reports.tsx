@@ -10,7 +10,10 @@ export const Route = createFileRoute("/app/admin/reports")({
   head: () => ({
     meta: [
       { title: "Reports & Schedules — ShriNeo Capital" },
-      { name: "description", content: "Generate regulatory disclosures and manage automated reporting schedules." },
+      {
+        name: "description",
+        content: "Generate regulatory disclosures and manage automated reporting schedules.",
+      },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -33,14 +36,48 @@ function AdminReportsPage() {
 
   // New report schedule inputs
   const [newReportName, setNewReportName] = useState("");
-  const [newFrequency, setNewFrequency] = useState<"Daily" | "Weekly" | "Monthly" | "Quarterly">("Monthly");
+  const [newFrequency, setNewFrequency] = useState<"Daily" | "Weekly" | "Monthly" | "Quarterly">(
+    "Monthly",
+  );
   const [newRecipient, setNewRecipient] = useState("Compliance");
 
   const [schedules, setSchedules] = useState<ReportSchedule[]>([
-    { id: "REP-01", name: "Digital lending disclosures", frequency: "Monthly", lastRun: "01 Mar 2026", recipient: "Compliance", status: "Filed", tone: "success" },
-    { id: "REP-02", name: "Grievance summary", frequency: "Monthly", lastRun: "01 Mar 2026", recipient: "Board", status: "Filed", tone: "success" },
-    { id: "REP-03", name: "Portfolio performance", frequency: "Weekly", lastRun: "10 Mar 2026", recipient: "Management", status: "Filed", tone: "success" },
-    { id: "REP-04", name: "Fair practice audit", frequency: "Quarterly", lastRun: "01 Jan 2026", recipient: "Compliance", status: "Due 01 Apr", tone: "warning" },
+    {
+      id: "REP-01",
+      name: "Digital lending disclosures",
+      frequency: "Monthly",
+      lastRun: "01 Mar 2026",
+      recipient: "Compliance",
+      status: "Filed",
+      tone: "success",
+    },
+    {
+      id: "REP-02",
+      name: "Grievance summary",
+      frequency: "Monthly",
+      lastRun: "01 Mar 2026",
+      recipient: "Board",
+      status: "Filed",
+      tone: "success",
+    },
+    {
+      id: "REP-03",
+      name: "Portfolio performance",
+      frequency: "Weekly",
+      lastRun: "10 Mar 2026",
+      recipient: "Management",
+      status: "Filed",
+      tone: "success",
+    },
+    {
+      id: "REP-04",
+      name: "Fair practice audit",
+      frequency: "Quarterly",
+      lastRun: "01 Jan 2026",
+      recipient: "Compliance",
+      status: "Due 01 Apr",
+      tone: "warning",
+    },
   ]);
 
   const handleRunReport = (id: string, name: string) => {
@@ -48,7 +85,11 @@ function AdminReportsPage() {
     toast.info(`Generating disclosure file for "${name}"...`);
     setTimeout(() => {
       setRunningReportId(null);
-      setSchedules(prev => prev.map(s => s.id === id ? { ...s, lastRun: "Today", status: "Filed", tone: "success" } : s));
+      setSchedules((prev) =>
+        prev.map((s) =>
+          s.id === id ? { ...s, lastRun: "Today", status: "Filed", tone: "success" } : s,
+        ),
+      );
       toast.success(`Report "${name}" generated and submitted successfully.`);
     }, 1500);
   };
@@ -67,17 +108,18 @@ function AdminReportsPage() {
       lastRun: "Never run",
       recipient: newRecipient,
       status: `Due Next Cycle`,
-      tone: "info"
+      tone: "info",
     };
 
-    setSchedules(prev => [...prev, newSched]);
+    setSchedules((prev) => [...prev, newSched]);
     setNewReportName("");
     toast.success(`Automated schedule for "${newReportName}" configured successfully.`);
   };
 
-  const filteredSchedules = schedules.filter(s =>
-    s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    s.recipient.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredSchedules = schedules.filter(
+    (s) =>
+      s.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.recipient.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
@@ -87,14 +129,26 @@ function AdminReportsPage() {
       subtitle="Schedule automated disclosures and compile management oversight dashboards"
     >
       <div className="grid gap-3 sm:grid-cols-3">
-        <KpiCard label="Scheduled reports" value={String(schedules.length)} hint="Active automated jobs" />
-        <KpiCard label="Pending disclosures" value={String(schedules.filter(s => s.status.startsWith("Due")).length)} hint="Action required soon" tone="warning" />
+        <KpiCard
+          label="Scheduled reports"
+          value={String(schedules.length)}
+          hint="Active automated jobs"
+        />
+        <KpiCard
+          label="Pending disclosures"
+          value={String(schedules.filter((s) => s.status.startsWith("Due")).length)}
+          hint="Action required soon"
+          tone="warning"
+        />
         <KpiCard label="Total submissions YTD" value="184" hint="Filed with RBI/Lenders" />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[2fr_1fr] mt-6 text-xs">
         {/* Scheduled reports roster */}
-        <SectionCard title="Active Reporting Schedules" description="Configure automated submission targets and manual override runs">
+        <SectionCard
+          title="Active Reporting Schedules"
+          description="Configure automated submission targets and manual override runs"
+        >
           <div className="space-y-4">
             <div className="relative max-w-sm">
               <Search className="absolute left-2.5 top-2.5 size-3.5 text-muted-foreground" />
@@ -111,17 +165,32 @@ function AdminReportsPage() {
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="border-b border-border text-left uppercase tracking-wider text-muted-foreground bg-surface">
-                    <th scope="col" className="p-3">Report Name</th>
-                    <th scope="col" className="p-3">Frequency</th>
-                    <th scope="col" className="p-3">Last Run</th>
-                    <th scope="col" className="p-3">Recipient</th>
-                    <th scope="col" className="p-3">Status</th>
-                    <th scope="col" className="p-3 text-right">Actions</th>
+                    <th scope="col" className="p-3">
+                      Report Name
+                    </th>
+                    <th scope="col" className="p-3">
+                      Frequency
+                    </th>
+                    <th scope="col" className="p-3">
+                      Last Run
+                    </th>
+                    <th scope="col" className="p-3">
+                      Recipient
+                    </th>
+                    <th scope="col" className="p-3">
+                      Status
+                    </th>
+                    <th scope="col" className="p-3 text-right">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredSchedules.map(s => (
-                    <tr key={s.id} className="border-b border-border hover:bg-neutral-50 last:border-0">
+                  {filteredSchedules.map((s) => (
+                    <tr
+                      key={s.id}
+                      className="border-b border-border hover:bg-neutral-50 last:border-0"
+                    >
                       <td className="p-3 font-semibold text-foreground">{s.name}</td>
                       <td className="p-3 text-muted-foreground">{s.frequency}</td>
                       <td className="p-3 font-mono text-muted-foreground">{s.lastRun}</td>
@@ -154,10 +223,15 @@ function AdminReportsPage() {
         </SectionCard>
 
         {/* Schedule Builder Form */}
-        <SectionCard title="Configure New Report" description="Set up custom query schedules for regulatory reporting">
+        <SectionCard
+          title="Configure New Report"
+          description="Set up custom query schedules for regulatory reporting"
+        >
           <form onSubmit={handleCreateSchedule} className="space-y-4">
             <div className="space-y-1.5">
-              <label htmlFor="report-name" className="font-semibold text-muted-foreground">Report Description</label>
+              <label htmlFor="report-name" className="font-semibold text-muted-foreground">
+                Report Description
+              </label>
               <input
                 id="report-name"
                 type="text"
@@ -169,7 +243,9 @@ function AdminReportsPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label htmlFor="frequency" className="font-semibold text-muted-foreground">Generation Frequency</label>
+              <label htmlFor="frequency" className="font-semibold text-muted-foreground">
+                Generation Frequency
+              </label>
               <select
                 id="frequency"
                 value={newFrequency}
@@ -184,7 +260,9 @@ function AdminReportsPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label htmlFor="recipient" className="font-semibold text-muted-foreground">Target Recipient Group</label>
+              <label htmlFor="recipient" className="font-semibold text-muted-foreground">
+                Target Recipient Group
+              </label>
               <select
                 id="recipient"
                 value={newRecipient}

@@ -9,14 +9,9 @@ import listLoanProductsTool from "./tools/list-loan-products";
 // exactOptionalPropertyTypes when matched against AnyToolDefinition.
 type AnyTool = Parameters<typeof defineMcp>[0]["tools"][number];
 
-const tools = [
-  listLoanProductsTool,
-  getLoanProductTool,
-  calculateEmiTool,
-  getCompanyInfoTool,
-].map((tool) => tool as unknown as AnyTool);
-
-
+const tools = [listLoanProductsTool, getLoanProductTool, calculateEmiTool, getCompanyInfoTool].map(
+  (tool) => tool as unknown as AnyTool,
+);
 
 export default defineMcp({
   name: "trustworthy-finance-hub",

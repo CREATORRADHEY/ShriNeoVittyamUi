@@ -1,6 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search, ShieldAlert, CheckCircle2, Lock, Eye, Trash2, Calendar, FileText } from "lucide-react";
+import {
+  Search,
+  ShieldAlert,
+  CheckCircle2,
+  Lock,
+  Eye,
+  Trash2,
+  Calendar,
+  FileText,
+} from "lucide-react";
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
 import { KpiCard, StatusBadge } from "@/components/states";
 import { Button } from "@/components/ui/button";
@@ -10,7 +19,11 @@ export const Route = createFileRoute("/app/admin/consent")({
   head: () => ({
     meta: [
       { title: "Consent Ledger — ShriNeo Capital" },
-      { name: "description", content: "An auditable record of every borrower consent, its purpose, expiry and withdrawal status." },
+      {
+        name: "description",
+        content:
+          "An auditable record of every borrower consent, its purpose, expiry and withdrawal status.",
+      },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -25,36 +38,65 @@ interface ConsentRecord {
   recipient: string;
   expiryDate: string;
   status: "Granted" | "Expired" | "Withdrawn";
-}function AdminConsentPage() {
+}
+function AdminConsentPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
   const [selectedConsentId, setSelectedConsentId] = useState<string>("CNS-88401");
 
   const [consents, setConsents] = useState<ConsentRecord[]>([
-    { id: "CNS-88401", borrowerName: "Sunita Rao", purpose: "TransUnion CIBIL soft pull", source: "Aadhaar Match API", recipient: "SBI Digital Finance", expiryDate: "12 Sep 2026", status: "Granted" },
-    { id: "CNS-88392", borrowerName: "Imran Qureshi", purpose: "Bank account aggregations", source: "HDFC Aggregator portal", recipient: "SBI Digital Finance", expiryDate: "11 Mar 2026", status: "Expired" },
-    { id: "CNS-88344", borrowerName: "Divyansh Dusad", purpose: "PAN card identity soft checks", source: "PAN Database API", recipient: "Kaveri Gramin Bank", expiryDate: "04 Mar 2026", status: "Withdrawn" }
+    {
+      id: "CNS-88401",
+      borrowerName: "Sunita Rao",
+      purpose: "TransUnion CIBIL soft pull",
+      source: "Aadhaar Match API",
+      recipient: "SBI Digital Finance",
+      expiryDate: "12 Sep 2026",
+      status: "Granted",
+    },
+    {
+      id: "CNS-88392",
+      borrowerName: "Imran Qureshi",
+      purpose: "Bank account aggregations",
+      source: "HDFC Aggregator portal",
+      recipient: "SBI Digital Finance",
+      expiryDate: "11 Mar 2026",
+      status: "Expired",
+    },
+    {
+      id: "CNS-88344",
+      borrowerName: "Divyansh Dusad",
+      purpose: "PAN card identity soft checks",
+      source: "PAN Database API",
+      recipient: "Kaveri Gramin Bank",
+      expiryDate: "04 Mar 2026",
+      status: "Withdrawn",
+    },
   ]);
 
   const handleWithdrawConsent = (id: string) => {
-    setConsents(prev =>
-      prev.map(c => {
+    setConsents((prev) =>
+      prev.map((c) => {
         if (c.id === id) {
           toast.success(`Consent record ${c.id} revoked.`);
           return { ...c, status: "Withdrawn" as const };
         }
         return c;
-      })
+      }),
     );
   };
 
-  const filteredConsents = consents.filter(c => {
-    const matchesSearch = c.borrowerName.toLowerCase().includes(searchQuery.toLowerCase()) || c.id.toLowerCase().includes(searchQuery.toLowerCase()) || c.recipient.toLowerCase().includes(searchQuery.toLowerCase()) || c.purpose.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredConsents = consents.filter((c) => {
+    const matchesSearch =
+      c.borrowerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.recipient.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.purpose.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = filterStatus === "All" || c.status === filterStatus;
     return matchesSearch && matchesStatus;
   });
 
-  const selectedConsent = consents.find(c => c.id === selectedConsentId);
+  const selectedConsent = consents.find((c) => c.id === selectedConsentId);
 
   return (
     <PortalShell
@@ -65,7 +107,12 @@ interface ConsentRecord {
       <div className="space-y-6 text-xs">
         {/* KPI Row */}
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          <KpiCard label="Consents Granted" value="1,84,204 Records" hint="Active approvals" tone="success" />
+          <KpiCard
+            label="Consents Granted"
+            value="1,84,204 Records"
+            hint="Active approvals"
+            tone="success"
+          />
           <KpiCard label="Consents Revoked/Withdrawn" value="824 Records" hint="Month to Date" />
           <KpiCard label="Data Retention Compliance" value="99.9%" hint="No orphaned files" />
           <KpiCard label="Average Consent Expiry" value="180 days" hint="Platform standard limit" />
@@ -108,18 +155,30 @@ interface ConsentRecord {
                 <table className="w-full min-w-[600px] border-collapse text-left">
                   <thead>
                     <tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground bg-surface">
-                      <th scope="col" className="p-3">Consent ID</th>
-                      <th scope="col" className="p-3">Borrower</th>
-                      <th scope="col" className="p-3">Purpose</th>
-                      <th scope="col" className="p-3">Recipient</th>
-                      <th scope="col" className="p-3">Expiry</th>
-                      <th scope="col" className="p-3">Status</th>
+                      <th scope="col" className="p-3">
+                        Consent ID
+                      </th>
+                      <th scope="col" className="p-3">
+                        Borrower
+                      </th>
+                      <th scope="col" className="p-3">
+                        Purpose
+                      </th>
+                      <th scope="col" className="p-3">
+                        Recipient
+                      </th>
+                      <th scope="col" className="p-3">
+                        Expiry
+                      </th>
+                      <th scope="col" className="p-3">
+                        Status
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {filteredConsents.map((c) => (
-                      <tr 
-                        key={c.id} 
+                      <tr
+                        key={c.id}
                         className={`border-b border-border hover:bg-neutral-50 cursor-pointer ${selectedConsentId === c.id ? "bg-primary/5 font-semibold" : ""}`}
                         onClick={() => setSelectedConsentId(c.id)}
                       >
@@ -129,7 +188,15 @@ interface ConsentRecord {
                         <td className="p-3 text-muted-foreground">{c.recipient}</td>
                         <td className="num p-3 text-muted-foreground">{c.expiryDate}</td>
                         <td className="p-3">
-                          <StatusBadge tone={c.status === "Granted" ? "success" : c.status === "Withdrawn" ? "error" : "neutral"}>
+                          <StatusBadge
+                            tone={
+                              c.status === "Granted"
+                                ? "success"
+                                : c.status === "Withdrawn"
+                                  ? "error"
+                                  : "neutral"
+                            }
+                          >
                             {c.status}
                           </StatusBadge>
                         </td>
@@ -147,8 +214,18 @@ interface ConsentRecord {
               <SectionCard title="Consent Record Detail">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono font-bold text-foreground">{selectedConsent.id}</span>
-                    <StatusBadge tone={selectedConsent.status === "Granted" ? "success" : selectedConsent.status === "Withdrawn" ? "error" : "neutral"}>
+                    <span className="font-mono font-bold text-foreground">
+                      {selectedConsent.id}
+                    </span>
+                    <StatusBadge
+                      tone={
+                        selectedConsent.status === "Granted"
+                          ? "success"
+                          : selectedConsent.status === "Withdrawn"
+                            ? "error"
+                            : "neutral"
+                      }
+                    >
                       {selectedConsent.status}
                     </StatusBadge>
                   </div>
@@ -156,7 +233,9 @@ interface ConsentRecord {
                   <dl className="grid gap-2 border-t border-b border-[#DDE7F5] py-3">
                     <div className="flex justify-between">
                       <dt className="text-muted-foreground">Borrower</dt>
-                      <dd className="font-semibold text-foreground">{selectedConsent.borrowerName}</dd>
+                      <dd className="font-semibold text-foreground">
+                        {selectedConsent.borrowerName}
+                      </dd>
                     </div>
                     <div className="flex flex-col gap-0.5 pt-1">
                       <dt className="text-muted-foreground">Purpose</dt>
@@ -172,14 +251,16 @@ interface ConsentRecord {
                     </div>
                     <div className="flex justify-between pt-1">
                       <dt className="text-muted-foreground">Expires On</dt>
-                      <dd className="font-mono text-foreground font-semibold">{selectedConsent.expiryDate}</dd>
+                      <dd className="font-mono text-foreground font-semibold">
+                        {selectedConsent.expiryDate}
+                      </dd>
                     </div>
                   </dl>
 
                   {selectedConsent.status === "Granted" && (
-                    <Button 
-                      variant="destructive" 
-                      size="sm" 
+                    <Button
+                      variant="destructive"
+                      size="sm"
                       className="w-full flex items-center justify-center gap-1.5"
                       onClick={() => handleWithdrawConsent(selectedConsent.id)}
                     >
@@ -197,7 +278,8 @@ interface ConsentRecord {
                     <Calendar className="size-4 text-primary" /> Retention Rules
                   </p>
                   <p className="text-muted-foreground leading-relaxed text-[11px]">
-                    Under RBI Digital Lending Directions, borrower records must be purged within one working day of a consent withdrawal, except for active loan accounts.
+                    Under RBI Digital Lending Directions, borrower records must be purged within one
+                    working day of a consent withdrawal, except for active loan accounts.
                   </p>
                 </div>
 
@@ -208,13 +290,22 @@ interface ConsentRecord {
                   </p>
                   <div className="space-y-2 flex flex-col">
                     {filteredConsents.map((c) => (
-                      <div key={c.id} className="flex justify-between items-center bg-background border p-2 rounded">
+                      <div
+                        key={c.id}
+                        className="flex justify-between items-center bg-background border p-2 rounded"
+                      >
                         <div>
                           <p className="font-semibold text-foreground">{c.id}</p>
-                          <p className="text-[9px] text-muted-foreground truncate max-w-[20ch]">{c.borrowerName}</p>
+                          <p className="text-[9px] text-muted-foreground truncate max-w-[20ch]">
+                            {c.borrowerName}
+                          </p>
                         </div>
                         {c.status === "Granted" && (
-                          <Button size="xs" variant="outline" onClick={() => handleWithdrawConsent(c.id)}>
+                          <Button
+                            size="xs"
+                            variant="outline"
+                            onClick={() => handleWithdrawConsent(c.id)}
+                          >
                             <Trash2 className="size-3 text-red-600" />
                           </Button>
                         )}

@@ -18,7 +18,6 @@ import { ConsentFigure } from "@/components/illustrations/core";
 import photoProfessional from "@/assets/photo-professional.jpg";
 import { RelatedGuides } from "@/components/sections/blocks";
 
-
 export const Route = createFileRoute("/trust-center/")({
   head: () => ({
     meta: [
@@ -240,7 +239,6 @@ function TrustCenterPage() {
         ]}
       />
     </PublicShell>
-
   );
 }
 

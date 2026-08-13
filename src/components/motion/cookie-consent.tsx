@@ -69,7 +69,10 @@ export function CookieConsent() {
               <Button variant="outline" className="min-h-11" onClick={() => setOpen(true)}>
                 Choose preferences
               </Button>
-              <Button className="min-h-11" onClick={() => save({ essential: true, analytics: true })}>
+              <Button
+                className="min-h-11"
+                onClick={() => save({ essential: true, analytics: true })}
+              >
                 Accept analytics
               </Button>
             </div>

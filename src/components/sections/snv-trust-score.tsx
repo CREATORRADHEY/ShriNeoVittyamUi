@@ -123,7 +123,14 @@ function TrustScoreRing({
       className="w-[250px] max-w-full overflow-visible sm:w-[290px] lg:w-[330px]"
     >
       {/* closed track — never an open gauge */}
-      <circle cx={C} cy={C} r={R} fill="none" stroke="rgba(255,255,255,0.09)" strokeWidth={STROKE} />
+      <circle
+        cx={C}
+        cy={C}
+        r={R}
+        fill="none"
+        stroke="rgba(255,255,255,0.09)"
+        strokeWidth={STROKE}
+      />
 
       {BANDS.map((band) => {
         const a = band.from + GAP;
@@ -146,8 +153,22 @@ function TrustScoreRing({
       })}
 
       {/* hairline edges */}
-      <circle cx={C} cy={C} r={R - STROKE / 2} fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth={1} />
-      <circle cx={C} cy={C} r={R + STROKE / 2} fill="none" stroke="rgba(255,255,255,0.16)" strokeWidth={1} />
+      <circle
+        cx={C}
+        cy={C}
+        r={R - STROKE / 2}
+        fill="none"
+        stroke="rgba(255,255,255,0.16)"
+        strokeWidth={1}
+      />
+      <circle
+        cx={C}
+        cy={C}
+        r={R + STROKE / 2}
+        fill="none"
+        stroke="rgba(255,255,255,0.16)"
+        strokeWidth={1}
+      />
 
       {/* boundary markers */}
       {[0, 40, 70].map((value) => {
@@ -360,7 +381,9 @@ export function SnvTrustScoreSection() {
                       <span
                         className={cn(
                           "flex size-7 shrink-0 items-center justify-center rounded-[7px] text-[#C8D5F0] transition-[transform,background-color] duration-[220ms] ease-[cubic-bezier(0.2,0,0,1)] motion-reduce:transition-none",
-                          isActive ? "bg-saffron text-navy" : "bg-white/10 group-hover:scale-[1.06] group-hover:bg-white/[0.18]"
+                          isActive
+                            ? "bg-saffron text-navy"
+                            : "bg-white/10 group-hover:scale-[1.06] group-hover:bg-white/[0.18]",
                         )}
                       >
                         {signal.icon}
@@ -374,19 +397,13 @@ export function SnvTrustScoreSection() {
 
             {/* Dynamic Signal Description Panel (Matches choice card interactivity style) */}
             <div className="mt-5 rounded-[12px] border border-white/10 bg-white/[0.03] p-4 text-[14px] leading-relaxed text-[#B9C6E8] transition-all duration-300">
-              <p className="font-semibold text-white mb-1">
-                {t(SIGNALS[activeIdx]!.key)}:
-              </p>
+              <p className="font-semibold text-white mb-1">{t(SIGNALS[activeIdx]!.key)}:</p>
               <p>{t(SIGNALS[activeIdx]!.descKey)}</p>
             </div>
           </div>
 
           <div className={cn("flex flex-col items-center gap-[18px] p-2", reveal)}>
-            <TrustScoreRing
-              progress={progress}
-              score={targetScore}
-              label={t("snv.ring.aria")}
-            />
+            <TrustScoreRing progress={progress} score={targetScore} label={t("snv.ring.aria")} />
             <span className="font-mono text-[11.5px] font-medium tracking-[0.1em] uppercase text-[rgba(185,198,232,0.85)]">
               {t("snv.illustrative")}
             </span>

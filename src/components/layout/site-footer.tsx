@@ -58,7 +58,11 @@ export function SiteFooter() {
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1.2fr_1fr] lg:gap-6 xl:gap-12">
           <div className="max-w-[260px] lg:max-w-none">
             <Link to="/" className="flex items-center gap-2.5">
-              <img src={logo} alt="ShriNeo Capital" className="block h-12 w-auto shrink-0 object-contain" />
+              <img
+                src={logo}
+                alt="ShriNeo Capital"
+                className="block h-12 w-auto shrink-0 object-contain"
+              />
               <span className="flex flex-col leading-tight">
                 <span className="whitespace-nowrap text-[18px] font-semibold tracking-tight text-white">
                   ShriNeo Capital

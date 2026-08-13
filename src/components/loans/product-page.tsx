@@ -117,7 +117,8 @@ const stories: Record<ProductSlug, ProductStory> = {
       "Select from lenders with flexible tenure options of 1 to 12 months.",
       "All rates, APRs, and charges are fully transparent before you borrow.",
     ],
-    caption: "Illustrative cash flow showing micro-credit disbursement and repayment (Demonstration data).",
+    caption:
+      "Illustrative cash flow showing micro-credit disbursement and repayment (Demonstration data).",
     art: <CoolingOffArt />,
     mediaSide: "right",
   },
@@ -168,8 +169,8 @@ export function ProductPage({ product }: { product: LoanProduct }) {
         note="Final approval and loan terms are determined by the participating lender."
         panels={
           <>
-            <HeroPanel 
-              label={product.slug === "sachet" ? "Demonstration data" : t("common.indicative")} 
+            <HeroPanel
+              label={product.slug === "sachet" ? "Demonstration data" : t("common.indicative")}
               meta={product.slug === "sachet" ? "Demonstration" : "Indicative"}
             >
               {product.slug === "sachet" && (
@@ -297,7 +298,10 @@ export function ProductPage({ product }: { product: LoanProduct }) {
         {product.slug === "sachet" && (
           <div className="mt-4 rounded-lg bg-amber-50 border border-amber-200 p-3 text-sm text-amber-800 flex items-center gap-2">
             <CircleAlert className="size-4 shrink-0" />
-            <span><strong>Demonstration data only:</strong> The offers below are simulated for demonstration.</span>
+            <span>
+              <strong>Demonstration data only:</strong> The offers below are simulated for
+              demonstration.
+            </span>
           </div>
         )}
         <div className="mt-8">
@@ -315,14 +319,20 @@ export function ProductPage({ product }: { product: LoanProduct }) {
         {product.slug === "sachet" && (
           <div className="mt-4 rounded-lg bg-amber-50 border border-amber-200 p-3 text-sm text-amber-800 flex items-center gap-2 mb-4">
             <CircleAlert className="size-4 shrink-0" />
-            <span><strong>Demonstration data only:</strong> These calculations are for illustrative purposes. Actual terms are set by lenders.</span>
+            <span>
+              <strong>Demonstration data only:</strong> These calculations are for illustrative
+              purposes. Actual terms are set by lenders.
+            </span>
           </div>
         )}
         <div className="mt-8">
           <EmiCalculator
             minAmount={product.range.min}
             maxAmount={product.range.max}
-            defaultAmount={Math.min(product.range.max, Math.max(product.range.min, product.slug === "sachet" ? 15000 : 300000))}
+            defaultAmount={Math.min(
+              product.range.max,
+              Math.max(product.range.min, product.slug === "sachet" ? 15000 : 300000),
+            )}
             defaultRate={product.indicativeRate.max > 0 ? product.indicativeRate.min : 12}
             minTenureMonths={tenureMonths.min}
             maxTenureMonths={tenureMonths.max}
@@ -405,9 +415,7 @@ export function ProductPage({ product }: { product: LoanProduct }) {
           <div className="max-w-xl">
             <Eyebrow>{product.name}</Eyebrow>
             <h2 id="cta-title" className="editorial text-[clamp(1.5rem,3vw,2.25rem)]">
-              {product.phase2
-                ? "Launching soon"
-                : "See what participating lenders can offer you"}
+              {product.phase2 ? "Launching soon" : "See what participating lenders can offer you"}
             </h2>
             <p className="mt-3 text-base text-ink-foreground/80">
               {product.phase2

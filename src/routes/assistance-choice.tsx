@@ -18,7 +18,8 @@ export const Route = createFileRoute("/assistance-choice")({
       { property: "og:title", content: "Borrower Assistance & Choice — ShriNeo Capital" },
       {
         property: "og:description",
-        content: "Self-service or agent assisted: strict privacy masking, zero agent fees, and borrower control safeguards.",
+        content:
+          "Self-service or agent assisted: strict privacy masking, zero agent fees, and borrower control safeguards.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/assistance-choice" },
@@ -51,7 +52,9 @@ function AssistanceChoicePage() {
             </span>
             <h3 className="editorial mt-6 text-xl font-semibold">Self-service application</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              Complete the digital application form on your own device. The process takes a few minutes, uses Account Aggregator bank verification, and displays loan offers from all matching lenders side-by-side.
+              Complete the digital application form on your own device. The process takes a few
+              minutes, uses Account Aggregator bank verification, and displays loan offers from all
+              matching lenders side-by-side.
             </p>
             <Button asChild className="mt-6 w-full sm:w-auto">
               <Link to="/auth/signup">Apply on your own</Link>
@@ -64,7 +67,9 @@ function AssistanceChoicePage() {
             </span>
             <h3 className="editorial mt-6 text-xl font-semibold">Agent-assisted application</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              If you prefer personal guidance, request assistance from a verified ShriNeo agent in your locality. They help translate, collect physical documents, and prepare your application within our secure app.
+              If you prefer personal guidance, request assistance from a verified ShriNeo agent in
+              your locality. They help translate, collect physical documents, and prepare your
+              application within our secure app.
             </p>
             <Button asChild variant="outline" className="mt-6 w-full sm:w-auto">
               <Link to="/auth/signup">Find an agent near you</Link>
@@ -104,7 +109,9 @@ function AssistanceChoicePage() {
             </span>
             <h4 className="mt-4 font-semibold text-foreground">No access delegation</h4>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Agents cannot select a lender offer, accept interest rates, or sign any loan agreement. Every authorization requires a secure OTP sent directly to your mobile phone.
+              Agents cannot select a lender offer, accept interest rates, or sign any loan
+              agreement. Every authorization requires a secure OTP sent directly to your mobile
+              phone.
             </p>
           </div>
 
@@ -114,7 +121,8 @@ function AssistanceChoicePage() {
             </span>
             <h4 className="mt-4 font-semibold text-foreground">Zero agent fees</h4>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              ShriNeo Capital is free for borrowers. Agents are paid directly by the platform based on lender disbursals. You never pay any cash, fees, or commissions to an agent.
+              ShriNeo Capital is free for borrowers. Agents are paid directly by the platform based
+              on lender disbursals. You never pay any cash, fees, or commissions to an agent.
             </p>
           </div>
 
@@ -124,7 +132,8 @@ function AssistanceChoicePage() {
             </span>
             <h4 className="mt-4 font-semibold text-foreground">Revoke access anytime</h4>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              You can instantly revoke an agent's access to your application at any stage. Once revoked, the agent can no longer see your file status or upload documents for you.
+              You can instantly revoke an agent's access to your application at any stage. Once
+              revoked, the agent can no longer see your file status or upload documents for you.
             </p>
           </div>
         </div>

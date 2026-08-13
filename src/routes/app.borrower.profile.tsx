@@ -1,6 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { User, ShieldCheck, ShieldAlert, Monitor, FileText, ToggleLeft, ToggleRight, Trash2, KeyRound } from "lucide-react";
+import {
+  User,
+  ShieldCheck,
+  ShieldAlert,
+  Monitor,
+  FileText,
+  ToggleLeft,
+  ToggleRight,
+  Trash2,
+  KeyRound,
+} from "lucide-react";
 
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
 import { Button } from "@/components/ui/button";
@@ -11,7 +21,10 @@ export const Route = createFileRoute("/app/borrower/profile")({
   head: () => ({
     meta: [
       { title: "Profile and Consents — ShriNeo Capital" },
-      { name: "description", content: "Manage contact details, language preferences, active consents and sessions." },
+      {
+        name: "description",
+        content: "Manage contact details, language preferences, active consents and sessions.",
+      },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -30,15 +43,35 @@ function BorrowerProfilePage() {
 
   // Consent states
   const [consents, setConsents] = useState([
-    { id: "cns-1", title: "CIBIL soft pull query consent", active: true, desc: "Used to retrieve bureau reports for loan comparison." },
-    { id: "cns-2", title: "Account Aggregator banking retrieval", active: true, desc: "Allows retrieval of transaction logs for underwriting review." },
-    { id: "cns-3", title: "Advisory SNV Trust Score sharing", active: true, desc: "Exposes SNV score to matched lenders during review." }
+    {
+      id: "cns-1",
+      title: "CIBIL soft pull query consent",
+      active: true,
+      desc: "Used to retrieve bureau reports for loan comparison.",
+    },
+    {
+      id: "cns-2",
+      title: "Account Aggregator banking retrieval",
+      active: true,
+      desc: "Allows retrieval of transaction logs for underwriting review.",
+    },
+    {
+      id: "cns-3",
+      title: "Advisory SNV Trust Score sharing",
+      active: true,
+      desc: "Exposes SNV score to matched lenders during review.",
+    },
   ]);
 
   // Session devices state
   const [sessions, setSessions] = useState([
-    { id: "ses-1", device: "Google Chrome (macOS)", location: "Mumbai, India", status: "Active Now" },
-    { id: "ses-2", device: "Safari (iPhone 15)", location: "Jaipur, India", status: "2 hours ago" }
+    {
+      id: "ses-1",
+      device: "Google Chrome (macOS)",
+      location: "Mumbai, India",
+      status: "Active Now",
+    },
+    { id: "ses-2", device: "Safari (iPhone 15)", location: "Jaipur, India", status: "2 hours ago" },
   ]);
 
   const handleSaveContact = () => {
@@ -59,13 +92,13 @@ function BorrowerProfilePage() {
 
   const handleToggleConsent = (id: string, currentVal: boolean) => {
     if (currentVal) {
-      toast.warning("Withdrawing consent stops future data retrievals. Active sanctions are unaffected.");
+      toast.warning(
+        "Withdrawing consent stops future data retrievals. Active sanctions are unaffected.",
+      );
     } else {
       toast.success("Consent successfully granted.");
     }
-    setConsents((prev) =>
-      prev.map((c) => (c.id === id ? { ...c, active: !c.active } : c))
-    );
+    setConsents((prev) => prev.map((c) => (c.id === id ? { ...c, active: !c.active } : c)));
   };
 
   const handleRevokeSession = (id: string) => {
@@ -78,7 +111,9 @@ function BorrowerProfilePage() {
   };
 
   const handleDeleteRequest = () => {
-    toast.warning("Account deletion request logged. 30-day cool-off period initiated under data laws.");
+    toast.warning(
+      "Account deletion request logged. 30-day cool-off period initiated under data laws.",
+    );
   };
 
   const isNewOrEmpty = data === "empty";
@@ -96,51 +131,73 @@ function BorrowerProfilePage() {
           </div>
           <h2 className="mt-4 text-base font-semibold">Profile not setup</h2>
           <p className="mt-2 max-w-[45ch] text-xs text-muted-foreground">
-            Complete your first application step to initialize your profile and verify your identities.
+            Complete your first application step to initialize your profile and verify your
+            identities.
           </p>
         </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-3">
           <div className="md:col-span-2 space-y-6">
             {/* PERSONAL DETAILS (LOCKED) */}
-            <SectionCard title="Personal Details" description="Verified PAN/Aadhaar information is locked under RBI rules">
+            <SectionCard
+              title="Personal Details"
+              description="Verified PAN/Aadhaar information is locked under RBI rules"
+            >
               <div className="grid gap-4 sm:grid-cols-2 text-xs">
                 <div>
                   <span className="text-muted-foreground block">Full Name</span>
-                  <span className="font-semibold text-foreground text-sm mt-0.5 block">{borrower.name}</span>
+                  <span className="font-semibold text-foreground text-sm mt-0.5 block">
+                    {borrower.name}
+                  </span>
                 </div>
                 <div>
-                  <span className="text-muted-foreground block">Permanent Account Number (PAN)</span>
-                  <span className="font-mono font-semibold text-foreground text-sm mt-0.5 block">{borrower.pan}</span>
+                  <span className="text-muted-foreground block">
+                    Permanent Account Number (PAN)
+                  </span>
+                  <span className="font-mono font-semibold text-foreground text-sm mt-0.5 block">
+                    {borrower.pan}
+                  </span>
                 </div>
                 <div>
                   <span className="text-muted-foreground block">Aadhaar (Masked)</span>
-                  <span className="font-mono text-foreground text-sm mt-0.5 block">{borrower.aadhaar}</span>
+                  <span className="font-mono text-foreground text-sm mt-0.5 block">
+                    {borrower.aadhaar}
+                  </span>
                 </div>
                 <div>
                   <span className="text-muted-foreground block">Date of Birth</span>
-                  <span className="font-mono text-foreground text-sm mt-0.5 block">{borrower.dob}</span>
+                  <span className="font-mono text-foreground text-sm mt-0.5 block">
+                    {borrower.dob}
+                  </span>
                 </div>
               </div>
               <p className="mt-4 text-[10px] text-muted-foreground">
-                To correct spelling or identity errors, raise a support ticket with official gazette proof.
+                To correct spelling or identity errors, raise a support ticket with official gazette
+                proof.
               </p>
             </SectionCard>
 
             {/* CONTACT DETAILS (EDITABLE) */}
-            <SectionCard title="Contact Verification Settings" actions={
-              isEditing ? (
-                <Button size="xs" onClick={handleSaveContact}>
-                  {otpSent ? "Confirm OTP" : "Send OTP"}
-                </Button>
-              ) : (
-                <Button size="xs" variant="outline" onClick={() => setIsEditing(true)}>Edit Contacts</Button>
-              )
-            }>
+            <SectionCard
+              title="Contact Verification Settings"
+              actions={
+                isEditing ? (
+                  <Button size="xs" onClick={handleSaveContact}>
+                    {otpSent ? "Confirm OTP" : "Send OTP"}
+                  </Button>
+                ) : (
+                  <Button size="xs" variant="outline" onClick={() => setIsEditing(true)}>
+                    Edit Contacts
+                  </Button>
+                )
+              }
+            >
               <div className="space-y-4 text-xs">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="phone-input" className="text-muted-foreground block mb-1">Mobile Number</label>
+                    <label htmlFor="phone-input" className="text-muted-foreground block mb-1">
+                      Mobile Number
+                    </label>
                     <input
                       id="phone-input"
                       type="text"
@@ -151,7 +208,9 @@ function BorrowerProfilePage() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="email-input" className="text-muted-foreground block mb-1">Email Address</label>
+                    <label htmlFor="email-input" className="text-muted-foreground block mb-1">
+                      Email Address
+                    </label>
                     <input
                       id="email-input"
                       type="email"
@@ -165,7 +224,9 @@ function BorrowerProfilePage() {
 
                 {otpSent && (
                   <div className="rounded border border-amber-200 bg-amber-50 p-3 space-y-2">
-                    <label htmlFor="phone-otp" className="font-semibold text-amber-950 block">Enter 4-Digit OTP</label>
+                    <label htmlFor="phone-otp" className="font-semibold text-amber-950 block">
+                      Enter 4-Digit OTP
+                    </label>
                     <input
                       id="phone-otp"
                       type="text"
@@ -181,7 +242,10 @@ function BorrowerProfilePage() {
             </SectionCard>
 
             {/* CONSENT MANAGER */}
-            <SectionCard title="Active Consent Ledger" description="Individual revocations of digital inquiry pipelines">
+            <SectionCard
+              title="Active Consent Ledger"
+              description="Individual revocations of digital inquiry pipelines"
+            >
               <div className="divide-y divide-border text-xs">
                 {consents.map((c) => (
                   <div key={c.id} className="py-3 flex justify-between gap-4 items-center">
@@ -189,9 +253,13 @@ function BorrowerProfilePage() {
                       <h4 className="font-semibold text-foreground flex items-center gap-1.5">
                         {c.title}
                         {c.active ? (
-                          <span className="text-[9px] text-emerald-800 bg-emerald-50 border border-emerald-200 rounded px-1.5 py-0.2">ACTIVE</span>
+                          <span className="text-[9px] text-emerald-800 bg-emerald-50 border border-emerald-200 rounded px-1.5 py-0.2">
+                            ACTIVE
+                          </span>
                         ) : (
-                          <span className="text-[9px] text-red-800 bg-red-50 border border-red-200 rounded px-1.5 py-0.2">REVOKED</span>
+                          <span className="text-[9px] text-red-800 bg-red-50 border border-red-200 rounded px-1.5 py-0.2">
+                            REVOKED
+                          </span>
                         )}
                       </h4>
                       <p className="text-muted-foreground text-xs mt-0.5">{c.desc}</p>
@@ -202,7 +270,11 @@ function BorrowerProfilePage() {
                       aria-label={`Toggle consent for ${c.title}`}
                       className="text-primary hover:text-primary-strong shrink-0"
                     >
-                      {c.active ? <ToggleRight className="size-8" /> : <ToggleLeft className="size-8 text-muted-foreground" />}
+                      {c.active ? (
+                        <ToggleRight className="size-8" />
+                      ) : (
+                        <ToggleLeft className="size-8 text-muted-foreground" />
+                      )}
                     </button>
                   </div>
                 ))}
@@ -215,12 +287,17 @@ function BorrowerProfilePage() {
             <SectionCard title="Security & Device Logs">
               <div className="space-y-3 text-xs">
                 {sessions.map((s) => (
-                  <div key={s.id} className="p-2.5 rounded border border-border bg-surface flex justify-between items-start">
+                  <div
+                    key={s.id}
+                    className="p-2.5 rounded border border-border bg-surface flex justify-between items-start"
+                  >
                     <div>
                       <p className="font-semibold text-foreground flex items-center gap-1">
                         <Monitor className="size-3.5 text-muted-foreground" /> {s.device}
                       </p>
-                      <p className="text-[10px] text-muted-foreground mt-0.5">{s.location} · {s.status}</p>
+                      <p className="text-[10px] text-muted-foreground mt-0.5">
+                        {s.location} · {s.status}
+                      </p>
                     </div>
                     {s.status !== "Active Now" && (
                       <button
@@ -238,11 +315,21 @@ function BorrowerProfilePage() {
 
             <SectionCard title="Data Privacy Actions">
               <div className="space-y-3 flex flex-col">
-                <Button size="sm" variant="outline" className="justify-between text-xs" onClick={handleDownloadData}>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="justify-between text-xs"
+                  onClick={handleDownloadData}
+                >
                   <span>Download My Data (PDF)</span>
                   <FileDown className="size-4" />
                 </Button>
-                <Button size="sm" variant="outline" className="justify-between text-xs border-red-200 text-red-700 hover:bg-red-50" onClick={handleDeleteRequest}>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="justify-between text-xs border-red-200 text-red-700 hover:bg-red-50"
+                  onClick={handleDeleteRequest}
+                >
                   <span>Request Account Deletion</span>
                   <Trash2 className="size-4 text-red-600" />
                 </Button>

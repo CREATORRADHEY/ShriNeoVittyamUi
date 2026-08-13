@@ -1,8 +1,23 @@
 import { useState, useRef, useEffect, FormEvent, ReactNode } from "react";
-import { 
-  X, ArrowUp, Mic, ArrowRight, ShieldAlert, Sparkles, 
-  HelpCircle, MessageSquare, Search, FileText, CheckCircle2, 
-  Clock, Calculator, ShieldCheck, Play, Square, AlertCircle, Globe
+import {
+  X,
+  ArrowUp,
+  Mic,
+  ArrowRight,
+  ShieldAlert,
+  Sparkles,
+  HelpCircle,
+  MessageSquare,
+  Search,
+  FileText,
+  CheckCircle2,
+  Clock,
+  Calculator,
+  ShieldCheck,
+  Play,
+  Square,
+  AlertCircle,
+  Globe,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/i18n";
@@ -129,7 +144,7 @@ export function NeoPanel({
         /* Responsive sizing: full bottom sheet on mobile, fixed panel on desktop */
         "fixed right-0 z-50 w-full bg-white border border-[#DDE7F5] shadow-[0_20px_55px_-24px_rgba(0,43,152,0.32)]",
         "flex flex-col overflow-hidden transition-all duration-[240ms] ease-out",
-        "bottom-0 h-[88dvh] rounded-t-[20px] sm:right-6 sm:bottom-6 sm:h-[min(720px,calc(100dvh-100px))] sm:w-[430px] sm:rounded-[20px]"
+        "bottom-0 h-[88dvh] rounded-t-[20px] sm:right-6 sm:bottom-6 sm:h-[min(720px,calc(100dvh-100px))] sm:w-[430px] sm:rounded-[20px]",
       )}
     >
       {/* 1. Header (Premium Navy Theme) */}
@@ -182,7 +197,7 @@ export function NeoPanel({
       {/* Main content viewport */}
       <div ref={scrollRef} className="min-h-0 flex-1 overflow-y-auto bg-[#F7F9FC]">
         {/* Welcome Section & Quick Actions appear ONLY when there are no user messages */}
-        {messages.filter(m => m.from === "you").length === 0 ? (
+        {messages.filter((m) => m.from === "you").length === 0 ? (
           <div className="px-4 py-5">
             {/* 2. Welcome Panel Card */}
             <div className="relative overflow-hidden rounded-[12px] border border-[#DDE7F5] bg-[#E6F1FB]/60 p-4">
@@ -195,7 +210,10 @@ export function NeoPanel({
                     {t("neo.welcome.body1", "I’m Neo, your ShriNeo assistant")}
                   </p>
                   <p className="mt-1.5 text-[11.5px] leading-relaxed text-[#5B657D]">
-                    {t("neo.welcome.body2", "I can help you understand loans, documents, costs and the application process")}
+                    {t(
+                      "neo.welcome.body2",
+                      "I can help you understand loans, documents, costs and the application process",
+                    )}
                   </p>
                 </div>
                 {/* Visual Character Illustration */}
@@ -225,7 +243,7 @@ export function NeoPanel({
                       onClick={() => handleQuickAction(act.query)}
                       className={cn(
                         "group flex flex-col justify-between rounded-[10px] border border-[#DDE7F5] bg-white p-3 text-left shadow-sm",
-                        "transition-all duration-150 hover:-translate-y-px hover:border-[#AFC6E8] hover:bg-[#F5F8FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]"
+                        "transition-all duration-150 hover:-translate-y-px hover:border-[#AFC6E8] hover:bg-[#F5F8FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]",
                       )}
                     >
                       <div className="flex w-full items-center justify-between gap-2">
@@ -238,9 +256,7 @@ export function NeoPanel({
                         <p className="text-[12.5px] font-semibold text-[#002B98] leading-tight">
                           {act.title}
                         </p>
-                        <p className="mt-0.5 text-[11px] text-[#5B657D] leading-none">
-                          {act.desc}
-                        </p>
+                        <p className="mt-0.5 text-[11px] text-[#5B657D] leading-none">{act.desc}</p>
                       </div>
                     </button>
                   );
@@ -270,7 +286,7 @@ export function NeoPanel({
                   key={msg.id}
                   className={cn(
                     "flex flex-col",
-                    msg.from === "you" ? "items-end text-right" : "items-start text-left"
+                    msg.from === "you" ? "items-end text-right" : "items-start text-left",
                   )}
                 >
                   <div
@@ -278,7 +294,7 @@ export function NeoPanel({
                       "max-w-[85%] rounded-[12px] border px-4 py-3 text-[13.5px] leading-relaxed shadow-sm",
                       msg.from === "you"
                         ? "border-[#D6E5F7] bg-[#E6F1FB] text-[#002B98]"
-                        : "border-[#DDE7F5] bg-white text-[#2C3A5A]"
+                        : "border-[#DDE7F5] bg-white text-[#2C3A5A]",
                     )}
                   >
                     {msg.text}
@@ -310,9 +326,11 @@ export function NeoPanel({
         <div
           className={cn(
             "flex items-center gap-2 border-t px-4 py-2 text-xs font-semibold transition-colors",
-            voiceState === "listening" ? "bg-[#EBF7F2] border-[#C2EAD9] text-[#107C41]" :
-            voiceState === "understanding" ? "bg-[#FFF9EB] border-[#FFE9B3] text-[#A8720A]" :
-            "bg-[#FEEBEB] border-[#F8C2C2] text-[#A30000]"
+            voiceState === "listening"
+              ? "bg-[#EBF7F2] border-[#C2EAD9] text-[#107C41]"
+              : voiceState === "understanding"
+                ? "bg-[#FFF9EB] border-[#FFE9B3] text-[#A8720A]"
+                : "bg-[#FEEBEB] border-[#F8C2C2] text-[#A30000]",
           )}
         >
           {voiceState === "listening" && (
@@ -377,10 +395,7 @@ export function NeoPanel({
       )}
 
       {/* 5. Input Composer */}
-      <form
-        onSubmit={handleSubmit}
-        className="border-t border-[#D8E3F3] bg-white p-3"
-      >
+      <form onSubmit={handleSubmit} className="border-t border-[#D8E3F3] bg-white p-3">
         <div className="flex items-end gap-2 rounded-[12px] border border-[#D8E3F3] bg-white px-3 py-2 transition-colors focus-within:border-[#0051AE]">
           <textarea
             ref={inputRef}
@@ -393,7 +408,10 @@ export function NeoPanel({
                 handleSubmit(e);
               }
             }}
-            placeholder={t("neo.composer.placeholder", "Ask Neo about loans, documents or your application…")}
+            placeholder={t(
+              "neo.composer.placeholder",
+              "Ask Neo about loans, documents or your application…",
+            )}
             aria-label="Message draft"
             className="max-h-24 min-h-[24px] flex-1 resize-none bg-transparent text-[13.5px] leading-relaxed text-[#2C3A5A] placeholder:text-[#8B94A6] focus:outline-none"
           />
@@ -425,7 +443,7 @@ export function NeoPanel({
                 "flex size-8 items-center justify-center rounded-lg border transition-colors",
                 recording
                   ? "border-[#FFE5D9] bg-[#FFF2EB] text-[#E8A020]"
-                  : "border-transparent text-[#5B657D] hover:bg-neutral-100 hover:text-neutral-900"
+                  : "border-transparent text-[#5B657D] hover:bg-neutral-100 hover:text-neutral-900",
               )}
             >
               <Mic className="size-[17px]" />

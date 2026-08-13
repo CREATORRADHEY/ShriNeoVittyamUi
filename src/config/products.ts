@@ -205,7 +205,10 @@ export const products: LoanProduct[] = [
     documents: [
       { label: "PAN card", why: "Required for identity and credit bureau verification." },
       { label: "Aadhaar number", why: "Used for secure instant e-KYC consent." },
-      { label: "Last 3 months bank statements", why: "To verify regular cash flow and determine loan eligibility." },
+      {
+        label: "Last 3 months bank statements",
+        why: "To verify regular cash flow and determine loan eligibility.",
+      },
     ],
     faqs: [
       {

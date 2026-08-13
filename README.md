@@ -17,14 +17,14 @@ npm run dev
 
 The dev server runs at **http://localhost:8080**.
 
-| Script | Purpose |
-| --- | --- |
-| `npm run dev` | Local dev server with HMR (prototype tooling enabled) |
-| `npm run build` | Production build |
-| `npm run build:dev` | Build with development mode flags |
-| `npm run preview` | Serve the production build locally |
-| `npm run lint` | ESLint across the repo |
-| `npm run format` | Prettier write |
+| Script              | Purpose                                               |
+| ------------------- | ----------------------------------------------------- |
+| `npm run dev`       | Local dev server with HMR (prototype tooling enabled) |
+| `npm run build`     | Production build                                      |
+| `npm run build:dev` | Build with development mode flags                     |
+| `npm run preview`   | Serve the production build locally                    |
+| `npm run lint`      | ESLint across the repo                                |
+| `npm run format`    | Prettier write                                        |
 
 Requirements: Node.js 20+ (install via [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)) and npm.
 
@@ -70,42 +70,42 @@ The sticky header (Loans dropdown, rotating **Need help** service pill), the foo
 
 ### Public — marketing & product
 
-| URL | Page |
-| --- | --- |
-| `/` | Homepage (hero, USP strip, eligibility widget, loan products, SNV Trust Score, comparison, Neo, agents, FAQ, blog) |
-| `/loans` | All loans overview |
-| `/loans/personal` | Personal loan |
-| `/loans/business` | Business loan |
-| `/loans/home` | Home loan |
-| `/loans/mortgage` | Loan against property / mortgage |
-| `/loans/sachet` | Sachet loan journey |
-| `/compare-offers` | Offer comparison |
-| `/emi-calculator` | EMI calculator |
-| `/how-it-works` | How ShriNeo works |
-| `/for-borrowers` | Borrower proposition |
-| `/for-agents` | Agent proposition |
-| `/for-lenders` | Lender / partner proposition |
-| `/partner-enquiry` | Partner enquiry form |
-| `/account-aggregator` | Account Aggregator explainer |
+| URL                   | Page                                                                                                               |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `/`                   | Homepage (hero, USP strip, eligibility widget, loan products, SNV Trust Score, comparison, Neo, agents, FAQ, blog) |
+| `/loans`              | All loans overview                                                                                                 |
+| `/loans/personal`     | Personal loan                                                                                                      |
+| `/loans/business`     | Business loan                                                                                                      |
+| `/loans/home`         | Home loan                                                                                                          |
+| `/loans/mortgage`     | Loan against property / mortgage                                                                                   |
+| `/loans/sachet`       | Sachet loan journey                                                                                                |
+| `/compare-offers`     | Offer comparison                                                                                                   |
+| `/emi-calculator`     | EMI calculator                                                                                                     |
+| `/how-it-works`       | How ShriNeo works                                                                                                  |
+| `/for-borrowers`      | Borrower proposition                                                                                               |
+| `/for-agents`         | Agent proposition                                                                                                  |
+| `/for-lenders`        | Lender / partner proposition                                                                                       |
+| `/partner-enquiry`    | Partner enquiry form                                                                                               |
+| `/account-aggregator` | Account Aggregator explainer                                                                                       |
 
 ### Public — company, trust & support
 
-| URL | Page |
-| --- | --- |
-| `/about` | About ShriNeo Capital |
-| `/careers` | Careers |
-| `/press` | Press & media |
-| `/contact` | Contact |
-| `/help-center` | Help centre |
-| `/faq` | FAQ (18 items, 3 categories) |
-| `/system-status` | System status |
-| `/blog` | Blog index |
-| `/blog/$slug` | Blog article |
-| `/trust-center` | Trust Center hub |
-| `/trust-center/security` | Security |
-| `/trust-center/privacy-and-data` | Privacy & data |
-| `/trust-center/rbi-compliance` | RBI compliance |
-| `/trust-center/snv-trust-score` | SNV Trust Score explainer |
+| URL                              | Page                         |
+| -------------------------------- | ---------------------------- |
+| `/about`                         | About ShriNeo Capital        |
+| `/careers`                       | Careers                      |
+| `/press`                         | Press & media                |
+| `/contact`                       | Contact                      |
+| `/help-center`                   | Help centre                  |
+| `/faq`                           | FAQ (18 items, 3 categories) |
+| `/system-status`                 | System status                |
+| `/blog`                          | Blog index                   |
+| `/blog/$slug`                    | Blog article                 |
+| `/trust-center`                  | Trust Center hub             |
+| `/trust-center/security`         | Security                     |
+| `/trust-center/privacy-and-data` | Privacy & data               |
+| `/trust-center/rbi-compliance`   | RBI compliance               |
+| `/trust-center/snv-trust-score`  | SNV Trust Score explainer    |
 
 ### Public — legal & regulatory
 
@@ -141,11 +141,11 @@ Any route that does not exist yet renders the shared **In development** notice (
 
 ### Design & motion references
 
-| URL | Purpose |
-| --- | --- |
-| `/prototype` | Screen navigator (dev only) |
+| URL                 | Purpose                               |
+| ------------------- | ------------------------------------- |
+| `/prototype`        | Screen navigator (dev only)           |
 | `/prototype/motion` | Motion scenario playground (dev only) |
-| `/motion` | Motion system documentation & tokens |
+| `/motion`           | Motion system documentation & tokens  |
 
 ### Machine endpoints
 
@@ -165,17 +165,17 @@ All colour, gradient, shadow, radius, typography and motion values are **semanti
 
 Component libraries live under `src/components/`:
 
-| Folder | Contents |
-| --- | --- |
-| `ui/` | shadcn primitives (Radix based) |
-| `layout/` | Header, header panels, footer, public shell, auth shell, portal shell |
-| `sections/` | Homepage & editorial blocks (hero, USP strip, eligibility, how-it-works, trust score, Neo, agents, FAQ, blog teaser) |
-| `motion/` | Route transitions, overlays, dialogs, cookie consent |
-| `states/` | Full-page, negative and in-development states |
-| `illustrations/` | Bespoke SVG illustration set |
-| `neo/` | Neo assistant chat widget (portal-rendered, bilingual) |
-| `portal/` | Shared role-portal page scaffolding |
-| `prototype/` | Dev-only review toolbar |
+| Folder           | Contents                                                                                                             |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `ui/`            | shadcn primitives (Radix based)                                                                                      |
+| `layout/`        | Header, header panels, footer, public shell, auth shell, portal shell                                                |
+| `sections/`      | Homepage & editorial blocks (hero, USP strip, eligibility, how-it-works, trust score, Neo, agents, FAQ, blog teaser) |
+| `motion/`        | Route transitions, overlays, dialogs, cookie consent                                                                 |
+| `states/`        | Full-page, negative and in-development states                                                                        |
+| `illustrations/` | Bespoke SVG illustration set                                                                                         |
+| `neo/`           | Neo assistant chat widget (portal-rendered, bilingual)                                                               |
+| `portal/`        | Shared role-portal page scaffolding                                                                                  |
+| `prototype/`     | Dev-only review toolbar                                                                                              |
 
 ---
 
@@ -222,13 +222,12 @@ Before opening a PR: `npm run lint` and `npm run build` must both pass.
 
 The following high-fidelity components and interactive flows are built into this frontend release:
 
-* **Bespoke Visual Illustrations**: The **Assistance Choice** panel (`/how-it-works`) features real-time, interactive CSS/SVG vector cards:
-  - *Direct vs. Agent*: Shows a split choice representation of self-service and verified local agent guidance.
-  - *Phone Masking*: Visualizes the data routing channel with a masked number representation (`+91 ••••• ••482`) and `[HIDDEN]` status cards.
-  - *Zero-Fee E-Sign*: Renders a simulated secure OTP authorization block confirming `₹0 Agent Fee` and input validations.
-* **Premium Splash Loader** ([splash-loader.tsx](file:///Users/divyanshdusad/ShriNeoVittyamUi/src/components/layout/splash-loader.tsx)): An animated preloader displaying the brand emblem with smooth fade-in/out micro-transitions on first site load or page reloads.
-* **Animated Trust Gauge**: The SNV Trust Score panel (`/trust-center/snv-trust-score`) features a dynamic SVG ring gauge that animates up to the indicative level, mapping out application completeness metrics.
-* **Interactive Underwriter Workbench**: Lender offer parameters (amount, interest rate, tenure, and upfront processing fees) feature interactive sliders/inputs that dynamically recalculate EMI values and update the KFS preview box. Outward queries support document checklists, due dates, and separate internal notes.
-* **Bilingual Agent Onboarding & On-screen Quiz**: Onboarding wizard tracks mobile and email OTP checks, zero-fee sourcing guidelines checklists, bank skipping triggers (with persistent warnings), and a policy knowledge assessment quiz with instant training certificate generation.
-* **Interactive Admin Detail Panels**: Complete data oversight centers for Borrowers (locks, cool-offs), Agents (suspension, credentials), Lenders (routing weights, API status), Loans (pipeline timeline events), Fraud Control (device ID tracking, selfie mismatch reviews), Data Governance (auditable RBI consent ledgers), and Model Governance (PSI drift tracking, manual underwriter overrides).
-
+- **Bespoke Visual Illustrations**: The **Assistance Choice** panel (`/how-it-works`) features real-time, interactive CSS/SVG vector cards:
+  - _Direct vs. Agent_: Shows a split choice representation of self-service and verified local agent guidance.
+  - _Phone Masking_: Visualizes the data routing channel with a masked number representation (`+91 ••••• ••482`) and `[HIDDEN]` status cards.
+  - _Zero-Fee E-Sign_: Renders a simulated secure OTP authorization block confirming `₹0 Agent Fee` and input validations.
+- **Premium Splash Loader** ([splash-loader.tsx](file:///Users/divyanshdusad/ShriNeoVittyamUi/src/components/layout/splash-loader.tsx)): An animated preloader displaying the brand emblem with smooth fade-in/out micro-transitions on first site load or page reloads.
+- **Animated Trust Gauge**: The SNV Trust Score panel (`/trust-center/snv-trust-score`) features a dynamic SVG ring gauge that animates up to the indicative level, mapping out application completeness metrics.
+- **Interactive Underwriter Workbench**: Lender offer parameters (amount, interest rate, tenure, and upfront processing fees) feature interactive sliders/inputs that dynamically recalculate EMI values and update the KFS preview box. Outward queries support document checklists, due dates, and separate internal notes.
+- **Bilingual Agent Onboarding & On-screen Quiz**: Onboarding wizard tracks mobile and email OTP checks, zero-fee sourcing guidelines checklists, bank skipping triggers (with persistent warnings), and a policy knowledge assessment quiz with instant training certificate generation.
+- **Interactive Admin Detail Panels**: Complete data oversight centers for Borrowers (locks, cool-offs), Agents (suspension, credentials), Lenders (routing weights, API status), Loans (pipeline timeline events), Fraud Control (device ID tracking, selfie mismatch reviews), Data Governance (auditable RBI consent ledgers), and Model Governance (PSI drift tracking, manual underwriter overrides).

@@ -64,7 +64,7 @@ export function NeoGreetingCard({
         /* Greeting card: fixed on bottom right (moved closer to edge: right-2/sm:right-3) */
         "fixed right-2 z-40 w-[calc(100vw-24px)] max-w-[390px] rounded-[18px] border border-[#DDE7F5] bg-white p-5 shadow-[0_20px_55px_-24px_rgba(0,43,152,0.32)] sm:right-3 sm:w-[430px] sm:max-w-none sm:p-6",
         "origin-bottom-right transition-all duration-[280ms] ease-[cubic-bezier(0.2,0,0,1)]",
-        mounted ? "translate-y-0 scale-100 opacity-100" : "translate-y-3.5 scale-[0.985] opacity-0"
+        mounted ? "translate-y-0 scale-100 opacity-100" : "translate-y-3.5 scale-[0.985] opacity-0",
       )}
     >
       {/* Close button (Dismiss control with 44px touch target) */}
@@ -82,7 +82,7 @@ export function NeoGreetingCard({
         {/* Left Side: Waving Neo character (escapes/overflows card top) */}
         <div className="relative w-[110px] shrink-0 sm:w-[130px]">
           {/* Restrained blue atmospheric treatment behind Neo */}
-          <div 
+          <div
             aria-hidden="true"
             className="absolute bottom-[-20px] left-1/2 h-[160px] w-[140px] -translate-x-1/2 rounded-full bg-gradient-to-t from-[#E6F1FB]/80 to-transparent blur-[20px]"
           />
@@ -94,7 +94,7 @@ export function NeoGreetingCard({
               /* Neo is approximately 180-205px tall, extends past top of card */
               "absolute bottom-[-20px] left-[-10px] h-[195px] w-[150px] max-w-none object-contain",
               "transition-transform duration-[350ms] ease-out",
-              mounted ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+              mounted ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
             )}
             style={{ transformOrigin: "bottom center" }}
           />
@@ -105,7 +105,7 @@ export function NeoGreetingCard({
           className={cn(
             "flex min-w-0 flex-1 flex-col justify-center pt-2",
             "transition-all duration-[240ms] ease-out",
-            showText ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+            showText ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0",
           )}
         >
           <h3 className="font-display text-lg font-bold leading-tight text-[#002B98] sm:text-xl">
@@ -114,7 +114,7 @@ export function NeoGreetingCard({
           <p className="mt-2 text-[13px] leading-relaxed text-[#5B657D] sm:text-[14px]">
             {t(
               "neo.greeting.body",
-              "I can help you understand loans, documents, costs and the application process"
+              "I can help you understand loans, documents, costs and the application process",
             )}
           </p>
 
@@ -125,7 +125,10 @@ export function NeoGreetingCard({
             className="group mt-4 inline-flex h-10 items-center justify-center gap-1.5 rounded-[10px] bg-[#002B98] px-4 text-center text-[13px] font-semibold text-white shadow-sm transition-all hover:bg-[#001A5C] hover:shadow-md active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]"
           >
             {t("neo.greeting.cta", "Talk to Neo")}
-            <ArrowRight aria-hidden className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+            <ArrowRight
+              aria-hidden
+              className="size-3.5 transition-transform group-hover:translate-x-0.5"
+            />
           </button>
         </div>
       </div>

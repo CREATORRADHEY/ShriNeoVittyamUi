@@ -1,6 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { User, ShieldCheck, ShieldAlert, Landmark, MapPin, Eye, ToggleLeft, ToggleRight, Trash2, KeyRound, RefreshCw } from "lucide-react";
+import {
+  User,
+  ShieldCheck,
+  ShieldAlert,
+  Landmark,
+  MapPin,
+  Eye,
+  ToggleLeft,
+  ToggleRight,
+  Trash2,
+  KeyRound,
+  RefreshCw,
+} from "lucide-react";
 
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
 import { Button } from "@/components/ui/button";
@@ -12,7 +24,11 @@ export const Route = createFileRoute("/app/agent/profile")({
   head: () => ({
     meta: [
       { title: "Agent Profile & Consents — ShriNeo Capital" },
-      { name: "description", content: "Manage agent contact details, service area, bank payout setup and security settings." },
+      {
+        name: "description",
+        content:
+          "Manage agent contact details, service area, bank payout setup and security settings.",
+      },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -35,12 +51,12 @@ function AgentProfilePage() {
   // Security session logs
   const [sessions, setSessions] = useState([
     { id: "ses-1", device: "Chrome (Windows 11)", location: "Jaipur, India", status: "Active Now" },
-    { id: "ses-2", device: "OnePlus 11 (Android)", location: "Jaipur, India", status: "1 day ago" }
+    { id: "ses-2", device: "OnePlus 11 (Android)", location: "Jaipur, India", status: "1 day ago" },
   ]);
 
   const handleToggleCity = (city: string) => {
-    setCoverageCities(prev =>
-      prev.includes(city) ? prev.filter(c => c !== city) : [...prev, city]
+    setCoverageCities((prev) =>
+      prev.includes(city) ? prev.filter((c) => c !== city) : [...prev, city],
     );
     toast.success(`Service area updated.`);
   };
@@ -49,7 +65,7 @@ function AgentProfilePage() {
     setEditingBank(false);
     setPayoutStatus("Pending");
     toast.info("Penny-drop verification initiated. Awaiting bank response...");
-    
+
     setTimeout(() => {
       setPayoutStatus("Verified");
       toast.success("Bank account successfully verified. Active status enabled.");
@@ -57,7 +73,7 @@ function AgentProfilePage() {
   };
 
   const handleRevokeSession = (id: string) => {
-    setSessions(prev => prev.filter(s => s.id !== id));
+    setSessions((prev) => prev.filter((s) => s.id !== id));
     toast.success("Session revoked successfully.");
   };
 
@@ -83,10 +99,18 @@ function AgentProfilePage() {
         <div className="grid gap-6 md:grid-cols-3">
           <div className="md:col-span-2 space-y-6">
             {/* GEOGRAPHIC COVERAGE AREA */}
-            <SectionCard title="Service Area Configuration" description="Configure the states and districts you source applications for">
+            <SectionCard
+              title="Service Area Configuration"
+              description="Configure the states and districts you source applications for"
+            >
               <div className="space-y-4 text-xs">
                 <div>
-                  <label htmlFor="agent-state" className="block text-xs font-semibold text-muted-foreground mb-1">State Region</label>
+                  <label
+                    htmlFor="agent-state"
+                    className="block text-xs font-semibold text-muted-foreground mb-1"
+                  >
+                    State Region
+                  </label>
                   <select
                     id="agent-state"
                     value={selectedState}
@@ -98,13 +122,17 @@ function AgentProfilePage() {
                     className="w-48 rounded border border-border bg-card px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
                   >
                     {Object.keys(GEOGRAPHY).map((st) => (
-                      <option key={st} value={st}>{st}</option>
+                      <option key={st} value={st}>
+                        {st}
+                      </option>
                     ))}
                   </select>
                 </div>
 
                 <div className="space-y-2">
-                  <span className="text-muted-foreground font-semibold block mb-1">Select Districts Covered</span>
+                  <span className="text-muted-foreground font-semibold block mb-1">
+                    Select Districts Covered
+                  </span>
                   <div className="flex flex-wrap gap-2">
                     {GEOGRAPHY[selectedState].cities.map((city) => {
                       const active = coverageCities.includes(city);
@@ -125,17 +153,26 @@ function AgentProfilePage() {
             </SectionCard>
 
             {/* BANK PAYOUT SETUP */}
-            <SectionCard title="Bank Payout Account" actions={
-              editingBank ? (
-                <Button size="xs" onClick={handleVerifyBank}>Verify Payout</Button>
-              ) : (
-                <Button size="xs" variant="outline" onClick={() => setEditingBank(true)}>Change Account</Button>
-              )
-            }>
+            <SectionCard
+              title="Bank Payout Account"
+              actions={
+                editingBank ? (
+                  <Button size="xs" onClick={handleVerifyBank}>
+                    Verify Payout
+                  </Button>
+                ) : (
+                  <Button size="xs" variant="outline" onClick={() => setEditingBank(true)}>
+                    Change Account
+                  </Button>
+                )
+              }
+            >
               <div className="space-y-4 text-xs">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="bank-acc-input" className="text-muted-foreground block mb-1">Account Number & Bank</label>
+                    <label htmlFor="bank-acc-input" className="text-muted-foreground block mb-1">
+                      Account Number & Bank
+                    </label>
                     <input
                       id="bank-acc-input"
                       type="text"
@@ -146,7 +183,9 @@ function AgentProfilePage() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="bank-ifsc-input" className="text-muted-foreground block mb-1">IFSC Code</label>
+                    <label htmlFor="bank-ifsc-input" className="text-muted-foreground block mb-1">
+                      IFSC Code
+                    </label>
                     <input
                       id="bank-ifsc-input"
                       type="text"
@@ -165,7 +204,8 @@ function AgentProfilePage() {
                       <div>
                         <p className="font-semibold text-sm">Penny-Drop Mismatch Detected</p>
                         <p className="mt-1 leading-relaxed text-xs">
-                          The name returned by your bank did not match your registered PAN name exactly. Payouts are on hold. Update the bank details or contact support.
+                          The name returned by your bank did not match your registered PAN name
+                          exactly. Payouts are on hold. Update the bank details or contact support.
                         </p>
                       </div>
                     </div>
@@ -187,8 +227,16 @@ function AgentProfilePage() {
               <div className="divide-y divide-border text-xs">
                 {[
                   { item: "Identity KYC (PAN & Aadhaar)", date: "14 Aug 2024", status: "Verified" },
-                  { item: "Onboarding Legal Agreement", date: "08 Mar 2026", status: "Signed & Locked" },
-                  { item: "Fair Practice training module", date: "05 Mar 2026", status: "Complete" },
+                  {
+                    item: "Onboarding Legal Agreement",
+                    date: "08 Mar 2026",
+                    status: "Signed & Locked",
+                  },
+                  {
+                    item: "Fair Practice training module",
+                    date: "05 Mar 2026",
+                    status: "Complete",
+                  },
                 ].map((row, i) => (
                   <div key={i} className="py-2.5 flex justify-between items-center">
                     <div>
@@ -207,10 +255,15 @@ function AgentProfilePage() {
             <SectionCard title="Security & Device Logs">
               <div className="space-y-3 text-xs">
                 {sessions.map((s) => (
-                  <div key={s.id} className="p-2.5 rounded border border-border bg-surface flex justify-between items-start">
+                  <div
+                    key={s.id}
+                    className="p-2.5 rounded border border-border bg-surface flex justify-between items-start"
+                  >
                     <div>
                       <p className="font-semibold text-foreground">{s.device}</p>
-                      <p className="text-[10px] text-muted-foreground mt-0.5">{s.location} · {s.status}</p>
+                      <p className="text-[10px] text-muted-foreground mt-0.5">
+                        {s.location} · {s.status}
+                      </p>
                     </div>
                     {s.status !== "Active Now" && (
                       <button

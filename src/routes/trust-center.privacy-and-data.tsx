@@ -90,18 +90,28 @@ function PrivacyDataPage() {
         />
         <div className="mt-8 overflow-x-auto">
           <table className="w-full min-w-[42rem] border-collapse text-left text-sm">
-            <caption className="sr-only">Categories of data collected and the reason for each</caption>
+            <caption className="sr-only">
+              Categories of data collected and the reason for each
+            </caption>
             <thead>
               <tr className="border-b border-border-strong">
-                <th scope="col" className="py-3 pr-4 font-semibold">Category</th>
-                <th scope="col" className="py-3 pr-4 font-semibold">Examples</th>
-                <th scope="col" className="py-3 font-semibold">Why it is needed</th>
+                <th scope="col" className="py-3 pr-4 font-semibold">
+                  Category
+                </th>
+                <th scope="col" className="py-3 pr-4 font-semibold">
+                  Examples
+                </th>
+                <th scope="col" className="py-3 font-semibold">
+                  Why it is needed
+                </th>
               </tr>
             </thead>
             <tbody>
               {collected.map((row) => (
                 <tr key={row.what} className="border-b border-border align-top">
-                  <th scope="row" className="py-4 pr-4 font-medium">{row.what}</th>
+                  <th scope="row" className="py-4 pr-4 font-medium">
+                    {row.what}
+                  </th>
                   <td className="py-4 pr-4 text-muted-foreground">{row.examples}</td>
                   <td className="py-4 text-muted-foreground">{row.why}</td>
                 </tr>
@@ -142,7 +152,10 @@ function PrivacyDataPage() {
             </p>
             <ol className="mt-6 space-y-3">
               {consentMoments.map((item, i) => (
-                <li key={item} className="flex gap-4 rounded-lg border border-border bg-surface p-4">
+                <li
+                  key={item}
+                  className="flex gap-4 rounded-lg border border-border bg-surface p-4"
+                >
                   <span className="num text-sm font-semibold text-primary">
                     {String(i + 1).padStart(2, "0")}
                   </span>

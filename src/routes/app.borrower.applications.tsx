@@ -25,7 +25,10 @@ export const Route = createFileRoute("/app/borrower/applications")({
       },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Your applications — ShriNeo Capital" },
-      { property: "og:description", content: "Plain-language application tracking with clear next steps." },
+      {
+        property: "og:description",
+        content: "Plain-language application tracking with clear next steps.",
+      },
     ],
   }),
   component: ApplicationsPage,
@@ -114,14 +117,20 @@ function ApplicationsPage() {
               title="This application is closed"
               explanation="It was completed and closed on 13 Mar 2026. Nothing further is outstanding."
               safety="Your closure letter and statements remain available to download."
-              actions={[{ label: "Start a new application", to: "/app/borrower/apply", variant: "default" }]}
+              actions={[
+                { label: "Start a new application", to: "/app/borrower/apply", variant: "default" },
+              ]}
             />
           ) : null}
 
           <SectionCard
             title="Personal loan · SNV-APP-48213"
             description={`${formatINR(450000)} requested over 24 months`}
-            actions={<StatusBadge tone={application === "rejected" ? "warning" : "info"}>In review</StatusBadge>}
+            actions={
+              <StatusBadge tone={application === "rejected" ? "warning" : "info"}>
+                In review
+              </StatusBadge>
+            }
           >
             <StatusTimeline items={TIMELINE["base"] ?? []} />
           </SectionCard>
@@ -134,11 +143,21 @@ function ApplicationsPage() {
             <caption className="sr-only">All loan applications and their current status</caption>
             <thead>
               <tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground">
-                <th scope="col" className="px-3 py-2 font-medium">Reference</th>
-                <th scope="col" className="px-3 py-2 font-medium">Product</th>
-                <th scope="col" className="px-3 py-2 font-medium">Amount</th>
-                <th scope="col" className="px-3 py-2 font-medium">Status</th>
-                <th scope="col" className="px-3 py-2 font-medium">Action</th>
+                <th scope="col" className="px-3 py-2 font-medium">
+                  Reference
+                </th>
+                <th scope="col" className="px-3 py-2 font-medium">
+                  Product
+                </th>
+                <th scope="col" className="px-3 py-2 font-medium">
+                  Amount
+                </th>
+                <th scope="col" className="px-3 py-2 font-medium">
+                  Status
+                </th>
+                <th scope="col" className="px-3 py-2 font-medium">
+                  Action
+                </th>
               </tr>
             </thead>
             {data === "populated" && application !== "draft" ? (
@@ -152,10 +171,14 @@ function ApplicationsPage() {
                     <td className="px-3 py-3 text-muted-foreground">{product}</td>
                     <td className="num px-3 py-3 text-foreground">{formatINR(Number(amt))}</td>
                     <td className="px-3 py-3">
-                      <StatusBadge tone={status === "Closed" ? "neutral" : "info"}>{String(status)}</StatusBadge>
+                      <StatusBadge tone={status === "Closed" ? "neutral" : "info"}>
+                        {String(status)}
+                      </StatusBadge>
                     </td>
                     <td className="px-3 py-3">
-                      <Button size="sm" variant="outline">View</Button>
+                      <Button size="sm" variant="outline">
+                        View
+                      </Button>
                     </td>
                   </tr>
                 ))}

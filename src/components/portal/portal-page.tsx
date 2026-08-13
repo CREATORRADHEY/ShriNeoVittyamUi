@@ -22,7 +22,13 @@ export type PortalPageSpec = {
   metaTitle: string;
   metaDescription: string;
   kpis?: { label: string; value: string; hint?: string; tone?: Tone }[];
-  notices?: { tone: Tone; title: string; explanation: string; safety?: string; actions?: string[] }[];
+  notices?: {
+    tone: Tone;
+    title: string;
+    explanation: string;
+    safety?: string;
+    actions?: string[];
+  }[];
   table?: {
     caption: string;
     entity: string;
@@ -178,7 +184,9 @@ export function PortalPage({ spec }: { spec: PortalPageSpec }) {
                         {row.map((cell, j) => (
                           <td key={j} className="px-3 py-3 text-foreground">
                             {typeof cell === "string" ? (
-                              <span className={j === 0 ? "num" : "text-muted-foreground"}>{cell}</span>
+                              <span className={j === 0 ? "num" : "text-muted-foreground"}>
+                                {cell}
+                              </span>
                             ) : (
                               <StatusBadge tone={cell.tone}>{cell.text}</StatusBadge>
                             )}

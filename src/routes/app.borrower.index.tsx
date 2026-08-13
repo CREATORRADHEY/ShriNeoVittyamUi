@@ -79,7 +79,9 @@ function BorrowerDashboard() {
         tone="warning"
         title="Attention Needed: Action Required"
         explanation="You have pending item(s) in your Action Centre. Resolving them quickly helps speed up lender reviews."
-        actions={[{ label: "Open Action Centre", to: "/app/borrower/action-centre", variant: "default" }]}
+        actions={[
+          { label: "Open Action Centre", to: "/app/borrower/action-centre", variant: "default" },
+        ]}
       />
     ) : data === "offline" ? (
       <OfflineBanner />
@@ -93,7 +95,10 @@ function BorrowerDashboard() {
     <PortalShell
       role="borrower"
       title={t("portal.borrower.greeting", "Namaste, Rohit")}
-      subtitle={t("portal.subtitle.demo", "Demonstration data — no live lender information is shown")}
+      subtitle={t(
+        "portal.subtitle.demo",
+        "Demonstration data — no live lender information is shown",
+      )}
       banner={banner}
       actions={
         <Button asChild size="sm">
@@ -178,9 +183,24 @@ function NewBorrower() {
 
       <div className="grid gap-4 sm:grid-cols-3">
         {[
-          { title: "Personal loan", body: "Unsecured, from ₹50,000", to: "/loans/personal", icon: Sparkles },
-          { title: "Business loan", body: "For MSMEs and traders", to: "/loans/business", icon: Landmark },
-          { title: "Home loan", body: "Long-tenure, secured", to: "/loans/home", icon: ShieldCheck },
+          {
+            title: "Personal loan",
+            body: "Unsecured, from ₹50,000",
+            to: "/loans/personal",
+            icon: Sparkles,
+          },
+          {
+            title: "Business loan",
+            body: "For MSMEs and traders",
+            to: "/loans/business",
+            icon: Landmark,
+          },
+          {
+            title: "Home loan",
+            body: "Long-tenure, secured",
+            to: "/loans/home",
+            icon: ShieldCheck,
+          },
         ].map((p) => (
           <Link
             key={p.title}
@@ -220,7 +240,10 @@ function NewBorrower() {
         />
       </div>
 
-      <SectionCard title="Prefer help from a person?" description="Verified agents assist with documents and lender questions">
+      <SectionCard
+        title="Prefer help from a person?"
+        description="Verified agents assist with documents and lender questions"
+      >
         <div className="flex flex-wrap items-center gap-3">
           <Users aria-hidden className="size-5 text-primary" />
           <p className="text-sm text-muted-foreground flex-1 min-w-[200px]">
@@ -288,7 +311,8 @@ function ActiveBorrower({
     },
     {
       label: APPLICATION_LABEL[application as keyof typeof APPLICATION_LABEL] ?? "Lender review",
-      meaning: "Participating lenders are reviewing your file. This is normal and does not indicate a decision.",
+      meaning:
+        "Participating lenders are reviewing your file. This is normal and does not indicate a decision.",
       timestamp: "10 Mar 2026, 09:45",
       source: "Participating lender",
       nextAction: "No action needed from you right now",
@@ -309,7 +333,10 @@ function ActiveBorrower({
     <>
       {/* QUICK SHORTCUTS ROW */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Link to="/app/borrower/cibil-score" className="flex items-center gap-2.5 p-3 rounded-xl border border-border bg-card hover:bg-neutral-50 transition-colors">
+        <Link
+          to="/app/borrower/cibil-score"
+          className="flex items-center gap-2.5 p-3 rounded-xl border border-border bg-card hover:bg-neutral-50 transition-colors"
+        >
           <span className="text-lg">📊</span>
           <div className="text-left">
             <p className="font-semibold text-xs text-foreground">Check CIBIL</p>
@@ -317,7 +344,10 @@ function ActiveBorrower({
           </div>
         </Link>
 
-        <Link to="/app/borrower/snv-trust-score" className="flex items-center gap-2.5 p-3 rounded-xl border border-border bg-card hover:bg-neutral-50 transition-colors">
+        <Link
+          to="/app/borrower/snv-trust-score"
+          className="flex items-center gap-2.5 p-3 rounded-xl border border-border bg-card hover:bg-neutral-50 transition-colors"
+        >
           <span className="text-lg">📈</span>
           <div className="text-left">
             <p className="font-semibold text-xs text-foreground">SNV Trust Score</p>
@@ -325,7 +355,10 @@ function ActiveBorrower({
           </div>
         </Link>
 
-        <Link to="/app/borrower/agents" className="flex items-center gap-2.5 p-3 rounded-xl border border-border bg-card hover:bg-neutral-50 transition-colors">
+        <Link
+          to="/app/borrower/agents"
+          className="flex items-center gap-2.5 p-3 rounded-xl border border-border bg-card hover:bg-neutral-50 transition-colors"
+        >
           <span className="text-lg">👨‍💼</span>
           <div className="text-left">
             <p className="font-semibold text-xs text-foreground">Find Agent</p>
@@ -333,7 +366,10 @@ function ActiveBorrower({
           </div>
         </Link>
 
-        <Link to="/app/borrower/action-centre" className="flex items-center gap-2.5 p-3 rounded-xl border border-border bg-card hover:bg-neutral-50 transition-colors">
+        <Link
+          to="/app/borrower/action-centre"
+          className="flex items-center gap-2.5 p-3 rounded-xl border border-border bg-card hover:bg-neutral-50 transition-colors"
+        >
           <span className="text-lg">🔔</span>
           <div className="text-left">
             <p className="font-semibold text-xs text-foreground">Action Centre</p>
@@ -346,7 +382,11 @@ function ActiveBorrower({
         <KpiCard
           label="Next EMI"
           value={activePayment ? formatINR(activePayment.amount) : "—"}
-          hint={activePayment ? `Due ${activePayment.dueDate} · ${activePayment.mandateBank}` : "No payment scheduled"}
+          hint={
+            activePayment
+              ? `Due ${activePayment.dueDate} · ${activePayment.mandateBank}`
+              : "No payment scheduled"
+          }
           state={data === "stale" ? "stale" : "ready"}
         />
         <KpiCard
@@ -358,7 +398,11 @@ function ActiveBorrower({
         <KpiCard
           label="Applications in Progress"
           value={activeApplication ? "1" : "0"}
-          hint={activeApplication ? APPLICATION_LABEL[application as keyof typeof APPLICATION_LABEL] : "All files resolved"}
+          hint={
+            activeApplication
+              ? APPLICATION_LABEL[application as keyof typeof APPLICATION_LABEL]
+              : "All files resolved"
+          }
         />
       </div>
 
@@ -367,7 +411,8 @@ function ActiveBorrower({
         <SectionCard title="Resume Saved Draft" description="Personal loan · ₹3,50,000 · 36 months">
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
-              You have a draft application saved on 08 Mar 2026. You can complete the remaining steps to request lender quotes.
+              You have a draft application saved on 08 Mar 2026. You can complete the remaining
+              steps to request lender quotes.
             </p>
             <div className="flex gap-2">
               <Button asChild size="sm">
@@ -388,7 +433,13 @@ function ActiveBorrower({
           title="Document Re-upload Requested"
           explanation={`Request ${activeRequest.id}: Lender ${activeRequest.requiredItem} request is outstanding. Reason: ${activeRequest.reason}.`}
           safety="Your application is on hold until the requested documents are uploaded."
-          actions={[{ label: "Upload Statements in Action Centre", to: "/app/borrower/action-centre", variant: "default" }]}
+          actions={[
+            {
+              label: "Upload Statements in Action Centre",
+              to: "/app/borrower/action-centre",
+              variant: "default",
+            },
+          ]}
         />
       )}
 
@@ -397,7 +448,11 @@ function ActiveBorrower({
         <SectionCard
           title="Current Application Status"
           description="Personal loan · ₹3,50,000 · 36 months"
-          actions={<StatusBadge tone="info">{APPLICATION_LABEL[application as keyof typeof APPLICATION_LABEL]}</StatusBadge>}
+          actions={
+            <StatusBadge tone="info">
+              {APPLICATION_LABEL[application as keyof typeof APPLICATION_LABEL]}
+            </StatusBadge>
+          }
         >
           <div className="space-y-5">
             <StatusTimeline items={timeline} />
@@ -412,7 +467,9 @@ function ActiveBorrower({
             <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-900">
               <p className="font-semibold">Application Declined</p>
               <p className="mt-1 text-xs">
-                Participating lenders, including SBI Digital Finance, have declined this file. This decision is final. You may review the credit factors or contact our grievance support desk for redressal options.
+                Participating lenders, including SBI Digital Finance, have declined this file. This
+                decision is final. You may review the credit factors or contact our grievance
+                support desk for redressal options.
               </p>
             </div>
             <div className="flex gap-2">
@@ -425,45 +482,69 @@ function ActiveBorrower({
       )}
 
       {/* STATE 5: OFFERS READY */}
-      {(application === "approved" || application === "lender-review" || application === "manual-review") && activeOffers.length > 0 && (
-        <SectionCard title="Quotes Received (Lenders Compared)" description="Lowest APR listed first">
-          <div className="space-y-4">
-            <div className="grid gap-3">
-              {activeOffers.map((off, index) => (
-                <div key={off.id} className="flex items-center justify-between rounded-lg border border-border bg-surface p-4">
-                  <div>
-                    <p className="font-semibold text-foreground">{off.lenderName}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {formatINR(off.amount)} · {off.tenure} months · APR {off.apr}% · Fee {formatINR(off.fee)}
-                    </p>
+      {(application === "approved" ||
+        application === "lender-review" ||
+        application === "manual-review") &&
+        activeOffers.length > 0 && (
+          <SectionCard
+            title="Quotes Received (Lenders Compared)"
+            description="Lowest APR listed first"
+          >
+            <div className="space-y-4">
+              <div className="grid gap-3">
+                {activeOffers.map((off, index) => (
+                  <div
+                    key={off.id}
+                    className="flex items-center justify-between rounded-lg border border-border bg-surface p-4"
+                  >
+                    <div>
+                      <p className="font-semibold text-foreground">{off.lenderName}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {formatINR(off.amount)} · {off.tenure} months · APR {off.apr}% · Fee{" "}
+                        {formatINR(off.fee)}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-mono font-semibold text-foreground">
+                        {formatINR(off.emi)}/mo
+                      </p>
+                      <Button
+                        asChild
+                        size="xs"
+                        variant={index === 0 ? "default" : "outline"}
+                        className="mt-1"
+                      >
+                        <Link to="/app/borrower/application">
+                          {index === 0 ? "Accept Offer" : "Select Quote"}
+                        </Link>
+                      </Button>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="font-mono font-semibold text-foreground">{formatINR(off.emi)}/mo</p>
-                    <Button asChild size="xs" variant={index === 0 ? "default" : "outline"} className="mt-1">
-                      <Link to="/app/borrower/application">
-                        {index === 0 ? "Accept Offer" : "Select Quote"}
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        </SectionCard>
-      )}
+          </SectionCard>
+        )}
 
       {/* STATE 6: ACTIVE LOAN DETAILS */}
       {activeLoan && activePayment && (
         <div className="grid gap-4 lg:grid-cols-2">
-          <SectionCard title="Active Loan Servicing" description="SBI Digital Finance · Personal loan">
+          <SectionCard
+            title="Active Loan Servicing"
+            description="SBI Digital Finance · Personal loan"
+          >
             <dl className="grid grid-cols-2 gap-4 text-sm">
               <div>
                 <dt className="text-muted-foreground">Next EMI</dt>
-                <dd className="num mt-1 text-lg font-semibold text-foreground">{formatINR(activePayment.amount)}</dd>
+                <dd className="num mt-1 text-lg font-semibold text-foreground">
+                  {formatINR(activePayment.amount)}
+                </dd>
               </div>
               <div>
                 <dt className="text-muted-foreground">Due Date</dt>
-                <dd className="num mt-1 text-lg font-semibold text-foreground">{activePayment.dueDate}</dd>
+                <dd className="num mt-1 text-lg font-semibold text-foreground">
+                  {activePayment.dueDate}
+                </dd>
               </div>
               <div>
                 <dt className="text-muted-foreground">Lender Partner</dt>
@@ -471,7 +552,9 @@ function ActiveBorrower({
               </div>
               <div>
                 <dt className="text-muted-foreground">Mandate Bank</dt>
-                <dd className="mt-1 text-xs text-foreground truncate">{activePayment.mandateBank}</dd>
+                <dd className="mt-1 text-xs text-foreground truncate">
+                  {activePayment.mandateBank}
+                </dd>
               </div>
             </dl>
             <div className="mt-5 flex gap-2">
@@ -489,9 +572,15 @@ function ActiveBorrower({
 
           <SectionCard title="Direct Lender Servicing" description="SBI Digital Finance Portals">
             <p className="text-sm text-muted-foreground">
-              For loan closures, restructuring requests, or interest certificates, you can log directly into SBI portal with your registered loan ID.
+              For loan closures, restructuring requests, or interest certificates, you can log
+              directly into SBI portal with your registered loan ID.
             </p>
-            <Button size="sm" variant="outline" className="mt-4" onClick={() => window.open("https://sbi.co.in", "_blank")}>
+            <Button
+              size="sm"
+              variant="outline"
+              className="mt-4"
+              onClick={() => window.open("https://sbi.co.in", "_blank")}
+            >
               Go to SBI Portal
             </Button>
           </SectionCard>
@@ -500,18 +589,20 @@ function ActiveBorrower({
 
       {/* STATE 7: CLOSED LOAN */}
       {activeLoan && application === "closed" && (
-        <SectionCard title="Previous Loan File (Closed)" description="SBI Digital Finance · Account ID: LN-2026-092">
+        <SectionCard
+          title="Previous Loan File (Closed)"
+          description="SBI Digital Finance · Account ID: LN-2026-092"
+        >
           <div className="space-y-4">
             <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
               <p className="font-semibold">Loan Settled & Closed</p>
               <p className="mt-1 text-xs">
-                Your loan of ₹3,50,000 was fully settled on 10 Mar 2026. The No Objection Certificate (NOC) is ready for download.
+                Your loan of ₹3,50,000 was fully settled on 10 Mar 2026. The No Objection
+                Certificate (NOC) is ready for download.
               </p>
             </div>
             <div className="flex gap-2">
-              <Button size="sm">
-                Download NOC Closure Certificate
-              </Button>
+              <Button size="sm">Download NOC Closure Certificate</Button>
               <Button asChild size="sm" variant="outline">
                 <Link to="/app/borrower/loans">View Historic Statements</Link>
               </Button>
@@ -521,10 +612,22 @@ function ActiveBorrower({
       )}
 
       {/* DOCUMENTS CHECKLIST OVERVIEW */}
-      <SectionCard title="Documents Summary" description="Verified documentation checklist for current status">
+      <SectionCard
+        title="Documents Summary"
+        description="Verified documentation checklist for current status"
+      >
         <div className="grid gap-3 sm:grid-cols-3">
           {activeDocuments.map((doc) => (
-            <StatusBadge key={doc.id} tone={doc.status === "Accepted" ? "success" : doc.status === "Rejected" ? "error" : "warning"}>
+            <StatusBadge
+              key={doc.id}
+              tone={
+                doc.status === "Accepted"
+                  ? "success"
+                  : doc.status === "Rejected"
+                    ? "error"
+                    : "warning"
+              }
+            >
               {doc.name}: {doc.status}
             </StatusBadge>
           ))}

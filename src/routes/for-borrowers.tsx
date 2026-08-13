@@ -209,14 +209,13 @@ export function ForBorrowersPage() {
                   onClick={() => {
                     window.dispatchEvent(
                       new CustomEvent("shrineo:open-neo", {
-                        detail: { message: q }
-                      })
+                        detail: { message: q },
+                      }),
                     );
                   }}
                   className="flex w-full items-center gap-3 rounded-lg border border-border bg-card p-4 text-left text-sm font-medium text-foreground transition-colors hover:border-[#0051AE] hover:bg-[#F5F8FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]"
                 >
-                  <CircleHelp aria-hidden className="size-4 shrink-0 text-muted-foreground" />
-                  “{q}”
+                  <CircleHelp aria-hidden className="size-4 shrink-0 text-muted-foreground" />“{q}”
                 </button>
               </li>
             ))}

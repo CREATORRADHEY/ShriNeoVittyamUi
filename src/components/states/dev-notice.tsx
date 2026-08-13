@@ -41,7 +41,9 @@ export function DevNoticePage() {
       >
         <div className="flex items-center gap-2.5 pb-4 border-b border-[#DDE7F5]">
           <img src={logo} alt="ShriNeo Capital logo" className="h-8 w-auto object-contain" />
-          <span className="text-base font-semibold text-[#0A286F] tracking-tight">{org.brandName}</span>
+          <span className="text-base font-semibold text-[#0A286F] tracking-tight">
+            {org.brandName}
+          </span>
         </div>
 
         <div className="space-y-2">
@@ -57,11 +59,19 @@ export function DevNoticePage() {
         </div>
 
         <p className="text-sm leading-relaxed text-[#5B657D]">
-          This section of the portal is temporarily offline for security verification and system updates. No changes have been made to your active profile or applications.
+          This section of the portal is temporarily offline for security verification and system
+          updates. No changes have been made to your active profile or applications.
         </p>
 
         <div className="rounded-lg bg-neutral-50 border border-neutral-100 p-3 text-xs text-muted-foreground">
-          If you need immediate assistance or would like to report an access issue, please contact our support team at <a href="mailto:support@shrineocapital.com" className="font-mono text-primary hover:underline">support@shrineocapital.com</a>
+          If you need immediate assistance or would like to report an access issue, please contact
+          our support team at{" "}
+          <a
+            href="mailto:support@shrineocapital.com"
+            className="font-mono text-primary hover:underline"
+          >
+            support@shrineocapital.com
+          </a>
         </div>
 
         <div className="flex flex-col gap-2 pt-2">

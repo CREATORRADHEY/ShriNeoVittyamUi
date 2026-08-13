@@ -143,18 +143,22 @@ export const en: Record<string, string> = {
   "snv.body":
     "Over 400 million Indians and small businesses are financially reliable, yet invisible to credit bureaus.",
   "snv.signal.upi": "UPI & bank activity",
-  "snv.signal.upi.desc": "Direct bank activity and UPI transaction frequencies are analyzed securely via Account Aggregator. Consistent, non-bounced transactions build solid trust score metrics.",
+  "snv.signal.upi.desc":
+    "Direct bank activity and UPI transaction frequencies are analyzed securely via Account Aggregator. Consistent, non-bounced transactions build solid trust score metrics.",
   "snv.signal.bills": "Utility & mobile bills",
-  "snv.signal.bills.desc": "Timely payment of postpaid mobile connection fees, electricity bills, and gas connection lines helps prove consistent repayment capability.",
+  "snv.signal.bills.desc":
+    "Timely payment of postpaid mobile connection fees, electricity bills, and gas connection lines helps prove consistent repayment capability.",
   "snv.signal.cashflow": "Business cash flow",
-  "snv.signal.cashflow.desc": "For self-employed shopkeepers and traders, consistent daily and weekly business inflows demonstrate a healthy business cycle.",
+  "snv.signal.cashflow.desc":
+    "For self-employed shopkeepers and traders, consistent daily and weekly business inflows demonstrate a healthy business cycle.",
   "snv.signal.repayment": "Repayment history",
-  "snv.signal.repayment.desc": "Clear, timely repayments of previous small-ticket loans or micro-credit lines serve as the strongest positive indicator.",
+  "snv.signal.repayment.desc":
+    "Clear, timely repayments of previous small-ticket loans or micro-credit lines serve as the strongest positive indicator.",
   "snv.reassurance": "Encrypted, consent-based, never sold.",
   "snv.illustrative": "Illustrative example",
   "snv.scale": "0–100 scale",
-    "snv.ring.aria":
-      "SNV Trust Score illustration. Illustrative SNV Trust Score of 68 on a 0 to 100 scale.",
+  "snv.ring.aria":
+    "SNV Trust Score illustration. Illustrative SNV Trust Score of 68 on a 0 to 100 scale.",
   "portal.nav.dashboard": "Dashboard",
   "portal.nav.applyforaloan": "Apply for a loan",
   "portal.nav.myapplications": "My applications",

@@ -1,6 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search, Building, Settings, CheckCircle2, AlertTriangle, ToggleLeft, ToggleRight, Save } from "lucide-react";
+import {
+  Search,
+  Building,
+  Settings,
+  CheckCircle2,
+  AlertTriangle,
+  ToggleLeft,
+  ToggleRight,
+  Save,
+} from "lucide-react";
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
 import { KpiCard, StatusBadge } from "@/components/states";
 import { Button } from "@/components/ui/button";
@@ -10,7 +19,11 @@ export const Route = createFileRoute("/app/admin/lenders")({
   head: () => ({
     meta: [
       { title: "Lender Management — ShriNeo Capital" },
-      { name: "description", content: "Onboard lenders, check integration API statuses, and manage credit routing parameters." },
+      {
+        name: "description",
+        content:
+          "Onboard lenders, check integration API statuses, and manage credit routing parameters.",
+      },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -29,10 +42,42 @@ interface LenderAccount {
 
 function AdminLendersPage() {
   const [lenders, setLenders] = useState<LenderAccount[]>([
-    { id: "L-904", name: "SBI Digital Finance", type: "Public RE", weight: 40, minCibil: 650, apiStatus: "Healthy", status: "Active" },
-    { id: "L-908", name: "Kaveri Gramin Bank", type: "RRB", weight: 30, minCibil: 600, apiStatus: "Slow", status: "Active" },
-    { id: "L-912", name: "Indus Credit Capital", type: "NBFC", weight: 20, minCibil: 680, apiStatus: "Healthy", status: "Active" },
-    { id: "L-920", name: "Federal Micro Finance", type: "Private Bank", weight: 10, minCibil: 580, apiStatus: "Offline", status: "Inactive" }
+    {
+      id: "L-904",
+      name: "SBI Digital Finance",
+      type: "Public RE",
+      weight: 40,
+      minCibil: 650,
+      apiStatus: "Healthy",
+      status: "Active",
+    },
+    {
+      id: "L-908",
+      name: "Kaveri Gramin Bank",
+      type: "RRB",
+      weight: 30,
+      minCibil: 600,
+      apiStatus: "Slow",
+      status: "Active",
+    },
+    {
+      id: "L-912",
+      name: "Indus Credit Capital",
+      type: "NBFC",
+      weight: 20,
+      minCibil: 680,
+      apiStatus: "Healthy",
+      status: "Active",
+    },
+    {
+      id: "L-920",
+      name: "Federal Micro Finance",
+      type: "Private Bank",
+      weight: 10,
+      minCibil: 580,
+      apiStatus: "Offline",
+      status: "Inactive",
+    },
   ]);
 
   const [selectedLenderId, setSelectedLenderId] = useState<string | null>(null);
@@ -53,27 +98,28 @@ function AdminLendersPage() {
     e.preventDefault();
     if (!selectedLenderId) return;
 
-    setLenders(prev =>
-      prev.map(l => {
+    setLenders((prev) =>
+      prev.map((l) => {
         if (l.id === selectedLenderId) {
           toast.success(`Updated routing parameters for ${l.name}.`);
           return { ...l, weight: editWeight, minCibil: editMinCibil, status: editStatus };
         }
         return l;
-      })
+      }),
     );
   };
 
   const handleToggleApiStatus = (id: string) => {
-    setLenders(prev =>
-      prev.map(l => {
+    setLenders((prev) =>
+      prev.map((l) => {
         if (l.id === id) {
-          const nextStatus = l.apiStatus === "Offline" ? "Healthy" as const : "Offline" as const;
+          const nextStatus =
+            l.apiStatus === "Offline" ? ("Healthy" as const) : ("Offline" as const);
           toast.info(`Simulated API connection toggle for ${l.name}: now ${nextStatus}`);
           return { ...l, apiStatus: nextStatus };
         }
         return l;
-      })
+      }),
     );
   };
 
@@ -86,10 +132,19 @@ function AdminLendersPage() {
       <div className="space-y-6 text-xs">
         {/* KPI Row */}
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          <KpiCard label="Onboarded Lenders" value="4 Participating REs" hint="SBI, Kaveri, Indus, Federal" />
+          <KpiCard
+            label="Onboarded Lenders"
+            value="4 Participating REs"
+            hint="SBI, Kaveri, Indus, Federal"
+          />
           <KpiCard label="Average API Latency" value="184ms" hint="Target <300ms" tone="success" />
           <KpiCard label="Routing Cap Allocated" value="100%" hint="Platform total weights" />
-          <KpiCard label="API Degraded/Offline" value="1" hint="Federal Micro Finance" tone="warning" />
+          <KpiCard
+            label="API Degraded/Offline"
+            value="1"
+            hint="Federal Micro Finance"
+            tone="warning"
+          />
         </div>
 
         {/* Workspace */}
@@ -100,13 +155,27 @@ function AdminLendersPage() {
                 <table className="w-full min-w-[600px] border-collapse text-left">
                   <thead>
                     <tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground bg-surface">
-                      <th scope="col" className="p-3">Lender ID</th>
-                      <th scope="col" className="p-3">RE Name</th>
-                      <th scope="col" className="p-3">Entity Type</th>
-                      <th scope="col" className="p-3">Weight (%)</th>
-                      <th scope="col" className="p-3">Min CIBIL</th>
-                      <th scope="col" className="p-3">API Health</th>
-                      <th scope="col" className="p-3">Status</th>
+                      <th scope="col" className="p-3">
+                        Lender ID
+                      </th>
+                      <th scope="col" className="p-3">
+                        RE Name
+                      </th>
+                      <th scope="col" className="p-3">
+                        Entity Type
+                      </th>
+                      <th scope="col" className="p-3">
+                        Weight (%)
+                      </th>
+                      <th scope="col" className="p-3">
+                        Min CIBIL
+                      </th>
+                      <th scope="col" className="p-3">
+                        API Health
+                      </th>
+                      <th scope="col" className="p-3">
+                        Status
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -124,10 +193,21 @@ function AdminLendersPage() {
                         <td className="p-3">
                           <button
                             type="button"
-                            onClick={(e) => { e.stopPropagation(); handleToggleApiStatus(l.id); }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleToggleApiStatus(l.id);
+                            }}
                             className="hover:underline text-left cursor-pointer"
                           >
-                            <StatusBadge tone={l.apiStatus === "Healthy" ? "success" : l.apiStatus === "Slow" ? "warning" : "error"}>
+                            <StatusBadge
+                              tone={
+                                l.apiStatus === "Healthy"
+                                  ? "success"
+                                  : l.apiStatus === "Slow"
+                                    ? "warning"
+                                    : "error"
+                              }
+                            >
                               {l.apiStatus}
                             </StatusBadge>
                           </button>
@@ -148,12 +228,12 @@ function AdminLendersPage() {
           {/* Details Sidebar */}
           <div className="space-y-6">
             <SectionCard title="Routing parameters editor">
-              {selectedLenderId && lenders.find(l => l.id === selectedLenderId) ? (
+              {selectedLenderId && lenders.find((l) => l.id === selectedLenderId) ? (
                 <form onSubmit={handleSaveParameters} className="space-y-4">
                   <div className="rounded-lg bg-surface border border-border p-3 space-y-1">
                     <p className="font-bold text-foreground text-sm flex items-center gap-1.5">
                       <Building className="size-4 text-primary" />
-                      {lenders.find(l => l.id === selectedLenderId)?.name}
+                      {lenders.find((l) => l.id === selectedLenderId)?.name}
                     </p>
                     <p className="text-muted-foreground">ID: {selectedLenderId}</p>
                   </div>
@@ -209,7 +289,11 @@ function AdminLendersPage() {
                   </div>
 
                   <div className="border-t border-border pt-4">
-                    <Button type="submit" size="sm" className="w-full flex items-center gap-1.5 justify-center">
+                    <Button
+                      type="submit"
+                      size="sm"
+                      className="w-full flex items-center gap-1.5 justify-center"
+                    >
                       <Save className="size-4" /> Save Configuration
                     </Button>
                   </div>

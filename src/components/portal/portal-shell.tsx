@@ -34,7 +34,13 @@ import {
 import type { ComponentType, ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { org } from "@/config/org";
 import { cn } from "@/lib/utils";
 import { DEVICE_LABEL, DEVICE_WIDTH, ROLE_LABEL, usePrototype, type Role } from "@/prototype/state";
@@ -42,13 +48,23 @@ import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { useI18n } from "@/i18n";
 import logo from "@/assets/shrineo-logo.png";
 
-export type NavItem = { label: string; to: string; icon: ComponentType<{ className?: string }>; primary?: boolean };
+export type NavItem = {
+  label: string;
+  to: string;
+  icon: ComponentType<{ className?: string }>;
+  primary?: boolean;
+};
 
 export const PORTAL_NAV: Record<Role, NavItem[]> = {
   borrower: [
     { label: "Dashboard", to: "/app/borrower", icon: Gauge, primary: true },
     { label: "Apply for a loan", to: "/app/borrower/apply", icon: Sparkles, primary: true },
-    { label: "My applications", to: "/app/borrower/applications", icon: ClipboardList, primary: true },
+    {
+      label: "My applications",
+      to: "/app/borrower/applications",
+      icon: ClipboardList,
+      primary: true,
+    },
     { label: "Action Centre", to: "/app/borrower/action-centre", icon: ListChecks, primary: true },
     { label: "My loans", to: "/app/borrower/loans", icon: Wallet, primary: true },
     { label: "Payments", to: "/app/borrower/payments", icon: CreditCard },
@@ -104,10 +120,30 @@ export const PORTAL_NAV: Record<Role, NavItem[]> = {
 };
 
 const DENSITY: Record<Role, { pad: string; gap: string; maxW: string; label: string }> = {
-  borrower: { pad: "px-5 py-8 sm:px-8 sm:py-10", gap: "space-y-8", maxW: "max-w-5xl", label: "Low–medium density" },
-  agent: { pad: "px-5 py-6 sm:px-7 sm:py-8", gap: "space-y-6", maxW: "max-w-6xl", label: "Medium density" },
-  lender: { pad: "px-4 py-5 sm:px-6 sm:py-6", gap: "space-y-5", maxW: "max-w-none", label: "High density" },
-  admin: { pad: "px-4 py-4 sm:px-5 sm:py-5", gap: "space-y-4", maxW: "max-w-none", label: "Very high density" },
+  borrower: {
+    pad: "px-5 py-8 sm:px-8 sm:py-10",
+    gap: "space-y-8",
+    maxW: "max-w-5xl",
+    label: "Low–medium density",
+  },
+  agent: {
+    pad: "px-5 py-6 sm:px-7 sm:py-8",
+    gap: "space-y-6",
+    maxW: "max-w-6xl",
+    label: "Medium density",
+  },
+  lender: {
+    pad: "px-4 py-5 sm:px-6 sm:py-6",
+    gap: "space-y-5",
+    maxW: "max-w-none",
+    label: "High density",
+  },
+  admin: {
+    pad: "px-4 py-4 sm:px-5 sm:py-5",
+    gap: "space-y-4",
+    maxW: "max-w-none",
+    label: "Very high density",
+  },
 };
 
 function NavList({ role, onNavigate }: { role: Role; onNavigate?: () => void }) {
@@ -176,7 +212,9 @@ export function PortalShell({
       >
         <Link to="/" className="flex items-center gap-2.5 px-2 py-2">
           <img src={logo} alt="ShriNeo Capital" className="h-7 w-auto object-contain shrink-0" />
-          <span className="text-base font-semibold text-foreground tracking-tight">{org.brandName}</span>
+          <span className="text-base font-semibold text-foreground tracking-tight">
+            {org.brandName}
+          </span>
         </Link>
         <p className="px-2 pb-3 text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
           {ROLE_LABEL[role]} portal
@@ -191,14 +229,27 @@ export function PortalShell({
 
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="sticky top-0 z-20 border-b border-border bg-card/95 backdrop-blur">
-          <div className={cn("flex items-center gap-3", role === "borrower" ? "px-5 py-4" : "px-4 py-3")}>
+          <div
+            className={cn(
+              "flex items-center gap-3",
+              role === "borrower" ? "px-5 py-4" : "px-4 py-3",
+            )}
+          >
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className={cn("min-h-11 min-w-11", showSidebar ? "hidden" : "inline-flex")} aria-label="Open navigation">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className={cn("min-h-11 min-w-11", showSidebar ? "hidden" : "inline-flex")}
+                  aria-label="Open navigation"
+                >
                   <Menu aria-hidden className="size-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-[min(18rem,calc(100vw-3rem))] overflow-y-auto p-4">
+              <SheetContent
+                side="left"
+                className="w-[min(18rem,calc(100vw-3rem))] overflow-y-auto p-4"
+              >
                 <SheetTitle className="editorial text-base">{ROLE_LABEL[role]} portal</SheetTitle>
                 <SheetDescription className="sr-only">
                   Navigate between sections of the {ROLE_LABEL[role].toLowerCase()} portal.
@@ -209,13 +260,24 @@ export function PortalShell({
               </SheetContent>
             </Sheet>
             <Link to="/" className="flex items-center gap-2 lg:hidden shrink-0">
-              <img src={logo} alt="ShriNeo Capital" className="h-7 w-auto object-contain shrink-0" />
+              <img
+                src={logo}
+                alt="ShriNeo Capital"
+                className="h-7 w-auto object-contain shrink-0"
+              />
             </Link>
             <div className="min-w-0 flex-1">
-              <h1 className={cn("truncate font-semibold text-foreground", role === "borrower" ? "text-lg" : "text-base")}>
+              <h1
+                className={cn(
+                  "truncate font-semibold text-foreground",
+                  role === "borrower" ? "text-lg" : "text-base",
+                )}
+              >
                 {title}
               </h1>
-              {subtitle ? <p className="truncate text-xs text-muted-foreground">{subtitle}</p> : null}
+              {subtitle ? (
+                <p className="truncate text-xs text-muted-foreground">{subtitle}</p>
+              ) : null}
             </div>
             {role === "lender" || role === "admin" ? (
               <div className="hidden items-center gap-2 rounded-md border border-border bg-surface px-2.5 py-1.5 text-xs text-muted-foreground md:flex">
@@ -228,7 +290,16 @@ export function PortalShell({
               {actions}
             </div>
           </div>
-          {banner ? <div className={cn("border-t border-border", role === "borrower" ? "px-5 py-3" : "px-4 py-2.5")}>{banner}</div> : null}
+          {banner ? (
+            <div
+              className={cn(
+                "border-t border-border",
+                role === "borrower" ? "px-5 py-3" : "px-4 py-2.5",
+              )}
+            >
+              {banner}
+            </div>
+          ) : null}
         </header>
 
         <main className={cn("flex-1", d.pad, "pb-24 lg:pb-10")}>
@@ -298,7 +369,9 @@ export function SectionCard({
         <header className="flex flex-wrap items-start justify-between gap-3 border-b border-border px-5 py-4">
           <div>
             <h2 className="text-sm font-semibold text-foreground">{title}</h2>
-            {description ? <p className="mt-0.5 text-xs text-muted-foreground">{description}</p> : null}
+            {description ? (
+              <p className="mt-0.5 text-xs text-muted-foreground">{description}</p>
+            ) : null}
           </div>
           {actions}
         </header>

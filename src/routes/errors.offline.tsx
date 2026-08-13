@@ -6,10 +6,16 @@ export const Route = createFileRoute("/errors/offline")({
   head: () => ({
     meta: [
       { title: "You're offline — ShriNeo Capital" },
-      { name: "description", content: "Reconnect to continue. Saved information stays available on this device." },
+      {
+        name: "description",
+        content: "Reconnect to continue. Saved information stays available on this device.",
+      },
       { name: "robots", content: "noindex" },
       { property: "og:title", content: "You're offline — ShriNeo Capital" },
-      { property: "og:description", content: "Reconnect to continue. Saved information stays available on this device." },
+      {
+        property: "og:description",
+        content: "Reconnect to continue. Saved information stays available on this device.",
+      },
     ],
   }),
   component: OfflinePage,

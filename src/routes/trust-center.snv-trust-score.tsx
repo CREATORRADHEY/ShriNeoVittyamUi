@@ -68,10 +68,15 @@ function TrustScorePage() {
           </Button>
         }
         aside={
-          <FigureCard tone="card" caption="Two different instruments, deliberately shown differently.">
+          <FigureCard
+            tone="card"
+            caption="Two different instruments, deliberately shown differently."
+          >
             <div className="space-y-4">
               <div className="rounded-lg border border-border bg-surface p-4">
-                <p className="label-micro text-muted-foreground">Credit bureau score (e.g. CIBIL)</p>
+                <p className="label-micro text-muted-foreground">
+                  Credit bureau score (e.g. CIBIL)
+                </p>
                 <p className="num mt-2 text-sm">A regulated numeric score issued by a bureau</p>
                 <div aria-hidden className="mt-3 h-2 w-full rounded-full bg-muted">
                   <div className="h-2 w-3/4 rounded-full bg-primary" />
@@ -83,12 +88,14 @@ function TrustScorePage() {
               <div className="rounded-lg border border-border bg-surface p-4">
                 <p className="label-micro text-muted-foreground">SNV Trust Score</p>
                 <ul className="mt-2 space-y-1.5 text-sm">
-                  {["Sufficient information", "Recent data shared", "Profile matched"].map((row) => (
-                    <li key={row} className="flex items-center justify-between gap-3">
-                      <span className="text-muted-foreground">{row}</span>
-                      <StatusPill tone="neutral">Indicative</StatusPill>
-                    </li>
-                  ))}
+                  {["Sufficient information", "Recent data shared", "Profile matched"].map(
+                    (row) => (
+                      <li key={row} className="flex items-center justify-between gap-3">
+                        <span className="text-muted-foreground">{row}</span>
+                        <StatusPill tone="neutral">Indicative</StatusPill>
+                      </li>
+                    ),
+                  )}
                 </ul>
                 <p className="mt-3 text-xs text-muted-foreground">
                   A readiness view, shown as signals rather than a single gauge.
@@ -212,7 +219,9 @@ function TrustScorePage() {
           ].map((item) => (
             <AccordionItem key={item.q} value={item.q}>
               <AccordionTrigger className="text-left text-base">{item.q}</AccordionTrigger>
-              <AccordionContent className="text-sm text-muted-foreground">{item.a}</AccordionContent>
+              <AccordionContent className="text-sm text-muted-foreground">
+                {item.a}
+              </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

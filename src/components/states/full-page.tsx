@@ -17,7 +17,14 @@ export function PathFigure({ variant = "diverge" }: { variant?: "diverge" | "sys
       aria-label="Illustration of a financial pathway with a marked alternate route"
       className="h-auto w-[220px] text-primary sm:w-[260px]"
     >
-      <rect x="0.5" y="0.5" width="259" height="199" rx="12" className="fill-surface stroke-border" />
+      <rect
+        x="0.5"
+        y="0.5"
+        width="259"
+        height="199"
+        rx="12"
+        className="fill-surface stroke-border"
+      />
       <g stroke="currentColor" fill="none" strokeWidth="1.25" opacity="0.28">
         {[40, 80, 120, 160, 200].map((x) => (
           <line key={x} x1={x} y1="16" x2={x} y2="184" />
@@ -137,7 +144,9 @@ export function FullPageState({
         <header className="flex items-center justify-between gap-4">
           <Link to="/" className="flex items-center gap-2.5">
             <img src={logo} alt="ShriNeo Capital logo" className="h-7 w-auto object-contain" />
-            <span className="text-base font-semibold text-[#0A286F] tracking-tight">{org.brandName}</span>
+            <span className="text-base font-semibold text-[#0A286F] tracking-tight">
+              {org.brandName}
+            </span>
           </Link>
           {code ? (
             <span className="num rounded-full border border-border bg-surface px-2.5 py-1 text-xs text-muted-foreground">

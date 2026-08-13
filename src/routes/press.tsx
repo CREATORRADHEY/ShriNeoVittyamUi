@@ -79,7 +79,10 @@ function PressPage() {
             "Do not place the logo on a background that reduces legibility.",
             "Do not imply a partnership, endorsement or lending licence that does not exist.",
           ].map((rule) => (
-            <li key={rule} className="rounded-lg border border-border p-4 text-base text-muted-foreground">
+            <li
+              key={rule}
+              className="rounded-lg border border-border p-4 text-base text-muted-foreground"
+            >
               {rule}
             </li>
           ))}

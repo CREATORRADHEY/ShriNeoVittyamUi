@@ -9,9 +9,7 @@ export default defineTool({
   description:
     "Get full public details for one ShriNeo Capital loan product: eligibility, required documents, FAQs and indicative pricing.",
   inputSchema: {
-    slug: z
-      .string()
-      .describe("Product slug: personal, business, home, mortgage or sachet."),
+    slug: z.string().describe("Product slug: personal, business, home, mortgage or sachet."),
   },
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: ({ slug }) => {

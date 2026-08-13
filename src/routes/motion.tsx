@@ -132,7 +132,10 @@ function MotionSystemRoute() {
         <div className="grid gap-6 md:grid-cols-2">
           <dl className="rounded-xl border border-border bg-card p-5 text-sm">
             {DURATIONS.map(([token, value, use]) => (
-              <div key={token} className="flex items-baseline justify-between gap-3 border-b border-border py-2 last:border-0">
+              <div
+                key={token}
+                className="flex items-baseline justify-between gap-3 border-b border-border py-2 last:border-0"
+              >
                 <dt className="num text-foreground">{token}</dt>
                 <dd className="text-right text-muted-foreground">
                   <span className="num text-foreground">{value}</span>
@@ -217,7 +220,11 @@ function MotionSystemRoute() {
       >
         <div className="grid gap-6 md:grid-cols-2">
           <div className="flex flex-wrap gap-3">
-            <Button onClick={() => toast("Draft saved", { description: "Resume any time in the next 30 days." })}>
+            <Button
+              onClick={() =>
+                toast("Draft saved", { description: "Resume any time in the next 30 days." })
+              }
+            >
               Save draft
             </Button>
             <Button
@@ -231,7 +238,10 @@ function MotionSystemRoute() {
             >
               Trigger failure toast
             </Button>
-            <Button variant="ghost" onClick={() => setBalance(balance === "₹4,82,150" ? "₹4,63,910" : "₹4,82,150")}>
+            <Button
+              variant="ghost"
+              onClick={() => setBalance(balance === "₹4,82,150" ? "₹4,63,910" : "₹4,82,150")}
+            >
               Update balance
             </Button>
           </div>
@@ -280,14 +290,22 @@ function MotionSystemRoute() {
           <div key={step} className="route-enter mt-5">
             <p className="label-micro text-muted-foreground">Step {step} of 3</p>
             <h3 className="mt-1 text-lg font-medium text-foreground">
-              {step === 1 ? "What you need" : step === 2 ? "Confirm your identity" : "Review and consent"}
+              {step === 1
+                ? "What you need"
+                : step === 2
+                  ? "Confirm your identity"
+                  : "Review and consent"}
             </h3>
             <p className="mt-2 text-sm text-muted-foreground">
               Content enters from the direction of travel so the sequence stays legible.
             </p>
           </div>
           <div className="mt-5 flex gap-3">
-            <Button variant="outline" disabled={step === 1} onClick={() => setStep((value) => value - 1)}>
+            <Button
+              variant="outline"
+              disabled={step === 1}
+              onClick={() => setStep((value) => value - 1)}
+            >
               Back
             </Button>
             <Button disabled={step === 3} onClick={() => setStep((value) => value + 1)}>
@@ -348,7 +366,6 @@ function MotionSystemRoute() {
         ) : null}
       </Section>
 
-
       <Section
         title="Upload and verification"
         note="Progress is linear and honest. Verification is a distinct state, and the result persists on the page."
@@ -376,7 +393,9 @@ function MotionSystemRoute() {
           {upload === "done" ? (
             <div className="route-enter mt-4 rounded-lg border border-success/40 bg-success-surface p-3 text-sm">
               <p className="font-medium text-foreground">Verified</p>
-              <p className="text-muted-foreground">Statements for Apr–Jun 2026 were read successfully.</p>
+              <p className="text-muted-foreground">
+                Statements for Apr–Jun 2026 were read successfully.
+              </p>
               <Button variant="ghost" className="mt-2 h-8 px-2" onClick={() => setUpload("idle")}>
                 Reset demo
               </Button>
@@ -390,11 +409,16 @@ function MotionSystemRoute() {
         note="Panels expand at 220ms with the standard curve; height and opacity move together."
       >
         <div className="grid gap-4 md:grid-cols-2">
-          <Accordion type="single" collapsible className="rounded-xl border border-border bg-card px-4">
+          <Accordion
+            type="single"
+            collapsible
+            className="rounded-xl border border-border bg-card px-4"
+          >
             <AccordionItem value="one">
               <AccordionTrigger>When is my EMI debited?</AccordionTrigger>
               <AccordionContent>
-                On the date you selected at disbursal, or the next working day if it falls on a holiday.
+                On the date you selected at disbursal, or the next working day if it falls on a
+                holiday.
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="two" className="border-0">
@@ -477,7 +501,12 @@ function MotionSystemRoute() {
       >
         <div>
           <Label htmlFor="motion-otp">Verification code</Label>
-          <Input id="motion-otp" inputMode="numeric" autoComplete="one-time-code" className="num mt-1" />
+          <Input
+            id="motion-otp"
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            className="num mt-1"
+          />
         </div>
       </ConsequenceModal>
     </main>

@@ -11,7 +11,10 @@ export const Route = createFileRoute("/app/borrower/notifications")({
   head: () => ({
     meta: [
       { title: "Notifications — ShriNeo Capital" },
-      { name: "description", content: "Actionable notifications for your loan applications, offers and EMIs." },
+      {
+        name: "description",
+        content: "Actionable notifications for your loan applications, offers and EMIs.",
+      },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -43,7 +46,7 @@ function BorrowerNotificationsPage() {
       channels: ["SMS", "Email", "In-App"],
       read: false,
       actionLabel: "Resolve in Action Centre",
-      actionTo: "/app/borrower/action-centre"
+      actionTo: "/app/borrower/action-centre",
     },
     {
       id: "ntf-2",
@@ -54,7 +57,7 @@ function BorrowerNotificationsPage() {
       channels: ["App"],
       read: true,
       actionLabel: "Compare Quotes",
-      actionTo: "/app/borrower"
+      actionTo: "/app/borrower",
     },
     {
       id: "ntf-3",
@@ -65,7 +68,7 @@ function BorrowerNotificationsPage() {
       channels: ["SMS"],
       read: true,
       actionLabel: "View Receipt",
-      actionTo: "/app/borrower/payments"
+      actionTo: "/app/borrower/payments",
     },
     {
       id: "ntf-4",
@@ -76,8 +79,8 @@ function BorrowerNotificationsPage() {
       channels: ["Email"],
       read: true,
       actionLabel: "Manage Settings",
-      actionTo: "/app/borrower/profile"
-    }
+      actionTo: "/app/borrower/profile",
+    },
   ]);
 
   const handleMarkAllRead = () => {
@@ -93,7 +96,7 @@ function BorrowerNotificationsPage() {
       title="Notifications"
       subtitle="Track alerts, task reminders and transaction receipts sent to your account"
       actions={
-        alerts.some(a => !a.read) && (
+        alerts.some((a) => !a.read) && (
           <Button size="sm" variant="outline" onClick={handleMarkAllRead}>
             Mark all read
           </Button>
@@ -107,7 +110,8 @@ function BorrowerNotificationsPage() {
           </div>
           <h2 className="mt-4 text-base font-semibold">Nothing to catch up on</h2>
           <p className="mt-2 max-w-[45ch] text-xs text-muted-foreground">
-            Alerts about your applications, credit updates, and payments will collect here when sent.
+            Alerts about your applications, credit updates, and payments will collect here when
+            sent.
           </p>
         </div>
       ) : (
@@ -116,21 +120,33 @@ function BorrowerNotificationsPage() {
             {alerts.map((item) => {
               const IconComp = item.icon;
               return (
-                <div key={item.id} className={`py-4 flex gap-4 items-start ${!item.read ? "bg-primary/5 -mx-4 px-4 border-l-4 border-primary" : ""}`}>
-                  <div className={`p-2 rounded-full mt-0.5 shrink-0 ${!item.read ? "bg-primary/10 text-primary" : "bg-neutral-100 text-muted-foreground"}`}>
+                <div
+                  key={item.id}
+                  className={`py-4 flex gap-4 items-start ${!item.read ? "bg-primary/5 -mx-4 px-4 border-l-4 border-primary" : ""}`}
+                >
+                  <div
+                    className={`p-2 rounded-full mt-0.5 shrink-0 ${!item.read ? "bg-primary/10 text-primary" : "bg-neutral-100 text-muted-foreground"}`}
+                  >
                     <IconComp className="size-4" />
                   </div>
                   <div className="flex-1 space-y-1 min-w-0">
                     <div className="flex items-center justify-between gap-2">
                       <h4 className="font-bold text-foreground">{item.title}</h4>
-                      <span className="text-[10px] text-muted-foreground font-mono">{item.timestamp}</span>
+                      <span className="text-[10px] text-muted-foreground font-mono">
+                        {item.timestamp}
+                      </span>
                     </div>
                     <p className="text-muted-foreground text-xs leading-relaxed">{item.body}</p>
                     <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
                       <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground font-mono bg-neutral-100 border border-border rounded px-2 py-0.5">
                         <Mail className="size-3" /> Sent via: {item.channels.join(", ")}
                       </div>
-                      <Button asChild size="xs" variant={!item.read ? "default" : "outline"} className="flex items-center gap-1">
+                      <Button
+                        asChild
+                        size="xs"
+                        variant={!item.read ? "default" : "outline"}
+                        className="flex items-center gap-1"
+                      >
                         <Link to={item.actionTo}>
                           {item.actionLabel} <ChevronRight className="size-3" />
                         </Link>

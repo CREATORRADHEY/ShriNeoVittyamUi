@@ -114,23 +114,41 @@ export function NeoChatWidget() {
     const accountState = prototypeState.account;
     const dataState = prototypeState.data;
 
-    if (lowerText.includes("loan") || lowerText.includes("borrow") || lowerText.includes("option")) {
+    if (
+      lowerText.includes("loan") ||
+      lowerText.includes("borrow") ||
+      lowerText.includes("option")
+    ) {
       return "We offer several structured loan options matched directly from participating banks and NBFCs:\n\n• Personal Loan: ₹50,000 – ₹15 Lakhs\n• Business Loan: ₹1 Lakh – ₹50 Lakhs\n• Home Loan: ₹10 Lakhs – ₹5 Crores\n• Sachet Loan: ₹10,000 – ₹1 Lakh\n\nWould you like to check what you qualify for?";
     }
 
-    if (lowerText.includes("document") || lowerText.includes("paper") || lowerText.includes("gst") || lowerText.includes("udyam")) {
+    if (
+      lowerText.includes("document") ||
+      lowerText.includes("paper") ||
+      lowerText.includes("gst") ||
+      lowerText.includes("udyam")
+    ) {
       return "To start your application, you generally need the following documents:\n\n• Identity & Address: PAN card and Aadhaar eKYC.\n• Income verification: Latest 6 months of bank statements via secure Account Aggregator.\n• Business proof (for Business loans): GST details or Udyam Registration certificate.\n\nAll records are processed inside a secure locker.";
     }
 
-    if (lowerText.includes("eligib") || lowerText.includes("qualify") || lowerText.includes("lakh") || lowerText.includes("thousand")) {
+    if (
+      lowerText.includes("eligib") ||
+      lowerText.includes("qualify") ||
+      lowerText.includes("lakh") ||
+      lowerText.includes("thousand")
+    ) {
       return "Loan eligibility depends on several verified factors: income, existing obligations, available bank transactions, and individual lender criteria.\n\nI recommend using the 'Check eligibility' tool on the homepage or matching offers in the borrower portal to see what options open up for your profile.";
     }
 
-    if (lowerText.includes("status") || lowerText.includes("track") || lowerText.includes("progress")) {
+    if (
+      lowerText.includes("status") ||
+      lowerText.includes("track") ||
+      lowerText.includes("progress")
+    ) {
       if (accountState === "new" || dataState === "empty") {
         return "I don't see any active loan application for your profile yet. You can choose a loan product and submit your application from the dashboard.";
       }
-      
+
       const statusLabels: Record<string, string> = {
         draft: "Draft application",
         submitted: "Submitted to platform",
@@ -160,7 +178,12 @@ export function NeoChatWidget() {
       return `Current status:\n**${statusLabels[appState] ?? "Under Review"}**\n\nNext steps:\n${statusDesc[appState] ?? " Lenders are reviewing your file."}`;
     }
 
-    if (lowerText.includes("emi") || lowerText.includes("apr") || lowerText.includes("calculator") || lowerText.includes("repay")) {
+    if (
+      lowerText.includes("emi") ||
+      lowerText.includes("apr") ||
+      lowerText.includes("calculator") ||
+      lowerText.includes("repay")
+    ) {
       return "EMI is determined by your principal amount, the interest rate, and the repayment tenure. We calculate APR (Annual Percentage Rate) to fold all fees and interest into one clear comparable figure.\n\nAlways review the Key Fact Statement (KFS) before e-signing to understand exact repayment schedules.";
     }
 
@@ -193,7 +216,7 @@ export function NeoChatWidget() {
 
       timers.current.push(id);
     },
-    [prefersReducedMotion, prototypeState]
+    [prefersReducedMotion, prototypeState],
   );
 
   // Subscribe to external trigger clicks (e.g. buttons with data-trigger-neo or talk to neo links)
@@ -231,7 +254,13 @@ export function NeoChatWidget() {
         setMessages(data.messages);
       } else if (data.state === "open" && messages.length === 0) {
         // Default panel open greeting
-        setMessages([{ id: nextId(), from: "neo", text: t("neo.greeting", "Namaste. I'm Neo. How can I help you today?") }]);
+        setMessages([
+          {
+            id: nextId(),
+            from: "neo",
+            text: t("neo.greeting", "Namaste. I'm Neo. How can I help you today?"),
+          },
+        ]);
       }
     };
 
@@ -303,11 +332,7 @@ export function NeoChatWidget() {
       {/* State 1: Compact Avatar Launcher.
           Rendered ONLY after greeting card is closed/dismissed and the panel is not currently open. */}
       {hasDismissedGreeting && (
-        <NeoLauncher
-          open={view === "open"}
-          onClick={handleOpenPanel}
-          dockOffset={dockOffset}
-        />
+        <NeoLauncher open={view === "open"} onClick={handleOpenPanel} dockOffset={dockOffset} />
       )}
 
       {/* State 2: Floating Greeting Onboarding Card */}
@@ -347,6 +372,6 @@ export function NeoChatWidget() {
         />
       )}
     </>,
-    document.body
+    document.body,
   );
 }

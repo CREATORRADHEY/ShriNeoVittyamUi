@@ -1,6 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Wallet, ShieldAlert, CheckCircle2, FileDown, ArrowRight, ExternalLink } from "lucide-react";
+import {
+  Wallet,
+  ShieldAlert,
+  CheckCircle2,
+  FileDown,
+  ArrowRight,
+  ExternalLink,
+} from "lucide-react";
 
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
 import { Button } from "@/components/ui/button";
@@ -12,7 +19,10 @@ export const Route = createFileRoute("/app/borrower/loans")({
   head: () => ({
     meta: [
       { title: "My Loans — ShriNeo Capital" },
-      { name: "description", content: "Track active and closed loans, outstanding balances and statements." },
+      {
+        name: "description",
+        content: "Track active and closed loans, outstanding balances and statements.",
+      },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -31,7 +41,8 @@ function BorrowerLoansPage() {
     }, 1500);
   };
 
-  const isNewOrEmpty = account === "new" || data === "empty" || (!activeLoan && application !== "closed");
+  const isNewOrEmpty =
+    account === "new" || data === "empty" || (!activeLoan && application !== "closed");
 
   return (
     <PortalShell
@@ -46,7 +57,8 @@ function BorrowerLoansPage() {
           </div>
           <h2 className="mt-4 text-base font-semibold">You do not have a loan yet</h2>
           <p className="mt-2 max-w-[45ch] text-xs text-muted-foreground">
-            Once a lender disburses an approved application, the loan details, interest statement, and outstanding balance will appear here.
+            Once a lender disburses an approved application, the loan details, interest statement,
+            and outstanding balance will appear here.
           </p>
           <Button asChild className="mt-6">
             <Link to="/app/borrower/apply">Explore Loan Products</Link>
@@ -60,7 +72,8 @@ function BorrowerLoansPage() {
               <div>
                 <p className="font-semibold text-sm">Loan Servicing Under Restriction</p>
                 <p className="mt-1">
-                  Your borrower profile is in review. Repayment collection continues automatically via NACH, but modifying bank details or requesting new closures is disabled.
+                  Your borrower profile is in review. Repayment collection continues automatically
+                  via NACH, but modifying bank details or requesting new closures is disabled.
                 </p>
               </div>
             </div>
@@ -73,25 +86,37 @@ function BorrowerLoansPage() {
                 <SectionCard
                   title={`Personal Loan: ${activeLoan.id}`}
                   description="SBI Digital Finance · Sanctioned on 08 Mar 2026"
-                  actions={<span className="text-[10px] text-emerald-800 bg-emerald-50 border border-emerald-200 font-semibold px-2 py-0.5 rounded">ACTIVE</span>}
+                  actions={
+                    <span className="text-[10px] text-emerald-800 bg-emerald-50 border border-emerald-200 font-semibold px-2 py-0.5 rounded">
+                      ACTIVE
+                    </span>
+                  }
                 >
                   <dl className="grid gap-4 sm:grid-cols-3 text-sm border-b border-border pb-4">
                     <div>
                       <dt className="text-muted-foreground text-xs">Sanctioned Amount</dt>
-                      <dd className="font-semibold text-foreground text-lg mt-0.5">{formatINR(activeLoan.amount)}</dd>
+                      <dd className="font-semibold text-foreground text-lg mt-0.5">
+                        {formatINR(activeLoan.amount)}
+                      </dd>
                     </div>
                     <div>
                       <dt className="text-muted-foreground text-xs">Tenure & Rate</dt>
-                      <dd className="font-semibold text-foreground text-lg mt-0.5">{activeLoan.tenure} Months @ 11.5%</dd>
+                      <dd className="font-semibold text-foreground text-lg mt-0.5">
+                        {activeLoan.tenure} Months @ 11.5%
+                      </dd>
                     </div>
                     <div>
                       <dt className="text-muted-foreground text-xs">Outstanding Balance</dt>
-                      <dd className="font-semibold text-foreground text-lg mt-0.5">{formatINR(284350)}</dd>
+                      <dd className="font-semibold text-foreground text-lg mt-0.5">
+                        {formatINR(284350)}
+                      </dd>
                     </div>
                   </dl>
 
                   <div className="pt-4 space-y-3">
-                    <h4 className="font-semibold text-xs text-foreground uppercase tracking-wider">Historical Repayments Ledger</h4>
+                    <h4 className="font-semibold text-xs text-foreground uppercase tracking-wider">
+                      Historical Repayments Ledger
+                    </h4>
                     <div className="divide-y divide-border text-xs">
                       {[
                         { num: "EMI #1", date: "05 Oct 2025", amt: 11540, status: "Paid via NACH" },
@@ -103,7 +128,8 @@ function BorrowerLoansPage() {
                       ].map((item) => (
                         <div key={item.num} className="flex justify-between py-2 items-center">
                           <div>
-                            <span className="font-semibold text-foreground">{item.num}</span> · <span className="text-muted-foreground">{item.date}</span>
+                            <span className="font-semibold text-foreground">{item.num}</span> ·{" "}
+                            <span className="text-muted-foreground">{item.date}</span>
                           </div>
                           <div className="flex items-center gap-3">
                             <span className="text-emerald-700 font-medium">{item.status}</span>
@@ -124,7 +150,10 @@ function BorrowerLoansPage() {
 
               {/* SERVICING ACTIONS PANEL */}
               <div className="space-y-6">
-                <SectionCard title="Servicing Panel" description="Download logs and legal disclosures">
+                <SectionCard
+                  title="Servicing Panel"
+                  description="Download logs and legal disclosures"
+                >
                   <div className="space-y-3 flex flex-col">
                     <Button
                       size="sm"
@@ -161,9 +190,15 @@ function BorrowerLoansPage() {
 
                 <SectionCard title="Lender Support Bridge">
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    This account is managed directly by <strong>SBI Digital Finance</strong>. For credit queries or restructuring options, visit their portal.
+                    This account is managed directly by <strong>SBI Digital Finance</strong>. For
+                    credit queries or restructuring options, visit their portal.
                   </p>
-                  <Button variant="outline" size="sm" className="mt-4 w-full flex items-center gap-1.5 justify-center" onClick={() => window.open("https://sbi.co.in", "_blank")}>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="mt-4 w-full flex items-center gap-1.5 justify-center"
+                    onClick={() => window.open("https://sbi.co.in", "_blank")}
+                  >
                     Go to SBI Support <ExternalLink className="size-3.5" />
                   </Button>
                 </SectionCard>
@@ -178,20 +213,30 @@ function BorrowerLoansPage() {
                 <SectionCard
                   title="Closed Loan Account"
                   description="SBI Digital Finance · Account ID: LN-2026-092"
-                  actions={<span className="text-[10px] text-neutral-800 bg-neutral-100 border border-neutral-300 font-semibold px-2 py-0.5 rounded">CLOSED</span>}
+                  actions={
+                    <span className="text-[10px] text-neutral-800 bg-neutral-100 border border-neutral-300 font-semibold px-2 py-0.5 rounded">
+                      CLOSED
+                    </span>
+                  }
                 >
                   <dl className="grid gap-4 sm:grid-cols-3 text-sm border-b border-border pb-4">
                     <div>
                       <dt className="text-muted-foreground text-xs">Sanctioned Amount</dt>
-                      <dd className="font-semibold text-foreground text-lg mt-0.5">{formatINR(350000)}</dd>
+                      <dd className="font-semibold text-foreground text-lg mt-0.5">
+                        {formatINR(350000)}
+                      </dd>
                     </div>
                     <div>
                       <dt className="text-muted-foreground text-xs">Tenure & Close Date</dt>
-                      <dd className="font-semibold text-foreground text-lg mt-0.5">36 Months · 10 Mar 2026</dd>
+                      <dd className="font-semibold text-foreground text-lg mt-0.5">
+                        36 Months · 10 Mar 2026
+                      </dd>
                     </div>
                     <div>
                       <dt className="text-muted-foreground text-xs">Outstanding Balance</dt>
-                      <dd className="font-semibold text-foreground text-lg mt-0.5">{formatINR(0)}</dd>
+                      <dd className="font-semibold text-foreground text-lg mt-0.5">
+                        {formatINR(0)}
+                      </dd>
                     </div>
                   </dl>
 
@@ -200,7 +245,8 @@ function BorrowerLoansPage() {
                     <div>
                       <p className="font-semibold">No Objection Certificate Issued</p>
                       <p className="mt-1">
-                        All EMIs were paid on time. No dues remain. Download your official NOC from SBI below.
+                        All EMIs were paid on time. No dues remain. Download your official NOC from
+                        SBI below.
                       </p>
                     </div>
                   </div>

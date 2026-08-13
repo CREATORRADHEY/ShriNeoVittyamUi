@@ -46,8 +46,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    document.documentElement.lang =
-      LANGUAGES.find((l) => l.value === language)?.locale ?? language;
+    document.documentElement.lang = LANGUAGES.find((l) => l.value === language)?.locale ?? language;
   }, [language]);
 
   const setLanguage = useCallback((next: Language) => {

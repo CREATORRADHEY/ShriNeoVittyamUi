@@ -80,20 +80,17 @@ function SecurityPage() {
         aside={
           <FigureCard tone="card" caption="Permissions we never request from your device.">
             <ul className="space-y-3 text-sm">
-              {[
-                "Contacts",
-                "SMS messages",
-                "Call logs",
-                "General photo gallery access",
-              ].map((item) => (
-                <li
-                  key={item}
-                  className="flex items-center justify-between gap-4 rounded-lg border border-border bg-surface px-4 py-3"
-                >
-                  <span className="font-medium">{item}</span>
-                  <span className="text-xs text-muted-foreground">Not accessed</span>
-                </li>
-              ))}
+              {["Contacts", "SMS messages", "Call logs", "General photo gallery access"].map(
+                (item) => (
+                  <li
+                    key={item}
+                    className="flex items-center justify-between gap-4 rounded-lg border border-border bg-surface px-4 py-3"
+                  >
+                    <span className="font-medium">{item}</span>
+                    <span className="text-xs text-muted-foreground">Not accessed</span>
+                  </li>
+                ),
+              )}
             </ul>
             <p className="mt-4 text-xs text-muted-foreground">
               Documents reach us only when you deliberately choose a specific file, or capture one,

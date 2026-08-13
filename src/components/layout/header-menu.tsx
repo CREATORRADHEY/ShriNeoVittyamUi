@@ -142,7 +142,6 @@ export function useDisclosureBehaviour({
       close();
     };
 
-
     document.addEventListener("keydown", onKeyDown);
     document.addEventListener("pointerdown", onPointerDown);
     document.addEventListener("focusin", onFocusIn);

@@ -1,6 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { ShieldCheck, ShieldAlert, KeyRound, AlertTriangle, Send, FileText, CheckCircle2, Lock, Eye, AlertCircle, ArrowLeft } from "lucide-react";
+import {
+  ShieldCheck,
+  ShieldAlert,
+  KeyRound,
+  AlertTriangle,
+  Send,
+  FileText,
+  CheckCircle2,
+  Lock,
+  Eye,
+  AlertCircle,
+  ArrowLeft,
+} from "lucide-react";
 
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
 import { Button } from "@/components/ui/button";
@@ -21,7 +33,10 @@ export const Route = createFileRoute("/app/lender/workbench")({
   head: () => ({
     meta: [
       { title: "Underwriter Workbench — ShriNeo Capital" },
-      { name: "description", content: "Dense credit analysis interface for matched loans under RBI compliance." },
+      {
+        name: "description",
+        content: "Dense credit analysis interface for matched loans under RBI compliance.",
+      },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -34,13 +49,13 @@ function LenderWorkbenchPage() {
 
   // Search parameters or active file selection
   const [activeFileId, setActiveFileId] = useState(search.id || "SNV-24-118198");
-  
+
   // PII masking state
   const [piiMasked, setPiiMasked] = useState(true);
   const [unmaskOpen, setUnmaskOpen] = useState(false);
   const [unmaskReason, setUnmaskReason] = useState("");
   const [auditLogs, setAuditLogs] = useState<string[]>([
-    "Initial file automated integrity validation passed 12 Mar 09:00"
+    "Initial file automated integrity validation passed 12 Mar 09:00",
   ]);
 
   // Offered loan parameters for KFS customization
@@ -70,7 +85,7 @@ function LenderWorkbenchPage() {
     setPiiMasked(false);
     setUnmaskOpen(false);
     const newLog = `PII Unmasked at ${new Date().toLocaleTimeString()} by UW-994. Reason: "${unmaskReason}"`;
-    setAuditLogs(prev => [newLog, ...prev]);
+    setAuditLogs((prev) => [newLog, ...prev]);
     setUnmaskReason("");
     toast.success("PII successfully unmasked. Action logged in global audit logs.");
   };
@@ -79,10 +94,10 @@ function LenderWorkbenchPage() {
     e.preventDefault();
     if (!infoReqText.trim()) return;
     const newReqId = `REQ-${Math.floor(800000 + Math.random() * 199999)}`;
-    
+
     // Also log this query in audit ledger
-    const auditMsg = `Clarification raised (${newReqId}) for item "${infoReqField}". Reason: "${infoReqText}". Internal notes: "${infoReqInternalNotes || 'None'}"`;
-    setAuditLogs(prev => [auditMsg, ...prev]);
+    const auditMsg = `Clarification raised (${newReqId}) for item "${infoReqField}". Reason: "${infoReqText}". Internal notes: "${infoReqInternalNotes || "None"}"`;
+    setAuditLogs((prev) => [auditMsg, ...prev]);
 
     // Push canonical request to shared state
     const canonicalReq = {
@@ -91,11 +106,15 @@ function LenderWorkbenchPage() {
       lenderId: "L-904",
       requiredItem: infoReqField,
       reason: infoReqText,
-      requestDate: new Date().toLocaleDateString("en-IN", { day: 'numeric', month: 'short', year: 'numeric' }),
+      requestDate: new Date().toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      }),
       dueDate: infoReqDueDate,
       acceptedFormat: "Clear decrypted PDF / Account Aggregator consent",
       status: "New" as const,
-      recipientVisibility: "SBI Underwriting Team only"
+      recipientVisibility: "SBI Underwriting Team only",
     };
     set("requests", [canonicalReq, ...requests]);
     set("application", "documents-required"); // Switch application stage to documents-required so it updates borrower view
@@ -103,10 +122,16 @@ function LenderWorkbenchPage() {
     // Push audit event to shared audit logs
     const canonicalAudit = {
       id: `AUD-${Math.floor(1000 + Math.random() * 9000)}`,
-      timestamp: new Date().toLocaleString("en-IN", { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+      timestamp: new Date().toLocaleString("en-IN", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
       actor: "L-904 (SBI)",
       action: "Info Requested",
-      details: `Requested re-upload of ${infoReqField} (${newReqId})`
+      details: `Requested re-upload of ${infoReqField} (${newReqId})`,
     };
     set("auditLogs", [canonicalAudit, ...prototypeAuditLogs]);
 
@@ -128,30 +153,48 @@ function LenderWorkbenchPage() {
       set("application", "approved");
       const canonicalAudit = {
         id: `AUD-${Math.floor(1000 + Math.random() * 9000)}`,
-        timestamp: new Date().toLocaleString("en-IN", { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        timestamp: new Date().toLocaleString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
         actor: "L-904 (SBI Underwriter)",
         action: "Sanction Approved",
-        details: `Application approved for disbursement. Offered Loan: ₹${formatINR(customAmount)} at ${customRate}% APR for ${customTenure}M.`
+        details: `Application approved for disbursement. Offered Loan: ₹${formatINR(customAmount)} at ${customRate}% APR for ${customTenure}M.`,
       };
       set("auditLogs", [canonicalAudit, ...prototypeAuditLogs]);
     } else if (type === "Rejected") {
       set("application", "rejected");
       const canonicalAudit = {
         id: `AUD-${Math.floor(1000 + Math.random() * 9000)}`,
-        timestamp: new Date().toLocaleString("en-IN", { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        timestamp: new Date().toLocaleString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
         actor: "L-904 (SBI Underwriter)",
         action: "Decline Confirmed",
-        details: `Application declined. Declination Reason Code: ${declineReason}.`
+        details: `Application declined. Declination Reason Code: ${declineReason}.`,
       };
       set("auditLogs", [canonicalAudit, ...prototypeAuditLogs]);
     } else if (type === "Fraud Review") {
       set("application", "manual-review");
       const canonicalAudit = {
         id: `AUD-${Math.floor(1000 + Math.random() * 9000)}`,
-        timestamp: new Date().toLocaleString("en-IN", { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        timestamp: new Date().toLocaleString("en-IN", {
+          day: "numeric",
+          month: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
         actor: "L-904 (SBI Underwriter)",
         action: "Risk Escalate",
-        details: `Application escalated to specialized Fraud & Anti-Money Laundering review team.`
+        details: `Application escalated to specialized Fraud & Anti-Money Laundering review team.`,
       };
       set("auditLogs", [canonicalAudit, ...prototypeAuditLogs]);
     }
@@ -171,11 +214,17 @@ function LenderWorkbenchPage() {
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-3 bg-surface p-3 rounded-lg">
           <div>
             <span className="text-muted-foreground">Active Case File</span>
-            <h3 className="text-sm font-bold text-foreground mt-0.5">{activeFileId} (Business Loan)</h3>
+            <h3 className="text-sm font-bold text-foreground mt-0.5">
+              {activeFileId} (Business Loan)
+            </h3>
           </div>
           <div className="flex gap-2">
             {piiMasked ? (
-              <Button size="xs" onClick={() => setUnmaskOpen(true)} className="flex items-center gap-1">
+              <Button
+                size="xs"
+                onClick={() => setUnmaskOpen(true)}
+                className="flex items-center gap-1"
+              >
                 <Eye className="size-3" /> Unmask PII Details
               </Button>
             ) : (
@@ -193,12 +242,17 @@ function LenderWorkbenchPage() {
         <div className="grid gap-6 md:grid-cols-3">
           <div className="md:col-span-2 space-y-6">
             {/* LENDER-SPECIFIC KEY FACT STATEMENT (KFS) PREVIEW COMPONENT */}
-            <SectionCard title="Key Fact Statement (KFS) Preview" description="Statutory loan terms computed dynamically for borrower disclosure">
+            <SectionCard
+              title="Key Fact Statement (KFS) Preview"
+              description="Statutory loan terms computed dynamically for borrower disclosure"
+            >
               <div className="rounded-lg border border-border bg-surface p-4 space-y-4">
                 {/* Underwriter KFS input controls */}
                 <div className="grid gap-3 sm:grid-cols-4 bg-card p-3 rounded border border-border mb-2">
                   <div>
-                    <label className="block text-[10px] font-semibold text-muted-foreground mb-1">Offer Amount (₹)</label>
+                    <label className="block text-[10px] font-semibold text-muted-foreground mb-1">
+                      Offer Amount (₹)
+                    </label>
                     <input
                       type="number"
                       step={10000}
@@ -208,7 +262,9 @@ function LenderWorkbenchPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-semibold text-muted-foreground mb-1">Interest Rate (% APR)</label>
+                    <label className="block text-[10px] font-semibold text-muted-foreground mb-1">
+                      Interest Rate (% APR)
+                    </label>
                     <input
                       type="number"
                       step="0.1"
@@ -218,7 +274,9 @@ function LenderWorkbenchPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-semibold text-muted-foreground mb-1">Tenure (Months)</label>
+                    <label className="block text-[10px] font-semibold text-muted-foreground mb-1">
+                      Tenure (Months)
+                    </label>
                     <input
                       type="number"
                       value={customTenure}
@@ -227,7 +285,9 @@ function LenderWorkbenchPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] font-semibold text-muted-foreground mb-1">Upfront Fee (₹)</label>
+                    <label className="block text-[10px] font-semibold text-muted-foreground mb-1">
+                      Upfront Fee (₹)
+                    </label>
                     <input
                       type="number"
                       step={500}
@@ -241,37 +301,67 @@ function LenderWorkbenchPage() {
                 {/* Computed Preview Results */}
                 {(() => {
                   const r = customRate / 1200;
-                  const dynamicEmi = r > 0 ? Math.round((customAmount * r * Math.pow(1 + r, customTenure)) / (Math.pow(1 + r, customTenure) - 1)) : Math.round(customAmount / customTenure);
-                  const dynamicTotalCost = (dynamicEmi * customTenure) + customFee;
+                  const dynamicEmi =
+                    r > 0
+                      ? Math.round(
+                          (customAmount * r * Math.pow(1 + r, customTenure)) /
+                            (Math.pow(1 + r, customTenure) - 1),
+                        )
+                      : Math.round(customAmount / customTenure);
+                  const dynamicTotalCost = dynamicEmi * customTenure + customFee;
                   return (
                     <>
                       <div className="grid gap-4 sm:grid-cols-3">
                         <div>
-                          <span className="text-muted-foreground block text-[10px]">Loan Amount Sanction</span>
-                          <span className="font-bold text-foreground block text-sm mt-0.5">{formatINR(customAmount)}</span>
+                          <span className="text-muted-foreground block text-[10px]">
+                            Loan Amount Sanction
+                          </span>
+                          <span className="font-bold text-foreground block text-sm mt-0.5">
+                            {formatINR(customAmount)}
+                          </span>
                         </div>
                         <div>
-                          <span className="text-muted-foreground block text-[10px]">Interest Rate (APR)</span>
-                          <span className="font-bold text-foreground block text-sm mt-0.5">{customRate.toFixed(1)}% p.a.</span>
+                          <span className="text-muted-foreground block text-[10px]">
+                            Interest Rate (APR)
+                          </span>
+                          <span className="font-bold text-foreground block text-sm mt-0.5">
+                            {customRate.toFixed(1)}% p.a.
+                          </span>
                         </div>
                         <div>
-                          <span className="text-muted-foreground block text-[10px]">Tenure (Months)</span>
-                          <span className="font-bold text-foreground block text-sm mt-0.5">{customTenure} Months</span>
+                          <span className="text-muted-foreground block text-[10px]">
+                            Tenure (Months)
+                          </span>
+                          <span className="font-bold text-foreground block text-sm mt-0.5">
+                            {customTenure} Months
+                          </span>
                         </div>
                       </div>
 
                       <div className="border-t border-border pt-3 grid gap-4 sm:grid-cols-3">
                         <div>
-                          <span className="text-muted-foreground block text-[10px]">Processing upfront fees</span>
-                          <span className="font-semibold text-foreground block mt-0.5">{formatINR(customFee)}</span>
+                          <span className="text-muted-foreground block text-[10px]">
+                            Processing upfront fees
+                          </span>
+                          <span className="font-semibold text-foreground block mt-0.5">
+                            {formatINR(customFee)}
+                          </span>
                         </div>
                         <div>
-                          <span className="text-muted-foreground block text-[10px]">Monthly EMI Repayment</span>
-                          <span className="font-semibold text-primary block mt-0.5">{formatINR(dynamicEmi)}</span>
+                          <span className="text-muted-foreground block text-[10px]">
+                            Monthly EMI Repayment
+                          </span>
+                          <span className="font-semibold text-primary block mt-0.5">
+                            {formatINR(dynamicEmi)}
+                          </span>
                         </div>
                         <div>
-                          <span className="text-muted-foreground block text-[10px]">Total Cost of Credit</span>
-                          <span className="font-semibold text-foreground block mt-0.5">{formatINR(dynamicTotalCost)}</span>
+                          <span className="text-muted-foreground block text-[10px]">
+                            Total Cost of Credit
+                          </span>
+                          <span className="font-semibold text-foreground block mt-0.5">
+                            {formatINR(dynamicTotalCost)}
+                          </span>
                         </div>
                       </div>
                     </>
@@ -279,16 +369,22 @@ function LenderWorkbenchPage() {
                 })()}
 
                 <p className="text-[10px] text-muted-foreground">
-                  *Disclaimer: KFS preview represents indicative quote values based on current bureau soft pulls. Regulated lender makes final credit verification.
+                  *Disclaimer: KFS preview represents indicative quote values based on current
+                  bureau soft pulls. Regulated lender makes final credit verification.
                 </p>
               </div>
             </SectionCard>
 
             {/* CREDITS & BANK SIGNALS */}
-            <SectionCard title="Underwriting Financial Signals" description="Bureau results and bank-led cash flow analytics">
+            <SectionCard
+              title="Underwriting Financial Signals"
+              description="Bureau results and bank-led cash flow analytics"
+            >
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="p-3 border border-border rounded bg-card">
-                  <span className="font-bold text-foreground block mb-2">Bureau Soft Pull Checks</span>
+                  <span className="font-bold text-foreground block mb-2">
+                    Bureau Soft Pull Checks
+                  </span>
                   <dl className="space-y-1.5">
                     <div className="flex justify-between">
                       <dt className="text-muted-foreground">CIBIL Score</dt>
@@ -306,7 +402,9 @@ function LenderWorkbenchPage() {
                 </div>
 
                 <div className="p-3 border border-border rounded bg-card">
-                  <span className="font-bold text-foreground block mb-2">SNV Trust Score Analytics</span>
+                  <span className="font-bold text-foreground block mb-2">
+                    SNV Trust Score Analytics
+                  </span>
                   <dl className="space-y-1.5">
                     <div className="flex justify-between">
                       <dt className="text-muted-foreground">Trust Category</dt>
@@ -329,7 +427,12 @@ function LenderWorkbenchPage() {
             <SectionCard title="PII Unmasking Access Audits">
               <div className="space-y-2 max-h-36 overflow-y-auto rounded border border-border bg-surface p-3 font-mono text-[10px]">
                 {auditLogs.map((log, i) => (
-                  <p key={i} className="text-muted-foreground border-b border-border/50 pb-1.5 last:border-0">{log}</p>
+                  <p
+                    key={i}
+                    className="text-muted-foreground border-b border-border/50 pb-1.5 last:border-0"
+                  >
+                    {log}
+                  </p>
                 ))}
               </div>
             </SectionCard>
@@ -340,7 +443,9 @@ function LenderWorkbenchPage() {
             {/* UNDERWRITING DECISION PANEL */}
             <SectionCard title="Underwriting Credit Decision">
               {decisionDone ? (
-                <div className={`p-4 rounded border text-center font-semibold uppercase ${decisionDone === "Approved" ? "bg-emerald-50 text-emerald-700 border-emerald-200" : decisionDone === "Rejected" ? "bg-red-50 text-red-700 border-red-200" : "bg-amber-50 text-amber-700 border-amber-200"}`}>
+                <div
+                  className={`p-4 rounded border text-center font-semibold uppercase ${decisionDone === "Approved" ? "bg-emerald-50 text-emerald-700 border-emerald-200" : decisionDone === "Rejected" ? "bg-red-50 text-red-700 border-red-200" : "bg-amber-50 text-amber-700 border-amber-200"}`}
+                >
                   {decisionDone}
                 </div>
               ) : (
@@ -350,19 +455,35 @@ function LenderWorkbenchPage() {
                       <Button size="sm" onClick={() => setDecisionMode("approve")}>
                         Sanction Approve File
                       </Button>
-                      <Button size="sm" variant="outline" className="text-red-700 border-red-200 hover:bg-red-50" onClick={() => setDecisionMode("reject")}>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="text-red-700 border-red-200 hover:bg-red-50"
+                        onClick={() => setDecisionMode("reject")}
+                      >
                         Reject Application
                       </Button>
-                      <Button size="sm" variant="secondary" className="text-amber-800 border-amber-200" onClick={() => setDecisionMode("fraud")}>
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        className="text-amber-800 border-amber-200"
+                        onClick={() => setDecisionMode("fraud")}
+                      >
                         Escalate to Risk Review
                       </Button>
                     </>
                   ) : decisionMode === "approve" ? (
                     <div className="space-y-3 p-3 border border-border rounded bg-surface">
-                      <p className="font-semibold text-foreground">Confirm final approval for loan disbursal?</p>
+                      <p className="font-semibold text-foreground">
+                        Confirm final approval for loan disbursal?
+                      </p>
                       <div className="flex gap-2">
-                        <Button size="xs" onClick={() => handleDecisionSubmit("Approved")}>Confirm Approval</Button>
-                        <Button size="xs" variant="ghost" onClick={() => setDecisionMode("none")}>Cancel</Button>
+                        <Button size="xs" onClick={() => handleDecisionSubmit("Approved")}>
+                          Confirm Approval
+                        </Button>
+                        <Button size="xs" variant="ghost" onClick={() => setDecisionMode("none")}>
+                          Cancel
+                        </Button>
                       </div>
                     </div>
                   ) : decisionMode === "reject" ? (
@@ -379,16 +500,34 @@ function LenderWorkbenchPage() {
                         <option value="DOC_MIS">Verification mismatch discrepancy</option>
                       </select>
                       <div className="flex gap-2 pt-2">
-                        <Button size="xs" variant="destructive" onClick={() => handleDecisionSubmit("Rejected")}>Confirm Decline</Button>
-                        <Button size="xs" variant="ghost" onClick={() => setDecisionMode("none")}>Cancel</Button>
+                        <Button
+                          size="xs"
+                          variant="destructive"
+                          onClick={() => handleDecisionSubmit("Rejected")}
+                        >
+                          Confirm Decline
+                        </Button>
+                        <Button size="xs" variant="ghost" onClick={() => setDecisionMode("none")}>
+                          Cancel
+                        </Button>
                       </div>
                     </div>
                   ) : (
                     <div className="space-y-3 p-3 border border-border rounded bg-surface">
-                      <p className="font-semibold text-foreground">Send to Fraud & Anti-Money Laundering review team?</p>
+                      <p className="font-semibold text-foreground">
+                        Send to Fraud & Anti-Money Laundering review team?
+                      </p>
                       <div className="flex gap-2">
-                        <Button size="xs" variant="destructive" onClick={() => handleDecisionSubmit("Fraud Review")}>Yes, Flag File</Button>
-                        <Button size="xs" variant="ghost" onClick={() => setDecisionMode("none")}>Cancel</Button>
+                        <Button
+                          size="xs"
+                          variant="destructive"
+                          onClick={() => handleDecisionSubmit("Fraud Review")}
+                        >
+                          Yes, Flag File
+                        </Button>
+                        <Button size="xs" variant="ghost" onClick={() => setDecisionMode("none")}>
+                          Cancel
+                        </Button>
                       </div>
                     </div>
                   )}
@@ -400,14 +539,19 @@ function LenderWorkbenchPage() {
             <SectionCard title="Action Centre Queries">
               <div className="space-y-3">
                 {requests.map((req) => (
-                  <div key={req.id} className="p-2.5 rounded border border-border bg-surface flex justify-between items-center">
+                  <div
+                    key={req.id}
+                    className="p-2.5 rounded border border-border bg-surface flex justify-between items-center"
+                  >
                     <div>
                       <p className="font-semibold text-foreground">{req.id}</p>
                       <p className="text-[10px] text-muted-foreground mt-0.5">
                         {req.requiredItem} request: "{req.reason}" (Due: {req.dueDate})
                       </p>
                     </div>
-                    <span className="text-[10px] text-blue-700 font-semibold uppercase">{req.status}</span>
+                    <span className="text-[10px] text-blue-700 font-semibold uppercase">
+                      {req.status}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -418,7 +562,10 @@ function LenderWorkbenchPage() {
         {/* UNMASK REASON POPUP */}
         {unmaskOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-            <form onSubmit={handleUnmaskSubmit} className="w-full max-w-[420px] rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-overlay)] space-y-4">
+            <form
+              onSubmit={handleUnmaskSubmit}
+              className="w-full max-w-[420px] rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-overlay)] space-y-4"
+            >
               <div className="flex justify-between items-center border-b border-border pb-2">
                 <h3 className="font-bold text-base text-foreground flex items-center gap-1.5">
                   <KeyRound className="size-5 text-primary" /> Log Unmask Reason
@@ -427,10 +574,16 @@ function LenderWorkbenchPage() {
 
               <div className="space-y-3">
                 <p className="text-muted-foreground text-xs leading-relaxed">
-                  RBI guidelines require stating a clear credit-operation justification before unmasking borrower initials or PAN records.
+                  RBI guidelines require stating a clear credit-operation justification before
+                  unmasking borrower initials or PAN records.
                 </p>
                 <div>
-                  <label htmlFor="unmask-reason" className="block text-xs font-semibold text-muted-foreground mb-1">Unmasking Justification</label>
+                  <label
+                    htmlFor="unmask-reason"
+                    className="block text-xs font-semibold text-muted-foreground mb-1"
+                  >
+                    Unmasking Justification
+                  </label>
                   <textarea
                     id="unmask-reason"
                     required
@@ -444,8 +597,17 @@ function LenderWorkbenchPage() {
               </div>
 
               <div className="pt-2 border-t border-border flex justify-end gap-2">
-                <Button type="button" variant="outline" size="sm" onClick={() => setUnmaskOpen(false)}>Cancel</Button>
-                <Button type="submit" size="sm">Authorize & Unmask</Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setUnmaskOpen(false)}
+                >
+                  Cancel
+                </Button>
+                <Button type="submit" size="sm">
+                  Authorize & Unmask
+                </Button>
               </div>
             </form>
           </div>
@@ -454,7 +616,10 @@ function LenderWorkbenchPage() {
         {/* INFO QUERY FORM POPUP */}
         {infoRequestOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-            <form onSubmit={handleSendInfoRequest} className="w-full max-w-[420px] rounded-xl border border-border bg-card p-6 shadow-xl space-y-4">
+            <form
+              onSubmit={handleSendInfoRequest}
+              className="w-full max-w-[420px] rounded-xl border border-border bg-card p-6 shadow-xl space-y-4"
+            >
               <div className="flex justify-between items-center border-b border-border pb-2">
                 <h3 className="font-bold text-base text-foreground flex items-center gap-1.5">
                   <Send className="size-5 text-primary" /> Request Client Clarification
@@ -463,11 +628,18 @@ function LenderWorkbenchPage() {
 
               <div className="space-y-3">
                 <p className="text-muted-foreground text-[10px] leading-relaxed">
-                  This request will populate instantly in the borrower's <strong>Action Centre</strong> checklist. SMS notifications will be dispatched automatically.
+                  This request will populate instantly in the borrower's{" "}
+                  <strong>Action Centre</strong> checklist. SMS notifications will be dispatched
+                  automatically.
                 </p>
-                
+
                 <div>
-                  <label htmlFor="info-req-field" className="block text-xs font-semibold text-muted-foreground mb-1">Required Item / Field</label>
+                  <label
+                    htmlFor="info-req-field"
+                    className="block text-xs font-semibold text-muted-foreground mb-1"
+                  >
+                    Required Item / Field
+                  </label>
                   <select
                     id="info-req-field"
                     value={infoReqField}
@@ -482,7 +654,12 @@ function LenderWorkbenchPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="info-req-desc" className="block text-xs font-semibold text-muted-foreground mb-1">Borrower-facing Reason</label>
+                  <label
+                    htmlFor="info-req-desc"
+                    className="block text-xs font-semibold text-muted-foreground mb-1"
+                  >
+                    Borrower-facing Reason
+                  </label>
                   <textarea
                     id="info-req-desc"
                     required
@@ -496,7 +673,12 @@ function LenderWorkbenchPage() {
 
                 <div className="grid gap-3 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="info-req-date" className="block text-xs font-semibold text-muted-foreground mb-1">Request Due Date</label>
+                    <label
+                      htmlFor="info-req-date"
+                      className="block text-xs font-semibold text-muted-foreground mb-1"
+                    >
+                      Request Due Date
+                    </label>
                     <input
                       id="info-req-date"
                       type="date"
@@ -507,7 +689,9 @@ function LenderWorkbenchPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-muted-foreground mb-1">Recipient Visibility</label>
+                    <label className="block text-xs font-semibold text-muted-foreground mb-1">
+                      Recipient Visibility
+                    </label>
                     <span className="inline-block rounded border border-[#DDE7F5] bg-blue-50 px-2.5 py-1 text-[11px] font-semibold text-blue-800">
                       SBI Finance Only
                     </span>
@@ -515,7 +699,12 @@ function LenderWorkbenchPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="info-req-notes" className="block text-xs font-semibold text-muted-foreground mb-1">Internal Underwriter Notes (Confidential)</label>
+                  <label
+                    htmlFor="info-req-notes"
+                    className="block text-xs font-semibold text-muted-foreground mb-1"
+                  >
+                    Internal Underwriter Notes (Confidential)
+                  </label>
                   <textarea
                     id="info-req-notes"
                     rows={2}
@@ -528,8 +717,17 @@ function LenderWorkbenchPage() {
               </div>
 
               <div className="pt-2 border-t border-border flex justify-end gap-2">
-                <Button type="button" variant="outline" size="sm" onClick={() => setInfoRequestOpen(false)}>Cancel</Button>
-                <Button type="submit" size="sm">Send Query</Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setInfoRequestOpen(false)}
+                >
+                  Cancel
+                </Button>
+                <Button type="submit" size="sm">
+                  Send Query
+                </Button>
               </div>
             </form>
           </div>

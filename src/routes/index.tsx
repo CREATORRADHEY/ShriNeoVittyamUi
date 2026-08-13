@@ -19,7 +19,6 @@ import { homeContent } from "@/content/home-content";
 import { useI18n } from "@/i18n";
 import { OfferComparisonPanel } from "@/components/previews/product-previews";
 
-
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -43,7 +42,6 @@ export const Route = createFileRoute("/")({
   }),
   component: HomePage,
 });
-
 
 /* --------------------------------------------------------------- section shell */
 
@@ -97,7 +95,6 @@ function HomePage() {
                 to={featured.path}
                 className="group relative z-0 flex h-full flex-col justify-between bg-card p-7 transition-[transform,box-shadow,background-color] duration-[260ms] ease-[cubic-bezier(0.2,0,0,1)] will-change-transform hover:z-10 hover:-translate-y-1.5 hover:bg-brand-50 hover:shadow-[0_22px_44px_-26px_rgba(0,43,152,0.45)] focus-visible:z-10 focus-visible:-translate-y-1.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:p-9"
               >
-
                 <div>
                   <p className="label-micro text-muted-foreground">Most applied for</p>
                   <h3 className="editorial mt-4 text-2xl tracking-tight md:text-3xl">
@@ -202,7 +199,9 @@ function HomePage() {
           <Reveal delay={80} className="min-w-0">
             <OfferComparisonPanel />
             <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
-              Lender names shown are illustrative of the institutions ShriNeo is built to integrate with. All trademarks are the property of their respective owners. No partnership, endorsement or affiliation is implied.
+              Lender names shown are illustrative of the institutions ShriNeo is built to integrate
+              with. All trademarks are the property of their respective owners. No partnership,
+              endorsement or affiliation is implied.
             </p>
           </Reveal>
         </div>
@@ -232,12 +231,8 @@ function HomePage() {
         </div>
       </section>
 
-
       {/* ───────────────────────────── 9. BLOG — teasers, directly above footer */}
       <BlogTeaserSection />
-
-
-
     </PublicShell>
   );
 }

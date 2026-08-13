@@ -162,7 +162,7 @@ export function PrototypeToolbar() {
                 {[
                   { label: "State 1: Launcher", state: "minimized" },
                   { label: "State 2: Greeting", state: "greeting" },
-                  { label: "State 3: Full Assistant", state: "open" }
+                  { label: "State 3: Full Assistant", state: "open" },
                 ].map((item) => (
                   <button
                     key={item.label}
@@ -170,8 +170,8 @@ export function PrototypeToolbar() {
                     onClick={() => {
                       window.dispatchEvent(
                         new CustomEvent("shrineo:neo-override", {
-                          detail: { state: item.state, voiceState: "idle" }
-                        })
+                          detail: { state: item.state, voiceState: "idle" },
+                        }),
                       );
                     }}
                     className="rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-medium text-foreground hover:bg-accent"
@@ -188,7 +188,7 @@ export function PrototypeToolbar() {
                   { label: "Understanding", voiceState: "understanding" },
                   { label: "Microphone Denied", voiceState: "permission_denied" },
                   { label: "Error", voiceState: "error" },
-                  { label: "Offline", voiceState: "offline" }
+                  { label: "Offline", voiceState: "offline" },
                 ].map((item) => (
                   <button
                     key={item.label}
@@ -196,8 +196,8 @@ export function PrototypeToolbar() {
                     onClick={() => {
                       window.dispatchEvent(
                         new CustomEvent("shrineo:neo-override", {
-                          detail: { state: "open", voiceState: item.voiceState }
-                        })
+                          detail: { state: "open", voiceState: item.voiceState },
+                        }),
                       );
                     }}
                     className="rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-medium text-foreground hover:bg-[#FFF2EB]"
@@ -214,8 +214,8 @@ export function PrototypeToolbar() {
                   onClick={() => {
                     window.dispatchEvent(
                       new CustomEvent("shrineo:neo-override", {
-                        detail: { language: "hi" }
-                      })
+                        detail: { language: "hi" },
+                      }),
                     );
                   }}
                   className="rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-medium text-foreground hover:bg-accent"
@@ -227,8 +227,8 @@ export function PrototypeToolbar() {
                   onClick={() => {
                     window.dispatchEvent(
                       new CustomEvent("shrineo:neo-override", {
-                        detail: { language: "en" }
-                      })
+                        detail: { language: "en" },
+                      }),
                     );
                   }}
                   className="rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-medium text-foreground hover:bg-accent"
@@ -243,8 +243,8 @@ export function PrototypeToolbar() {
                     window.sessionStorage.removeItem("shrineo.neoGreetingSeen");
                     window.dispatchEvent(
                       new CustomEvent("shrineo:neo-override", {
-                        detail: { state: "greeting", voiceState: "idle" }
-                      })
+                        detail: { state: "greeting", voiceState: "idle" },
+                      }),
                     );
                   }}
                   className="rounded-md border border-[#E9E1D2] bg-[#FAF8F5] px-2.5 py-1 text-[11px] font-semibold text-[#806126] hover:bg-[#EFEADF]"

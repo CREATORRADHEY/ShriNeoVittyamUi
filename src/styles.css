@@ -22,7 +22,6 @@
   --font-serif: var(--font-ui);
   --font-mono: var(--font-num);
 
-
   --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-md: 8px;
@@ -146,7 +145,6 @@
   --band-mid: #4a7fc1;
   --band-high: #9fd0ff;
 
-
   --info: #2563eb;
   --info-surface: #eef3ff;
   --success: #2f9b76;
@@ -209,10 +207,11 @@
 @utility num {
   font-family: var(--font-num);
   font-variant-numeric: tabular-nums lining-nums;
-  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-feature-settings:
+    "tnum" 1,
+    "lnum" 1;
   letter-spacing: -0.005em;
 }
-
 
 /* Small technical metadata only — reference IDs, timestamps, audit rows. */
 @utility mono-meta {
@@ -242,7 +241,6 @@
     animation: none !important;
   }
 }
-
 
 @utility editorial {
   font-family: var(--font-serif);
@@ -486,7 +484,6 @@ textarea {
   transition: transform var(--motion-standard) var(--ease-standard);
 }
 
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -521,7 +518,6 @@ textarea {
   }
 }
 
-
 /* ============================================================
    Homepage hero — immersive navy field, integrated photograph
    ============================================================ */
@@ -548,7 +544,6 @@ textarea {
   background: linear-gradient(100deg, #001a5c 0%, #00246f 44%, #002b98 100%);
   color: #ffffff;
 }
-
 
 .hero-on-navy {
   color: #b9c6e8;
@@ -686,22 +681,39 @@ textarea {
   }
 }
 
-
 /* ============================================================
    Header disclosure panels + rotating service label
    ============================================================ */
 
 @keyframes hdr-panel-in {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes hdr-panel-out {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-3px); }
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
 }
 @keyframes hdr-label-in {
-  from { opacity: 0; transform: translateY(7px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hdr-panel[data-state="open"] {
@@ -742,13 +754,19 @@ textarea {
     animation: none !important;
     transform: none !important;
   }
-  .hdr-rotate { animation: none !important; }
+  .hdr-rotate {
+    animation: none !important;
+  }
 }
 
 /* USP strip — decorative progress line for the active item. */
 @keyframes usp-marquee {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 /* "For Agents" band — the photograph dissolves rightwards into the navy field. */
@@ -795,13 +813,13 @@ textarea {
    ============================================================ */
 
 header[data-hdr-theme] {
-  background: #F0F4FC; /* Light blue tint from user image */
+  background: #f0f4fc; /* Light blue tint from user image */
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid #D2DFFA;
+  border-bottom: 1px solid #d2dffa;
   box-shadow: none;
   --hdr-fg: #002b98;
   --hdr-fg-soft: #5b657d;
-  --hdr-hairline: #D2DFFA;
+  --hdr-hairline: #d2dffa;
   transition:
     box-shadow 0.25s ease-out,
     height 0.25s ease-out;

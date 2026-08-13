@@ -143,10 +143,20 @@ function DisclosuresPage() {
           body="Complaints are acknowledged and tracked, and can be escalated beyond ShriNeo."
         />
         <dl className="mt-8 max-w-3xl">
-          <Row label="Customer care email" value={configured(org.supportEmail) === configured(null) ? "support@shrineocapital.com" : configured(org.supportEmail)} />
+          <Row
+            label="Customer care email"
+            value={
+              configured(org.supportEmail) === configured(null)
+                ? "support@shrineocapital.com"
+                : configured(org.supportEmail)
+            }
+          />
           <Row label="Customer care phone" value={configured(org.supportPhone)} />
           <Row label="Grievance Officer" value={configured(org.grievanceOfficer.name)} />
-          <Row label="Grievance Officer designation" value={configured(org.grievanceOfficer.designation)} />
+          <Row
+            label="Grievance Officer designation"
+            value={configured(org.grievanceOfficer.designation)}
+          />
           <Row label="Grievance email" value="grievance@shrineocapital.com" />
           <Row label="Response window" value={org.grievanceOfficer.responseWindow} />
         </dl>

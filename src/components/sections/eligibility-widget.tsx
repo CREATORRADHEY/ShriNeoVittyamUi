@@ -48,9 +48,10 @@ export function EligibilityWidget() {
 
   const [amount, setAmount] = useState("2,00,000");
   const [mobile, setMobile] = useState("");
-  const [errors, setErrors] = useState<{ amount?: string | undefined; mobile?: string | undefined }>(
-    {},
-  );
+  const [errors, setErrors] = useState<{
+    amount?: string | undefined;
+    mobile?: string | undefined;
+  }>({});
   const [invalidNudge, setInvalidNudge] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -133,10 +134,7 @@ export function EligibilityWidget() {
 
           <div className="mt-6 grid gap-4 md:grid-cols-[1fr_1fr_auto] md:items-start">
             <div className="min-w-0">
-              <label
-                htmlFor="elig-amount"
-                className="label-micro block text-muted-foreground"
-              >
+              <label htmlFor="elig-amount" className="label-micro block text-muted-foreground">
                 {t("elig.amount")}
               </label>
               <div className="mt-2 flex items-center gap-1">

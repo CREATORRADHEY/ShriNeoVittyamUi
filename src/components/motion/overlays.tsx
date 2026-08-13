@@ -61,7 +61,6 @@ function useReturnFocus(open: boolean) {
   }, [open]);
 }
 
-
 /* ------------------------------------------------------------------ */
 /* Tooltip — short definitions only. Never the sole home of a fact.    */
 /* ------------------------------------------------------------------ */
@@ -164,7 +163,12 @@ function BreakdownBody({
                   <span className="block text-xs text-muted-foreground">{row.note}</span>
                 ) : null}
               </dt>
-              <dd className={cn("num shrink-0 text-right text-foreground", row.strong && "font-semibold")}>
+              <dd
+                className={cn(
+                  "num shrink-0 text-right text-foreground",
+                  row.strong && "font-semibold",
+                )}
+              >
                 {row.value}
               </dd>
             </div>
@@ -450,9 +454,7 @@ export function OutcomeRecord({
       aria-live="polite"
       className={cn(
         "route-enter rounded-xl border p-4 text-sm",
-        tone === "success"
-          ? "border-success/40 bg-success-surface"
-          : "border-border bg-surface",
+        tone === "success" ? "border-success/40 bg-success-surface" : "border-border bg-surface",
       )}
     >
       <p className="font-medium text-foreground">{title}</p>
@@ -471,15 +473,7 @@ export function OutcomeRecord({
 /* Status + value change: crossfade, never a counting animation.       */
 /* ------------------------------------------------------------------ */
 
-export function LiveValue({
-  value,
-  label,
-  asOf,
-}: {
-  value: string;
-  label: string;
-  asOf?: string;
-}) {
+export function LiveValue({ value, label, asOf }: { value: string; label: string; asOf?: string }) {
   const [changed, setChanged] = useState(false);
   const [shown, setShown] = useState(value);
 
@@ -527,9 +521,7 @@ export function SelectableOffer({
       aria-pressed={selected}
       className={cn(
         "w-full rounded-xl border p-4 text-left transition-[background-color,border-color,box-shadow] duration-200",
-        selected
-          ? "border-primary bg-accent"
-          : "border-border bg-card hover:border-border-strong",
+        selected ? "border-primary bg-accent" : "border-border bg-card hover:border-border-strong",
       )}
       style={{ transitionTimingFunction: "cubic-bezier(0.2, 0, 0, 1)" }}
     >
@@ -562,7 +554,13 @@ export function SelectableOffer({
   );
 }
 
-export function DismissibleNote({ children, onClose }: { children: ReactNode; onClose: () => void }) {
+export function DismissibleNote({
+  children,
+  onClose,
+}: {
+  children: ReactNode;
+  onClose: () => void;
+}) {
   return (
     <div className="flex items-start gap-3 rounded-lg border border-border bg-surface p-3 text-sm">
       <p className="flex-1 text-muted-foreground">{children}</p>

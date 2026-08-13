@@ -24,10 +24,22 @@ export const Route = createFileRoute("/careers")({
 });
 
 const disciplines = [
-  { title: "Engineering", body: "Product engineering, platform reliability and secure integrations with lender systems." },
-  { title: "Risk and credit", body: "Credit policy, alternative data analysis and lender-facing decision support." },
-  { title: "Compliance", body: "RBI digital lending alignment, disclosure quality and grievance handling." },
-  { title: "Field and agent operations", body: "Agent verification, training and regional support across languages." },
+  {
+    title: "Engineering",
+    body: "Product engineering, platform reliability and secure integrations with lender systems.",
+  },
+  {
+    title: "Risk and credit",
+    body: "Credit policy, alternative data analysis and lender-facing decision support.",
+  },
+  {
+    title: "Compliance",
+    body: "RBI digital lending alignment, disclosure quality and grievance handling.",
+  },
+  {
+    title: "Field and agent operations",
+    body: "Agent verification, training and regional support across languages.",
+  },
 ];
 
 function CareersPage() {
@@ -89,7 +101,10 @@ function CareersPage() {
         </ol>
         <p className="mt-8 text-base text-muted-foreground">
           Questions that are not about a role belong on the{" "}
-          <Link to="/contact" className="font-semibold text-primary underline-offset-4 hover:underline">
+          <Link
+            to="/contact"
+            className="font-semibold text-primary underline-offset-4 hover:underline"
+          >
             contact page
           </Link>
           .

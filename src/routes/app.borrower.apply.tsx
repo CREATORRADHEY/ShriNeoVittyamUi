@@ -13,7 +13,8 @@ export const Route = createFileRoute("/app/borrower/apply")({
       { title: "Apply for a loan — ShriNeo Capital" },
       {
         name: "description",
-        content: "Choose a loan product, resume a saved draft, and see exactly what is needed before you apply.",
+        content:
+          "Choose a loan product, resume a saved draft, and see exactly what is needed before you apply.",
       },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Apply for a loan — ShriNeo Capital" },
@@ -29,7 +30,11 @@ function ApplyPage() {
   const hasActive = application !== "draft" && application !== "closed";
 
   return (
-    <PortalShell role="borrower" title="Apply for a loan" subtitle="Step 0 of 5 — choose what you need">
+    <PortalShell
+      role="borrower"
+      title="Apply for a loan"
+      subtitle="Step 0 of 5 — choose what you need"
+    >
       {kycBlocked ? (
         <InlineState
           tone="warning"
@@ -52,7 +57,10 @@ function ApplyPage() {
         />
       ) : null}
 
-      <SectionCard title="Choose a product" description="Rates and terms are set by participating lenders, not by ShriNeo Capital.">
+      <SectionCard
+        title="Choose a product"
+        description="Rates and terms are set by participating lenders, not by ShriNeo Capital."
+      >
         <div className="grid gap-3 sm:grid-cols-2">
           {products.map((p) => {
             const comingSoon = false;
@@ -75,8 +83,8 @@ function ApplyPage() {
                         Not available yet
                       </Button>
                       <p id={`why-${p.slug}`} className="mt-2 text-xs text-muted-foreground">
-                        Sachet loans open once a participating lender is live for small-ticket credit
-                        in your district. We'll notify you.
+                        Sachet loans open once a participating lender is live for small-ticket
+                        credit in your district. We'll notify you.
                       </p>
                     </>
                   ) : (

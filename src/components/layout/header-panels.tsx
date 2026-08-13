@@ -96,7 +96,6 @@ export function LoansMenu() {
     };
   }, [isOpen, closeNow]);
 
-
   useDisclosureBehaviour({ isOpen, close: closeNow, rootRef, triggerRef, panelRef });
 
   return (
@@ -134,97 +133,93 @@ export function LoansMenu() {
         {t("nav.loans")}
         <ChevronDown
           aria-hidden
-          className={cn(
-            "size-4 transition-transform duration-200",
-            isOpen && "rotate-180",
-          )}
+          className={cn("size-4 transition-transform duration-200", isOpen && "rotate-180")}
         />
       </button>
 
       {present && typeof document !== "undefined"
         ? createPortal(
-        <div
-          ref={panelRef}
-          id="loans-panel"
-          data-state={isOpen ? "open" : "closed"}
-          className="hdr-panel fixed z-[1100] pt-2"
-          style={{ left: box?.left ?? 0, top: box?.top ?? 0, width: box?.width ?? 0 }}
-          onPointerEnter={cancelClose}
-          onPointerLeave={(e) => {
-            if (e.pointerType === "mouse") closeSoon();
-          }}
-        >
-          <div className="w-full overflow-hidden rounded-[14px] border border-border bg-surface-warm text-foreground shadow-[var(--shadow-panel)]">
-            <div className="grid gap-0 md:grid-cols-[1.55fr_1fr]">
-              <div className="grid gap-1 p-4 sm:grid-cols-2 md:p-5">
-                {products.map((product) => (
-                  <Link
-                    key={product.slug}
-                    to={product.path}
-                    data-menu-item
-                    onClick={closeNow}
-                    className="group flex min-h-11 items-start gap-3 rounded-[10px] border border-transparent p-3 transition-[background-color,border-color] duration-150 hover:border-brand-200 hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
-                  >
-                    <product.icon
-                      aria-hidden
-                      className="mt-0.5 size-5 shrink-0 stroke-[1.4] text-primary transition-transform duration-150 group-hover:translate-x-[1px]"
-                    />
-                    <span className="min-w-0 flex-1">
-                      <span className="flex items-center justify-between gap-2">
-                        <span className="text-sm font-semibold">
-                          {t(productKeys[product.slug]!, product.name)}
-                        </span>
-                        <ArrowRight
+            <div
+              ref={panelRef}
+              id="loans-panel"
+              data-state={isOpen ? "open" : "closed"}
+              className="hdr-panel fixed z-[1100] pt-2"
+              style={{ left: box?.left ?? 0, top: box?.top ?? 0, width: box?.width ?? 0 }}
+              onPointerEnter={cancelClose}
+              onPointerLeave={(e) => {
+                if (e.pointerType === "mouse") closeSoon();
+              }}
+            >
+              <div className="w-full overflow-hidden rounded-[14px] border border-border bg-surface-warm text-foreground shadow-[var(--shadow-panel)]">
+                <div className="grid gap-0 md:grid-cols-[1.55fr_1fr]">
+                  <div className="grid gap-1 p-4 sm:grid-cols-2 md:p-5">
+                    {products.map((product) => (
+                      <Link
+                        key={product.slug}
+                        to={product.path}
+                        data-menu-item
+                        onClick={closeNow}
+                        className="group flex min-h-11 items-start gap-3 rounded-[10px] border border-transparent p-3 transition-[background-color,border-color] duration-150 hover:border-brand-200 hover:bg-brand-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+                      >
+                        <product.icon
                           aria-hidden
-                          className="size-4 shrink-0 text-primary opacity-0 transition-[opacity,transform] duration-150 group-hover:translate-x-0.5 group-hover:opacity-100 group-focus-visible:opacity-100"
+                          className="mt-0.5 size-5 shrink-0 stroke-[1.4] text-primary transition-transform duration-150 group-hover:translate-x-[1px]"
                         />
-                      </span>
-                      <span className="num mt-1 block text-xs text-muted-foreground">
-                        {formatINR(product.range.min, { compact: true })} –{" "}
-                        {formatINR(product.range.max, { compact: true })}
-                      </span>
-                      <span className="mt-1 block text-xs leading-snug text-muted-foreground">
-                        {product.phase2
-                          ? t("common.comingSoon")
-                          : t(productBlurbs[product.slug]!, product.summary)}
-                      </span>
-                    </span>
-                  </Link>
-                ))}
-              </div>
+                        <span className="min-w-0 flex-1">
+                          <span className="flex items-center justify-between gap-2">
+                            <span className="text-sm font-semibold">
+                              {t(productKeys[product.slug]!, product.name)}
+                            </span>
+                            <ArrowRight
+                              aria-hidden
+                              className="size-4 shrink-0 text-primary opacity-0 transition-[opacity,transform] duration-150 group-hover:translate-x-0.5 group-hover:opacity-100 group-focus-visible:opacity-100"
+                            />
+                          </span>
+                          <span className="num mt-1 block text-xs text-muted-foreground">
+                            {formatINR(product.range.min, { compact: true })} –{" "}
+                            {formatINR(product.range.max, { compact: true })}
+                          </span>
+                          <span className="mt-1 block text-xs leading-snug text-muted-foreground">
+                            {product.phase2
+                              ? t("common.comingSoon")
+                              : t(productBlurbs[product.slug]!, product.summary)}
+                          </span>
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
 
-              <div className="border-t border-border bg-card p-5 md:border-t-0 md:border-l">
-                <p className="text-sm font-semibold">{t("elig.title")}</p>
-                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                  {t("menu.loans.actionBody")}
-                </p>
-                <a
-                  href="#check-eligibility"
-                  onClick={closeNow}
-                  className="cta-saffron font-display mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[10px] px-4 text-sm font-semibold transition-colors duration-150"
-                >
-                  {t("menu.loans.action")}
-                  <ArrowRight aria-hidden className="size-4" />
-                </a>
-                <button
-                  type="button"
-                  onClick={() => {
-                    closeNow();
-                    window.dispatchEvent(new CustomEvent("shrineo:open-neo"));
-                  }}
-                  className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[10px] border border-border text-sm font-medium text-primary transition-colors duration-150 hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                >
-                  {t("menu.help.neo")}
-                  <ArrowRight aria-hidden className="size-4" />
-                </button>
+                  <div className="border-t border-border bg-card p-5 md:border-t-0 md:border-l">
+                    <p className="text-sm font-semibold">{t("elig.title")}</p>
+                    <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+                      {t("menu.loans.actionBody")}
+                    </p>
+                    <a
+                      href="#check-eligibility"
+                      onClick={closeNow}
+                      className="cta-saffron font-display mt-4 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[10px] px-4 text-sm font-semibold transition-colors duration-150"
+                    >
+                      {t("menu.loans.action")}
+                      <ArrowRight aria-hidden className="size-4" />
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        closeNow();
+                        window.dispatchEvent(new CustomEvent("shrineo:open-neo"));
+                      }}
+                      className="mt-3 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-[10px] border border-border text-sm font-medium text-primary transition-colors duration-150 hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                    >
+                      {t("menu.help.neo")}
+                      <ArrowRight aria-hidden className="size-4" />
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>,
+            </div>,
             document.body,
           )
         : null}
-
     </div>
   );
 }
@@ -319,13 +314,19 @@ export function NeedHelpPill() {
       >
         <QuestionMarkCircle />
         <span className="relative block h-5 min-w-[86px] overflow-hidden text-left">
-          <span key={labelKey} className={reduced ? "block leading-5" : "hdr-rotate block leading-5"}>
+          <span
+            key={labelKey}
+            className={reduced ? "block leading-5" : "hdr-rotate block leading-5"}
+          >
             {t(labelKey)}
           </span>
         </span>
         <ChevronDown
           aria-hidden
-          className={cn("size-[10px] opacity-55 transition-transform duration-150", isOpen && "rotate-180")}
+          className={cn(
+            "size-[10px] opacity-55 transition-transform duration-150",
+            isOpen && "rotate-180",
+          )}
         />
       </button>
 

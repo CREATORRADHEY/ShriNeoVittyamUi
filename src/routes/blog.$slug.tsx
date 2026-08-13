@@ -13,7 +13,10 @@ export const Route = createFileRoute("/blog/$slug")({
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
-        meta: [{ title: "Article unavailable — ShriNeo Capital" }, { name: "robots", content: "noindex" }],
+        meta: [
+          { title: "Article unavailable — ShriNeo Capital" },
+          { name: "robots", content: "noindex" },
+        ],
       };
     }
     const { article } = loaderData;
@@ -52,7 +55,10 @@ function BlogArticlePage() {
               <section key={section.heading} className="mt-9 first:mt-7">
                 <h3 className="text-xl font-semibold tracking-tight">{section.heading}</h3>
                 {section.body.map((paragraph) => (
-                  <p key={paragraph} className="mt-3 text-base leading-relaxed text-muted-foreground">
+                  <p
+                    key={paragraph}
+                    className="mt-3 text-base leading-relaxed text-muted-foreground"
+                  >
                     {paragraph}
                   </p>
                 ))}

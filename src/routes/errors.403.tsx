@@ -9,7 +9,10 @@ export const Route = createFileRoute("/errors/403")({
       { name: "description", content: "This page isn't available for your role or account." },
       { name: "robots", content: "noindex" },
       { property: "og:title", content: "Access restricted — ShriNeo Capital" },
-      { property: "og:description", content: "This page isn't available for your role or account." },
+      {
+        property: "og:description",
+        content: "This page isn't available for your role or account.",
+      },
     ],
   }),
   component: PermissionRestrictedPage,

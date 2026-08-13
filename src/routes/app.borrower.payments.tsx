@@ -44,7 +44,8 @@ function PaymentsPage() {
   const [mandateOpen, setMandateOpen] = useState(false);
   const loading = data === "loading";
 
-  const isNewOrEmpty = account === "new" || data === "empty" || (!activeLoan && application !== "closed");
+  const isNewOrEmpty =
+    account === "new" || data === "empty" || (!activeLoan && application !== "closed");
 
   return (
     <PortalShell
@@ -114,8 +115,15 @@ function PaymentsPage() {
               explanation="The auto-debit on 05 Mar declined due to insufficient balance."
               safety="No penalty has been applied yet. Retrying via NACH on 15 Mar. Pay manually now to prevent late fees."
               actions={[
-                { label: "Pay Manually via Gateway", variant: "default", onClick: () => toast.success("Gateway interface launched.") },
-                { label: "Retry Mandate", onClick: () => toast.success("Mandate retry scheduled.") },
+                {
+                  label: "Pay Manually via Gateway",
+                  variant: "default",
+                  onClick: () => toast.success("Gateway interface launched."),
+                },
+                {
+                  label: "Retry Mandate",
+                  onClick: () => toast.success("Mandate retry scheduled."),
+                },
                 { label: "Support Ticket", to: "/app/borrower/support", variant: "ghost" },
               ]}
             />
@@ -123,17 +131,33 @@ function PaymentsPage() {
 
           <SectionCard
             title="Payment History Ledger"
-            actions={<Button size="sm" variant="outline" onClick={() => toast.success("Full statements downloaded.")}>Download statement</Button>}
+            actions={
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => toast.success("Full statements downloaded.")}
+              >
+                Download statement
+              </Button>
+            }
           >
             <div className="overflow-x-auto">
               <table className="w-full min-w-[32rem] text-left text-sm">
                 <caption className="sr-only">Repayment ledger for loan LN-2026-092</caption>
                 <thead>
                   <tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground">
-                    <th scope="col" className="px-3 py-2 font-medium">Date</th>
-                    <th scope="col" className="px-3 py-2 font-medium">Amount</th>
-                    <th scope="col" className="px-3 py-2 font-medium">Status</th>
-                    <th scope="col" className="px-3 py-2 font-medium">Receipt</th>
+                    <th scope="col" className="px-3 py-2 font-medium">
+                      Date
+                    </th>
+                    <th scope="col" className="px-3 py-2 font-medium">
+                      Amount
+                    </th>
+                    <th scope="col" className="px-3 py-2 font-medium">
+                      Status
+                    </th>
+                    <th scope="col" className="px-3 py-2 font-medium">
+                      Receipt
+                    </th>
                   </tr>
                 </thead>
                 {loading || data === "failed" || data === "offline" ? (
@@ -152,7 +176,14 @@ function PaymentsPage() {
                           <StatusBadge tone={tone}>{status}</StatusBadge>
                         </td>
                         <td className="px-3 py-3">
-                          <Button size="sm" variant="ghost" aria-label={`Download payment receipt for ${date}`} onClick={() => toast.success(`Receipt for ${date} downloaded.`)}>Download</Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            aria-label={`Download payment receipt for ${date}`}
+                            onClick={() => toast.success(`Receipt for ${date} downloaded.`)}
+                          >
+                            Download
+                          </Button>
                         </td>
                       </tr>
                     ))}
@@ -177,7 +208,9 @@ function PaymentsPage() {
                   </div>
                   <div className="flex justify-between py-1 border-b border-border">
                     <span className="text-muted-foreground">Bank Account</span>
-                    <span className="font-semibold text-foreground">State Bank of India (*9204)</span>
+                    <span className="font-semibold text-foreground">
+                      State Bank of India (*9204)
+                    </span>
                   </div>
                   <div className="flex justify-between py-1 border-b border-border">
                     <span className="text-muted-foreground">Mandate Limit</span>

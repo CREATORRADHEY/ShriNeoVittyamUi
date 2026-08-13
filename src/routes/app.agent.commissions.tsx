@@ -1,6 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { BadgeIndianRupee, ShieldAlert, CheckCircle2, AlertTriangle, FileDown, RefreshCw, X } from "lucide-react";
+import {
+  BadgeIndianRupee,
+  ShieldAlert,
+  CheckCircle2,
+  AlertTriangle,
+  FileDown,
+  RefreshCw,
+  X,
+} from "lucide-react";
 
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
 import { KpiCard } from "@/components/states";
@@ -13,7 +21,10 @@ export const Route = createFileRoute("/app/agent/commissions")({
   head: () => ({
     meta: [
       { title: "Commissions Ledger — ShriNeo Capital" },
-      { name: "description", content: "Track earned, pending, paid and reversed commissions with statutory audits." },
+      {
+        name: "description",
+        content: "Track earned, pending, paid and reversed commissions with statutory audits.",
+      },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -50,7 +61,7 @@ function AgentCommissionsPage() {
       netPayout: 9450,
       status: "paid",
       payoutDate: "12 Mar 2026",
-      bankStatus: "Transferred successfully to HDFC *9911"
+      bankStatus: "Transferred successfully to HDFC *9911",
     },
     {
       id: "COM-102",
@@ -63,7 +74,7 @@ function AgentCommissionsPage() {
       netPayout: 13500,
       status: "pending",
       payoutDate: "18 Mar 2026",
-      bankStatus: "Approved, awaiting settlement run"
+      bankStatus: "Approved, awaiting settlement run",
     },
     {
       id: "COM-103",
@@ -77,7 +88,7 @@ function AgentCommissionsPage() {
       status: "reversed",
       payoutDate: "—",
       bankStatus: "Ledger clawback adjusted",
-      reversalReason: "Early foreclosure within 30 days of disbursal"
+      reversalReason: "Early foreclosure within 30 days of disbursal",
     },
     {
       id: "COM-104",
@@ -91,7 +102,7 @@ function AgentCommissionsPage() {
       status: "held",
       payoutDate: "—",
       bankStatus: "Verification hold (Awaiting penny-drop fix)",
-    }
+    },
   ]);
 
   const [disputeOpen, setDisputeOpen] = useState(false);
@@ -129,7 +140,8 @@ function AgentCommissionsPage() {
           </div>
           <h2 className="mt-4 text-base font-semibold">No commission entries yet</h2>
           <p className="mt-2 max-w-[45ch] text-xs text-muted-foreground">
-            Commission entries populate automatically the moment a borrower file you sourced is disbursed by a lender.
+            Commission entries populate automatically the moment a borrower file you sourced is
+            disbursed by a lender.
           </p>
         </div>
       ) : (
@@ -144,22 +156,50 @@ function AgentCommissionsPage() {
           {/* COMMISSIONS TABLE */}
           <SectionCard
             title="Commission Ledger Records"
-            actions={<Button size="sm" variant="outline" onClick={() => toast.success("Ledger Excel sheet downloaded.")}>Download Ledger</Button>}
+            actions={
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => toast.success("Ledger Excel sheet downloaded.")}
+              >
+                Download Ledger
+              </Button>
+            }
           >
             <div className="overflow-x-auto text-xs">
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b border-border bg-surface text-muted-foreground font-semibold">
-                    <th scope="col" className="p-3">Reference ID</th>
-                    <th scope="col" className="p-3">File ID</th>
-                    <th scope="col" className="p-3">Lender Disbursal ID</th>
-                    <th scope="col" className="p-3">Date</th>
-                    <th scope="col" className="p-3">Sanction Amount</th>
-                    <th scope="col" className="p-3">Gross</th>
-                    <th scope="col" className="p-3">TDS (10%)</th>
-                    <th scope="col" className="p-3">Net Payout</th>
-                    <th scope="col" className="p-3">Status</th>
-                    <th scope="col" className="p-3 text-right">Actions</th>
+                    <th scope="col" className="p-3">
+                      Reference ID
+                    </th>
+                    <th scope="col" className="p-3">
+                      File ID
+                    </th>
+                    <th scope="col" className="p-3">
+                      Lender Disbursal ID
+                    </th>
+                    <th scope="col" className="p-3">
+                      Date
+                    </th>
+                    <th scope="col" className="p-3">
+                      Sanction Amount
+                    </th>
+                    <th scope="col" className="p-3">
+                      Gross
+                    </th>
+                    <th scope="col" className="p-3">
+                      TDS (10%)
+                    </th>
+                    <th scope="col" className="p-3">
+                      Net Payout
+                    </th>
+                    <th scope="col" className="p-3">
+                      Status
+                    </th>
+                    <th scope="col" className="p-3 text-right">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -172,19 +212,29 @@ function AgentCommissionsPage() {
                       <td className="num p-3 text-foreground">{formatINR(c.loanAmount)}</td>
                       <td className="num p-3 text-foreground">{formatINR(c.grossCommission)}</td>
                       <td className="num p-3 text-red-700">-{formatINR(c.tds)}</td>
-                      <td className="num p-3 text-foreground font-semibold">{formatINR(c.netPayout)}</td>
+                      <td className="num p-3 text-foreground font-semibold">
+                        {formatINR(c.netPayout)}
+                      </td>
                       <td className="p-3">
-                        <span className={`px-2 py-0.5 rounded text-[9px] font-semibold uppercase ${c.status === "paid" ? "bg-emerald-50 text-emerald-700 border border-emerald-200" : c.status === "pending" ? "bg-blue-50 text-blue-700 border border-blue-200" : c.status === "held" ? "bg-amber-50 text-amber-700 border border-amber-200" : c.status === "reversed" ? "bg-red-50 text-red-700 border border-red-200" : "bg-neutral-100 text-muted-foreground"}`}>
+                        <span
+                          className={`px-2 py-0.5 rounded text-[9px] font-semibold uppercase ${c.status === "paid" ? "bg-emerald-50 text-emerald-700 border border-emerald-200" : c.status === "pending" ? "bg-blue-50 text-blue-700 border border-blue-200" : c.status === "held" ? "bg-amber-50 text-amber-700 border border-amber-200" : c.status === "reversed" ? "bg-red-50 text-red-700 border border-red-200" : "bg-neutral-100 text-muted-foreground"}`}
+                        >
                           {c.status}
                         </span>
                       </td>
                       <td className="p-3 text-right">
                         {c.status === "reversed" ? (
-                          <Button size="xs" variant="outline" onClick={() => handleOpenDispute(c.id)}>
+                          <Button
+                            size="xs"
+                            variant="outline"
+                            onClick={() => handleOpenDispute(c.id)}
+                          >
                             Dispute Clawback
                           </Button>
                         ) : c.status === "held" ? (
-                          <span className="text-[10px] text-amber-700 italic">Check bank details</span>
+                          <span className="text-[10px] text-amber-700 italic">
+                            Check bank details
+                          </span>
                         ) : (
                           <span className="text-muted-foreground">—</span>
                         )}
@@ -199,22 +249,36 @@ function AgentCommissionsPage() {
           {/* DISPUTE APPEAL FORM DIALOG */}
           {disputeOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-              <form onSubmit={handleSubmitDispute} className="w-full max-w-[420px] rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-overlay)] space-y-4">
+              <form
+                onSubmit={handleSubmitDispute}
+                className="w-full max-w-[420px] rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-overlay)] space-y-4"
+              >
                 <div className="flex justify-between items-center border-b border-border pb-2">
                   <h3 className="font-bold text-base text-foreground flex items-center gap-1.5">
                     <AlertTriangle className="size-5 text-red-600" /> Dispute Commission Reversal
                   </h3>
-                  <button type="button" onClick={() => setDisputeOpen(false)} className="text-muted-foreground hover:text-foreground">
+                  <button
+                    type="button"
+                    onClick={() => setDisputeOpen(false)}
+                    className="text-muted-foreground hover:text-foreground"
+                  >
                     <X className="size-5" />
                   </button>
                 </div>
 
                 <div className="space-y-3 text-xs">
                   <p className="text-muted-foreground">
-                    Appealing clawback adjustment for <strong>{selectedCommId}</strong>. Under statutory guidelines, early prepayment disputes are reviewed by ShriNeo GRO committee.
+                    Appealing clawback adjustment for <strong>{selectedCommId}</strong>. Under
+                    statutory guidelines, early prepayment disputes are reviewed by ShriNeo GRO
+                    committee.
                   </p>
                   <div>
-                    <label htmlFor="disp-details" className="block text-xs font-semibold text-muted-foreground mb-1">Appeal Reason & Details</label>
+                    <label
+                      htmlFor="disp-details"
+                      className="block text-xs font-semibold text-muted-foreground mb-1"
+                    >
+                      Appeal Reason & Details
+                    </label>
                     <textarea
                       id="disp-details"
                       required
@@ -228,8 +292,17 @@ function AgentCommissionsPage() {
                 </div>
 
                 <div className="pt-2 border-t border-border flex justify-end gap-2">
-                  <Button type="button" variant="outline" size="sm" onClick={() => setDisputeOpen(false)}>Cancel</Button>
-                  <Button type="submit" size="sm">Submit Dispute</Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setDisputeOpen(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button type="submit" size="sm">
+                    Submit Dispute
+                  </Button>
                 </div>
               </form>
             </div>
@@ -239,4 +312,3 @@ function AgentCommissionsPage() {
     </PortalShell>
   );
 }
-

@@ -20,20 +20,46 @@ export const Route = createFileRoute("/app/borrower/offers")({
       { title: "Your offers — ShriNeo Capital" },
       {
         name: "description",
-        content: "Compare lender offers on APR, total repayment and fees before you accept anything.",
+        content:
+          "Compare lender offers on APR, total repayment and fees before you accept anything.",
       },
       { name: "robots", content: "noindex, nofollow" },
       { property: "og:title", content: "Your offers — ShriNeo Capital" },
-      { property: "og:description", content: "Side-by-side lender offers with total cost shown up front." },
+      {
+        property: "og:description",
+        content: "Side-by-side lender offers with total cost shown up front.",
+      },
     ],
   }),
   component: OffersPage,
 });
 
 const OFFERS = [
-  { lender: "Kaveri Bank", apr: "13.4%", emi: 21460, total: 515040, fee: 4500, expiry: "14 Mar, 18:00", best: true },
-  { lender: "Meridian NBFC", apr: "14.1%", emi: 21690, total: 520560, fee: 2500, expiry: "15 Mar, 12:00" },
-  { lender: "Sahyadri Finance", apr: "15.8%", emi: 22140, total: 531360, fee: 0, expiry: "16 Mar, 09:00" },
+  {
+    lender: "Kaveri Bank",
+    apr: "13.4%",
+    emi: 21460,
+    total: 515040,
+    fee: 4500,
+    expiry: "14 Mar, 18:00",
+    best: true,
+  },
+  {
+    lender: "Meridian NBFC",
+    apr: "14.1%",
+    emi: 21690,
+    total: 520560,
+    fee: 2500,
+    expiry: "15 Mar, 12:00",
+  },
+  {
+    lender: "Sahyadri Finance",
+    apr: "15.8%",
+    emi: 22140,
+    total: 531360,
+    fee: 0,
+    expiry: "16 Mar, 09:00",
+  },
 ];
 
 function OffersPage() {

@@ -13,7 +13,10 @@ export const Route = createFileRoute("/accessibility")({
           "How ShriNeo Capital approaches accessibility: standards followed, features supported, known limitations, and how to report an accessibility barrier.",
       },
       { property: "og:title", content: "Accessibility statement — ShriNeo Capital" },
-      { property: "og:description", content: "Standards, supported features and known limitations." },
+      {
+        property: "og:description",
+        content: "Standards, supported features and known limitations.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { property: "og:url", content: "/accessibility" },
@@ -62,7 +65,10 @@ function AccessibilityPage() {
         <SectionHeading id="supported-title" title="What is supported today" />
         <ul className="mt-8 grid max-w-3xl gap-3">
           {supported.map((item) => (
-            <li key={item} className="rounded-lg border border-border bg-card p-4 text-base leading-relaxed text-muted-foreground">
+            <li
+              key={item}
+              className="rounded-lg border border-border bg-card p-4 text-base leading-relaxed text-muted-foreground"
+            >
               {item}
             </li>
           ))}
@@ -77,7 +83,10 @@ function AccessibilityPage() {
         />
         <ul className="mt-8 grid max-w-3xl gap-3">
           {limitations.map((item) => (
-            <li key={item} className="rounded-lg border border-border p-4 text-base leading-relaxed text-muted-foreground">
+            <li
+              key={item}
+              className="rounded-lg border border-border p-4 text-base leading-relaxed text-muted-foreground"
+            >
               {item}
             </li>
           ))}

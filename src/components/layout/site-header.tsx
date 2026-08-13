@@ -80,7 +80,6 @@ function HeaderInner() {
               className="w-auto shrink-0 object-contain"
             />
 
-
             <span className="flex flex-col leading-tight">
               <span className="whitespace-nowrap text-[18px] md:text-[20px] font-semibold tracking-tight text-[color:var(--hdr-fg)]">
                 ShriNeo Capital

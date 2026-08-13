@@ -339,7 +339,10 @@ function HelpCenterPage() {
               cta: "See contact details",
             },
           ].map((item) => (
-            <div key={item.title} className="flex flex-col rounded-xl border border-border bg-card p-6">
+            <div
+              key={item.title}
+              className="flex flex-col rounded-xl border border-border bg-card p-6"
+            >
               <item.icon aria-hidden className="size-5 text-primary" />
               <h3 className="mt-3 text-base font-semibold">{item.title}</h3>
               <p className="mt-2 flex-1 text-sm text-muted-foreground">{item.body}</p>

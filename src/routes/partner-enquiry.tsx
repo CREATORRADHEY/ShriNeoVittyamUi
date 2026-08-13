@@ -146,7 +146,14 @@ function PartnerEnquiryPage() {
                 <Label htmlFor="email" className="mb-1.5 block text-sm font-medium">
                   Work email
                 </Label>
-                <Input id="email" name="email" type="email" autoComplete="email" className="h-11" required />
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  className="h-11"
+                  required
+                />
                 {errors.email ? (
                   <p role="alert" className="mt-1.5 text-sm text-destructive">
                     {errors.email}

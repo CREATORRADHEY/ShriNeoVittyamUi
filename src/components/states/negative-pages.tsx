@@ -45,7 +45,11 @@ export function PermissionRestrictedPage() {
   return (
     <FullPageState
       code="403"
-      title={borrower ? "This page isn't available for your account." : "You don't have access to this page."}
+      title={
+        borrower
+          ? "This page isn't available for your account."
+          : "You don't have access to this page."
+      }
       explanation={
         borrower
           ? "This area is used by our lending partners and internal teams. Everything relating to your loan is available from your dashboard."
@@ -113,14 +117,10 @@ export function TooManyAttemptsPage() {
         <div className="rounded-lg border border-border bg-surface p-4">
           <p className="text-sm font-medium text-foreground">Temporarily limited</p>
           <p className="mt-1 text-sm text-muted-foreground">
-            Sending new verification codes. Everything else — viewing your application, documents and
-            offers — remains available.
+            Sending new verification codes. Everything else — viewing your application, documents
+            and offers — remains available.
           </p>
-          <p
-            className="num mt-3 text-sm text-foreground"
-            role="status"
-            aria-live="polite"
-          >
+          <p className="num mt-3 text-sm text-foreground" role="status" aria-live="polite">
             You can request a new code in 4 minutes 30 seconds.
           </p>
         </div>
@@ -138,10 +138,7 @@ export function PlatformErrorPage() {
       title="We couldn't complete that request."
       explanation="Something failed on our side while processing this page. It isn't caused by anything you did."
       safety="Your information is safe. No application was submitted, changed or withdrawn."
-      actions={[
-        { label: "Try again", onClick: () => window.location.reload() },
-        home,
-      ]}
+      actions={[{ label: "Try again", onClick: () => window.location.reload() }, home]}
       tone="error"
       reference={referenceStamp("SNV-ERR")}
       support="If this keeps happening, quote the reference below when you contact support."
@@ -207,7 +204,9 @@ export function MaintenancePage() {
           <div className="rounded-lg border border-border bg-surface p-4">
             <p className="text-sm font-semibold text-foreground">Expected return to service</p>
             <p className="num mt-1 text-sm text-foreground">Today, 02:30 IST</p>
-            <p className="mt-2 text-sm text-muted-foreground">Affected: new applications, document upload.</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Affected: new applications, document upload.
+            </p>
           </div>
           <div className="rounded-lg border border-border bg-surface p-4">
             <p className="text-sm font-semibold text-foreground">Unaffected</p>
@@ -304,7 +303,9 @@ export function SecurityRestrictionPage() {
       detail={
         <div className="rounded-lg border border-border bg-surface p-4 text-sm">
           <p className="font-medium text-foreground">Blocked action</p>
-          <p className="mt-1 text-muted-foreground">Update disbursal bank account · requested 12 Mar 2026, 14:31 IST</p>
+          <p className="mt-1 text-muted-foreground">
+            Update disbursal bank account · requested 12 Mar 2026, 14:31 IST
+          </p>
           <div className="mt-3 flex flex-wrap gap-2">
             <StatusBadge tone="success">Funds unaffected</StatusBadge>
             <StatusBadge tone="success">Application data unchanged</StatusBadge>
@@ -380,7 +381,10 @@ export function NoResultsPage() {
       detail={
         <div className="flex flex-wrap gap-2">
           {["Product: Mortgage", "Stage: Manual review", "Age: < 2h", "Branch: Nashik"].map((f) => (
-            <span key={f} className="rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted-foreground">
+            <span
+              key={f}
+              className="rounded-full border border-border bg-surface px-3 py-1 text-xs text-muted-foreground"
+            >
               {f}
             </span>
           ))}

@@ -21,7 +21,13 @@ export function AuthShell({
       <header className="border-b border-border bg-background">
         <div className="container-page flex items-center justify-between gap-4 py-3">
           <Link to="/" className="flex min-w-0 items-center gap-2.5">
-            <img src={logo} alt="ShriNeo Capital logo" width={36} height={36} className="size-9 object-contain" />
+            <img
+              src={logo}
+              alt="ShriNeo Capital logo"
+              width={36}
+              height={36}
+              className="size-9 object-contain"
+            />
             <span className="truncate text-base font-semibold">ShriNeo Capital</span>
             <span className="sr-only">— home</span>
           </Link>

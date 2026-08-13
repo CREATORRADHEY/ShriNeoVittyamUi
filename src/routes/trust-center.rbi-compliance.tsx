@@ -154,15 +154,18 @@ function RbiCompliancePage() {
                   ["Participating lender list", PENDING_LABEL],
                   ["Grievance Officer", configured(org.grievanceOfficer.name)],
                 ].map(([label, value]) => (
-                  <div key={label} className="flex flex-wrap justify-between gap-3 border-b border-border pb-2">
+                  <div
+                    key={label}
+                    className="flex flex-wrap justify-between gap-3 border-b border-border pb-2"
+                  >
                     <dt className="text-muted-foreground">{label}</dt>
                     <dd className="num text-right font-medium">{value}</dd>
                   </div>
                 ))}
               </dl>
               <p className="mt-4 text-xs text-muted-foreground">
-                Fields marked “{PENDING_LABEL}” are completed by the business from verified
-                records. They are shown as pending rather than filled with placeholder values.
+                Fields marked “{PENDING_LABEL}” are completed by the business from verified records.
+                They are shown as pending rather than filled with placeholder values.
               </p>
             </div>
             <DisclosureBlock>

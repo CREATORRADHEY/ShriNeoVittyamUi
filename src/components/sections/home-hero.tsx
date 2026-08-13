@@ -73,17 +73,16 @@ export function HomeHero() {
                   onClick={() => window.dispatchEvent(new CustomEvent("shrineo:open-neo"))}
                   className="font-display inline-flex min-h-11 items-center gap-[9px] self-start border-b border-white/45 pb-1 text-[16.5px] font-medium tracking-[-0.01em] text-white transition-colors duration-150 hover:border-white focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none"
                 >
-                  <Mic
-                    aria-hidden
-                    className="h-[18px] w-4 shrink-0 stroke-[1.4] text-white"
-                  />
+                  <Mic aria-hidden className="h-[18px] w-4 shrink-0 stroke-[1.4] text-white" />
                   Ask Neo
                 </button>
               </div>
 
-
               <p className="hero-on-navy mt-7 flex max-w-[46ch] items-start gap-2 text-sm leading-relaxed">
-                <ShieldCheck aria-hidden className="hero-icon mt-0.5 size-4 shrink-0 stroke-[1.4]" />
+                <ShieldCheck
+                  aria-hidden
+                  className="hero-icon mt-0.5 size-4 shrink-0 stroke-[1.4]"
+                />
                 Direct bank-to-borrower transfer — ShriNeo never holds your funds
               </p>
             </div>
@@ -98,10 +97,7 @@ export function HomeHero() {
                 fetchPriority="high"
                 className="hero-photo-mobile hero-photo-in aspect-[4/5] w-full object-cover object-[68%_top]"
               />
-              <div
-                aria-hidden
-                className="hero-grade-mobile pointer-events-none absolute inset-0"
-              />
+              <div aria-hidden className="hero-grade-mobile pointer-events-none absolute inset-0" />
             </div>
           </div>
         </div>

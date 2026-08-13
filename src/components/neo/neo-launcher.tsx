@@ -57,7 +57,7 @@ export function NeoLauncher({ onClick, open, dockOffset }: NeoLauncherProps) {
         visible ? "translate-x-0 opacity-100" : "translate-x-[14px] opacity-0",
         open ? "pointer-events-none translate-x-[10px] opacity-0" : "pointer-events-auto",
         /* Dimensions: 180-205px wide, 60-66px high on desktop — reduced slightly for a cleaner fit */
-        "h-[52px] w-[165px] sm:right-6 sm:h-[56px] sm:w-[178px]"
+        "h-[52px] w-[165px] sm:right-6 sm:h-[56px] sm:w-[178px]",
       )}
     >
       {/* Dark navy pill: overlaps circular avatar */}
@@ -70,11 +70,7 @@ export function NeoLauncher({ onClick, open, dockOffset }: NeoLauncherProps) {
 
       {/* Avatar circle: overlaps by 22-30px */}
       <div className="absolute left-0 top-1/2 flex size-[52px] -translate-y-1/2 shrink-0 items-center justify-center rounded-full border-2 border-white bg-[#002B98] shadow-md sm:size-[60px]">
-        <img
-          src={neoAvatarSrc}
-          alt=""
-          className="size-full rounded-full object-cover"
-        />
+        <img src={neoAvatarSrc} alt="" className="size-full rounded-full object-cover" />
         {/* Status dot: 10-12px green dot with 2-3px white border */}
         <span
           className="absolute bottom-0.5 right-0.5 size-[9px] rounded-full border-2 border-white bg-[#22C55E] sm:size-[11px]"

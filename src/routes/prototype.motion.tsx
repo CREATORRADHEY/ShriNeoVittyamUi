@@ -355,7 +355,11 @@ function MotionPreviewRoute() {
           note="Temporary, non-critical feedback only. Financial outcomes use a persistent record on the page instead."
         >
           <div className="flex flex-wrap gap-3">
-            <Button variant="outline" className="min-h-11" onClick={() => toast("Calculator reset")}>
+            <Button
+              variant="outline"
+              className="min-h-11"
+              onClick={() => toast("Calculator reset")}
+            >
               Calculator reset
             </Button>
             <Button
@@ -384,8 +388,14 @@ function MotionPreviewRoute() {
         >
           <Accordion type="single" collapsible className="max-w-2xl">
             {[
-              ["Which documents will I need?", "Identity, address and income proof, plus product-specific documents."],
-              ["Does checking eligibility affect my score?", "An indicative check does not. A lender's bureau check may be recorded, and we ask first."],
+              [
+                "Which documents will I need?",
+                "Identity, address and income proof, plus product-specific documents.",
+              ],
+              [
+                "Does checking eligibility affect my score?",
+                "An indicative check does not. A lender's bureau check may be recorded, and we ask first.",
+              ],
             ].map(([q, a]) => (
               <AccordionItem key={q} value={q as string}>
                 <AccordionTrigger className="text-left text-base">{q}</AccordionTrigger>
@@ -465,7 +475,11 @@ function MotionPreviewRoute() {
               placeholder="you@example.com"
             />
             {emailError ? (
-              <p id="demo-email-error" role="alert" className="route-enter mt-2 text-sm text-destructive">
+              <p
+                id="demo-email-error"
+                role="alert"
+                className="route-enter mt-2 text-sm text-destructive"
+              >
                 Enter an email address in the format name@example.com so we can reply.
               </p>
             ) : null}
@@ -567,7 +581,11 @@ function MotionPreviewRoute() {
         reason="You are being taken to the regulator's own website to read the source material we refer to."
       />
 
-      <CookiePreferenceModal open={cookie} onOpenChange={setCookie} onSave={() => toast("Preferences saved")} />
+      <CookiePreferenceModal
+        open={cookie}
+        onOpenChange={setCookie}
+        onSave={() => toast("Preferences saved")}
+      />
 
       <InDevelopmentModal open={dev} onOpenChange={setDev} destination="Sign in" />
 

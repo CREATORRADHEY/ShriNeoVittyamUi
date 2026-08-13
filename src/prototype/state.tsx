@@ -132,13 +132,13 @@ export function PrototypeProvider({ children }: { children: ReactNode }) {
 
   const derived = useMemo(() => {
     const isNew = state.account === "new" || state.data === "empty";
-    
+
     // Derive Application entity
     let activeApplication: fixtures.ApplicationEntity | null = null;
     if (!isNew && state.application !== "disbursed" && state.application !== "closed") {
       activeApplication = {
         ...fixtures.CANONICAL_APPLICATION,
-        status: state.application
+        status: state.application,
       };
     }
 
@@ -147,25 +147,30 @@ export function PrototypeProvider({ children }: { children: ReactNode }) {
     if (!isNew && (state.application === "disbursed" || state.application === "closed")) {
       activeLoan = {
         ...fixtures.CANONICAL_APPLICATION,
-        status: state.application
+        status: state.application,
       };
     }
 
     // Derive active document requests
-    const activeRequest = isNew ? null : (state.requests.find(r => r.status !== "Accepted" && r.status !== "Rejected") || null);
+    const activeRequest = isNew
+      ? null
+      : state.requests.find((r) => r.status !== "Accepted" && r.status !== "Rejected") || null;
 
     // Derive document checklist
     const activeDocuments = isNew ? [] : fixtures.CANONICAL_DOCUMENTS;
 
     // Derive active offers (Approved/Offer Received)
-    const activeOffers = (!isNew && (state.application === "approved" || state.application === "lender-review" || state.application === "manual-review"))
-      ? fixtures.CANONICAL_OFFERS
-      : [];
+    const activeOffers =
+      !isNew &&
+      (state.application === "approved" ||
+        state.application === "lender-review" ||
+        state.application === "manual-review")
+        ? fixtures.CANONICAL_OFFERS
+        : [];
 
     // Derive repayment schedule details
-    const activePayment = (!isNew && state.application === "disbursed")
-      ? fixtures.CANONICAL_PAYMENT
-      : null;
+    const activePayment =
+      !isNew && state.application === "disbursed" ? fixtures.CANONICAL_PAYMENT : null;
 
     return {
       borrower: fixtures.CANONICAL_BORROWER,
@@ -182,12 +187,15 @@ export function PrototypeProvider({ children }: { children: ReactNode }) {
     };
   }, [state.account, state.data, state.application, state.requests, state.auditLogs]);
 
-  const value = useMemo<Ctx>(() => ({
-    ...state,
-    set,
-    reset,
-    ...derived
-  }), [state, set, reset, derived]);
+  const value = useMemo<Ctx>(
+    () => ({
+      ...state,
+      set,
+      reset,
+      ...derived,
+    }),
+    [state, set, reset, derived],
+  );
 
   return <PrototypeContext.Provider value={value}>{children}</PrototypeContext.Provider>;
 }

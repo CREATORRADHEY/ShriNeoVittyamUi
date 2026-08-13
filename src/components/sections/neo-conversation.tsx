@@ -80,9 +80,7 @@ export function NeoConversationSection() {
       clearTimers();
       setShown(0);
       TURNS.forEach((_, index) => {
-        timers.current.push(
-          window.setTimeout(() => setShown(index + 1), fromDelay + index * STEP),
-        );
+        timers.current.push(window.setTimeout(() => setShown(index + 1), fromDelay + index * STEP));
       });
     },
     [clearTimers],
@@ -145,8 +143,12 @@ export function NeoConversationSection() {
                 <MicIcon className="size-4" />
               </span>
               <span className="min-w-0">
-                <span className="block text-[15px] font-semibold tracking-[-0.01em] text-[#002B98]">Neo</span>
-                <span className="block text-[11.5px] font-medium text-[#5B657D]">{t("neo.role")}</span>
+                <span className="block text-[15px] font-semibold tracking-[-0.01em] text-[#002B98]">
+                  Neo
+                </span>
+                <span className="block text-[11.5px] font-medium text-[#5B657D]">
+                  {t("neo.role")}
+                </span>
               </span>
             </div>
 

@@ -137,7 +137,10 @@ function PrototypeNavigator() {
         </p>
 
         <section aria-labelledby="roles-title" className="mt-10">
-          <h2 id="roles-title" className="text-sm font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+          <h2
+            id="roles-title"
+            className="text-sm font-semibold uppercase tracking-[0.08em] text-muted-foreground"
+          >
             Role portals
           </h2>
           <div className="mt-4 grid gap-4 md:grid-cols-2">
@@ -190,7 +193,11 @@ function PrototypeNavigator() {
                     >
                       <Link to={ROLE_HOME[role]}>
                         <Icon aria-hidden className="size-4" />
-                        {d === "desktop" ? "Desktop layout" : d === "tablet" ? "Tablet" : "Mobile layout"}
+                        {d === "desktop"
+                          ? "Desktop layout"
+                          : d === "tablet"
+                            ? "Tablet"
+                            : "Mobile layout"}
                       </Link>
                     </Button>
                   ))}
@@ -201,7 +208,10 @@ function PrototypeNavigator() {
         </section>
 
         <section aria-labelledby="scenario-title" className="mt-12">
-          <h2 id="scenario-title" className="text-sm font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+          <h2
+            id="scenario-title"
+            className="text-sm font-semibold uppercase tracking-[0.08em] text-muted-foreground"
+          >
             Scenario switcher
           </h2>
           <div className="mt-4 grid gap-5 rounded-xl border border-border bg-card p-5 md:grid-cols-3">
@@ -231,7 +241,10 @@ function PrototypeNavigator() {
 
         <section aria-labelledby="flow-title" className="mt-12 grid gap-6 md:grid-cols-2">
           <div>
-            <h2 id="flow-title" className="text-sm font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+            <h2
+              id="flow-title"
+              className="text-sm font-semibold uppercase tracking-[0.08em] text-muted-foreground"
+            >
               Borrower journey
             </h2>
             <ul className="mt-4 grid gap-1.5">
@@ -270,7 +283,10 @@ function PrototypeNavigator() {
         </section>
 
         <section aria-labelledby="neo-qa-title" className="mt-12">
-          <h2 id="neo-qa-title" className="text-sm font-semibold uppercase tracking-[0.08em] text-muted-foreground">
+          <h2
+            id="neo-qa-title"
+            className="text-sm font-semibold uppercase tracking-[0.08em] text-muted-foreground"
+          >
             Neo Assistant States (Design QA)
           </h2>
           <div className="mt-4 grid gap-5 rounded-xl border border-border bg-card p-5 md:grid-cols-3">
@@ -280,7 +296,7 @@ function PrototypeNavigator() {
                 {[
                   { label: "State 1: Compact Launcher", state: "minimized" },
                   { label: "State 2: Greeting Onboarding", state: "greeting" },
-                  { label: "State 3: Full Welcoming Panel", state: "open" }
+                  { label: "State 3: Full Welcoming Panel", state: "open" },
                 ].map((item) => (
                   <button
                     key={item.label}
@@ -288,8 +304,8 @@ function PrototypeNavigator() {
                     onClick={() => {
                       window.dispatchEvent(
                         new CustomEvent("shrineo:neo-override", {
-                          detail: { state: item.state, voiceState: "idle", messages: null }
-                        })
+                          detail: { state: item.state, voiceState: "idle", messages: null },
+                        }),
                       );
                     }}
                     className="flex items-center justify-between rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground transition-colors hover:border-primary hover:bg-accent"
@@ -309,7 +325,7 @@ function PrototypeNavigator() {
                   { label: "Voice State: Understanding…", voiceState: "understanding" },
                   { label: "Voice State: Permission Denied", voiceState: "permission_denied" },
                   { label: "Voice State: Device Error", voiceState: "error" },
-                  { label: "Voice State: System Offline", voiceState: "offline" }
+                  { label: "Voice State: System Offline", voiceState: "offline" },
                 ].map((item) => (
                   <button
                     key={item.label}
@@ -317,8 +333,8 @@ function PrototypeNavigator() {
                     onClick={() => {
                       window.dispatchEvent(
                         new CustomEvent("shrineo:neo-override", {
-                          detail: { state: "open", voiceState: item.voiceState }
-                        })
+                          detail: { state: "open", voiceState: item.voiceState },
+                        }),
                       );
                     }}
                     className="flex items-center justify-between rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground transition-colors hover:border-primary hover:bg-accent"
@@ -342,12 +358,20 @@ function PrototypeNavigator() {
                           state: "open",
                           voiceState: "idle",
                           messages: [
-                            { id: "qa1", from: "neo", text: "Welcome! Click any of the quick actions below to see how I help you." },
+                            {
+                              id: "qa1",
+                              from: "neo",
+                              text: "Welcome! Click any of the quick actions below to see how I help you.",
+                            },
                             { id: "qa2", from: "you", text: "What is SNV Trust Score?" },
-                            { id: "qa3", from: "neo", text: "SNV Trust Score is our proprietary indicator of creditworthiness based on transactional bank aggregator data rather than traditional bureau details alone." }
-                          ]
-                        }
-                      })
+                            {
+                              id: "qa3",
+                              from: "neo",
+                              text: "SNV Trust Score is our proprietary indicator of creditworthiness based on transactional bank aggregator data rather than traditional bureau details alone.",
+                            },
+                          ],
+                        },
+                      }),
                     );
                   }}
                   className="flex items-center justify-between rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground transition-colors hover:border-primary hover:bg-accent"
@@ -365,18 +389,38 @@ function PrototypeNavigator() {
                           state: "open",
                           voiceState: "idle",
                           messages: [
-                            { id: "m1", from: "neo", text: "How can I help you understand loans, documents, or rates today?" },
+                            {
+                              id: "m1",
+                              from: "neo",
+                              text: "How can I help you understand loans, documents, or rates today?",
+                            },
                             { id: "m2", from: "you", text: "Tell me about Sachet loans." },
-                            { id: "m3", from: "neo", text: "Sachet loans are micro-credit options from ₹10,000 to ₹1 Lakh with flexible short-term repayment terms designed for small micro-enterprises." },
+                            {
+                              id: "m3",
+                              from: "neo",
+                              text: "Sachet loans are micro-credit options from ₹10,000 to ₹1 Lakh with flexible short-term repayment terms designed for small micro-enterprises.",
+                            },
                             { id: "m4", from: "you", text: "What documents do I need to prepare?" },
-                            { id: "m5", from: "neo", text: "Generally just identity eKYC (Aadhaar/PAN) and 6 months bank statement uploads. Some lenders request shop license proof." },
+                            {
+                              id: "m5",
+                              from: "neo",
+                              text: "Generally just identity eKYC (Aadhaar/PAN) and 6 months bank statement uploads. Some lenders request shop license proof.",
+                            },
                             { id: "m6", from: "you", text: "How fast is disbursal?" },
-                            { id: "m7", from: "neo", text: "Verified disbursal typically takes under 2 hours once matching offers are signed and e-mandate setup is complete." },
+                            {
+                              id: "m7",
+                              from: "neo",
+                              text: "Verified disbursal typically takes under 2 hours once matching offers are signed and e-mandate setup is complete.",
+                            },
                             { id: "m8", from: "you", text: "What if I repay early?" },
-                            { id: "m9", from: "neo", text: "Most participating lenders offer zero-fee prepayment on micro sachet loans, but confirm terms in the Key Fact Statement first." }
-                          ]
-                        }
-                      })
+                            {
+                              id: "m9",
+                              from: "neo",
+                              text: "Most participating lenders offer zero-fee prepayment on micro sachet loans, but confirm terms in the Key Fact Statement first.",
+                            },
+                          ],
+                        },
+                      }),
                     );
                   }}
                   className="flex items-center justify-between rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground transition-colors hover:border-primary hover:bg-accent"
@@ -392,8 +436,8 @@ function PrototypeNavigator() {
                     window.sessionStorage.removeItem("shrineo.neoGreetingSeen");
                     window.dispatchEvent(
                       new CustomEvent("shrineo:neo-override", {
-                        detail: { state: "greeting", voiceState: "idle" }
-                      })
+                        detail: { state: "greeting", voiceState: "idle" },
+                      }),
                     );
                   }}
                   className="flex items-center justify-between rounded-md border border-[#E9E1D2] bg-[#FAF8F5] px-3 py-2 text-sm font-semibold text-[#806126] transition-colors hover:border-[#C19842] hover:bg-[#FAF8F5]"

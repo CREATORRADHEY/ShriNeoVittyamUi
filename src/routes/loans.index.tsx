@@ -76,19 +76,18 @@ function LoansIndex() {
         panels={
           <HeroPanel label="Products live today" meta="Active Support">
             <ul className="space-y-2">
-              {products
-                .map((p) => (
-                  <li
-                    key={p.slug}
-                    className="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2.5"
-                  >
-                    <p.icon aria-hidden className="size-4 shrink-0 text-primary" />
-                    <span className="min-w-0 flex-1 truncate text-sm font-medium">{p.name}</span>
-                    <span className="num shrink-0 text-xs text-muted-foreground">
-                      {formatINR(p.range.max, { compact: true })}
-                    </span>
-                  </li>
-                ))}
+              {products.map((p) => (
+                <li
+                  key={p.slug}
+                  className="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2.5"
+                >
+                  <p.icon aria-hidden className="size-4 shrink-0 text-primary" />
+                  <span className="min-w-0 flex-1 truncate text-sm font-medium">{p.name}</span>
+                  <span className="num shrink-0 text-xs text-muted-foreground">
+                    {formatINR(p.range.max, { compact: true })}
+                  </span>
+                </li>
+              ))}
             </ul>
           </HeroPanel>
         }

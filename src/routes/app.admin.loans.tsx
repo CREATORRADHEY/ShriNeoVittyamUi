@@ -1,6 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search, IndianRupee, FileText, CheckCircle2, AlertTriangle, ArrowRight, RefreshCw, Send } from "lucide-react";
+import {
+  Search,
+  IndianRupee,
+  FileText,
+  CheckCircle2,
+  AlertTriangle,
+  ArrowRight,
+  RefreshCw,
+  Send,
+} from "lucide-react";
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
 import { KpiCard, StatusBadge } from "@/components/states";
 import { Button } from "@/components/ui/button";
@@ -11,7 +20,11 @@ export const Route = createFileRoute("/app/admin/loans")({
   head: () => ({
     meta: [
       { title: "Loan oversight — ShriNeo Capital" },
-      { name: "description", content: "Review total disbursements, active portfolio status and investigate stuck loan files." },
+      {
+        name: "description",
+        content:
+          "Review total disbursements, active portfolio status and investigate stuck loan files.",
+      },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -43,10 +56,22 @@ function AdminLoansPage() {
       age: "24h",
       status: "disbursed",
       timeline: [
-        { title: "Disbursal Initiated", date: "12 Mar 11:30", desc: "Regulated lender SBI approved funds transmission" },
-        { title: "e-Mandate Approved", date: "12 Mar 10:45", desc: "NACH mandate registered with SBI bank" },
-        { title: "e-Sign Complete", date: "12 Mar 10:15", desc: "Borrower signed KFS and sanction letter" }
-      ]
+        {
+          title: "Disbursal Initiated",
+          date: "12 Mar 11:30",
+          desc: "Regulated lender SBI approved funds transmission",
+        },
+        {
+          title: "e-Mandate Approved",
+          date: "12 Mar 10:45",
+          desc: "NACH mandate registered with SBI bank",
+        },
+        {
+          title: "e-Sign Complete",
+          date: "12 Mar 10:15",
+          desc: "Borrower signed KFS and sanction letter",
+        },
+      ],
     },
     {
       id: "SNV-24-118198",
@@ -57,9 +82,17 @@ function AdminLoansPage() {
       age: "52h",
       status: "stuck",
       timeline: [
-        { title: "KYC Mismatch Flagged", date: "11 Mar 14:30", desc: "Manual review underwriter requestedForm 16" },
-        { title: "Bank statements verified", date: "11 Mar 11:00", desc: "Account aggregator data parsed successfully" }
-      ]
+        {
+          title: "KYC Mismatch Flagged",
+          date: "11 Mar 14:30",
+          desc: "Manual review underwriter requestedForm 16",
+        },
+        {
+          title: "Bank statements verified",
+          date: "11 Mar 11:00",
+          desc: "Account aggregator data parsed successfully",
+        },
+      ],
     },
     {
       id: "SNV-24-118165",
@@ -70,10 +103,18 @@ function AdminLoansPage() {
       age: "48h",
       status: "stuck",
       timeline: [
-        { title: "Query raised to borrower", date: "11 Mar 15:30", desc: "Lender raised clarification request REQ-884021" },
-        { title: "Aadhaar e-KYC passed", date: "11 Mar 10:00", desc: "OTP verification matched Aadhaar records" }
-      ]
-    }
+        {
+          title: "Query raised to borrower",
+          date: "11 Mar 15:30",
+          desc: "Lender raised clarification request REQ-884021",
+        },
+        {
+          title: "Aadhaar e-KYC passed",
+          date: "11 Mar 10:00",
+          desc: "OTP verification matched Aadhaar records",
+        },
+      ],
+    },
   ]);
 
   const [selectedCaseId, setSelectedCaseId] = useState<string | null>(null);
@@ -86,13 +127,16 @@ function AdminLoansPage() {
     toast.info(`Case ${id} escalated to Grievance Redressal Officer committee review.`);
   };
 
-  const filteredCases = loanCases.filter(c => {
-    const matchesSearch = c.borrowerName.toLowerCase().includes(searchQuery.toLowerCase()) || c.id.toLowerCase().includes(searchQuery.toLowerCase()) || c.lender.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredCases = loanCases.filter((c) => {
+    const matchesSearch =
+      c.borrowerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      c.lender.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = filterStatus === "All" || c.status === filterStatus;
     return matchesSearch && matchesStatus;
   });
 
-  const selectedCase = loanCases.find(c => c.id === selectedCaseId);
+  const selectedCase = loanCases.find((c) => c.id === selectedCaseId);
 
   return (
     <PortalShell
@@ -103,10 +147,24 @@ function AdminLoansPage() {
       <div className="space-y-6 text-xs">
         {/* KPI Row */}
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          <KpiCard label="Disbursed Value (MTD)" value={formatINR(18400000)} hint="Total platform disbursements" />
+          <KpiCard
+            label="Disbursed Value (MTD)"
+            value={formatINR(18400000)}
+            hint="Total platform disbursements"
+          />
           <KpiCard label="Active Portfolio Cases" value="2,184 Files" hint="Currently servicing" />
-          <KpiCard label="Stuck Applications (>48h)" value="2 Files" tone="warning" hint="Awaiting underwriter actions" />
-          <KpiCard label="Average Disbursal Cycle" value="4.2 hours" tone="success" hint="From signoff to mandate" />
+          <KpiCard
+            label="Stuck Applications (>48h)"
+            value="2 Files"
+            tone="warning"
+            hint="Awaiting underwriter actions"
+          />
+          <KpiCard
+            label="Average Disbursal Cycle"
+            value="4.2 hours"
+            tone="success"
+            hint="From signoff to mandate"
+          />
         </div>
 
         {/* Workspace */}
@@ -145,12 +203,24 @@ function AdminLoansPage() {
                 <table className="w-full min-w-[600px] border-collapse text-left">
                   <thead>
                     <tr className="border-b border-border text-xs uppercase tracking-wide text-muted-foreground bg-surface">
-                      <th scope="col" className="p-3">Application ID</th>
-                      <th scope="col" className="p-3">Borrower</th>
-                      <th scope="col" className="p-3">Lender RE</th>
-                      <th scope="col" className="p-3">Loan Amount</th>
-                      <th scope="col" className="p-3">Stage Status</th>
-                      <th scope="col" className="p-3">Pipeline Age</th>
+                      <th scope="col" className="p-3">
+                        Application ID
+                      </th>
+                      <th scope="col" className="p-3">
+                        Borrower
+                      </th>
+                      <th scope="col" className="p-3">
+                        Lender RE
+                      </th>
+                      <th scope="col" className="p-3">
+                        Loan Amount
+                      </th>
+                      <th scope="col" className="p-3">
+                        Stage Status
+                      </th>
+                      <th scope="col" className="p-3">
+                        Pipeline Age
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -163,9 +233,19 @@ function AdminLoansPage() {
                         <td className="p-3 font-semibold text-foreground">{c.id}</td>
                         <td className="p-3 font-semibold text-foreground">{c.borrowerName}</td>
                         <td className="p-3 text-muted-foreground">{c.lender}</td>
-                        <td className="num p-3 text-foreground font-semibold">{formatINR(c.amount)}</td>
+                        <td className="num p-3 text-foreground font-semibold">
+                          {formatINR(c.amount)}
+                        </td>
                         <td className="p-3">
-                          <StatusBadge tone={c.status === "disbursed" ? "success" : c.status === "stuck" ? "error" : "warning"}>
+                          <StatusBadge
+                            tone={
+                              c.status === "disbursed"
+                                ? "success"
+                                : c.status === "stuck"
+                                  ? "error"
+                                  : "warning"
+                            }
+                          >
                             {c.stage}
                           </StatusBadge>
                         </td>
@@ -197,7 +277,12 @@ function AdminLoansPage() {
                       {selectedCase.timeline.map((t, idx) => (
                         <div key={idx} className="relative space-y-1">
                           <span className="absolute -left-[21px] top-1 size-2 rounded-full bg-primary" />
-                          <p className="font-semibold text-foreground text-[10px]">{t.title} <span className="text-muted-foreground font-mono font-normal">({t.date})</span></p>
+                          <p className="font-semibold text-foreground text-[10px]">
+                            {t.title}{" "}
+                            <span className="text-muted-foreground font-mono font-normal">
+                              ({t.date})
+                            </span>
+                          </p>
                           <p className="text-[10px] text-muted-foreground leading-snug">{t.desc}</p>
                         </div>
                       ))}
@@ -207,11 +292,20 @@ function AdminLoansPage() {
                   {/* Actions */}
                   <div className="border-t border-border pt-4 space-y-2 flex flex-col">
                     {selectedCase.status === "stuck" && (
-                      <Button size="sm" className="flex items-center gap-1.5 justify-center" onClick={() => handlePushStuckFile(selectedCase.id)}>
+                      <Button
+                        size="sm"
+                        className="flex items-center gap-1.5 justify-center"
+                        onClick={() => handlePushStuckFile(selectedCase.id)}
+                      >
                         <RefreshCw className="size-4" /> Push Stuck File (Ping API)
                       </Button>
                     )}
-                    <Button size="sm" variant="outline" className="flex items-center gap-1.5 justify-center" onClick={() => handleQueryGrievanceOfficer(selectedCase.id)}>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="flex items-center gap-1.5 justify-center"
+                      onClick={() => handleQueryGrievanceOfficer(selectedCase.id)}
+                    >
                       <Send className="size-4" /> Escalate to GRO Committee
                     </Button>
                   </div>

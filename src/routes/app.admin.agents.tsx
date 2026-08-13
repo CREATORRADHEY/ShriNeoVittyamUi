@@ -1,6 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search, UserCheck, ShieldAlert, Award, AlertTriangle, Play, CheckCircle2, UserX, RefreshCw } from "lucide-react";
+import {
+  Search,
+  UserCheck,
+  ShieldAlert,
+  Award,
+  AlertTriangle,
+  Play,
+  CheckCircle2,
+  UserX,
+  RefreshCw,
+} from "lucide-react";
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
 import { KpiCard, StatusBadge } from "@/components/states";
 import { Button } from "@/components/ui/button";
@@ -10,7 +20,10 @@ export const Route = createFileRoute("/app/admin/agents")({
   head: () => ({
     meta: [
       { title: "Agent Operations — ShriNeo Capital" },
-      { name: "description", content: "Verify agent onboarding, training compliance, and commission disputes." },
+      {
+        name: "description",
+        content: "Verify agent onboarding, training compliance, and commission disputes.",
+      },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -31,36 +44,64 @@ function AdminAgentsPage() {
   const [filterStatus, setFilterStatus] = useState("All");
 
   const [agents, setAgents] = useState<AgentAccount[]>([
-    { id: "AG-4471", name: "Rahul Kumar", serviceArea: "Jaipur (RJ)", kycStatus: "Completed", trainingStatus: "Passed", status: "Active" },
-    { id: "AG-4482", name: "Vikram Singh", serviceArea: "Lucknow (UP)", kycStatus: "Manual Review", trainingStatus: "Pending Assessment", status: "Gated" },
-    { id: "AG-4450", name: "Priya Sharma", serviceArea: "Ahmedabad (GJ)", kycStatus: "Pending", trainingStatus: "Not Started", status: "Gated" },
-    { id: "AG-4310", name: "Suresh Gupta", serviceArea: "Delhi/NCR", kycStatus: "Completed", trainingStatus: "Passed", status: "Suspended" }
+    {
+      id: "AG-4471",
+      name: "Rahul Kumar",
+      serviceArea: "Jaipur (RJ)",
+      kycStatus: "Completed",
+      trainingStatus: "Passed",
+      status: "Active",
+    },
+    {
+      id: "AG-4482",
+      name: "Vikram Singh",
+      serviceArea: "Lucknow (UP)",
+      kycStatus: "Manual Review",
+      trainingStatus: "Pending Assessment",
+      status: "Gated",
+    },
+    {
+      id: "AG-4450",
+      name: "Priya Sharma",
+      serviceArea: "Ahmedabad (GJ)",
+      kycStatus: "Pending",
+      trainingStatus: "Not Started",
+      status: "Gated",
+    },
+    {
+      id: "AG-4310",
+      name: "Suresh Gupta",
+      serviceArea: "Delhi/NCR",
+      kycStatus: "Completed",
+      trainingStatus: "Passed",
+      status: "Suspended",
+    },
   ]);
 
   const [selectedAgentId, setSelectedAgentId] = useState<string | null>(null);
 
   const handleApproveAgent = (id: string) => {
-    setAgents(prev =>
-      prev.map(a => {
+    setAgents((prev) =>
+      prev.map((a) => {
         if (a.id === id) {
           toast.success(`Agent ${a.name} approved. Verified badge and certificate issued.`);
           return { ...a, kycStatus: "Completed" as const, status: "Active" as const };
         }
         return a;
-      })
+      }),
     );
   };
 
   const handleSuspendAgent = (id: string) => {
-    setAgents(prev =>
-      prev.map(a => {
+    setAgents((prev) =>
+      prev.map((a) => {
         if (a.id === id) {
           const nextStatus = a.status === "Suspended" ? "Active" : "Suspended";
           toast.warning(`Agent status changed to ${nextStatus}.`);
           return { ...a, status: nextStatus as any };
         }
         return a;
-      })
+      }),
     );
   };
 
@@ -68,13 +109,16 @@ function AdminAgentsPage() {
     toast.info(`KYC document re-request notification pushed to agent ${id}.`);
   };
 
-  const filteredAgents = agents.filter(a => {
-    const matchesSearch = a.name.toLowerCase().includes(searchQuery.toLowerCase()) || a.id.toLowerCase().includes(searchQuery.toLowerCase()) || a.serviceArea.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredAgents = agents.filter((a) => {
+    const matchesSearch =
+      a.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      a.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      a.serviceArea.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = filterStatus === "All" || a.status === filterStatus;
     return matchesSearch && matchesStatus;
   });
 
-  const selectedAgent = agents.find(a => a.id === selectedAgentId);
+  const selectedAgent = agents.find((a) => a.id === selectedAgentId);
 
   return (
     <PortalShell
@@ -86,9 +130,19 @@ function AdminAgentsPage() {
         {/* KPI Row */}
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <KpiCard label="Onboarded Agents" value="4,821" hint="Active in service area" />
-          <KpiCard label="Pending KYC Review" value="82" hint="Awaiting admin approval" tone="warning" />
+          <KpiCard
+            label="Pending KYC Review"
+            value="82"
+            hint="Awaiting admin approval"
+            tone="warning"
+          />
           <KpiCard label="Training Certifications" value="4,739" hint="Issued MTD" tone="success" />
-          <KpiCard label="Conduct Investigations" value="2" hint="Suspended for review" tone="error" />
+          <KpiCard
+            label="Conduct Investigations"
+            value="2"
+            hint="Suspended for review"
+            tone="error"
+          />
         </div>
 
         {/* Main Workspace */}
@@ -128,12 +182,24 @@ function AdminAgentsPage() {
                 <table className="w-full min-w-[600px] border-collapse">
                   <thead>
                     <tr className="border-b border-border text-left uppercase tracking-wide text-muted-foreground bg-surface">
-                      <th scope="col" className="p-3">Agent ID</th>
-                      <th scope="col" className="p-3">Name</th>
-                      <th scope="col" className="p-3">Service Area</th>
-                      <th scope="col" className="p-3">KYC Checklist</th>
-                      <th scope="col" className="p-3">Training Progress</th>
-                      <th scope="col" className="p-3">Dashboard Access</th>
+                      <th scope="col" className="p-3">
+                        Agent ID
+                      </th>
+                      <th scope="col" className="p-3">
+                        Name
+                      </th>
+                      <th scope="col" className="p-3">
+                        Service Area
+                      </th>
+                      <th scope="col" className="p-3">
+                        KYC Checklist
+                      </th>
+                      <th scope="col" className="p-3">
+                        Training Progress
+                      </th>
+                      <th scope="col" className="p-3">
+                        Dashboard Access
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -147,17 +213,41 @@ function AdminAgentsPage() {
                         <td className="p-3 font-semibold text-foreground">{a.name}</td>
                         <td className="p-3 text-muted-foreground">{a.serviceArea}</td>
                         <td className="p-3">
-                          <StatusBadge tone={a.kycStatus === "Completed" ? "success" : a.kycStatus === "Manual Review" ? "warning" : "error"}>
+                          <StatusBadge
+                            tone={
+                              a.kycStatus === "Completed"
+                                ? "success"
+                                : a.kycStatus === "Manual Review"
+                                  ? "warning"
+                                  : "error"
+                            }
+                          >
                             {a.kycStatus}
                           </StatusBadge>
                         </td>
                         <td className="p-3">
-                          <StatusBadge tone={a.trainingStatus === "Passed" ? "success" : a.trainingStatus === "Pending Assessment" ? "warning" : "neutral"}>
+                          <StatusBadge
+                            tone={
+                              a.trainingStatus === "Passed"
+                                ? "success"
+                                : a.trainingStatus === "Pending Assessment"
+                                  ? "warning"
+                                  : "neutral"
+                            }
+                          >
                             {a.trainingStatus}
                           </StatusBadge>
                         </td>
                         <td className="p-3">
-                          <StatusBadge tone={a.status === "Active" ? "success" : a.status === "Suspended" ? "error" : "warning"}>
+                          <StatusBadge
+                            tone={
+                              a.status === "Active"
+                                ? "success"
+                                : a.status === "Suspended"
+                                  ? "error"
+                                  : "warning"
+                            }
+                          >
                             {a.status}
                           </StatusBadge>
                         </td>
@@ -177,14 +267,20 @@ function AdminAgentsPage() {
                   <div className="rounded-lg bg-surface border border-border p-3 space-y-2">
                     <p className="font-bold text-foreground text-sm flex items-center gap-1.5">
                       {selectedAgent.name}
-                      {selectedAgent.status === "Active" && <CheckCircle2 className="size-4 text-emerald-600" />}
+                      {selectedAgent.status === "Active" && (
+                        <CheckCircle2 className="size-4 text-emerald-600" />
+                      )}
                     </p>
                     <p className="text-muted-foreground">ID: {selectedAgent.id}</p>
-                    <p className="text-muted-foreground">Coverage Area: {selectedAgent.serviceArea}</p>
+                    <p className="text-muted-foreground">
+                      Coverage Area: {selectedAgent.serviceArea}
+                    </p>
                   </div>
 
                   <div className="space-y-2.5">
-                    <span className="font-bold text-foreground block">Onboarding Compliance Check</span>
+                    <span className="font-bold text-foreground block">
+                      Onboarding Compliance Check
+                    </span>
                     <div className="space-y-1.5 rounded border p-3 bg-card">
                       <div className="flex justify-between">
                         <span>Aadhaar/PAN KYC</span>
@@ -192,7 +288,9 @@ function AdminAgentsPage() {
                       </div>
                       <div className="flex justify-between border-t pt-1.5">
                         <span>Module Quiz Score</span>
-                        <span className="font-semibold">{selectedAgent.trainingStatus === "Passed" ? "100%" : "Pending"}</span>
+                        <span className="font-semibold">
+                          {selectedAgent.trainingStatus === "Passed" ? "100%" : "Pending"}
+                        </span>
                       </div>
                       <div className="flex justify-between border-t pt-1.5">
                         <span>Code of Conduct Signoff</span>
@@ -203,22 +301,39 @@ function AdminAgentsPage() {
 
                   <div className="border-t border-border pt-4 space-y-2 flex flex-col">
                     {selectedAgent.kycStatus !== "Completed" && (
-                      <Button size="sm" className="flex items-center gap-1 justify-center" onClick={() => handleApproveAgent(selectedAgent.id)}>
+                      <Button
+                        size="sm"
+                        className="flex items-center gap-1 justify-center"
+                        onClick={() => handleApproveAgent(selectedAgent.id)}
+                      >
                         <UserCheck className="size-4" /> Approve Agent credentials
                       </Button>
                     )}
-                    <Button size="sm" variant="outline" className="flex items-center gap-1 justify-center text-red-700 border-red-200 hover:bg-red-50" onClick={() => handleSuspendAgent(selectedAgent.id)}>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="flex items-center gap-1 justify-center text-red-700 border-red-200 hover:bg-red-50"
+                      onClick={() => handleSuspendAgent(selectedAgent.id)}
+                    >
                       <ShieldAlert className="size-4" />
-                      {selectedAgent.status === "Suspended" ? "Reinstate Agent" : "Suspend Agent (Investigate)"}
+                      {selectedAgent.status === "Suspended"
+                        ? "Reinstate Agent"
+                        : "Suspend Agent (Investigate)"}
                     </Button>
-                    <Button size="sm" variant="outline" className="flex items-center gap-1 justify-center" onClick={() => handleReRequestDocs(selectedAgent.id)}>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="flex items-center gap-1 justify-center"
+                      onClick={() => handleReRequestDocs(selectedAgent.id)}
+                    >
                       <RefreshCw className="size-4" /> Re-request Sourcing Docs
                     </Button>
                   </div>
                 </div>
               ) : (
                 <div className="text-center p-6 text-muted-foreground">
-                  Select a sourcing partner from the list to manage verification status and credentials.
+                  Select a sourcing partner from the list to manage verification status and
+                  credentials.
                 </div>
               )}
             </SectionCard>

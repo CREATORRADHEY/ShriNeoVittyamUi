@@ -36,7 +36,10 @@ function FaqPage() {
       <HomeFaq />
 
       <Section labelledBy="more-help">
-        <h2 id="more-help" className="text-[clamp(1.5rem,3vw,2.25rem)] font-semibold tracking-tight">
+        <h2
+          id="more-help"
+          className="text-[clamp(1.5rem,3vw,2.25rem)] font-semibold tracking-tight"
+        >
           Still need help
         </h2>
         <div className="mt-6 flex flex-wrap gap-4">

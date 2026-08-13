@@ -21,7 +21,6 @@ import { PrototypeProvider } from "@/prototype/state";
 import { I18nProvider } from "../i18n";
 import { NeoChatWidget } from "@/components/neo/neo-chat-widget";
 
-
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
@@ -128,4 +127,3 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
-
