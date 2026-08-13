@@ -35,7 +35,7 @@ export function NeoGreetingCard({
 
   if (!visible) return null;
 
-  const cardBottom = 96 + dockOffset;
+  const cardBottom = 24 + dockOffset;
 
   return (
     <div
