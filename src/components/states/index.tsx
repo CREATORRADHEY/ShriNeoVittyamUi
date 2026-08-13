@@ -393,10 +393,12 @@ export function RestrictedState({
   borrowerVoice,
   reason,
   reviewWindow,
+  actions,
 }: {
   borrowerVoice?: boolean;
   reason?: string;
   reviewWindow?: string;
+  actions?: StateAction[];
 }) {
   return (
     <PageState
@@ -412,14 +414,16 @@ export function RestrictedState({
           : "Your current role does not include permission to view or change this information."
       }
       safety="Your application data and any repayment records remain safe and unchanged."
-      actions={[
-        { label: "Return to dashboard", to: "/prototype" },
-        {
-          label: borrowerVoice ? "Contact support" : "Request access",
-          to: "/contact",
-          variant: "outline",
-        },
-      ]}
+      actions={
+        actions ?? [
+          { label: "Return to dashboard", to: "/prototype" },
+          {
+            label: borrowerVoice ? "Contact support" : "Request access",
+            to: "/contact",
+            variant: "outline",
+          },
+        ]
+      }
       {...(reviewWindow ? { support: `Expected review completion: ${reviewWindow}.` } : {})}
     />
   );
