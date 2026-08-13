@@ -35,24 +35,24 @@ export function NeoGreetingCard({
 
   if (!visible) return null;
 
-  const cardBottom = 24 + dockOffset;
+  const cardBottom = 16 + dockOffset;
 
   return (
     <div
       style={{ bottom: `${cardBottom}px` }}
       className={cn(
-        /* Greeting card: fixed on bottom right (24-30px padding on desktop, 16px on mobile) */
-        "fixed right-4 z-40 w-[calc(100vw-32px)] max-w-[390px] rounded-[18px] border border-[#DDE7F5] bg-white p-5 shadow-[0_20px_55px_-24px_rgba(0,43,152,0.32)] sm:right-6 sm:w-[430px] sm:max-w-none sm:p-6",
+        /* Greeting card: fixed on bottom right (moved closer to edge: right-2/sm:right-3) */
+        "fixed right-2 z-40 w-[calc(100vw-24px)] max-w-[390px] rounded-[18px] border border-[#DDE7F5] bg-white p-5 shadow-[0_20px_55px_-24px_rgba(0,43,152,0.32)] sm:right-3 sm:w-[430px] sm:max-w-none sm:p-6",
         "origin-bottom-right transition-all duration-[280ms] ease-[cubic-bezier(0.2,0,0,1)]",
         mounted ? "translate-y-0 scale-100 opacity-100" : "translate-y-3.5 scale-[0.985] opacity-0"
       )}
     >
-      {/* Close button (Dismiss control) */}
+      {/* Close button (Dismiss control with 44px touch target) */}
       <button
         type="button"
         onClick={onDismiss}
         aria-label="Dismiss Neo greeting"
-        className="absolute right-3.5 top-3.5 flex size-8 items-center justify-center rounded-full text-[#5B657D] transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]"
+        className="absolute right-1 top-1 flex h-11 w-11 items-center justify-center rounded-full text-[#5B657D] transition-colors hover:bg-neutral-100 hover:text-neutral-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0051AE]"
       >
         <X aria-hidden className="size-4 shrink-0" />
       </button>

@@ -56,8 +56,18 @@ export function NeoChatWidget() {
     if (isLenderOrAdmin) return;
     try {
       const greetingSeen = window.localStorage.getItem(STORAGE_KEY) === "true";
-      setHasDismissedGreeting(greetingSeen);
-      setView(greetingSeen ? "minimized" : "greeting");
+      if (greetingSeen) {
+        setHasDismissedGreeting(true);
+        setView("minimized");
+      } else {
+        // First-time user: hide launcher, delay greeting presentation by 1000ms
+        setHasDismissedGreeting(false);
+        setView("minimized");
+        const greetingTimeout = window.setTimeout(() => {
+          setView("greeting");
+        }, 1000);
+        timers.current.push(greetingTimeout);
+      }
     } catch {
       setHasDismissedGreeting(true);
       setView("minimized");

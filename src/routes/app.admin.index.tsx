@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Activity, ShieldAlert } from "lucide-react";
+import { Activity, ShieldAlert, AlertTriangle, CheckCircle2, UserCheck, Eye, Trash2, Send } from "lucide-react";
+import { useState } from "react";
 
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
 import {
@@ -12,202 +13,294 @@ import {
   OfflineBanner,
   PartialDataNotice,
   PermissionNotice,
+  RestrictedState,
   SkeletonBlock,
   StatusBadge,
-  TableState,
 } from "@/components/states";
 import { Button } from "@/components/ui/button";
 import { formatINR } from "@/lib/format";
 import { usePrototype } from "@/prototype/state";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/app/admin/")({
   head: () => ({
     meta: [
-      { title: "Executive dashboard — ShriNeo Capital admin" },
-      {
-        name: "description",
-        content:
-          "Platform health, fraud alerts, grievance SLA, partner limits and reconciliation oversight for ShriNeo Capital operations.",
-      },
+      { title: "Executive Operations Control — ShriNeo Capital" },
+      { name: "description", content: "Platform oversight, RBI compliance logs, fraud watchlists, and grievance SLA audits." },
       { name: "robots", content: "noindex, nofollow" },
-      { property: "og:title", content: "Executive dashboard — ShriNeo Capital admin" },
-      {
-        property: "og:description",
-        content: "Operational oversight across borrowers, agents, lenders and platform systems.",
-      },
     ],
   }),
   component: AdminDashboard,
 });
 
-const SERVICES = [
-  { name: "Application intake", state: "Operational", tone: "success" as const },
-  { name: "KYC provider", state: "Operational", tone: "success" as const },
-  { name: "Account Aggregator", state: "Degraded — slow responses", tone: "warning" as const },
-  { name: "Credit bureau", state: "Operational", tone: "success" as const },
-  { name: "Lender API — IDFC First", state: "Incident — retries queued", tone: "error" as const },
-  { name: "Payments and mandates", state: "Operational", tone: "success" as const },
-];
-
-const QUEUES = [
-  { queue: "Manual KYC review", open: 42, sla: "6h", risk: "Within SLA", tone: "success" as const },
-  { queue: "Fraud alerts", open: 9, sla: "2h", risk: "3 breaching", tone: "error" as const },
-  { queue: "Agent verification", open: 15, sla: "24h", risk: "Within SLA", tone: "success" as const },
-  { queue: "Grievances", open: 6, sla: "3 working days", risk: "2 at risk", tone: "warning" as const },
-];
+interface GrievanceCase {
+  id: string;
+  borrowerName: string;
+  issue: string;
+  raisedDate: string;
+  slaRemaining: string;
+  status: "Open" | "Resolved" | "Escalated";
+  messages: { sender: "borrower" | "gro"; text: string; time: string }[];
+}
 
 function AdminDashboard() {
   const { account, data } = usePrototype();
-  const restricted: boolean = account === "restricted";
 
-  const banner = restricted ? (
-    <PermissionNotice what="Revenue reconciliation and consent record exports" />
-  ) : data === "failed" ? (
-    <InlineState
-      tone="error"
-      title="Platform incident — one lender integration is down"
-      explanation="Applications routed to IDFC First Bank are queued and retried automatically. Other partners are unaffected"
-      safety="No application has been rejected because of this incident"
-      actions={[{ label: "Open incident timeline", to: "/app/admin/system" }, { label: "Notify partners" }]}
-    />
-  ) : account === "action-required" ? (
-    <InlineState
-      tone="warning"
-      title="Fraud alert volume is 3.4× the 30-day average"
-      explanation="Alerts cluster around two agent codes in the same district. Investigation queue has been prioritised automatically."
-      actions={[{ label: "Open fraud queue", to: "/app/admin/fraud" }]}
-    />
-  ) : data === "stale" ? (
-    <DataStaleBanner asOf="today at 06:00 IST" />
-  ) : data === "offline" ? (
-    <OfflineBanner />
-  ) : data === "partial" ? (
-    <PartialDataNotice missing="Revenue reconciliation for the current day" />
-  ) : null;
+  const [grievances, setGrievances] = useState<GrievanceCase[]>([
+    {
+      id: "TKT-1082",
+      borrowerName: "Divyansh Dusad",
+      issue: "KYC Name mismatch on PAN profile",
+      raisedDate: "12 Mar 2026",
+      slaRemaining: "3 working days",
+      status: "Open",
+      messages: [
+        { sender: "borrower", text: "My middle name is omitted on the matched PAN record. Please correct this mismatch.", time: "12 Mar, 10:00" }
+      ]
+    },
+    {
+      id: "SNV-GR-2211",
+      borrowerName: "Rohit Sharma",
+      issue: "Phone registry modification request",
+      raisedDate: "04 Mar 2026",
+      slaRemaining: "Resolved",
+      status: "Resolved",
+      messages: [
+        { sender: "borrower", text: "Please update my mobile number to link to primary HDFC registry.", time: "04 Mar, 09:00" },
+        { sender: "gro", text: "We have updated your registered mobile logs. Dispute is closed.", time: "04 Mar, 15:40" }
+      ]
+    }
+  ]);
+
+  const [activeGrievanceId, setActiveGrievanceId] = useState<string | null>(null);
+  const [groText, setGroText] = useState("");
+
+  // System status checklist
+  const [services] = useState([
+    { name: "Aadhaar e-KYC provider", status: "Operational" },
+    { name: "CIBIL Bureau Pull API", status: "Operational" },
+    { name: "SBI Digital Finance integration", status: "Operational" },
+    { name: "Account Aggregator banking hub", status: "Degraded — Slow" }
+  ]);
+
+  // Operations alerts
+  const [stuckFiles] = useState([
+    { id: "SNV-24-118198", borrower: "Imran Qureshi", age: "52h", lender: "SBI Digital Finance" },
+    { id: "SNV-24-118165", borrower: "Sunita Rao", age: "48h", lender: "SBI Digital Finance" }
+  ]);
+
+  const activeGrievance = grievances.find(g => g.id === activeGrievanceId);
+
+  const handleResolveGrievance = () => {
+    if (!activeGrievanceId) return;
+    setGrievances(prev =>
+      prev.map(g => g.id === activeGrievanceId ? { ...g, status: "Resolved" as const } : g)
+    );
+    toast.success(`Grievance ${activeGrievanceId} marked as Resolved successfully.`);
+    setActiveGrievanceId(null);
+  };
+
+  const handleSendGroReply = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!groText.trim() || !activeGrievanceId) return;
+    const newMsg = { sender: "gro" as const, text: groText, time: "Just now" };
+    setGrievances(prev =>
+      prev.map(g => {
+        if (g.id === activeGrievanceId) {
+          return {
+            ...g,
+            messages: [...g.messages, newMsg]
+          };
+        }
+        return g;
+      })
+    );
+    setGroText("");
+    toast.success("Reply dispatched to borrower inbox.");
+  };
+
+  const isNewOrEmpty = data === "empty";
 
   return (
     <PortalShell
       role="admin"
-      title="Executive dashboard"
-      subtitle="Platform-wide oversight · demonstration data"
-      banner={banner}
+      title="Platform Operations Control"
+      subtitle="ShriNeo Capital executive management centre"
       actions={
-        <StatusBadge tone={data === "failed" ? "error" : account === "action-required" ? "warning" : "success"}>
-          {data === "failed" ? "Partial degradation" : account === "action-required" ? "Elevated risk" : "All systems healthy"}
-        </StatusBadge>
+        <div className="flex items-center gap-2">
+          <StatusBadge tone="success">Operational health active</StatusBadge>
+        </div>
       }
     >
-      {data === "loading" ? (
-        <div className="space-y-4">
-          <NamedLoading label="Aggregating platform metrics" />
-          <SkeletonBlock rows={8} />
+      <div className="space-y-6 text-xs">
+        {/* KPI OVERVIEWS */}
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
+          <KpiCard label="Total Applications Today" value="1,284" />
+          <KpiCard label="Disbursed Sanctions (MTD)" value={formatINR(94200000)} />
+          <KpiCard label="Active Sourced Agents" value="612" hint="15 pending approval" />
+          <KpiCard label="Grievance SLA Compliance" value="98.2%" tone="success" hint="Target 98%" />
+          <KpiCard label="Stuck Files Alert (>48h)" value="2" tone="warning" />
+          <KpiCard label="Active Fraud watch alerts" value="0" tone="success" />
         </div>
-      ) : (
-        <>
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
-            <KpiCard label="Applications today" value={data === "empty" ? "0" : "1,284"} state={data === "empty" ? "empty" : "ready"} />
-            <KpiCard label="Disbursed value (MTD)" value={formatINR(94200000)} state={data === "stale" ? "stale" : "ready"} />
-            <KpiCard label="Active agents" value="612" hint="15 awaiting verification" />
-            <KpiCard label="Open fraud cases" value={account === "action-required" ? "31" : "9"} tone={account === "action-required" ? "error" : "neutral"} />
-            <KpiCard label="Grievance SLA" value="96%" hint="Target 98%" tone="warning" />
-            <KpiCard label="Reconciliation" value={restricted ? "" : data === "partial" ? "" : "Matched"} state={restricted ? "restricted" : data === "partial" ? "failed" : "ready"} />
-          </div>
 
-          <div className="grid gap-4 xl:grid-cols-3">
-            <SectionCard title="System status" description="Live view of every dependency." className="xl:col-span-1">
-              <ul className="space-y-2.5 text-sm">
-                {SERVICES.map((s) => (
-                  <li key={s.name} className="flex items-center justify-between gap-3">
-                    <span className="text-foreground">{s.name}</span>
-                    <StatusBadge tone={data === "failed" && s.name.includes("Lender") ? "error" : s.tone}>
-                      {s.state.split(" — ")[0]}
-                    </StatusBadge>
-                  </li>
-                ))}
-              </ul>
-              <Button asChild size="sm" variant="outline" className="mt-4">
-                <Link to="/app/admin/system">
-                  <Activity aria-hidden className="size-4" />
-                  Open system status
-                </Link>
-              </Button>
-            </SectionCard>
-
-            <SectionCard title="Operational queues" className="xl:col-span-2">
-              <div className="overflow-x-auto">
-                <table className="w-full min-w-[560px] border-collapse text-sm">
-                  <caption className="sr-only">Open operational queues and SLA risk</caption>
+        {/* OPERATIONS GRID */}
+        <div className="grid gap-6 md:grid-cols-3">
+          <div className="md:col-span-2 space-y-6">
+            {/* COMPLAINTS & GRIEVANCES QUEUE */}
+            <SectionCard title="RBI CMS-Aligned Grievance Registry" description="Log of registered complaints and GRO responses under Ombudsman schemas">
+              <div className="overflow-x-auto text-xs">
+                <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-border text-left text-xs uppercase tracking-wide text-muted-foreground">
-                      <th scope="col" className="px-3 py-2 font-medium">Queue</th>
-                      <th scope="col" className="px-3 py-2 font-medium">Open</th>
-                      <th scope="col" className="px-3 py-2 font-medium">SLA</th>
-                      <th scope="col" className="px-3 py-2 font-medium">Risk</th>
+                    <tr className="border-b border-border bg-surface text-muted-foreground font-semibold">
+                      <th scope="col" className="p-3">Grievance ID</th>
+                      <th scope="col" className="p-3">Borrower Name</th>
+                      <th scope="col" className="p-3">Issue summary</th>
+                      <th scope="col" className="p-3">Raised Date</th>
+                      <th scope="col" className="p-3">SLA Timer</th>
+                      <th scope="col" className="p-3">Status</th>
+                      <th scope="col" className="p-3 text-right">Actions</th>
                     </tr>
                   </thead>
-                  {data === "empty" ? (
-                    <TableState kind="empty" columns={4} entity="queue items" />
-                  ) : data === "failed" ? (
-                    <TableState kind="partial" columns={4} entity="queues" />
-                  ) : (
-                    <tbody>
-                      {QUEUES.map((q) => (
-                        <tr key={q.queue} className="border-b border-border last:border-0">
-                          <th scope="row" className="px-3 py-2 text-left font-medium text-foreground">{q.queue}</th>
-                          <td className="num px-3 py-2 text-foreground">{q.open}</td>
-                          <td className="px-3 py-2 text-muted-foreground">{q.sla}</td>
-                          <td className="px-3 py-2"><StatusBadge tone={q.tone}>{q.risk}</StatusBadge></td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  )}
+                  <tbody>
+                    {grievances.map((g) => (
+                      <tr key={g.id} className="border-b border-border">
+                        <td className="p-3 font-semibold text-foreground">{g.id}</td>
+                        <td className="p-3 text-foreground">{g.borrowerName}</td>
+                        <td className="p-3 text-muted-foreground truncate max-w-[20ch]">{g.issue}</td>
+                        <td className="p-3 text-muted-foreground">{g.raisedDate}</td>
+                        <td className="p-3 text-muted-foreground font-mono">{g.slaRemaining}</td>
+                        <td className="p-3">
+                          <span className={`px-2 py-0.5 rounded text-[9px] font-semibold uppercase ${g.status === "Resolved" ? "bg-emerald-50 text-emerald-700 border border-emerald-200" : g.status === "Escalated" ? "bg-red-50 text-red-700 border border-red-200" : "bg-amber-50 text-amber-700 border border-amber-200"}`}>
+                            {g.status}
+                          </span>
+                        </td>
+                        <td className="p-3 text-right">
+                          <Button size="xs" variant="outline" onClick={() => setActiveGrievanceId(g.id)}>
+                            Review Case
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </SectionCard>
+
+            {/* STUCK FILES ALERT PANEL */}
+            <SectionCard title="Stuck Files Oversight (>48h Lender SLA Breaches)">
+              <div className="overflow-x-auto text-xs">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="border-b border-border bg-surface text-muted-foreground font-semibold">
+                      <th scope="col" className="p-3">Application ID</th>
+                      <th scope="col" className="p-3">Borrower Name</th>
+                      <th scope="col" className="p-3">Lender Partner</th>
+                      <th scope="col" className="p-3">Current Delay</th>
+                      <th scope="col" className="p-3 text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {stuckFiles.map((f) => (
+                      <tr key={f.id} className="border-b border-border">
+                        <td className="p-3 font-semibold text-foreground">{f.id}</td>
+                        <td className="p-3 text-foreground">{f.borrower}</td>
+                        <td className="p-3 text-muted-foreground">{f.lender}</td>
+                        <td className="p-3 text-red-700 font-semibold">{f.age}</td>
+                        <td className="p-3 text-right">
+                          <Button size="xs" variant="outline" onClick={() => toast.success(`Pushed automated trigger request to ${f.lender} integrations.`)}>
+                            Refresh Status
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </table>
               </div>
             </SectionCard>
           </div>
 
-          <div className="grid gap-4 xl:grid-cols-3">
-            <SectionCard title="Application volume" className="xl:col-span-2">
-              {data === "empty" ? (
-                <ChartState kind="empty" label="application volume" />
-              ) : data === "partial" ? (
-                <ChartState kind="partial" label="application volume" />
-              ) : data === "failed" ? (
-                <ChartState kind="failed" label="application volume" />
-              ) : (
-                <div className="flex h-44 items-end gap-1.5">
-                  {[42, 48, 55, 51, 63, 59, 71, 66, 74, 81, 77, 86, 92, 88].map((h, i) => (
-                    <div key={i} className="flex-1 rounded-t bg-primary/80" style={{ height: `${h}%` }} />
-                  ))}
-                </div>
-              )}
+          <div className="space-y-6">
+            {/* DEPENDENCY SERVICES HEALTH */}
+            <SectionCard title="Third-Party Integrations status">
+              <div className="space-y-2.5">
+                {services.map((s, idx) => (
+                  <div key={idx} className="p-2.5 rounded border border-border bg-surface flex justify-between items-center">
+                    <span className="font-semibold text-foreground">{s.name}</span>
+                    <span className={`px-2 py-0.5 rounded text-[10px] font-semibold ${s.status === "Operational" ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-700"}`}>
+                      {s.status}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </SectionCard>
 
-            <SectionCard title="Fraud watch">
-              {account === "action-required" ? (
-                <div className="space-y-3">
-                  <div className="flex items-start gap-2">
-                    <ShieldAlert aria-hidden className="mt-0.5 size-4 text-destructive" />
-                    <p className="text-sm text-muted-foreground">
-                      Two agent codes account for 61% of new alerts. Payouts for both are held
-                      pending investigation.
-                    </p>
+            {/* CONSENT DELETIONS AUDIT LOG */}
+            <SectionCard title="Data Privacy & GDPR Audit log">
+              <div className="space-y-3">
+                {[
+                  { event: "Account deletion request logged", details: "Divyansh Dusad (30d cool-off)", date: "Today" },
+                  { event: "Consent record withdrawn", details: "Aadhaar data link for LN-9012", date: "11 Mar" },
+                  { event: "Data pack download zipped", details: "Delivered to Rohit Sharma email", date: "09 Mar" }
+                ].map((row, idx) => (
+                  <div key={idx} className="p-2.5 rounded border border-border bg-card">
+                    <p className="font-semibold text-foreground">{row.event}</p>
+                    <p className="text-[10px] text-muted-foreground mt-0.5">{row.details} · {row.date}</p>
                   </div>
-                  <Button asChild size="sm">
-                    <Link to="/app/admin/fraud">Open investigation queue</Link>
-                  </Button>
-                </div>
-              ) : (
-                <EmptyState
-                  compact
-                  title="No open fraud alerts."
-                  explanation="Alerts appear here the moment a rule or model threshold is crossed."
-                />
-              )}
+                ))}
+              </div>
             </SectionCard>
           </div>
-        </>
-      )}
+        </div>
+
+        {/* GRIEVANCE RESOLUTION POPUP DIALOG */}
+        {activeGrievance && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+            <div className="w-full max-w-[460px] rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-overlay)] space-y-4">
+              <div className="flex justify-between items-center border-b border-border pb-2">
+                <h3 className="font-bold text-base text-foreground flex items-center gap-1.5">
+                  <AlertTriangle className="size-5 text-primary" /> Grievance Case: {activeGrievance.id}
+                </h3>
+              </div>
+
+              <div className="space-y-3">
+                <div className="bg-surface border border-border rounded-lg p-3 max-h-48 overflow-y-auto space-y-2.5">
+                  {activeGrievance.messages.map((m, idx) => (
+                    <div key={idx} className={`flex flex-col ${m.sender === "gro" ? "items-end" : "items-start"}`}>
+                      <div className={`rounded-lg px-2.5 py-1.5 max-w-[85%] ${m.sender === "gro" ? "bg-primary text-primary-foreground" : "bg-neutral-100 text-foreground"}`}>
+                        {m.text}
+                      </div>
+                      <span className="text-[9px] text-muted-foreground mt-0.5 px-0.5">{m.time}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <form onSubmit={handleSendGroReply} className="flex gap-2">
+                  <input
+                    type="text"
+                    required
+                    value={groText}
+                    onChange={(e) => setGroText(e.target.value)}
+                    placeholder="Type legal redressal reply..."
+                    className="flex-1 rounded border border-border bg-background px-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                  <Button type="submit" size="sm">
+                    Reply
+                  </Button>
+                </form>
+              </div>
+
+              <div className="pt-2 border-t border-border flex justify-between items-center">
+                <Button size="sm" variant="ghost" onClick={() => setActiveGrievanceId(null)}>Close View</Button>
+                {activeGrievance.status !== "Resolved" && (
+                  <Button size="sm" onClick={handleResolveGrievance}>
+                    Resolve Complaint
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </PortalShell>
   );
 }

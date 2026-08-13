@@ -134,9 +134,11 @@ export function SiteFooter() {
               <p className="text-[14.5px] font-semibold text-white">
                 RBI-aligned Lending Service Provider
               </p>
-              <p className="mt-1.5 font-mono text-xs leading-relaxed text-[#B9C6E8]/80">
-                CIN: <span className="num">{org.cin || ""}</span>
-              </p>
+              {org.cin && (
+                <p className="mt-1.5 font-mono text-xs leading-relaxed text-[#B9C6E8]/80">
+                  CIN: <span className="num">{org.cin}</span>
+                </p>
+              )}
             </div>
           </div>
 

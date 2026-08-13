@@ -52,7 +52,18 @@ export const Route = createFileRoute("/app/borrower/")({
 });
 
 function BorrowerDashboard() {
-  const { account, data, application } = usePrototype();
+  const {
+    account,
+    data,
+    application,
+    activeApplication,
+    activeLoan,
+    activeRequest,
+    activeDocuments,
+    activeOffers,
+    activePayment,
+    activeGrievance,
+  } = usePrototype();
   const { t } = useI18n();
 
   const banner =
@@ -66,9 +77,9 @@ function BorrowerDashboard() {
     ) : account === "action-required" ? (
       <InlineState
         tone="warning"
-        title="Four items need your attention"
-        explanation="A document request, an offer expiring in 2 days, a pending e-Sign and a failed mandate are waiting on you"
-        actions={[{ label: "Review what's needed", to: "/app/borrower/applications" }]}
+        title="Attention Needed: Action Required"
+        explanation="You have pending item(s) in your Action Centre. Resolving them quickly helps speed up lender reviews."
+        actions={[{ label: "Open Action Centre", to: "/app/borrower/action-centre", variant: "default" }]}
       />
     ) : data === "offline" ? (
       <OfflineBanner />
@@ -96,7 +107,7 @@ function BorrowerDashboard() {
       {account === "restricted" || account === "suspended" ? (
         <RestrictedState
           borrowerVoice
-          reason="Your account is temporarily in review, so new applications and payments are paused. You can still view your loan summary, statements and documents"
+          reason="Your account is temporarily restricted under review. New applications and payment processing are paused. You can still view statements, previous documents, and contact support."
           reviewWindow="within 3 working days"
         />
       ) : data === "failed" ? (
@@ -119,7 +130,18 @@ function BorrowerDashboard() {
       ) : account === "new" || data === "empty" ? (
         <NewBorrower />
       ) : (
-        <ActiveBorrower application={application} account={account} data={data} />
+        <ActiveBorrower
+          application={application}
+          account={account}
+          data={data}
+          activeApplication={activeApplication}
+          activeLoan={activeLoan}
+          activeRequest={activeRequest}
+          activeDocuments={activeDocuments}
+          activeOffers={activeOffers}
+          activePayment={activePayment}
+          activeGrievance={activeGrievance}
+        />
       )}
     </PortalShell>
   );
@@ -174,14 +196,27 @@ function NewBorrower() {
 
       <div className="grid gap-4 md:grid-cols-2">
         <EmptyState
-          title="You haven't started an application yet"
+          title="No application started"
           explanation="Your progress is saved automatically once you begin, so you can pause and return"
           actions={[{ label: "Explore loan options", to: "/app/borrower/apply" }]}
         />
         <EmptyState
-          title="You don't have an active loan"
+          title="No active loan"
           explanation="Active loans, EMI dates and statements will appear here once a lender disburses"
           actions={[{ label: "View loan products", to: "/loans", variant: "outline" }]}
+        />
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <EmptyState
+          title="CIBIL Score not checked"
+          explanation="Retrieve your official TransUnion CIBIL score for free via soft inquiry without affecting your rating."
+          actions={[{ label: "Retrieve CIBIL Score", to: "/app/borrower/cibil-score" }]}
+        />
+        <EmptyState
+          title="SNV Trust Score not generated"
+          explanation="Generate your advisory SNV Trust Score to help lenders understand thin-file creditworthiness."
+          actions={[{ label: "Generate Trust Score", to: "/app/borrower/snv-trust-score" }]}
         />
       </div>
 
@@ -211,15 +246,31 @@ function NewBorrower() {
   );
 }
 
+interface ActiveBorrowerProps {
+  application: string;
+  account: string;
+  data: string;
+  activeApplication: any;
+  activeLoan: any;
+  activeRequest: any;
+  activeDocuments: any[];
+  activeOffers: any[];
+  activePayment: any;
+  activeGrievance: any;
+}
+
 function ActiveBorrower({
   application,
   account,
   data,
-}: {
-  application: string;
-  account: string;
-  data: string;
-}) {
+  activeApplication,
+  activeLoan,
+  activeRequest,
+  activeDocuments,
+  activeOffers,
+  activePayment,
+  activeGrievance,
+}: ActiveBorrowerProps) {
   const timeline = [
     {
       label: "Application submitted",
@@ -237,8 +288,7 @@ function ActiveBorrower({
     },
     {
       label: APPLICATION_LABEL[application as keyof typeof APPLICATION_LABEL] ?? "Lender review",
-      meaning:
-        "Participating lenders are still reviewing your application. This is normal and does not indicate a decision",
+      meaning: "Participating lenders are reviewing your file. This is normal and does not indicate a decision.",
       timestamp: "10 Mar 2026, 09:45",
       source: "Participating lender",
       nextAction: "No action needed from you right now",
@@ -248,7 +298,7 @@ function ActiveBorrower({
     },
     {
       label: "Offer ready",
-      meaning: "You'll compare offers side by side, with the full cost shown before you sign",
+      meaning: "Compare offers side by side, with the full cost shown before you sign",
       timestamp: "Pending",
       source: "ShriNeo Capital",
       state: "upcoming" as const,
@@ -260,109 +310,197 @@ function ActiveBorrower({
       <div className="grid gap-4 sm:grid-cols-3">
         <KpiCard
           label="Next EMI"
-          value={formatINR(9885)}
-          hint="Due 05 Apr 2026 · IDFC First Bank"
+          value={activePayment ? formatINR(activePayment.amount) : "—"}
+          hint={activePayment ? `Due ${activePayment.dueDate} · ${activePayment.mandateBank}` : "No payment scheduled"}
           state={data === "stale" ? "stale" : "ready"}
         />
         <KpiCard
-          label="Outstanding principal"
-          value={formatINR(284350)}
-          hint="Across 1 active loan"
+          label="Outstanding Principal"
+          value={activeLoan ? formatINR(activeLoan.amount) : "—"}
+          hint={activeLoan ? `Across 1 active loan · SBI` : "No active loan balances"}
           state={data === "partial" ? "failed" : "ready"}
         />
-        <KpiCard label="Applications in progress" value="1" hint="Lender review" />
+        <KpiCard
+          label="Applications in Progress"
+          value={activeApplication ? "1" : "0"}
+          hint={activeApplication ? APPLICATION_LABEL[application as keyof typeof APPLICATION_LABEL] : "All files resolved"}
+        />
       </div>
 
-      <SectionCard
-        title="Current application"
-        description="Personal loan · ₹3,00,000 · 36 months"
-        actions={<StatusBadge tone="info">{APPLICATION_LABEL[application as keyof typeof APPLICATION_LABEL]}</StatusBadge>}
-      >
-        <div className="space-y-5">
-          <div>
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-muted-foreground">Progress</span>
-              <span className="num text-foreground">Step 4 of 5</span>
+      {/* STATE 1: DRAFT STATE */}
+      {application === "draft" && activeApplication && (
+        <SectionCard title="Resume Saved Draft" description="Personal loan · ₹3,50,000 · 36 months">
+          <div className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              You have a draft application saved on 08 Mar 2026. You can complete the remaining steps to request lender quotes.
+            </p>
+            <div className="flex gap-2">
+              <Button asChild size="sm">
+                <Link to="/app/borrower/application">Resume Application</Link>
+              </Button>
+              <Button size="sm" variant="outline">
+                Delete Draft
+              </Button>
             </div>
-            <Progress value={78} className="mt-2" />
           </div>
-          {account === "action-required" ? (
-            <InlineState
-              tone="warning"
-              title="One document is still needed"
-              explanation="A clearer photo of your address proof was requested by the participating lender on 11 Mar"
-              safety="Your application stays saved while this is outstanding"
-              actions={[
-                { label: "Upload document", to: "/app/borrower/documents", variant: "default" },
-                { label: "See what changed", to: "/app/borrower/applications" },
-              ]}
-            />
-          ) : null}
-          <StatusTimeline items={timeline} />
+        </SectionCard>
+      )}
+
+      {/* STATE 2: ACTION REQUIRED / DOCUMENTS REQUIRED */}
+      {activeRequest && (
+        <InlineState
+          tone="warning"
+          title="Document Re-upload Requested"
+          explanation={`Request ${activeRequest.id}: Lender ${activeRequest.requiredItem} request is outstanding. Reason: ${activeRequest.reason}.`}
+          safety="Your application is on hold until the requested documents are uploaded."
+          actions={[{ label: "Upload Statements in Action Centre", to: "/app/borrower/action-centre", variant: "default" }]}
+        />
+      )}
+
+      {/* STATE 3: SUBMITTED / LENDER REVIEW TIMELINE */}
+      {application !== "draft" && application !== "disbursed" && application !== "closed" && (
+        <SectionCard
+          title="Current Application Status"
+          description="Personal loan · ₹3,50,000 · 36 months"
+          actions={<StatusBadge tone="info">{APPLICATION_LABEL[application as keyof typeof APPLICATION_LABEL]}</StatusBadge>}
+        >
+          <div className="space-y-5">
+            <StatusTimeline items={timeline} />
+          </div>
+        </SectionCard>
+      )}
+
+      {/* STATE 4: REJECTED */}
+      {application === "rejected" && (
+        <SectionCard title="Rejection Advice" description="Personal loan · ₹3,50,000">
+          <div className="space-y-4">
+            <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-900">
+              <p className="font-semibold">Application Declined</p>
+              <p className="mt-1 text-xs">
+                Participating lenders, including SBI Digital Finance, have declined this file. This decision is final. You may review the credit factors or contact our grievance support desk for redressal options.
+              </p>
+            </div>
+            <div className="flex gap-2">
+              <Button asChild size="sm" variant="outline">
+                <Link to="/app/borrower/support">Contact Support Desk</Link>
+              </Button>
+            </div>
+          </div>
+        </SectionCard>
+      )}
+
+      {/* STATE 5: OFFERS READY */}
+      {(application === "approved" || application === "lender-review" || application === "manual-review") && activeOffers.length > 0 && (
+        <SectionCard title="Quotes Received (Lenders Compared)" description="Lowest APR listed first">
+          <div className="space-y-4">
+            <div className="grid gap-3">
+              {activeOffers.map((off, index) => (
+                <div key={off.id} className="flex items-center justify-between rounded-lg border border-border bg-surface p-4">
+                  <div>
+                    <p className="font-semibold text-foreground">{off.lenderName}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {formatINR(off.amount)} · {off.tenure} months · APR {off.apr}% · Fee {formatINR(off.fee)}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-mono font-semibold text-foreground">{formatINR(off.emi)}/mo</p>
+                    <Button asChild size="xs" variant={index === 0 ? "default" : "outline"} className="mt-1">
+                      <Link to="/app/borrower/application">
+                        {index === 0 ? "Accept Offer" : "Select Quote"}
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </SectionCard>
+      )}
+
+      {/* STATE 6: ACTIVE LOAN DETAILS */}
+      {activeLoan && activePayment && (
+        <div className="grid gap-4 lg:grid-cols-2">
+          <SectionCard title="Active Loan Servicing" description="SBI Digital Finance · Personal loan">
+            <dl className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <dt className="text-muted-foreground">Next EMI</dt>
+                <dd className="num mt-1 text-lg font-semibold text-foreground">{formatINR(activePayment.amount)}</dd>
+              </div>
+              <div>
+                <dt className="text-muted-foreground">Due Date</dt>
+                <dd className="num mt-1 text-lg font-semibold text-foreground">{activePayment.dueDate}</dd>
+              </div>
+              <div>
+                <dt className="text-muted-foreground">Lender Partner</dt>
+                <dd className="mt-1 text-foreground">SBI Digital Finance</dd>
+              </div>
+              <div>
+                <dt className="text-muted-foreground">Mandate Bank</dt>
+                <dd className="mt-1 text-xs text-foreground truncate">{activePayment.mandateBank}</dd>
+              </div>
+            </dl>
+            <div className="mt-5 flex gap-2">
+              <Button asChild size="sm">
+                <Link to="/app/borrower/payments">
+                  <CalendarClock aria-hidden className="size-4" />
+                  Repay EMI
+                </Link>
+              </Button>
+              <Button asChild size="sm" variant="outline">
+                <Link to="/app/borrower/loans">View Statements</Link>
+              </Button>
+            </div>
+          </SectionCard>
+
+          <SectionCard title="Direct Lender Servicing" description="SBI Digital Finance Portals">
+            <p className="text-sm text-muted-foreground">
+              For loan closures, restructuring requests, or interest certificates, you can log directly into SBI portal with your registered loan ID.
+            </p>
+            <Button size="sm" variant="outline" className="mt-4" onClick={() => window.open("https://sbi.co.in", "_blank")}>
+              Go to SBI Portal
+            </Button>
+          </SectionCard>
         </div>
-      </SectionCard>
+      )}
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <SectionCard title="Lender review in progress">
-          <LongWaitPanel
-            stage={1}
-            stages={[
-              "Application checks completed",
-              "Participating lenders reviewing",
-              "Offers prepared for comparison",
-              "Key Fact Statement issued",
-            ]}
-            expected="within 2 working days"
-          />
-        </SectionCard>
-
-        <SectionCard title="Active loan" description="IDFC First Bank · Personal loan">
-          <dl className="grid grid-cols-2 gap-4 text-sm">
-            <div>
-              <dt className="text-muted-foreground">Next EMI</dt>
-              <dd className="num mt-1 text-lg font-semibold text-foreground">{formatINR(9885)}</dd>
+      {/* STATE 7: CLOSED LOAN */}
+      {activeLoan && application === "closed" && (
+        <SectionCard title="Previous Loan File (Closed)" description="SBI Digital Finance · Account ID: LN-2026-092">
+          <div className="space-y-4">
+            <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-900">
+              <p className="font-semibold">Loan Settled & Closed</p>
+              <p className="mt-1 text-xs">
+                Your loan of ₹3,50,000 was fully settled on 10 Mar 2026. The No Objection Certificate (NOC) is ready for download.
+              </p>
             </div>
-            <div>
-              <dt className="text-muted-foreground">Due date</dt>
-              <dd className="num mt-1 text-lg font-semibold text-foreground">05 Apr 2026</dd>
+            <div className="flex gap-2">
+              <Button size="sm">
+                Download NOC Closure Certificate
+              </Button>
+              <Button asChild size="sm" variant="outline">
+                <Link to="/app/borrower/loans">View Historic Statements</Link>
+              </Button>
             </div>
-            <div>
-              <dt className="text-muted-foreground">Lender</dt>
-              <dd className="mt-1 text-foreground">IDFC First Bank</dd>
-            </div>
-            <div>
-              <dt className="text-muted-foreground">Outstanding</dt>
-              <dd className="num mt-1 text-foreground">{formatINR(284350)}</dd>
-            </div>
-          </dl>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <Button asChild size="sm">
-              <Link to="/app/borrower/payments">
-                <CalendarClock aria-hidden className="size-4" />
-                Pay EMI
-              </Link>
-            </Button>
-            <Button asChild size="sm" variant="outline">
-              <Link to="/app/borrower/loans">View loan details</Link>
-            </Button>
           </div>
-          <p className="mt-4 text-xs text-muted-foreground">
-            Repayments are collected by the participating lender. ShriNeo Capital does not hold your
-            funds
-          </p>
         </SectionCard>
-      </div>
+      )}
 
-      <SectionCard title="Documents" description="Everything you've shared, and what's still open">
+      {/* DOCUMENTS CHECKLIST OVERVIEW */}
+      <SectionCard title="Documents Summary" description="Verified documentation checklist for current status">
         <div className="grid gap-3 sm:grid-cols-3">
-          <StatusBadge tone="success">PAN verified</StatusBadge>
-          <StatusBadge tone="success">Aadhaar (masked) verified</StatusBadge>
-          <StatusBadge tone="warning">Address proof needs a clearer photo</StatusBadge>
+          {activeDocuments.map((doc) => (
+            <StatusBadge key={doc.id} tone={doc.status === "Accepted" ? "success" : doc.status === "Rejected" ? "critical" : "warning"}>
+              {doc.name}: {doc.status}
+            </StatusBadge>
+          ))}
+          {activeDocuments.length === 0 && (
+            <p className="text-sm text-muted-foreground col-span-3">No documents submitted yet.</p>
+          )}
         </div>
         <Button asChild size="sm" variant="outline" className="mt-4">
           <Link to="/app/borrower/documents">
             <FileText aria-hidden className="size-4" />
-            Manage documents
+            Manage Document Center
           </Link>
         </Button>
       </SectionCard>

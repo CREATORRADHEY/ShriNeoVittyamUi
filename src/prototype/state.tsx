@@ -11,6 +11,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import * as fixtures from "./fixtures";
 
 export const ROLES = ["borrower", "agent", "lender", "admin"] as const;
 export type Role = (typeof ROLES)[number];
@@ -75,6 +76,18 @@ const DEFAULT_STATE: PrototypeState = {
 type Ctx = PrototypeState & {
   set: <K extends keyof PrototypeState>(key: K, value: PrototypeState[K]) => void;
   reset: () => void;
+  // Derived Shared Entities for Cross-Role Sync
+  borrower: fixtures.BorrowerEntity;
+  agent: fixtures.AgentEntity;
+  lender: fixtures.LenderEntity;
+  activeApplication: fixtures.ApplicationEntity | null;
+  activeLoan: fixtures.ApplicationEntity | null;
+  activeRequest: fixtures.RequestEntity | null;
+  activeDocuments: fixtures.DocumentEntity[];
+  activeOffers: fixtures.OfferEntity[];
+  activePayment: fixtures.PaymentEntity | null;
+  activeGrievance: fixtures.GrievanceEntity | null;
+  activeAuditLogs: fixtures.AuditEventEntity[];
 };
 
 const PrototypeContext = createContext<Ctx | null>(null);
@@ -113,7 +126,67 @@ export function PrototypeProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const value = useMemo(() => ({ ...state, set, reset }), [state, set, reset]);
+  const derived = useMemo(() => {
+    const isNew = state.account === "new" || state.data === "empty";
+    
+    // Derive Application entity
+    let activeApplication: fixtures.ApplicationEntity | null = null;
+    if (!isNew && state.application !== "disbursed" && state.application !== "closed") {
+      activeApplication = {
+        ...fixtures.CANONICAL_APPLICATION,
+        status: state.application
+      };
+    }
+
+    // Derive active/closed loan entity
+    let activeLoan: fixtures.ApplicationEntity | null = null;
+    if (!isNew && (state.application === "disbursed" || state.application === "closed")) {
+      activeLoan = {
+        ...fixtures.CANONICAL_APPLICATION,
+        status: state.application
+      };
+    }
+
+    // Derive active document requests
+    const activeRequest = (!isNew && (state.application === "documents-required" || state.account === "action-required"))
+      ? fixtures.CANONICAL_REQUEST
+      : null;
+
+    // Derive document checklist
+    const activeDocuments = isNew ? [] : fixtures.CANONICAL_DOCUMENTS;
+
+    // Derive active offers (Approved/Offer Received)
+    const activeOffers = (!isNew && (state.application === "approved" || state.application === "lender-review" || state.application === "manual-review"))
+      ? fixtures.CANONICAL_OFFERS
+      : [];
+
+    // Derive repayment schedule details
+    const activePayment = (!isNew && state.application === "disbursed")
+      ? fixtures.CANONICAL_PAYMENT
+      : null;
+
+    return {
+      borrower: fixtures.CANONICAL_BORROWER,
+      agent: fixtures.CANONICAL_AGENT,
+      lender: fixtures.CANONICAL_LENDER,
+      activeApplication,
+      activeLoan,
+      activeRequest,
+      activeDocuments,
+      activeOffers,
+      activePayment,
+      activeGrievance: fixtures.CANONICAL_GRIEVANCE,
+      activeAuditLogs: fixtures.CANONICAL_AUDIT_LOGS,
+    };
+  }, [state.account, state.data, state.application]);
+
+  const value = useMemo<Ctx>(() => ({
+    ...state,
+    set,
+    reset,
+    ...derived
+  }), [state, set, reset, derived]);
+
   return <PrototypeContext.Provider value={value}>{children}</PrototypeContext.Provider>;
 }
 

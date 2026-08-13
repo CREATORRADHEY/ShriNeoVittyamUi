@@ -97,10 +97,12 @@ import { Route as AppAgentStartRouteImport } from './routes/app.agent.start'
 import { Route as AppAgentSupportRouteImport } from './routes/app.agent.support'
 import { Route as AppAgentTrainingRouteImport } from './routes/app.agent.training'
 import { Route as AppBorrowerIndexRouteImport } from './routes/app.borrower.index'
+import { Route as AppBorrowerActionCentreRouteImport } from './routes/app.borrower.action-centre'
 import { Route as AppBorrowerAgentsRouteImport } from './routes/app.borrower.agents'
 import { Route as AppBorrowerApplicationRouteImport } from './routes/app.borrower.application'
 import { Route as AppBorrowerApplicationsRouteImport } from './routes/app.borrower.applications'
 import { Route as AppBorrowerApplyRouteImport } from './routes/app.borrower.apply'
+import { Route as AppBorrowerCibilScoreRouteImport } from './routes/app.borrower.cibil-score'
 import { Route as AppBorrowerDocumentsRouteImport } from './routes/app.borrower.documents'
 import { Route as AppBorrowerLoansRouteImport } from './routes/app.borrower.loans'
 import { Route as AppBorrowerMessagesRouteImport } from './routes/app.borrower.messages'
@@ -109,6 +111,7 @@ import { Route as AppBorrowerOffersRouteImport } from './routes/app.borrower.off
 import { Route as AppBorrowerPaymentsRouteImport } from './routes/app.borrower.payments'
 import { Route as AppBorrowerProfileRouteImport } from './routes/app.borrower.profile'
 import { Route as AppBorrowerScoresRouteImport } from './routes/app.borrower.scores'
+import { Route as AppBorrowerSnvTrustScoreRouteImport } from './routes/app.borrower.snv-trust-score'
 import { Route as AppBorrowerSupportRouteImport } from './routes/app.borrower.support'
 import { Route as AppLenderIndexRouteImport } from './routes/app.lender.index'
 import { Route as AppLenderApiStatusRouteImport } from './routes/app.lender.api-status'
@@ -569,6 +572,11 @@ const AppBorrowerIndexRoute = AppBorrowerIndexRouteImport.update({
   path: '/app/borrower/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppBorrowerActionCentreRoute = AppBorrowerActionCentreRouteImport.update({
+  id: '/app/borrower/action-centre',
+  path: '/app/borrower/action-centre',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppBorrowerAgentsRoute = AppBorrowerAgentsRouteImport.update({
   id: '/app/borrower/agents',
   path: '/app/borrower/agents',
@@ -587,6 +595,11 @@ const AppBorrowerApplicationsRoute = AppBorrowerApplicationsRouteImport.update({
 const AppBorrowerApplyRoute = AppBorrowerApplyRouteImport.update({
   id: '/app/borrower/apply',
   path: '/app/borrower/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppBorrowerCibilScoreRoute = AppBorrowerCibilScoreRouteImport.update({
+  id: '/app/borrower/cibil-score',
+  path: '/app/borrower/cibil-score',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppBorrowerDocumentsRoute = AppBorrowerDocumentsRouteImport.update({
@@ -630,6 +643,12 @@ const AppBorrowerScoresRoute = AppBorrowerScoresRouteImport.update({
   path: '/app/borrower/scores',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppBorrowerSnvTrustScoreRoute =
+  AppBorrowerSnvTrustScoreRouteImport.update({
+    id: '/app/borrower/snv-trust-score',
+    path: '/app/borrower/snv-trust-score',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AppBorrowerSupportRoute = AppBorrowerSupportRouteImport.update({
   id: '/app/borrower/support',
   path: '/app/borrower/support',
@@ -772,10 +791,12 @@ export interface FileRoutesByFullPath {
   '/app/agent/start': typeof AppAgentStartRoute
   '/app/agent/support': typeof AppAgentSupportRoute
   '/app/agent/training': typeof AppAgentTrainingRoute
+  '/app/borrower/action-centre': typeof AppBorrowerActionCentreRoute
   '/app/borrower/agents': typeof AppBorrowerAgentsRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
   '/app/borrower/apply': typeof AppBorrowerApplyRoute
+  '/app/borrower/cibil-score': typeof AppBorrowerCibilScoreRoute
   '/app/borrower/documents': typeof AppBorrowerDocumentsRoute
   '/app/borrower/loans': typeof AppBorrowerLoansRoute
   '/app/borrower/messages': typeof AppBorrowerMessagesRoute
@@ -784,6 +805,7 @@ export interface FileRoutesByFullPath {
   '/app/borrower/payments': typeof AppBorrowerPaymentsRoute
   '/app/borrower/profile': typeof AppBorrowerProfileRoute
   '/app/borrower/scores': typeof AppBorrowerScoresRoute
+  '/app/borrower/snv-trust-score': typeof AppBorrowerSnvTrustScoreRoute
   '/app/borrower/support': typeof AppBorrowerSupportRoute
   '/app/lender/api-status': typeof AppLenderApiStatusRoute
   '/app/lender/audit': typeof AppLenderAuditRoute
@@ -885,10 +907,12 @@ export interface FileRoutesByTo {
   '/app/agent/start': typeof AppAgentStartRoute
   '/app/agent/support': typeof AppAgentSupportRoute
   '/app/agent/training': typeof AppAgentTrainingRoute
+  '/app/borrower/action-centre': typeof AppBorrowerActionCentreRoute
   '/app/borrower/agents': typeof AppBorrowerAgentsRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
   '/app/borrower/apply': typeof AppBorrowerApplyRoute
+  '/app/borrower/cibil-score': typeof AppBorrowerCibilScoreRoute
   '/app/borrower/documents': typeof AppBorrowerDocumentsRoute
   '/app/borrower/loans': typeof AppBorrowerLoansRoute
   '/app/borrower/messages': typeof AppBorrowerMessagesRoute
@@ -897,6 +921,7 @@ export interface FileRoutesByTo {
   '/app/borrower/payments': typeof AppBorrowerPaymentsRoute
   '/app/borrower/profile': typeof AppBorrowerProfileRoute
   '/app/borrower/scores': typeof AppBorrowerScoresRoute
+  '/app/borrower/snv-trust-score': typeof AppBorrowerSnvTrustScoreRoute
   '/app/borrower/support': typeof AppBorrowerSupportRoute
   '/app/lender/api-status': typeof AppLenderApiStatusRoute
   '/app/lender/audit': typeof AppLenderAuditRoute
@@ -999,10 +1024,12 @@ export interface FileRoutesById {
   '/app/agent/start': typeof AppAgentStartRoute
   '/app/agent/support': typeof AppAgentSupportRoute
   '/app/agent/training': typeof AppAgentTrainingRoute
+  '/app/borrower/action-centre': typeof AppBorrowerActionCentreRoute
   '/app/borrower/agents': typeof AppBorrowerAgentsRoute
   '/app/borrower/application': typeof AppBorrowerApplicationRoute
   '/app/borrower/applications': typeof AppBorrowerApplicationsRoute
   '/app/borrower/apply': typeof AppBorrowerApplyRoute
+  '/app/borrower/cibil-score': typeof AppBorrowerCibilScoreRoute
   '/app/borrower/documents': typeof AppBorrowerDocumentsRoute
   '/app/borrower/loans': typeof AppBorrowerLoansRoute
   '/app/borrower/messages': typeof AppBorrowerMessagesRoute
@@ -1011,6 +1038,7 @@ export interface FileRoutesById {
   '/app/borrower/payments': typeof AppBorrowerPaymentsRoute
   '/app/borrower/profile': typeof AppBorrowerProfileRoute
   '/app/borrower/scores': typeof AppBorrowerScoresRoute
+  '/app/borrower/snv-trust-score': typeof AppBorrowerSnvTrustScoreRoute
   '/app/borrower/support': typeof AppBorrowerSupportRoute
   '/app/lender/api-status': typeof AppLenderApiStatusRoute
   '/app/lender/audit': typeof AppLenderAuditRoute
@@ -1114,10 +1142,12 @@ export interface FileRouteTypes {
     | '/app/agent/start'
     | '/app/agent/support'
     | '/app/agent/training'
+    | '/app/borrower/action-centre'
     | '/app/borrower/agents'
     | '/app/borrower/application'
     | '/app/borrower/applications'
     | '/app/borrower/apply'
+    | '/app/borrower/cibil-score'
     | '/app/borrower/documents'
     | '/app/borrower/loans'
     | '/app/borrower/messages'
@@ -1126,6 +1156,7 @@ export interface FileRouteTypes {
     | '/app/borrower/payments'
     | '/app/borrower/profile'
     | '/app/borrower/scores'
+    | '/app/borrower/snv-trust-score'
     | '/app/borrower/support'
     | '/app/lender/api-status'
     | '/app/lender/audit'
@@ -1227,10 +1258,12 @@ export interface FileRouteTypes {
     | '/app/agent/start'
     | '/app/agent/support'
     | '/app/agent/training'
+    | '/app/borrower/action-centre'
     | '/app/borrower/agents'
     | '/app/borrower/application'
     | '/app/borrower/applications'
     | '/app/borrower/apply'
+    | '/app/borrower/cibil-score'
     | '/app/borrower/documents'
     | '/app/borrower/loans'
     | '/app/borrower/messages'
@@ -1239,6 +1272,7 @@ export interface FileRouteTypes {
     | '/app/borrower/payments'
     | '/app/borrower/profile'
     | '/app/borrower/scores'
+    | '/app/borrower/snv-trust-score'
     | '/app/borrower/support'
     | '/app/lender/api-status'
     | '/app/lender/audit'
@@ -1340,10 +1374,12 @@ export interface FileRouteTypes {
     | '/app/agent/start'
     | '/app/agent/support'
     | '/app/agent/training'
+    | '/app/borrower/action-centre'
     | '/app/borrower/agents'
     | '/app/borrower/application'
     | '/app/borrower/applications'
     | '/app/borrower/apply'
+    | '/app/borrower/cibil-score'
     | '/app/borrower/documents'
     | '/app/borrower/loans'
     | '/app/borrower/messages'
@@ -1352,6 +1388,7 @@ export interface FileRouteTypes {
     | '/app/borrower/payments'
     | '/app/borrower/profile'
     | '/app/borrower/scores'
+    | '/app/borrower/snv-trust-score'
     | '/app/borrower/support'
     | '/app/lender/api-status'
     | '/app/lender/audit'
@@ -1454,10 +1491,12 @@ export interface RootRouteChildren {
   AppAgentStartRoute: typeof AppAgentStartRoute
   AppAgentSupportRoute: typeof AppAgentSupportRoute
   AppAgentTrainingRoute: typeof AppAgentTrainingRoute
+  AppBorrowerActionCentreRoute: typeof AppBorrowerActionCentreRoute
   AppBorrowerAgentsRoute: typeof AppBorrowerAgentsRoute
   AppBorrowerApplicationRoute: typeof AppBorrowerApplicationRoute
   AppBorrowerApplicationsRoute: typeof AppBorrowerApplicationsRoute
   AppBorrowerApplyRoute: typeof AppBorrowerApplyRoute
+  AppBorrowerCibilScoreRoute: typeof AppBorrowerCibilScoreRoute
   AppBorrowerDocumentsRoute: typeof AppBorrowerDocumentsRoute
   AppBorrowerLoansRoute: typeof AppBorrowerLoansRoute
   AppBorrowerMessagesRoute: typeof AppBorrowerMessagesRoute
@@ -1466,6 +1505,7 @@ export interface RootRouteChildren {
   AppBorrowerPaymentsRoute: typeof AppBorrowerPaymentsRoute
   AppBorrowerProfileRoute: typeof AppBorrowerProfileRoute
   AppBorrowerScoresRoute: typeof AppBorrowerScoresRoute
+  AppBorrowerSnvTrustScoreRoute: typeof AppBorrowerSnvTrustScoreRoute
   AppBorrowerSupportRoute: typeof AppBorrowerSupportRoute
   AppLenderApiStatusRoute: typeof AppLenderApiStatusRoute
   AppLenderAuditRoute: typeof AppLenderAuditRoute
@@ -2100,6 +2140,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBorrowerIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/borrower/action-centre': {
+      id: '/app/borrower/action-centre'
+      path: '/app/borrower/action-centre'
+      fullPath: '/app/borrower/action-centre'
+      preLoaderRoute: typeof AppBorrowerActionCentreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/app/borrower/agents': {
       id: '/app/borrower/agents'
       path: '/app/borrower/agents'
@@ -2126,6 +2173,13 @@ declare module '@tanstack/react-router' {
       path: '/app/borrower/apply'
       fullPath: '/app/borrower/apply'
       preLoaderRoute: typeof AppBorrowerApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/borrower/cibil-score': {
+      id: '/app/borrower/cibil-score'
+      path: '/app/borrower/cibil-score'
+      fullPath: '/app/borrower/cibil-score'
+      preLoaderRoute: typeof AppBorrowerCibilScoreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app/borrower/documents': {
@@ -2182,6 +2236,13 @@ declare module '@tanstack/react-router' {
       path: '/app/borrower/scores'
       fullPath: '/app/borrower/scores'
       preLoaderRoute: typeof AppBorrowerScoresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/borrower/snv-trust-score': {
+      id: '/app/borrower/snv-trust-score'
+      path: '/app/borrower/snv-trust-score'
+      fullPath: '/app/borrower/snv-trust-score'
+      preLoaderRoute: typeof AppBorrowerSnvTrustScoreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/app/borrower/support': {
@@ -2351,10 +2412,12 @@ const rootRouteChildren: RootRouteChildren = {
   AppAgentStartRoute: AppAgentStartRoute,
   AppAgentSupportRoute: AppAgentSupportRoute,
   AppAgentTrainingRoute: AppAgentTrainingRoute,
+  AppBorrowerActionCentreRoute: AppBorrowerActionCentreRoute,
   AppBorrowerAgentsRoute: AppBorrowerAgentsRoute,
   AppBorrowerApplicationRoute: AppBorrowerApplicationRoute,
   AppBorrowerApplicationsRoute: AppBorrowerApplicationsRoute,
   AppBorrowerApplyRoute: AppBorrowerApplyRoute,
+  AppBorrowerCibilScoreRoute: AppBorrowerCibilScoreRoute,
   AppBorrowerDocumentsRoute: AppBorrowerDocumentsRoute,
   AppBorrowerLoansRoute: AppBorrowerLoansRoute,
   AppBorrowerMessagesRoute: AppBorrowerMessagesRoute,
@@ -2363,6 +2426,7 @@ const rootRouteChildren: RootRouteChildren = {
   AppBorrowerPaymentsRoute: AppBorrowerPaymentsRoute,
   AppBorrowerProfileRoute: AppBorrowerProfileRoute,
   AppBorrowerScoresRoute: AppBorrowerScoresRoute,
+  AppBorrowerSnvTrustScoreRoute: AppBorrowerSnvTrustScoreRoute,
   AppBorrowerSupportRoute: AppBorrowerSupportRoute,
   AppLenderApiStatusRoute: AppLenderApiStatusRoute,
   AppLenderAuditRoute: AppLenderAuditRoute,

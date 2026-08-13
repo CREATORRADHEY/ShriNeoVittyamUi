@@ -55,7 +55,7 @@ function ApplyPage() {
       <SectionCard title="Choose a product" description="Rates and terms are set by participating lenders, not by ShriNeo Capital.">
         <div className="grid gap-3 sm:grid-cols-2">
           {products.map((p) => {
-            const comingSoon = p.slug === "sachet";
+            const comingSoon = false;
             return (
               <div
                 key={p.slug}

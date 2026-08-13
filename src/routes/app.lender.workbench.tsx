@@ -1,108 +1,360 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { ShieldCheck, ShieldAlert, KeyRound, AlertTriangle, Send, FileText, CheckCircle2, Lock, Eye, AlertCircle, ArrowLeft } from "lucide-react";
 
-import { PortalPage, type PortalPageSpec } from "@/components/portal/portal-page";
-
-const spec: PortalPageSpec = {
-    "role": "lender",
-    "title": "Credit workbench",
-    "subtitle": "One file at a time, in a fixed decision order.",
-    "kpis": [
-      {
-        "label": "In queue",
-        "value": "42"
-      },
-      {
-        "label": "Assigned to you",
-        "value": "8"
-      },
-      {
-        "label": "Breaching SLA in 2h",
-        "value": "3",
-        "tone": "warning"
-      },
-      {
-        "label": "Decided today",
-        "value": "27",
-        "tone": "success"
-      }
-    ],
-    "table": {
-      "caption": "Decision queue",
-      "entity": "applications",
-      "columns": [
-        "Application",
-        "Product",
-        "Amount",
-        "Bureau",
-        "SNV band",
-        "Stage"
-      ],
-      "rows": [
-        [
-          "SNV-24-118204",
-          "Personal",
-          "₹3,00,000",
-          "742",
-          "B+",
-          {
-            "text": "Ready to decide",
-            "tone": "info"
-          }
-        ],
-        [
-          "SNV-24-118198",
-          "Business",
-          "₹9,50,000",
-          "688",
-          "B",
-          {
-            "text": "Manual review",
-            "tone": "warning"
-          }
-        ],
-        [
-          "SNV-24-118181",
-          "Mortgage",
-          "₹24,00,000",
-          "771",
-          "A",
-          {
-            "text": "Docs verified",
-            "tone": "success"
-          }
-        ]
-      ]
-    },
-    "panels": [
-      {
-        "title": "Decision order is fixed",
-        "body": "Files are served oldest first within each SLA band, so no file can be skipped quietly."
-      },
-      {
-        "title": "Every decision needs a reason",
-        "body": "Declines require a reason code, which is what the borrower is shown in plain language."
-      }
-    ],
-    "emptyTitle": "The queue is clear",
-    "emptyExplanation": "No file is waiting on you. New applications appear here the moment they pass automated checks.",
-    "footnote": "PII is masked by default. Unmasking is logged with your user ID and stated reason.",
-    "metaTitle": "Credit workbench",
-    "metaDescription": "Review applications in a fixed decision order with bureau, bank and trust signals side by side."
-  };
+import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
+import { Button } from "@/components/ui/button";
+import { usePrototype } from "@/prototype/state";
+import { formatINR } from "@/lib/format";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/app/lender/workbench")({
   head: () => ({
     meta: [
-      { title: "Credit workbench — ShriNeo Capital" },
-      { name: "description", content: "Review applications in a fixed decision order with bureau, bank and trust signals side by side." },
+      { title: "Underwriter Workbench — ShriNeo Capital" },
+      { name: "description", content: "Dense credit analysis interface for matched loans under RBI compliance." },
       { name: "robots", content: "noindex, nofollow" },
-      { property: "og:title", content: "Credit workbench — ShriNeo Capital" },
-      { property: "og:description", content: "Review applications in a fixed decision order with bureau, bank and trust signals side by side." },
     ],
   }),
   component: LenderWorkbenchPage,
 });
 
 function LenderWorkbenchPage() {
-  return <PortalPage spec={spec} />;
+  const { data } = usePrototype();
+
+  // Search parameters or active file selection
+  const [activeFileId, setActiveFileId] = useState("SNV-24-118198");
+  
+  // PII masking state
+  const [piiMasked, setPiiMasked] = useState(true);
+  const [unmaskOpen, setUnmaskOpen] = useState(false);
+  const [unmaskReason, setUnmaskReason] = useState("");
+  const [auditLogs, setAuditLogs] = useState<string[]>([
+    "Initial file automated integrity validation passed 12 Mar 09:00"
+  ]);
+
+  // Info Request states
+  const [infoRequestOpen, setInfoRequestOpen] = useState(false);
+  const [infoReqText, setInfoReqText] = useState("");
+  const [outwardRequests, setOutwardRequests] = useState([
+    { id: "REQ-884021", detail: "Electricity bill mismatch clarification", status: "Sent" }
+  ]);
+
+  // Decision state
+  const [decisionMode, setDecisionMode] = useState<"none" | "approve" | "reject" | "fraud">("none");
+  const [declineReason, setDeclineReason] = useState("");
+  const [decisionDone, setDecisionDone] = useState<string | null>(null);
+
+  const handleUnmaskSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!unmaskReason.trim()) {
+      toast.error("Please enter a valid unmask reason for audit compliance.");
+      return;
+    }
+    setPiiMasked(false);
+    setUnmaskOpen(false);
+    const newLog = `PII Unmasked at ${new Date().toLocaleTimeString()} by UW-994. Reason: "${unmaskReason}"`;
+    setAuditLogs(prev => [newLog, ...prev]);
+    setUnmaskReason("");
+    toast.success("PII successfully unmasked. Action logged in global audit logs.");
+  };
+
+  const handleSendInfoRequest = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!infoReqText.trim()) return;
+    const newReq = {
+      id: `REQ-${Math.floor(800000 + Math.random() * 199999)}`,
+      detail: infoReqText,
+      status: "Sent"
+    };
+    setOutwardRequests(prev => [newReq, ...prev]);
+    setInfoRequestOpen(false);
+    setInfoReqText("");
+    toast.success(`Info request ${newReq.id} pushed to borrower Action Centre.`);
+  };
+
+  const handleDecisionSubmit = (type: "Approved" | "Rejected" | "Fraud Review") => {
+    if (type === "Rejected" && !declineReason) {
+      toast.error("Please select a decline reason code.");
+      return;
+    }
+    setDecisionDone(type);
+    toast.success(`Application credit status updated: ${type}`);
+    setDecisionMode("none");
+  };
+
+  return (
+    <PortalShell
+      role="lender"
+      title="Underwriting Workbench"
+      subtitle="Analyze credit proposals, request clarifications, and make credit decisions"
+    >
+      <div className="space-y-6 text-xs">
+        {/* TOP META ROW */}
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-3 bg-surface p-3 rounded-lg">
+          <div>
+            <span className="text-muted-foreground">Active Case File</span>
+            <h3 className="text-sm font-bold text-foreground mt-0.5">{activeFileId} (Business Loan)</h3>
+          </div>
+          <div className="flex gap-2">
+            {piiMasked ? (
+              <Button size="xs" onClick={() => setUnmaskOpen(true)} className="flex items-center gap-1">
+                <Eye className="size-3" /> Unmask PII Details
+              </Button>
+            ) : (
+              <span className="text-emerald-700 bg-emerald-50 border border-emerald-200 rounded px-2.5 py-1 font-semibold flex items-center gap-1">
+                <CheckCircle2 className="size-3.5" /> PII Unmasked (Logged)
+              </span>
+            )}
+            <Button size="xs" variant="outline" onClick={() => setInfoRequestOpen(true)}>
+              Raise Info Query
+            </Button>
+          </div>
+        </div>
+
+        {/* WORKBENCH DETAILS GRID */}
+        <div className="grid gap-6 md:grid-cols-3">
+          <div className="md:col-span-2 space-y-6">
+            {/* LENDER-SPECIFIC KEY FACT STATEMENT (KFS) PREVIEW COMPONENT */}
+            <SectionCard title="Key Fact Statement (KFS) Preview" description="Statutory loan terms computed dynamically for borrower disclosure">
+              <div className="rounded-lg border border-border bg-surface p-4 space-y-4">
+                <div className="grid gap-4 sm:grid-cols-3">
+                  <div>
+                    <span className="text-muted-foreground block text-[10px]">Loan Amount Sanction</span>
+                    <span className="font-bold text-foreground block text-sm mt-0.5">{formatINR(350000)}</span>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground block text-[10px]">Interest Rate (APR)</span>
+                    <span className="font-bold text-foreground block text-sm mt-0.5">14.2% p.a.</span>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground block text-[10px]">Tenure (Months)</span>
+                    <span className="font-bold text-foreground block text-sm mt-0.5">36 Months</span>
+                  </div>
+                </div>
+
+                <div className="border-t border-border pt-3 grid gap-4 sm:grid-cols-3">
+                  <div>
+                    <span className="text-muted-foreground block text-[10px]">Processing upfront fees</span>
+                    <span className="font-semibold text-foreground block mt-0.5">{formatINR(3500)}</span>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground block text-[10px]">Monthly EMI Repayment</span>
+                    <span className="font-semibold text-primary block mt-0.5">{formatINR(11540)}</span>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground block text-[10px]">Total Cost of Credit</span>
+                    <span className="font-semibold text-foreground block mt-0.5">{formatINR(415440)}</span>
+                  </div>
+                </div>
+
+                <p className="text-[10px] text-muted-foreground">
+                  *Disclaimer: KFS preview represents indicative quote values based on current bureau soft pulls. Regulated lender makes final credit verification.
+                </p>
+              </div>
+            </SectionCard>
+
+            {/* CREDITS & BANK SIGNALS */}
+            <SectionCard title="Underwriting Financial Signals" description="Bureau results and bank-led cash flow analytics">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="p-3 border border-border rounded bg-card">
+                  <span className="font-bold text-foreground block mb-2">Bureau Soft Pull Checks</span>
+                  <dl className="space-y-1.5">
+                    <div className="flex justify-between">
+                      <dt className="text-muted-foreground">CIBIL Score</dt>
+                      <dd className="font-semibold text-foreground">688 / 900</dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt className="text-muted-foreground">Active Trade Lines</dt>
+                      <dd className="text-foreground">4 accounts</dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt className="text-muted-foreground">Enquiries (Last 30d)</dt>
+                      <dd className="text-foreground">1</dd>
+                    </div>
+                  </dl>
+                </div>
+
+                <div className="p-3 border border-border rounded bg-card">
+                  <span className="font-bold text-foreground block mb-2">SNV Trust Score Analytics</span>
+                  <dl className="space-y-1.5">
+                    <div className="flex justify-between">
+                      <dt className="text-muted-foreground">Trust Category</dt>
+                      <dd className="font-semibold text-foreground">B (Advisory)</dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt className="text-muted-foreground">Average Quarterly Balance</dt>
+                      <dd className="text-foreground">{formatINR(48200)}</dd>
+                    </div>
+                    <div className="flex justify-between">
+                      <dt className="text-muted-foreground">Cheque Bounces (6m)</dt>
+                      <dd className="text-foreground">0</dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+            </SectionCard>
+
+            {/* AUDIT COMPLIANCE LOG */}
+            <SectionCard title="PII Unmasking Access Audits">
+              <div className="space-y-2 max-h-36 overflow-y-auto rounded border border-border bg-surface p-3 font-mono text-[10px]">
+                {auditLogs.map((log, i) => (
+                  <p key={i} className="text-muted-foreground border-b border-border/50 pb-1.5 last:border-0">{log}</p>
+                ))}
+              </div>
+            </SectionCard>
+          </div>
+
+          {/* SIDEBAR DECISION & QUERY CHANNELS */}
+          <div className="space-y-6">
+            {/* UNDERWRITING DECISION PANEL */}
+            <SectionCard title="Underwriting Credit Decision">
+              {decisionDone ? (
+                <div className={`p-4 rounded border text-center font-semibold uppercase ${decisionDone === "Approved" ? "bg-emerald-50 text-emerald-700 border-emerald-200" : decisionDone === "Rejected" ? "bg-red-50 text-red-700 border-red-200" : "bg-amber-50 text-amber-700 border-amber-200"}`}>
+                  {decisionDone}
+                </div>
+              ) : (
+                <div className="space-y-3 flex flex-col">
+                  {decisionMode === "none" ? (
+                    <>
+                      <Button size="sm" onClick={() => setDecisionMode("approve")}>
+                        Sanction Approve File
+                      </Button>
+                      <Button size="sm" variant="outline" className="text-red-700 border-red-200 hover:bg-red-50" onClick={() => setDecisionMode("reject")}>
+                        Reject Application
+                      </Button>
+                      <Button size="sm" variant="secondary" className="text-amber-800 border-amber-200" onClick={() => setDecisionMode("fraud")}>
+                        Escalate to Risk Review
+                      </Button>
+                    </>
+                  ) : decisionMode === "approve" ? (
+                    <div className="space-y-3 p-3 border border-border rounded bg-surface">
+                      <p className="font-semibold text-foreground">Confirm final approval for loan disbursal?</p>
+                      <div className="flex gap-2">
+                        <Button size="xs" onClick={() => handleDecisionSubmit("Approved")}>Confirm Approval</Button>
+                        <Button size="xs" variant="ghost" onClick={() => setDecisionMode("none")}>Cancel</Button>
+                      </div>
+                    </div>
+                  ) : decisionMode === "reject" ? (
+                    <div className="space-y-3 p-3 border border-border rounded bg-surface">
+                      <p className="font-semibold text-foreground">Select Decline Reason Code</p>
+                      <select
+                        value={declineReason}
+                        onChange={(e) => setDeclineReason(e.target.value)}
+                        className="w-full rounded border border-border bg-card p-1.5 focus:outline-none"
+                      >
+                        <option value="">-- Select code --</option>
+                        <option value="CIBIL_LOW">CIBIL Score below threshold</option>
+                        <option value="INC_LOW">Insufficient cash flow ratio</option>
+                        <option value="DOC_MIS">Verification mismatch discrepancy</option>
+                      </select>
+                      <div className="flex gap-2 pt-2">
+                        <Button size="xs" variant="destructive" onClick={() => handleDecisionSubmit("Rejected")}>Confirm Decline</Button>
+                        <Button size="xs" variant="ghost" onClick={() => setDecisionMode("none")}>Cancel</Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-3 p-3 border border-border rounded bg-surface">
+                      <p className="font-semibold text-foreground">Send to Fraud & Anti-Money Laundering review team?</p>
+                      <div className="flex gap-2">
+                        <Button size="xs" variant="destructive" onClick={() => handleDecisionSubmit("Fraud Review")}>Yes, Flag File</Button>
+                        <Button size="xs" variant="ghost" onClick={() => setDecisionMode("none")}>Cancel</Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </SectionCard>
+
+            {/* OUTWARD INFO QUERIES */}
+            <SectionCard title="Action Centre Queries">
+              <div className="space-y-3">
+                {outwardRequests.map((req) => (
+                  <div key={req.id} className="p-2.5 rounded border border-border bg-surface flex justify-between items-center">
+                    <div>
+                      <p className="font-semibold text-foreground">{req.id}</p>
+                      <p className="text-[10px] text-muted-foreground mt-0.5">{req.detail}</p>
+                    </div>
+                    <span className="text-[10px] text-blue-700 font-semibold uppercase">{req.status}</span>
+                  </div>
+                ))}
+              </div>
+            </SectionCard>
+          </div>
+        </div>
+
+        {/* UNMASK REASON POPUP */}
+        {unmaskOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+            <form onSubmit={handleUnmaskSubmit} className="w-full max-w-[420px] rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-overlay)] space-y-4">
+              <div className="flex justify-between items-center border-b border-border pb-2">
+                <h3 className="font-bold text-base text-foreground flex items-center gap-1.5">
+                  <KeyRound className="size-5 text-primary" /> Log Unmask Reason
+                </h3>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-muted-foreground text-xs leading-relaxed">
+                  RBI guidelines require stating a clear credit-operation justification before unmasking borrower initials or PAN records.
+                </p>
+                <div>
+                  <label htmlFor="unmask-reason" className="block text-xs font-semibold text-muted-foreground mb-1">Unmasking Justification</label>
+                  <textarea
+                    id="unmask-reason"
+                    required
+                    rows={3}
+                    value={unmaskReason}
+                    onChange={(e) => setUnmaskReason(e.target.value)}
+                    placeholder="Enter audit explanation (e.g. Verify address discrepancies against electricity bill)"
+                    className="w-full rounded border border-border bg-background px-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-border flex justify-end gap-2">
+                <Button type="button" variant="outline" size="sm" onClick={() => setUnmaskOpen(false)}>Cancel</Button>
+                <Button type="submit" size="sm">Authorize & Unmask</Button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {/* INFO QUERY FORM POPUP */}
+        {infoRequestOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+            <form onSubmit={handleSendInfoRequest} className="w-full max-w-[420px] rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-overlay)] space-y-4">
+              <div className="flex justify-between items-center border-b border-border pb-2">
+                <h3 className="font-bold text-base text-foreground flex items-center gap-1.5">
+                  <Send className="size-5 text-primary" /> Request Client Clarification
+                </h3>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-muted-foreground text-xs leading-relaxed">
+                  This request will populate instantly in the borrower's **Action Centre** checklist. SMS notifications will be dispatched automatically.
+                </p>
+                <div>
+                  <label htmlFor="info-req-desc" className="block text-xs font-semibold text-muted-foreground mb-1">Details Requested</label>
+                  <textarea
+                    id="info-req-desc"
+                    required
+                    rows={3}
+                    value={infoReqText}
+                    onChange={(e) => setInfoReqText(e.target.value)}
+                    placeholder="Describe the document or statement clarification required (e.g. Please upload GST GSTR-3B statement)"
+                    className="w-full rounded border border-border bg-background px-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-2 border-t border-border flex justify-end gap-2">
+                <Button type="button" variant="outline" size="sm" onClick={() => setInfoRequestOpen(false)}>Cancel</Button>
+                <Button type="submit" size="sm">Send Query</Button>
+              </div>
+            </form>
+          </div>
+        )}
+      </div>
+    </PortalShell>
+  );
 }
