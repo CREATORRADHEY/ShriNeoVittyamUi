@@ -1,8 +1,10 @@
 # ShriNeo Capital — Bharat Ka Digital Lending Partner
 
-Production-grade web platform for **SHRINEO VITTIYAM PRIVATE LIMITED**, operating under the customer-facing brand **ShriNeo Capital**. Vernacular-first digital lending marketplace: borrowers compare personal, business, home, mortgage and sachet loan offers from participating banks and NBFCs; agents, lenders and administrators work through dedicated portals.
+Production-grade web platform UI/UX for **SHRINEO VITTIYAM PRIVATE LIMITED**, operating under the customer-facing brand **ShriNeo Capital**. Vernacular-first digital lending marketplace: borrowers compare personal, business, home, mortgage and sachet loan offers from participating banks and NBFCs; agents, lenders and administrators work through dedicated portals.
 
 Built with **TanStack Start (React 19 + Vite 7)**, **Tailwind CSS v4**, **GSAP** motion and a fully tokenised design system.
+
+> ℹ️ **Frontend UI/UX Scope Notice:** This project is a complete, production-grade **Frontend UI/UX Platform & User Experience Specification**. All marketing screens, loan application wizards, interactive calculators, authentication journeys, and all four role portals (Borrower, Agent, Lender, Admin) are fully rendered and functional on the client side with centralized, typed mock state management (`src/prototype/state.ts`), ready to integrate with backend REST APIs in future development cycles.
 
 ---
 
