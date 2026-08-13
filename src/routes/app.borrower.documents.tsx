@@ -128,7 +128,7 @@ function DocumentsPage() {
                     )}
                   </div>
                   <div className="flex items-center gap-3">
-                    <StatusBadge tone={d.status === "Accepted" ? "success" : d.status === "Rejected" ? "critical" : "warning"}>
+                    <StatusBadge tone={d.status === "Accepted" ? "success" : d.status === "Rejected" ? "error" : "warning"}>
                       {d.status}
                     </StatusBadge>
                     <Button

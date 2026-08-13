@@ -489,7 +489,7 @@ function ActiveBorrower({
       <SectionCard title="Documents Summary" description="Verified documentation checklist for current status">
         <div className="grid gap-3 sm:grid-cols-3">
           {activeDocuments.map((doc) => (
-            <StatusBadge key={doc.id} tone={doc.status === "Accepted" ? "success" : doc.status === "Rejected" ? "critical" : "warning"}>
+            <StatusBadge key={doc.id} tone={doc.status === "Accepted" ? "success" : doc.status === "Rejected" ? "error" : "warning"}>
               {doc.name}: {doc.status}
             </StatusBadge>
           ))}
