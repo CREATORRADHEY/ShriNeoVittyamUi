@@ -67,12 +67,12 @@ function HeaderInner() {
       data-menu-open={open}
       className="font-display sticky top-0 z-[1000]"
     >
-      <nav aria-label="Primary" className="mx-auto w-full max-w-[1320px] px-4 md:px-6">
+      <nav aria-label="Primary" className="mx-auto w-full max-w-[1320px] px-3 sm:px-4 md:px-6 pt-[env(safe-area-inset-top,0px)]">
         <div
-          className="flex items-center justify-between gap-3 transition-[min-height] duration-[250ms] ease-out"
-          style={{ minHeight: condensed ? 60 : 76 }}
+          className="flex items-center justify-between gap-1.5 sm:gap-3 transition-[min-height] duration-[250ms] ease-out min-w-0"
+          style={{ minHeight: condensed ? 56 : 72 }}
         >
-          <Link to="/" className="flex shrink-0 items-center gap-2.5">
+          <Link to="/" className="flex shrink-0 items-center gap-1.5 sm:gap-2.5 min-w-0">
             <img
               src={logo}
               alt="ShriNeo Capital"
@@ -80,8 +80,8 @@ function HeaderInner() {
               className="w-auto shrink-0 object-contain"
             />
 
-            <span className="flex flex-col leading-tight">
-              <span className="whitespace-nowrap text-[18px] md:text-[20px] font-semibold tracking-tight text-[color:var(--hdr-fg)]">
+            <span className="flex flex-col leading-tight min-w-0">
+              <span className="whitespace-nowrap text-[15px] sm:text-[18px] md:text-[20px] font-semibold tracking-tight text-[color:var(--hdr-fg)]">
                 ShriNeo Capital
               </span>
               {condensed ? null : (
@@ -110,7 +110,7 @@ function HeaderInner() {
             ))}
           </ul>
 
-          <div className="flex shrink-0 items-center justify-end gap-2">
+          <div className="flex shrink-0 items-center justify-end gap-1.5 sm:gap-2">
             <HeaderThemeSwitch />
             <NeedHelpPill />
             <div onPointerDownCapture={closeNow} className="hidden md:block">
@@ -124,7 +124,8 @@ function HeaderInner() {
             </Link>
             <Link
               to="/auth/signup"
-              className="cta-saffron group inline-flex min-h-11 items-center justify-center gap-1.5 rounded-[10px] px-4 text-sm font-semibold transition-[background-color,transform] duration-150 hover:-translate-y-px active:translate-y-px focus-visible:ring-2 focus-visible:ring-[#0051AE] focus-visible:outline-none"
+              aria-label={t("nav.apply")}
+              className="cta-saffron group inline-flex min-h-11 items-center justify-center gap-1 rounded-[10px] px-2.5 sm:px-4 text-xs sm:text-sm font-semibold transition-[background-color,transform] duration-150 hover:-translate-y-px active:translate-y-px focus-visible:ring-2 focus-visible:ring-[#0051AE] focus-visible:outline-none shrink-0"
             >
               {t("nav.apply")}
             </Link>
@@ -137,7 +138,7 @@ function HeaderInner() {
                 closeNow();
                 setOpen((v) => !v);
               }}
-              className="inline-grid size-11 place-items-center rounded-md border border-[color:var(--hdr-hairline)] text-[color:var(--hdr-fg)] xl:hidden"
+              className="inline-grid size-10 sm:size-11 place-items-center rounded-md border border-[color:var(--hdr-hairline)] text-[color:var(--hdr-fg)] xl:hidden shrink-0"
             >
               {open ? (
                 <X aria-hidden className="size-5" />

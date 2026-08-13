@@ -54,19 +54,15 @@ export function AgentCtaSection() {
         <div className="absolute inset-0 [background:linear-gradient(180deg,rgba(0,26,92,0.62)_0%,rgba(0,26,92,0.12)_22%,rgba(0,26,92,0)_52%,rgba(0,26,92,0.34)_82%,rgba(0,26,92,0.72)_100%)]" />
       </div>
 
-      {/* Mobile / tablet: a photographic band above the copy. */}
-      <div className="agent-photo-mobile relative z-[1] h-[240px] w-full overflow-hidden leading-[0] sm:h-[300px] lg:hidden">
+      {/* Mobile / tablet: a clean photographic band above the copy without blue color bleed. */}
+      <div className="relative z-[1] w-full overflow-hidden leading-[0] lg:hidden">
         <img
           src={agentPhotoSrc}
           alt="A ShriNeo agent outside a small business, holding a smartphone."
           loading="lazy"
           decoding="async"
-          className="absolute inset-0 size-full object-cover object-[32%_top] [filter:saturate(0.92)_contrast(1.03)_brightness(0.97)]"
+          className="h-[220px] sm:h-[280px] w-full object-cover object-[32%_20%]"
         />
-        <div className="absolute inset-0 bg-[#0A2A7A] opacity-[0.42] mix-blend-soft-light" />
-        <div className="absolute inset-0 mix-blend-multiply [background:linear-gradient(180deg,#001A5C_0%,#002472_20%,rgba(0,40,130,0.62)_38%,rgba(0,43,152,0.18)_56%,rgba(0,43,152,0)_100%)]" />
-        <div className="absolute inset-0 mix-blend-color [background:linear-gradient(180deg,rgba(10,42,122,0.9)_0%,rgba(10,42,122,0.62)_28%,rgba(10,42,122,0.18)_48%,rgba(10,42,122,0)_100%)]" />
-        <div className="absolute inset-0 [background:linear-gradient(180deg,rgba(0,26,92,0.42)_0%,rgba(0,26,92,0.12)_22%,rgba(0,26,92,0)_52%,rgba(0,26,92,0.34)_82%,rgba(0,26,92,0.85)_100%)]" />
       </div>
 
       <div className="relative z-[2] mx-auto w-full max-w-[1320px] px-5 py-14 sm:px-8 lg:px-12 lg:py-[76px]">

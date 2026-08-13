@@ -336,13 +336,13 @@ export function PortalShell({
   );
 
   return (
-    <div className="min-h-dvh bg-surface-strong p-4 sm:p-8 flex flex-col justify-start items-center">
+    <div className="min-h-dvh bg-surface-strong p-1 sm:p-8 flex flex-col justify-start items-center overflow-x-hidden max-w-full">
       <p className="mx-auto mb-3 max-w-fit rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
         Prototype device preview · {DEVICE_LABEL[device]} ({DEVICE_WIDTH[device]})
       </p>
       <div
-        className="w-full overflow-hidden rounded-2xl border border-border-strong bg-background shadow-[var(--shadow-panel)]"
-        style={{ maxWidth: DEVICE_WIDTH[device], minHeight: "840px" }}
+        className="w-full overflow-hidden rounded-2xl border border-border-strong bg-background shadow-[var(--shadow-panel)] max-w-full"
+        style={{ maxWidth: device === "mobile" ? "100%" : DEVICE_WIDTH[device], minHeight: "100dvh" }}
       >
         {shell}
       </div>

@@ -603,11 +603,11 @@ textarea {
 }
 
 .hero-photo-mobile {
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 8%);
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
 }
 
-/* Layer 4 — left-weighted grade guaranteeing text contrast. */
+/* Layer 4 — left-weighted grade guaranteeing text contrast on desktop. */
 .hero-grade {
   background:
     linear-gradient(
@@ -621,12 +621,7 @@ textarea {
 }
 
 .hero-grade-mobile {
-  background: linear-gradient(
-    180deg,
-    color-mix(in oklab, #001a5c 30%, transparent) 0%,
-    color-mix(in oklab, #001a5c 10%, transparent) 12%,
-    transparent 32%
-  );
+  display: none !important;
 }
 
 /* Entrance — short, opacity + small rise, complete inside 700ms. */

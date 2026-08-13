@@ -362,7 +362,7 @@ function RouteCard({
 function StepProgress({ current }: { current: number }) {
   return (
     <div
-      className="flex items-center"
+      className="grid grid-cols-3 items-center gap-1.5 sm:gap-3 w-full"
       role="progressbar"
       aria-valuemin={0}
       aria-valuemax={STEPS.length - 1}
@@ -373,23 +373,23 @@ function StepProgress({ current }: { current: number }) {
         const done = i < current;
         const active = i === current;
         return (
-          <div key={label} className="flex items-center">
-            <div className="flex items-center gap-2">
+          <div key={label} className="flex items-center gap-1 sm:gap-2 min-w-0">
+            <div className="flex items-center gap-1.5 min-w-0">
               <span
                 className={cn(
-                  "flex size-[26px] shrink-0 items-center justify-center rounded-full text-[11px] font-bold transition-colors duration-200",
+                  "flex size-6 sm:size-[26px] shrink-0 items-center justify-center rounded-full text-[10px] sm:text-[11px] font-bold transition-colors duration-200",
                   done || active ? "bg-[#002B98] text-white" : "bg-[#E6EFF9] text-[#7A92B4]",
                 )}
               >
                 {done ? (
-                  <Check className="size-[11px]" strokeWidth={2.5} />
+                  <Check className="size-3" strokeWidth={2.5} />
                 ) : (
                   String(i + 1).padStart(2, "0")
                 )}
               </span>
               <span
                 className={cn(
-                  "text-[12px] font-medium whitespace-nowrap transition-colors duration-200",
+                  "truncate text-[11px] sm:text-[12px] font-medium transition-colors duration-200",
                   active ? "text-[#002B98]" : done ? "text-[#5175A8]" : "text-[#7A92B4]",
                 )}
               >
@@ -399,7 +399,7 @@ function StepProgress({ current }: { current: number }) {
             {i < STEPS.length - 1 && (
               <span
                 className={cn(
-                  "mx-3 h-px w-10 shrink-0 transition-colors duration-500 sm:w-16",
+                  "h-px flex-1 min-w-[8px] transition-colors duration-500",
                   i < current ? "bg-[#002B98]" : "bg-[#D8E3F2]",
                 )}
               />
@@ -435,9 +435,9 @@ function GuidedWorkspace({
        (the panel feels attached to the shell). */
     <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] xl:grid-cols-[1fr_360px]">
       {/* ── LEFT: Wizard ── */}
-      <div className="border-b border-[#E6ECF4] px-6 py-7 sm:px-10 lg:border-b-0 lg:border-r lg:py-8">
+      <div className="border-b border-[#E6ECF4] px-4 py-6 sm:px-10 lg:border-b-0 lg:border-r lg:py-8">
         {/* Stepper */}
-        <div className="overflow-x-auto">
+        <div className="w-full">
           <StepProgress current={step} />
         </div>
 
