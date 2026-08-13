@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BadgeIndianRupee, ShieldAlert, CheckCircle2, AlertTriangle, FileDown, RefreshCw, X } from "lucide-react";
 
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
+import { KpiCard } from "@/components/states";
 import { Button } from "@/components/ui/button";
 import { usePrototype } from "@/prototype/state";
 import { formatINR } from "@/lib/format";

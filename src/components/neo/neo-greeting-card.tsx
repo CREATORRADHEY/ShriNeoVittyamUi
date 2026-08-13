@@ -22,15 +22,18 @@ export function NeoGreetingCard({
   const [showText, setShowText] = useState(false);
 
   useEffect(() => {
+    let id: any;
     if (visible) {
       setMounted(true);
       // Stagger text entry by 60ms to let the character appear first
-      const id = setTimeout(() => setShowText(true), 60);
-      return () => clearTimeout(id);
+      id = setTimeout(() => setShowText(true), 60);
     } else {
       setMounted(false);
       setShowText(false);
     }
+    return () => {
+      if (id) clearTimeout(id);
+    };
   }, [visible]);
 
   if (!visible) return null;

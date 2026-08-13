@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { BarChart3, AlertCircle, RefreshCw, CheckCircle2, HelpCircle } from "lucide-react";
 

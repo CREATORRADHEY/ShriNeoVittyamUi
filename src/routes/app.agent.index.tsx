@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, IndianRupee, ShieldCheck, UserCheck, Play, Award, HelpCircle, Lock, BookOpen } from "lucide-react";
+import { ArrowRight, IndianRupee, ShieldCheck, UserCheck, Play, Award, HelpCircle, Lock, BookOpen, CheckCircle2, MessageSquare, Check, X, Building, AlertTriangle, RefreshCw } from "lucide-react";
 import { useState } from "react";
 
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
@@ -15,8 +15,11 @@ import {
   RetryPanel,
   SkeletonBlock,
   StatusBadge,
+  TableState,
 } from "@/components/states";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import { formatINR } from "@/lib/format";
 import { usePrototype } from "@/prototype/state";
 import { toast } from "sonner";
@@ -43,10 +46,20 @@ const LEADS = [
 ];
 
 function AgentDashboard() {
-  const { account, data, activeLoan } = usePrototype();
+  const { account, data } = usePrototype();
+  const [payoutSkipped, setPayoutSkipped] = useState(false);
 
+  // Persistent payout alert banner if skipped
   const banner =
-    account === "action-required" ? (
+    payoutSkipped ? (
+      <InlineState
+        tone="warning"
+        title="Complete payout setup to release commission payouts"
+        explanation="You skipped bank account registration. s and TDS payouts will be held until details are confirmed."
+        safety="Earned commission is locked. It will release to your ledger automatically once verification succeeds."
+        actions={[{ label: "Complete Bank Details", variant: "default", onClick: () => { setPayoutSkipped(false); toast.info("Launch bank settings."); } }]}
+      />
+    ) : account === "action-required" ? (
       <InlineState
         tone="warning"
         title="Payout on Hold — Bank Verification Mismatch"
@@ -92,8 +105,7 @@ function AgentDashboard() {
           <SkeletonBlock rows={6} />
         </div>
       ) : account === "new" ? (
-        /* PHASE 3 TASK 1: RESTRICTED ONBOARDING DASHBOARD */
-        <AgentOnboardingDashboard />
+        <AgentOnboardingDashboard payoutSkipped={payoutSkipped} setPayoutSkipped={setPayoutSkipped} />
       ) : (
         /* OPERATIONAL DASHBOARD */
         <>
@@ -111,7 +123,6 @@ function AgentDashboard() {
               value={formatINR(0)}
               hint="Case-linked only · appealable"
               tone="neutral"
-              title="Any recovery is linked to a specific loan case. Your wallet balance is never reduced below zero. Adjustments can be reviewed within 30 days by contacting support."
             />
           </div>
 
@@ -137,12 +148,12 @@ function AgentDashboard() {
                 ) : (
                   <tbody>
                     {LEADS.map((l) => (
-                      <tr key={l.name} className="border-b border-border last:border-0">
+                      <tr key={l.name} className="border-b border-border last:border-0 hover:bg-neutral-50">
                         <td className="p-3 font-semibold text-foreground">
                           {l.name}
                         </td>
                         <td className="p-3 text-muted-foreground">{l.product}</td>
-                        <td className="num p-3 text-foreground">{formatINR(l.amount)}</td>
+                        <td className="num p-3 text-foreground font-semibold">{formatINR(l.amount)}</td>
                         <td className="p-3">
                           <StatusBadge
                             tone={l.consent === "Approved" ? "success" : l.consent === "Pending" ? "warning" : "error"}
@@ -235,106 +246,368 @@ function AgentDashboard() {
   );
 }
 
-function AgentOnboardingDashboard() {
-  const [playingVideo, setPlayingVideo] = useState(false);
+interface OnboardingProps {
+  payoutSkipped: boolean;
+  setPayoutSkipped: (val: boolean) => void;
+}
 
-  const handleStartQuiz = () => {
-    toast.error("Complete all 4 training modules before starting the assessment.");
+function AgentOnboardingDashboard({ payoutSkipped, setPayoutSkipped }: OnboardingProps) {
+  const [step, setStep] = useState<"otp" | "agreement" | "bank" | "training" | "review">("otp");
+  
+  // Simulated verification states
+  const [selectedLang, setSelectedLang] = useState("en");
+  const [phoneOtp, setPhoneOtp] = useState("");
+  const [emailOtp, setEmailOtp] = useState("");
+  const [otpError, setOtpError] = useState("");
+
+  // Agreement Checklist
+  const [agree1, setAgree1] = useState(false);
+  const [agree2, setAgree2] = useState(false);
+  const [agree3, setAgree3] = useState(false);
+
+  // Bank Info
+  const [bankName, setBankName] = useState("");
+  const [accountNo, setAccountNo] = useState("");
+  const [ifscCode, setIfscCode] = useState("");
+
+  // Training & Quiz simulation
+  const [playingVideo, setPlayingVideo] = useState(false);
+  const [videoCompleted, setVideoCompleted] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
+  const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
+  const [quizScore, setQuizScore] = useState(0);
+  const [trainingCertificate, setTrainingCertificate] = useState(false);
+
+  const quizQuestions = [
+    {
+      q: "Can you charge the borrower any processing fee or consultation charges directly?",
+      options: ["Yes, up to 1%", "No, ShriNeo Capital is a zero-fee platform for borrowers", "Only if the file is rejected"],
+      correct: 1
+    },
+    {
+      q: "Is it permissible to view or request the borrower's one-time password (OTP)?",
+      options: ["Yes, to help speed up submission", "Only with written permission", "No, the borrower must authorize OTP checks on their own device"],
+      correct: 2
+    }
+  ];
+
+  const handleVerifyOtp = () => {
+    if (phoneOtp !== "123456" || emailOtp !== "123456") {
+      setOtpError("Invalid verification code. Enter simulated OTP '123456' for both fields.");
+      return;
+    }
+    setOtpError("");
+    toast.success("OTP verification successful.");
+    setStep("agreement");
+  };
+
+  const handleAcceptAgreement = () => {
+    if (!agree1 || !agree2 || !agree3) {
+      toast.error("Please accept all partner agreements and code of conduct checks.");
+      return;
+    }
+    toast.success("Sourcing agreement signed successfully.");
+    setStep("bank");
+  };
+
+  const handleSaveBankDetails = () => {
+    if (!bankName || !accountNo || !ifscCode) {
+      toast.error("Please fill in all bank details or skip the setup.");
+      return;
+    }
+    toast.success("Payout bank account set up successfully.");
+    setPayoutSkipped(false);
+    setStep("training");
+  };
+
+  const handleSkipBankDetails = () => {
+    setPayoutSkipped(true);
+    toast.warning("Bank details skipped. Persistent alert banner active on dashboard.");
+    setStep("training");
+  };
+
+  const handleQuizAnswer = (selectedIdx: number) => {
+    if (selectedIdx === quizQuestions[currentQuizIndex]?.correct) {
+      setQuizScore(prev => prev + 1);
+    }
+    if (currentQuizIndex + 1 < quizQuestions.length) {
+      setCurrentQuizIndex(prev => prev + 1);
+    } else {
+      // Completed quiz
+      setShowQuiz(false);
+      setTrainingCertificate(true);
+      toast.success("Congratulations! You passed the mandatory policy assessment.");
+    }
+  };
+
+  const handleCompleteOnboarding = () => {
+    if (!trainingCertificate) {
+      toast.error("Complete the policy assessment quiz to unlock agent activation.");
+      return;
+    }
+    setStep("review");
+    toast.info("Onboarding credentials submitted. KYC enters manual verification queue.");
   };
 
   return (
     <div className="space-y-6">
+      {/* Onboarding restricted notice banner */}
       <div className="flex items-start gap-3 rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-900 text-xs">
         <ShieldCheck className="size-5 shrink-0 mt-0.5 text-amber-600" />
         <div>
-          <p className="font-semibold text-sm">Onboarding Gated Workspace</p>
+          <p className="font-semibold text-sm">Gated Agent Onboarding</p>
           <p className="mt-1">
-            Your identity documents have passed KYC checks. You are currently in a restricted onboarding state. Complete the mandatory training modules and bank account verification to activate your leads pipeline.
+            KYC review is pending admin activation. Complete the step-by-step checklist to finalize registration.
           </p>
         </div>
       </div>
 
       <div className="grid gap-6 md:grid-cols-3">
         <div className="md:col-span-2 space-y-6">
-          <SectionCard title="Mandatory Training Modules" description="Learn security, consent rules, and document standards">
-            <div className="space-y-3 text-xs">
-              {[
-                { id: "mod-1", name: "Module 1: RBI Fair Practices Code", status: "Completed", dur: "15 min" },
-                { id: "mod-2", name: "Module 2: Client Consent & OTP Guards", status: "Completed", dur: "20 min" },
-                { id: "mod-3", name: "Module 3: Document Standards & OCR Auditing", status: "Awaiting review", dur: "25 min" },
-                { id: "mod-4", name: "Module 4: Zero-Fee Fraud Prevention Policy", status: "Locked", dur: "15 min" }
-              ].map((m) => (
-                <div key={m.id} className="p-3 rounded border border-border bg-surface flex justify-between items-center">
+          {/* STEP 1: OTP VERIFICATION */}
+          {step === "otp" && (
+            <SectionCard title="Step 1 · Mobile and Email Verification" description="RBI-mandated security check">
+              <div className="space-y-4 text-xs">
+                <div>
+                  <Label htmlFor="lang" className="mb-1 block font-medium">Onboarding Language</Label>
+                  <select
+                    id="lang"
+                    value={selectedLang}
+                    onChange={(e) => setSelectedLang(e.target.value)}
+                    className="w-full rounded border border-input bg-card px-3 py-1.5 focus:ring-1 focus:ring-primary focus:outline-none"
+                  >
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी (Hindi)</option>
+                  </select>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <h4 className="font-semibold text-foreground">{m.name}</h4>
-                    <p className="text-[10px] text-muted-foreground">Duration: {m.dur}</p>
+                    <Label htmlFor="phoneOtp" className="mb-1 block font-medium">Mobile OTP (Simulated "123456")</Label>
+                    <Input
+                      id="phoneOtp"
+                      maxLength={6}
+                      value={phoneOtp}
+                      onChange={(e) => setPhoneOtp(e.target.value)}
+                      placeholder="Enter 6-digit OTP"
+                      className="num"
+                    />
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${m.status === "Completed" ? "bg-emerald-50 text-emerald-700" : m.status === "Locked" ? "bg-neutral-100 text-muted-foreground flex items-center gap-0.5" : "bg-primary/10 text-primary"}`}>
-                      {m.status === "Locked" && <Lock className="size-3" />} {m.status}
-                    </span>
-                    {m.status === "Awaiting review" && (
-                      <Button size="xs" onClick={() => setPlayingVideo(true)} className="flex items-center gap-1">
-                        <Play className="size-3" /> Play Video
-                      </Button>
-                    )}
+                  <div>
+                    <Label htmlFor="emailOtp" className="mb-1 block font-medium">Email OTP (Simulated "123456")</Label>
+                    <Input
+                      id="emailOtp"
+                      maxLength={6}
+                      value={emailOtp}
+                      onChange={(e) => setEmailOtp(e.target.value)}
+                      placeholder="Enter 6-digit OTP"
+                      className="num"
+                    />
                   </div>
                 </div>
-              ))}
-            </div>
-          </SectionCard>
+                {otpError && <p className="text-red-600 font-semibold">{otpError}</p>}
+                <Button size="sm" onClick={handleVerifyOtp} className="mt-2">Verify Contact Channels</Button>
+              </div>
+            </SectionCard>
+          )}
 
-          <SectionCard title="Activation checklist">
+          {/* STEP 2: AGREEMENT CHECKLIST */}
+          {step === "agreement" && (
+            <SectionCard title="Step 2 · Partner Code of Conduct Agreements" description="Statutory compliance statements">
+              <div className="space-y-4 text-xs">
+                <div className="space-y-3">
+                  <div className="flex items-start gap-2">
+                    <input
+                      id="agree1"
+                      type="checkbox"
+                      checked={agree1}
+                      onChange={(e) => setAgree1(e.target.checked)}
+                      className="mt-0.5 size-4 rounded border-gray-300"
+                    />
+                    <Label htmlFor="agree1" className="leading-relaxed font-normal">
+                      I acknowledge that ShriNeo Capital is a **zero-fee platform** for borrowers. I will never collect processing fees or commissions directly from any applicant.
+                    </Label>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <input
+                      id="agree2"
+                      type="checkbox"
+                      checked={agree2}
+                      onChange={(e) => setAgree2(e.target.checked)}
+                      className="mt-0.5 size-4 rounded border-gray-300"
+                    />
+                    <Label htmlFor="agree2" className="leading-relaxed font-normal">
+                      I will respect client data privacy. I will never look up or ask for OTPs or sensitive digital signatures belonging to borrowers.
+                    </Label>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <input
+                      id="agree3"
+                      type="checkbox"
+                      checked={agree3}
+                      onChange={(e) => setAgree3(e.target.checked)}
+                      className="mt-0.5 size-4 rounded border-gray-300"
+                    />
+                    <Label htmlFor="agree3" className="leading-relaxed font-normal">
+                      I agree to the sourcing-partner code of conduct terms and verify that all documents submitted are true scans.
+                    </Label>
+                  </div>
+                </div>
+                <Button size="sm" onClick={handleAcceptAgreement}>Sign Agreement</Button>
+              </div>
+            </SectionCard>
+          )}
+
+          {/* STEP 3: BANK DETAILS */}
+          {step === "bank" && (
+            <SectionCard title="Step 3 · Payout Bank Account Setup" description="Details for receiving commissions">
+              <div className="space-y-4 text-xs">
+                <div className="grid gap-3 sm:grid-cols-3">
+                  <div>
+                    <Label htmlFor="bankName" className="mb-1 block font-medium">Bank Name</Label>
+                    <Input id="bankName" placeholder="e.g. State Bank of India" value={bankName} onChange={(e) => setBankName(e.target.value)} />
+                  </div>
+                  <div>
+                    <Label htmlFor="accountNo" className="mb-1 block font-medium">Account Number</Label>
+                    <Input id="accountNo" placeholder="Account Number" value={accountNo} onChange={(e) => setAccountNo(e.target.value)} />
+                  </div>
+                  <div>
+                    <Label htmlFor="ifscCode" className="mb-1 block font-medium">IFSC Code</Label>
+                    <Input id="ifscCode" placeholder="IFSC Code" value={ifscCode} onChange={(e) => setIfscCode(e.target.value)} />
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2 pt-2">
+                  <Button size="sm" onClick={handleSaveBankDetails}>Save Bank Account</Button>
+                  <Button size="sm" variant="outline" onClick={handleSkipBankDetails}>Skip for now</Button>
+                </div>
+              </div>
+            </SectionCard>
+          )}
+
+          {/* STEP 4: TRAINING & CERTIFICATION */}
+          {step === "training" && (
+            <SectionCard title="Step 4 · Mandatory Compliance Training" description="Complete training to activate dashboard">
+              <div className="space-y-4 text-xs">
+                <div className="p-3 border border-border rounded bg-surface flex justify-between items-center">
+                  <div>
+                    <h4 className="font-semibold text-foreground">Module 3: Document Standards & OCR Auditing</h4>
+                    <p className="text-[10px] text-muted-foreground">Status: {videoCompleted ? "Completed" : "Awaiting review"}</p>
+                  </div>
+                  <Button size="xs" onClick={() => setPlayingVideo(true)} className="flex items-center gap-1">
+                    <Play className="size-3" /> {videoCompleted ? "Watch Again" : "Play Video"}
+                  </Button>
+                </div>
+
+                {videoCompleted && !trainingCertificate && (
+                  <div className="p-4 border border-blue-200 bg-blue-50 rounded-lg text-center space-y-3">
+                    <HelpCircle className="size-8 mx-auto text-blue-600" />
+                    <p className="font-semibold">Mandatory Assessment Quiz Locked</p>
+                    <p className="text-muted-foreground text-[10px]">
+                      Complete the short policy assessment to verify your training status.
+                    </p>
+                    <Button size="sm" onClick={() => setShowQuiz(true)}>Start Assessment Quiz</Button>
+                  </div>
+                )}
+
+                {trainingCertificate && (
+                  <div className="p-4 border border-emerald-200 bg-emerald-50 rounded-lg text-center space-y-3">
+                    <Award className="size-10 mx-auto text-emerald-600 animate-bounce" />
+                    <h4 className="font-semibold text-emerald-950">Assessment Passed (100%)</h4>
+                    <p className="text-[10px] text-emerald-900/80">Your agent training certificate is now ready.</p>
+                    <div className="flex justify-center gap-2">
+                      <Button size="sm" onClick={() => toast.success("ShriNeo Agent Training Certificate downloaded successfully.")}>
+                        Download Certificate
+                      </Button>
+                      <Button size="sm" variant="outline" onClick={handleCompleteOnboarding}>Submit Onboarding File</Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </SectionCard>
+          )}
+
+          {/* STEP 5: MANUAL REVIEW WAITING STATE */}
+          {step === "review" && (
+            <SectionCard title="KYC & Credential Review In Progress" description="Manual activation pending">
+              <div className="space-y-4 text-xs text-center p-6">
+                <RefreshCw className="size-8 animate-spin mx-auto text-primary" />
+                <h4 className="font-semibold mt-2">Awaiting Verification Officer Signoff</h4>
+                <p className="text-muted-foreground max-w-[45ch] mx-auto">
+                  Your onboarding credentials and signed agreement have been submitted. If you skipped payout bank details, you may add them in your profile settings while you wait.
+                </p>
+                <div className="pt-4 border-t border-border flex justify-center gap-2">
+                  <Button size="sm" variant="outline" onClick={() => toast.success("Review timeline refreshed: Expected within 24 hours.")}>
+                    Refresh Review Status
+                  </Button>
+                </div>
+              </div>
+            </SectionCard>
+          )}
+        </div>
+
+        {/* ONBOARDING CHECKLIST SIDEBAR */}
+        <div className="space-y-6">
+          <SectionCard title="Activation Checklist">
             <div className="space-y-3 text-xs">
               <div className="flex items-center gap-2 text-emerald-700">
                 <CheckCircle2 className="size-4 shrink-0" />
-                <span>Identity verification completed (Aadhaar & PAN matched)</span>
+                <span>Identity verification completed</span>
               </div>
-              <div className="flex items-center gap-2 text-emerald-700">
-                <CheckCircle2 className="size-4 shrink-0" />
-                <span>Onboarding agreement accepted (Signed 08 Mar)</span>
+              <div className={`flex items-center gap-2 ${step !== "otp" ? "text-emerald-700" : "text-muted-foreground"}`}>
+                {step !== "otp" ? <CheckCircle2 className="size-4 shrink-0" /> : <Lock className="size-4 shrink-0" />}
+                <span>Contacts verified (OTP matched)</span>
               </div>
-              <div className="flex items-center gap-2 text-amber-700">
-                <HelpCircle className="size-4 shrink-0" />
-                <span>Bank account details: Penny-drop mismatch resolved pending (Awaiting GRO review)</span>
+              <div className={`flex items-center gap-2 ${agree1 && agree2 && agree3 ? "text-emerald-700" : "text-muted-foreground"}`}>
+                {agree1 && agree2 && agree3 ? <CheckCircle2 className="size-4 shrink-0" /> : <Lock className="size-4 shrink-0" />}
+                <span>Sourcing partner agreement signed</span>
               </div>
-              <div className="flex items-center gap-2 text-neutral-500">
-                <Lock className="size-4 shrink-0" />
-                <span>Knowledge assessment: Locked (Complete modules first)</span>
+              <div className={`flex items-center gap-2 ${!payoutSkipped && bankName ? "text-emerald-700" : payoutSkipped ? "text-amber-700" : "text-muted-foreground"}`}>
+                {!payoutSkipped && bankName ? <CheckCircle2 className="size-4 shrink-0" /> : payoutSkipped ? <AlertTriangle className="size-4 shrink-0 text-amber-600" /> : <Lock className="size-4 shrink-0" />}
+                <span>Payout bank credentials check {payoutSkipped && "(Skipped)"}</span>
+              </div>
+              <div className={`flex items-center gap-2 ${trainingCertificate ? "text-emerald-700" : "text-muted-foreground"}`}>
+                {trainingCertificate ? <CheckCircle2 className="size-4 shrink-0" /> : <Lock className="size-4 shrink-0" />}
+                <span>Mandatory policy test passed</span>
               </div>
             </div>
-          </SectionCard>
-        </div>
-
-        <div className="space-y-6">
-          <SectionCard title="Assessment & Quizzes">
-            <div className="space-y-3 text-xs text-center p-4">
-              <Award className="size-10 text-muted-foreground mx-auto" />
-              <h4 className="font-semibold text-foreground mt-2">Assigned Agent Examination</h4>
-              <p className="text-[10px] text-muted-foreground">
-                Requires score of 80% or above on regulatory parameters to unlock your active badge.
-              </p>
-              <Button size="sm" className="w-full" variant="outline" onClick={handleStartQuiz}>
-                Start Quiz
-              </Button>
-            </div>
-          </SectionCard>
-
-          <SectionCard title="Support Desk">
-            <p className="text-xs text-muted-foreground leading-relaxed">
-              Stuck in onboarding verification? Direct escalation link is active.
-            </p>
-            <Button asChild size="sm" variant="outline" className="w-full mt-4">
-              <Link to="/app/agent/support">Open Support Ticket</Link>
-            </Button>
           </SectionCard>
         </div>
       </div>
 
+      {/* QUIZ DIALOG SIMULATOR */}
+      {showQuiz && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 backdrop-blur-sm p-4">
+          <div className="w-full max-w-[500px] rounded-xl border border-border bg-card p-6 shadow-xl space-y-4">
+            <h3 className="font-bold text-sm text-foreground flex items-center gap-1.5 border-b pb-2">
+              <Award className="size-5 text-primary" /> Regulatory Assessment Quiz
+            </h3>
+            <div>
+              <p className="text-xs font-semibold mb-3">
+                Question {currentQuizIndex + 1} of {quizQuestions.length}:
+              </p>
+              <p className="text-xs text-foreground mb-4">
+                {quizQuestions[currentQuizIndex]?.q}
+              </p>
+              <div className="space-y-2">
+                {quizQuestions[currentQuizIndex]?.options.map((opt, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => handleQuizAnswer(idx)}
+                    className="w-full text-left rounded border border-border p-2.5 text-xs hover:bg-accent transition-colors"
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* VIDEO PLAYER DIALOG SIMULATOR */}
       {playingVideo && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 backdrop-blur-sm p-4">
-          <div className="w-full max-w-[500px] rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-overlay)] text-center space-y-4">
+          <div className="w-full max-w-[500px] rounded-xl border border-border bg-card p-6 shadow-xl text-center space-y-4">
             <div className="flex justify-between items-center border-b border-border pb-2">
               <h3 className="font-bold text-sm text-foreground flex items-center gap-1.5">
                 <BookOpen className="size-5 text-primary" /> Module 3: Document Standards & OCR Auditing
@@ -353,8 +626,9 @@ function AgentOnboardingDashboard() {
               </div>
             </div>
 
-            <div className="pt-2 border-t border-border flex justify-end">
-              <Button size="sm" onClick={() => { setPlayingVideo(false); toast.success("Module 3 video completed."); }}>
+            <div className="pt-2 border-t border-border flex justify-between items-center">
+              <span className="text-[10px] text-muted-foreground">Captions: EN/HI matched</span>
+              <Button size="sm" onClick={() => { setPlayingVideo(false); setVideoCompleted(true); toast.success("Module 3 video completed."); }}>
                 Mark Completed
               </Button>
             </div>
@@ -362,26 +636,5 @@ function AgentOnboardingDashboard() {
         </div>
       )}
     </div>
-  );
-}
-
-// X Close Icon Helper
-function X(props: any) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
   );
 }

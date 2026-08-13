@@ -3,6 +3,7 @@ import { useState } from "react";
 import { GraduationCap, Award, Play, AlertCircle, RefreshCw, FileText, CheckCircle2, Lock } from "lucide-react";
 
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
+import { KpiCard } from "@/components/states";
 import { Button } from "@/components/ui/button";
 import { usePrototype } from "@/prototype/state";
 import { toast } from "sonner";
@@ -92,7 +93,9 @@ function AgentTrainingPage() {
   };
 
   const handleNextQuestion = () => {
-    if (selectedAnswer !== quizQuestions[currentQuestion].correct) {
+    const currentQ = quizQuestions[currentQuestion];
+    if (!currentQ) return;
+    if (selectedAnswer !== currentQ.correct) {
       toast.error("Incorrect answer. Please review compliance guidelines.");
       setActiveQuiz(false);
       return;
@@ -241,42 +244,46 @@ function AgentTrainingPage() {
         )}
 
         {/* INTERACTIVE ASSESSMENT QUIZ */}
-        {activeQuiz && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-            <div className="w-full max-w-[460px] rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-overlay)] space-y-4">
-              <div className="flex justify-between items-center border-b border-border pb-2">
-                <h3 className="font-bold text-sm text-foreground flex items-center gap-1.5">
-                  <Award className="size-5 text-primary" /> Compliance Quiz Assessment
-                </h3>
-              </div>
+        {activeQuiz && (() => {
+          const currentQ = quizQuestions[currentQuestion];
+          if (!currentQ) return null;
+          return (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+              <div className="w-full max-w-[460px] rounded-xl border border-border bg-card p-6 shadow-xl space-y-4">
+                <div className="flex justify-between items-center border-b border-border pb-2">
+                  <h3 className="font-bold text-sm text-foreground flex items-center gap-1.5">
+                    <Award className="size-5 text-primary" /> Compliance Quiz Assessment
+                  </h3>
+                </div>
 
-              <div className="space-y-4 text-xs">
-                <p className="font-semibold text-foreground">
-                  Question {currentQuestion + 1} of {quizQuestions.length}: {quizQuestions[currentQuestion].q}
-                </p>
-                <div className="space-y-2">
-                  {quizQuestions[currentQuestion].options.map((opt, idx) => (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => handleAnswerSelect(idx)}
-                      className={`w-full text-left p-3 rounded border text-xs transition-colors ${selectedAnswer === idx ? "border-primary bg-primary/5 font-semibold text-foreground" : "border-border hover:bg-neutral-50"}`}
-                    >
-                      {opt}
-                    </button>
-                  ))}
+                <div className="space-y-4 text-xs">
+                  <p className="font-semibold text-foreground">
+                    Question {currentQuestion + 1} of {quizQuestions.length}: {currentQ.q}
+                  </p>
+                  <div className="space-y-2">
+                    {currentQ.options.map((opt, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => handleAnswerSelect(idx)}
+                        className={`w-full text-left p-3 rounded border text-xs transition-colors ${selectedAnswer === idx ? "border-primary bg-primary/5 font-semibold text-foreground" : "border-border hover:bg-neutral-50"}`}
+                      >
+                        {opt}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-border flex justify-end gap-2">
+                  <Button size="sm" variant="ghost" onClick={() => setActiveQuiz(false)}>Cancel</Button>
+                  <Button size="sm" disabled={selectedAnswer === null} onClick={handleNextQuestion}>
+                    {currentQuestion + 1 === quizQuestions.length ? "Submit Assessment" : "Next Question"}
+                  </Button>
                 </div>
               </div>
-
-              <div className="pt-2 border-t border-border flex justify-end gap-2">
-                <Button size="sm" variant="ghost" onClick={() => setActiveQuiz(false)}>Cancel</Button>
-                <Button size="sm" disabled={selectedAnswer === null} onClick={handleNextQuestion}>
-                  {currentQuestion + 1 === quizQuestions.length ? "Submit Assessment" : "Next Question"}
-                </Button>
-              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
       </div>
     </PortalShell>
   );

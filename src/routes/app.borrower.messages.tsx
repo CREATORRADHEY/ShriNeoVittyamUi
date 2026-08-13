@@ -74,7 +74,7 @@ function BorrowerMessagesPage() {
     }
   ]);
 
-  const activeSession = sessions.find((s) => s.id === activeSessionId) || sessions[0];
+  const activeSession = (sessions.find((s) => s.id === activeSessionId) || sessions[0]) as ChatSession;
 
   const handleSendMessage = () => {
     if (!chatInput.trim()) return;
@@ -154,7 +154,10 @@ function BorrowerMessagesPage() {
       prev.map((s) => {
         if (s.id === activeSession.id) {
           const nextHistory = [...s.history];
-          nextHistory[msgIndex] = { ...nextHistory[msgIndex], status: "delivered" as const };
+          const currentMsg = nextHistory[msgIndex];
+          if (currentMsg) {
+            nextHistory[msgIndex] = { ...currentMsg, status: "delivered" as const };
+          }
           return {
             ...s,
             history: nextHistory

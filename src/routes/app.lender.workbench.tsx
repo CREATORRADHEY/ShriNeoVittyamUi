@@ -33,9 +33,19 @@ function LenderWorkbenchPage() {
     "Initial file automated integrity validation passed 12 Mar 09:00"
   ]);
 
+  // Offered loan parameters for KFS customization
+  const [customAmount, setCustomAmount] = useState(350000);
+  const [customRate, setCustomRate] = useState(14.2);
+  const [customTenure, setCustomTenure] = useState(36);
+  const [customFee, setCustomFee] = useState(3500);
+
   // Info Request states
   const [infoRequestOpen, setInfoRequestOpen] = useState(false);
+  const [infoReqField, setInfoReqField] = useState("Bank Statement");
   const [infoReqText, setInfoReqText] = useState("");
+  const [infoReqDueDate, setInfoReqDueDate] = useState("2026-03-20");
+  const [infoReqInternalNotes, setInfoReqInternalNotes] = useState("");
+  
   const [outwardRequests, setOutwardRequests] = useState([
     { id: "REQ-884021", detail: "Electricity bill mismatch clarification", status: "Sent" }
   ]);
@@ -64,12 +74,18 @@ function LenderWorkbenchPage() {
     if (!infoReqText.trim()) return;
     const newReq = {
       id: `REQ-${Math.floor(800000 + Math.random() * 199999)}`,
-      detail: infoReqText,
+      detail: `${infoReqField} request: "${infoReqText}" (Due: ${infoReqDueDate})`,
       status: "Sent"
     };
     setOutwardRequests(prev => [newReq, ...prev]);
+    
+    // Also log this query in audit ledger
+    const auditMsg = `Clarification raised (${newReq.id}) for item "${infoReqField}". Reason: "${infoReqText}". Internal notes: "${infoReqInternalNotes || 'None'}"`;
+    setAuditLogs(prev => [auditMsg, ...prev]);
+
     setInfoRequestOpen(false);
     setInfoReqText("");
+    setInfoReqInternalNotes("");
     toast.success(`Info request ${newReq.id} pushed to borrower Action Centre.`);
   };
 
@@ -118,35 +134,88 @@ function LenderWorkbenchPage() {
             {/* LENDER-SPECIFIC KEY FACT STATEMENT (KFS) PREVIEW COMPONENT */}
             <SectionCard title="Key Fact Statement (KFS) Preview" description="Statutory loan terms computed dynamically for borrower disclosure">
               <div className="rounded-lg border border-border bg-surface p-4 space-y-4">
-                <div className="grid gap-4 sm:grid-cols-3">
+                {/* Underwriter KFS input controls */}
+                <div className="grid gap-3 sm:grid-cols-4 bg-card p-3 rounded border border-border mb-2">
                   <div>
-                    <span className="text-muted-foreground block text-[10px]">Loan Amount Sanction</span>
-                    <span className="font-bold text-foreground block text-sm mt-0.5">{formatINR(350000)}</span>
+                    <label className="block text-[10px] font-semibold text-muted-foreground mb-1">Offer Amount (₹)</label>
+                    <input
+                      type="number"
+                      step={10000}
+                      value={customAmount}
+                      onChange={(e) => setCustomAmount(Number(e.target.value))}
+                      className="w-full rounded border border-border bg-background px-2 py-1 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary num"
+                    />
                   </div>
                   <div>
-                    <span className="text-muted-foreground block text-[10px]">Interest Rate (APR)</span>
-                    <span className="font-bold text-foreground block text-sm mt-0.5">14.2% p.a.</span>
+                    <label className="block text-[10px] font-semibold text-muted-foreground mb-1">Interest Rate (% APR)</label>
+                    <input
+                      type="number"
+                      step="0.1"
+                      value={customRate}
+                      onChange={(e) => setCustomRate(Number(e.target.value))}
+                      className="w-full rounded border border-border bg-background px-2 py-1 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary num"
+                    />
                   </div>
                   <div>
-                    <span className="text-muted-foreground block text-[10px]">Tenure (Months)</span>
-                    <span className="font-bold text-foreground block text-sm mt-0.5">36 Months</span>
+                    <label className="block text-[10px] font-semibold text-muted-foreground mb-1">Tenure (Months)</label>
+                    <input
+                      type="number"
+                      value={customTenure}
+                      onChange={(e) => setCustomTenure(Number(e.target.value))}
+                      className="w-full rounded border border-border bg-background px-2 py-1 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary num"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-semibold text-muted-foreground mb-1">Upfront Fee (₹)</label>
+                    <input
+                      type="number"
+                      step={500}
+                      value={customFee}
+                      onChange={(e) => setCustomFee(Number(e.target.value))}
+                      className="w-full rounded border border-border bg-background px-2 py-1 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary num"
+                    />
                   </div>
                 </div>
 
-                <div className="border-t border-border pt-3 grid gap-4 sm:grid-cols-3">
-                  <div>
-                    <span className="text-muted-foreground block text-[10px]">Processing upfront fees</span>
-                    <span className="font-semibold text-foreground block mt-0.5">{formatINR(3500)}</span>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground block text-[10px]">Monthly EMI Repayment</span>
-                    <span className="font-semibold text-primary block mt-0.5">{formatINR(11540)}</span>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground block text-[10px]">Total Cost of Credit</span>
-                    <span className="font-semibold text-foreground block mt-0.5">{formatINR(415440)}</span>
-                  </div>
-                </div>
+                {/* Computed Preview Results */}
+                {(() => {
+                  const r = customRate / 1200;
+                  const dynamicEmi = r > 0 ? Math.round((customAmount * r * Math.pow(1 + r, customTenure)) / (Math.pow(1 + r, customTenure) - 1)) : Math.round(customAmount / customTenure);
+                  const dynamicTotalCost = (dynamicEmi * customTenure) + customFee;
+                  return (
+                    <>
+                      <div className="grid gap-4 sm:grid-cols-3">
+                        <div>
+                          <span className="text-muted-foreground block text-[10px]">Loan Amount Sanction</span>
+                          <span className="font-bold text-foreground block text-sm mt-0.5">{formatINR(customAmount)}</span>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground block text-[10px]">Interest Rate (APR)</span>
+                          <span className="font-bold text-foreground block text-sm mt-0.5">{customRate.toFixed(1)}% p.a.</span>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground block text-[10px]">Tenure (Months)</span>
+                          <span className="font-bold text-foreground block text-sm mt-0.5">{customTenure} Months</span>
+                        </div>
+                      </div>
+
+                      <div className="border-t border-border pt-3 grid gap-4 sm:grid-cols-3">
+                        <div>
+                          <span className="text-muted-foreground block text-[10px]">Processing upfront fees</span>
+                          <span className="font-semibold text-foreground block mt-0.5">{formatINR(customFee)}</span>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground block text-[10px]">Monthly EMI Repayment</span>
+                          <span className="font-semibold text-primary block mt-0.5">{formatINR(dynamicEmi)}</span>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground block text-[10px]">Total Cost of Credit</span>
+                          <span className="font-semibold text-foreground block mt-0.5">{formatINR(dynamicTotalCost)}</span>
+                        </div>
+                      </div>
+                    </>
+                  );
+                })()}
 
                 <p className="text-[10px] text-muted-foreground">
                   *Disclaimer: KFS preview represents indicative quote values based on current bureau soft pulls. Regulated lender makes final credit verification.
@@ -322,7 +391,7 @@ function LenderWorkbenchPage() {
         {/* INFO QUERY FORM POPUP */}
         {infoRequestOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
-            <form onSubmit={handleSendInfoRequest} className="w-full max-w-[420px] rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-overlay)] space-y-4">
+            <form onSubmit={handleSendInfoRequest} className="w-full max-w-[420px] rounded-xl border border-border bg-card p-6 shadow-xl space-y-4">
               <div className="flex justify-between items-center border-b border-border pb-2">
                 <h3 className="font-bold text-base text-foreground flex items-center gap-1.5">
                   <Send className="size-5 text-primary" /> Request Client Clarification
@@ -330,18 +399,66 @@ function LenderWorkbenchPage() {
               </div>
 
               <div className="space-y-3">
-                <p className="text-muted-foreground text-xs leading-relaxed">
+                <p className="text-muted-foreground text-[10px] leading-relaxed">
                   This request will populate instantly in the borrower's **Action Centre** checklist. SMS notifications will be dispatched automatically.
                 </p>
+                
                 <div>
-                  <label htmlFor="info-req-desc" className="block text-xs font-semibold text-muted-foreground mb-1">Details Requested</label>
+                  <label htmlFor="info-req-field" className="block text-xs font-semibold text-muted-foreground mb-1">Required Item / Field</label>
+                  <select
+                    id="info-req-field"
+                    value={infoReqField}
+                    onChange={(e) => setInfoReqField(e.target.value)}
+                    className="w-full rounded border border-border bg-background px-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                  >
+                    <option value="Bank Statement">Bank Statement (6 Months)</option>
+                    <option value="PAN Card">PAN Card (Blurred Check)</option>
+                    <option value="ITR Verification">Form 16 / ITR</option>
+                    <option value="Utility Bill">Address Proof / Electricity Bill</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="info-req-desc" className="block text-xs font-semibold text-muted-foreground mb-1">Borrower-facing Reason</label>
                   <textarea
                     id="info-req-desc"
                     required
-                    rows={3}
+                    rows={2}
                     value={infoReqText}
                     onChange={(e) => setInfoReqText(e.target.value)}
-                    placeholder="Describe the document or statement clarification required (e.g. Please upload GST GSTR-3B statement)"
+                    placeholder="Describe what the borrower needs to do (e.g. Please upload a clear digital copy of your PAN card)"
+                    className="w-full rounded border border-border bg-background px-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="info-req-date" className="block text-xs font-semibold text-muted-foreground mb-1">Request Due Date</label>
+                    <input
+                      id="info-req-date"
+                      type="date"
+                      required
+                      value={infoReqDueDate}
+                      onChange={(e) => setInfoReqDueDate(e.target.value)}
+                      className="w-full rounded border border-border bg-background px-3 py-1 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-muted-foreground mb-1">Recipient Visibility</label>
+                    <span className="inline-block rounded border border-[#DDE7F5] bg-blue-50 px-2.5 py-1 text-[11px] font-semibold text-blue-800">
+                      SBI Finance Only
+                    </span>
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="info-req-notes" className="block text-xs font-semibold text-muted-foreground mb-1">Internal Underwriter Notes (Confidential)</label>
+                  <textarea
+                    id="info-req-notes"
+                    rows={2}
+                    value={infoReqInternalNotes}
+                    onChange={(e) => setInfoReqInternalNotes(e.target.value)}
+                    placeholder="Private underwriter audit remarks (not shared with borrower or agent)"
                     className="w-full rounded border border-border bg-background px-3 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
                   />
                 </div>

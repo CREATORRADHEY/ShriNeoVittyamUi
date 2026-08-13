@@ -347,7 +347,7 @@ export function DarkCta({
           {body ? <p className="mt-4 text-base text-ink-foreground/80">{body}</p> : null}
           <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild size="lg" variant="secondary" className="min-h-11">
-              <Link to={primary.to}>
+              <Link to={primary.to as any}>
                 {primary.label}
                 <ArrowRight aria-hidden className="size-4" />
               </Link>
@@ -359,7 +359,7 @@ export function DarkCta({
                 variant="outline"
                 className="min-h-11 border-ink-foreground/30 bg-transparent text-ink-foreground hover:bg-ink-foreground/10 hover:text-ink-foreground"
               >
-                <Link to={secondary.to}>{secondary.label}</Link>
+                <Link to={secondary.to as any}>{secondary.label}</Link>
               </Button>
             ) : null}
           </div>
@@ -389,7 +389,7 @@ export function RelatedGuides({
           {links.map((link) => (
             <li key={String(link.to)}>
               <Link
-                to={link.to}
+                to={link.to as any}
                 className="flex h-full flex-col rounded-xl border border-border bg-card p-5 transition-colors duration-150 hover:border-primary"
               >
                 <span className="text-sm font-semibold">{link.label}</span>

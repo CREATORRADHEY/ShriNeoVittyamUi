@@ -232,23 +232,29 @@ export function ApplicationFlow() {
   // Simulation handlers
   useEffect(() => {
     // Autosave simulator
+    let id: any;
     if (step > 1 && step < 10) {
       setSaveStatus("saving");
-      const id = setTimeout(() => {
+      id = setTimeout(() => {
         setSaveStatus(data === "failed" ? "error" : "saved");
       }, 600);
-      return () => clearTimeout(id);
     }
+    return () => {
+      if (id) clearTimeout(id);
+    };
   }, [step, loanType, loanAmount, grossSalary, fullName, data]);
 
   // CIBIL lookup simulator
   useEffect(() => {
+    let id: any;
     if (step === 8 && cibilConsent && cibilScore === "checking") {
-      const id = setTimeout(() => {
+      id = setTimeout(() => {
         setCibilScore(data === "failed" ? "failed" : 745);
       }, 1500);
-      return () => clearTimeout(id);
     }
+    return () => {
+      if (id) clearTimeout(id);
+    };
   }, [step, cibilConsent, cibilScore, data]);
 
   // Validation engine for required fields
@@ -395,7 +401,7 @@ export function ApplicationFlow() {
     <PortalShell
       role="borrower"
       title={`${loanType ? loanType.toUpperCase() : "LOAN"} APPLICATION`}
-      subtitle={!isMobile ? `Step ${step} of 10 — ${STEPS[step - 1]!.label}` : undefined}
+      subtitle={!isMobile ? `Step ${step} of 10 — ${STEPS[step - 1]!.label}` : ""}
     >
       {/* Dynamic Header / Stepper Container */}
       <div className="rounded-xl border border-[#DDE7F5] bg-white p-5 shadow-sm">

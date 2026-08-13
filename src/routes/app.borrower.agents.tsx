@@ -101,7 +101,7 @@ function FindAgentPage() {
                     onChange={(e) => {
                       const st = e.target.value as keyof typeof GEOGRAPHY;
                       setSelectedState(st);
-                      setSelectedCity(GEOGRAPHY[st].cities[0]);
+                      setSelectedCity(GEOGRAPHY[st].cities[0] || "");
                     }}
                     className="w-full rounded border border-border bg-card px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
                   >

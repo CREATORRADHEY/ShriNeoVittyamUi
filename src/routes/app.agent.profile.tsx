@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { User, ShieldCheck, ShieldAlert, Landmark, MapPin, Eye, ToggleLeft, ToggleRight, Trash2, KeyRound } from "lucide-react";
+import { User, ShieldCheck, ShieldAlert, Landmark, MapPin, Eye, ToggleLeft, ToggleRight, Trash2, KeyRound, RefreshCw } from "lucide-react";
 
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
 import { Button } from "@/components/ui/button";
@@ -93,7 +93,7 @@ function AgentProfilePage() {
                     onChange={(e) => {
                       const st = e.target.value as keyof typeof GEOGRAPHY;
                       setSelectedState(st);
-                      setCoverageCities([GEOGRAPHY[st].cities[0]]);
+                      setCoverageCities(GEOGRAPHY[st].cities.slice(0, 1));
                     }}
                     className="w-48 rounded border border-border bg-card px-2.5 py-1.5 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
                   >

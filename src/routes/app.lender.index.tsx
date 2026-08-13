@@ -48,6 +48,8 @@ function LenderDashboard() {
   const { account, data } = usePrototype();
   const [filterStage, setFilterStage] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [savedView, setSavedView] = useState<string>("all-files");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const banner =
     account === "action-required" ? (
@@ -75,6 +77,10 @@ function LenderDashboard() {
     ) : null;
 
   const filteredPipeline = PIPELINE.filter(row => {
+    // Custom views filtering
+    if (savedView === "high-bureau" && row.score < 700) return false;
+    if (savedView === "manual-only" && row.stage !== "Manual review") return false;
+
     const matchesStage = filterStage === "All" || row.stage === filterStage;
     const matchesSearch = row.id.toLowerCase().includes(searchQuery.toLowerCase()) || row.product.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesStage && matchesSearch;
@@ -119,29 +125,47 @@ function LenderDashboard() {
             title="Applications Work Queue"
             description="Sticky filters by verification stage. Click any row to load detail underwriting workbench."
           >
-            {/* Filters Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-4 bg-surface p-3 rounded-lg border border-border">
-              <div className="flex flex-wrap items-center gap-2">
-                {["All", "Auto-check passed", "Manual review", "Sachet Auto-check", "Query raised", "Sanction pending"].map((st) => (
-                  <button
-                    key={st}
-                    type="button"
-                    onClick={() => setFilterStage(st)}
-                    className={`px-3 py-1.5 rounded text-xs font-semibold border transition-all ${filterStage === st ? "bg-primary text-primary-foreground border-primary" : "bg-card text-muted-foreground border-border hover:text-foreground"}`}
+            {/* Filters Bar & Saved Views */}
+            <div className="flex flex-col gap-3 mb-4 bg-surface p-3 rounded-lg border border-border">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  {["All", "Auto-check passed", "Manual review", "Sachet Auto-check", "Query raised", "Sanction pending"].map((st) => (
+                    <button
+                      key={st}
+                      type="button"
+                      onClick={() => { setFilterStage(st); setCurrentPage(1); }}
+                      className={`px-3 py-1.5 rounded text-xs font-semibold border transition-all ${filterStage === st ? "bg-primary text-primary-foreground border-primary" : "bg-card text-muted-foreground border-border hover:text-foreground"}`}
+                    >
+                      {st}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground font-semibold">Saved View:</span>
+                  <select
+                    value={savedView}
+                    onChange={(e) => { setSavedView(e.target.value); setCurrentPage(1); }}
+                    className="rounded border border-border bg-card px-2.5 py-1 text-xs font-medium text-foreground focus:outline-none"
                   >
-                    {st}
-                  </button>
-                ))}
+                    <option value="all-files">All Sourced Files</option>
+                    <option value="high-bureau">High Bureau Score (&gt;700)</option>
+                    <option value="manual-only">Manual Underwriting Queue</option>
+                  </select>
+                </div>
               </div>
-              <div className="relative w-64">
-                <Search className="absolute left-2.5 top-2 size-3.5 text-muted-foreground" />
-                <input
-                  type="text"
-                  placeholder="Search application ID..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded border border-border bg-background pl-8 pr-3 py-1 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
-                />
+
+              <div className="flex items-center justify-end">
+                <div className="relative w-64">
+                  <Search className="absolute left-2.5 top-2 size-3.5 text-muted-foreground" />
+                  <input
+                    type="text"
+                    placeholder="Search application ID..."
+                    value={searchQuery}
+                    onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
+                    className="w-full rounded border border-border bg-background pl-8 pr-3 py-1 text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-primary"
+                  />
+                </div>
               </div>
             </div>
 
@@ -182,12 +206,40 @@ function LenderDashboard() {
                   {filteredPipeline.length === 0 && (
                     <tr>
                       <td colSpan={8} className="p-8 text-center text-muted-foreground">
-                        No applications matched the selected filters.
+                        No applications matched the selected filters or saved views.
                       </td>
                     </tr>
                   )}
                 </tbody>
               </table>
+            </div>
+
+            {/* Pagination Controls */}
+            <div className="flex items-center justify-between border-t border-border pt-4 mt-3">
+              <span className="text-[11px] text-muted-foreground">
+                Showing {filteredPipeline.length} of {filteredPipeline.length} entries
+              </span>
+              <div className="flex gap-1.5">
+                <Button
+                  size="xs"
+                  variant="outline"
+                  disabled={currentPage === 1}
+                  onClick={() => { setCurrentPage(p => Math.max(1, p - 1)); toast.info("Simulating previous page load..."); }}
+                >
+                  Previous
+                </Button>
+                <button type="button" className="px-2 py-0.5 text-xs font-semibold text-foreground bg-primary/10 rounded">
+                  {currentPage}
+                </button>
+                <Button
+                  size="xs"
+                  variant="outline"
+                  disabled={true} // Only one page of mock records
+                  onClick={() => toast.info("No further pages available.")}
+                >
+                  Next
+                </Button>
+              </div>
             </div>
           </SectionCard>
 
