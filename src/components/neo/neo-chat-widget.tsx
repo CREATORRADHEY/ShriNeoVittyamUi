@@ -12,8 +12,6 @@ import { NeoPanel } from "./neo-panel";
 let seq = 0;
 const nextId = () => `m${++seq}`;
 
-const STORAGE_KEY = "shrineo.neoGreetingSeen";
-
 export function NeoChatWidget() {
   const { language, setLanguage, t } = useI18n();
   const location = useLocation();
@@ -51,44 +49,39 @@ export function NeoChatWidget() {
     location.pathname.includes("/admin") ||
     location.pathname.includes("/lender");
 
-  // Read greeting seen status synchronously on mount without delay
+  // On mount / page refresh: trigger greeting presentation after 1000ms delay on marketing routes
   useEffect(() => {
     setMounted(true);
     if (isLenderOrAdmin) return;
-    try {
-      const greetingSeen = window.sessionStorage.getItem(STORAGE_KEY) === "true";
-      const isSuppressed =
-        location.pathname.startsWith("/auth") ||
-        location.pathname.startsWith("/app") ||
-        location.pathname.startsWith("/errors") ||
-        location.pathname.startsWith("/prototype");
 
-      if (greetingSeen || isSuppressed) {
-        setHasDismissedGreeting(true);
-        setView("minimized");
-      } else {
-        // First-time user: hide launcher, delay greeting presentation by 1000ms
-        setHasDismissedGreeting(false);
-        setView("minimized");
-        const greetingTimeout = window.setTimeout(() => {
-          const currentPath = window.location.pathname;
-          const currentSuppressed =
-            currentPath.startsWith("/auth") ||
-            currentPath.startsWith("/app") ||
-            currentPath.startsWith("/errors") ||
-            currentPath.startsWith("/prototype");
-          if (!currentSuppressed) {
-            setView("greeting");
-          } else {
-            setHasDismissedGreeting(true);
-            setView("minimized");
-          }
-        }, 1000);
-        timers.current.push(greetingTimeout);
-      }
-    } catch {
+    const isSuppressed =
+      location.pathname.startsWith("/auth") ||
+      location.pathname.startsWith("/app") ||
+      location.pathname.startsWith("/errors") ||
+      location.pathname.startsWith("/prototype");
+
+    if (isSuppressed) {
       setHasDismissedGreeting(true);
       setView("minimized");
+    } else {
+      // Trigger greeting card on every page refresh after 1000ms
+      setHasDismissedGreeting(false);
+      setView("minimized");
+      const greetingTimeout = window.setTimeout(() => {
+        const currentPath = window.location.pathname;
+        const currentSuppressed =
+          currentPath.startsWith("/auth") ||
+          currentPath.startsWith("/app") ||
+          currentPath.startsWith("/errors") ||
+          currentPath.startsWith("/prototype");
+        if (!currentSuppressed) {
+          setView("greeting");
+        } else {
+          setHasDismissedGreeting(true);
+          setView("minimized");
+        }
+      }, 1000);
+      timers.current.push(greetingTimeout);
     }
   }, [location.pathname, isLenderOrAdmin]);
 
@@ -278,11 +271,6 @@ export function NeoChatWidget() {
     activeElementRef.current = document.activeElement as HTMLElement;
     setView("open");
     setHasDismissedGreeting(true);
-    try {
-      window.sessionStorage.setItem(STORAGE_KEY, "true");
-    } catch {
-      /* ignore */
-    }
     // Seed initial welcome message if empty
     if (messages.length === 0) {
       setMessages([
@@ -299,11 +287,6 @@ export function NeoChatWidget() {
     activeElementRef.current = document.activeElement as HTMLElement;
     setHasDismissedGreeting(true);
     setView("open");
-    try {
-      window.sessionStorage.setItem(STORAGE_KEY, "true");
-    } catch {
-      /* ignore */
-    }
     if (messages.length === 0) {
       setMessages([
         {
@@ -318,11 +301,6 @@ export function NeoChatWidget() {
   const handleGreetingDismiss = () => {
     setHasDismissedGreeting(true);
     setView("minimized");
-    try {
-      window.sessionStorage.setItem(STORAGE_KEY, "true");
-    } catch {
-      /* ignore */
-    }
   };
 
   if (!mounted || isLenderOrAdmin) return null;
@@ -348,11 +326,6 @@ export function NeoChatWidget() {
         <NeoPanel
           onClose={() => {
             setView("minimized");
-            try {
-              window.sessionStorage.setItem(STORAGE_KEY, "true");
-            } catch {
-              /* ignore */
-            }
             setTimeout(() => {
               if (activeElementRef.current) {
                 activeElementRef.current.focus();
