@@ -114,8 +114,8 @@ function BorrowerSupportPage() {
                 variant="outline"
                 className="w-full flex gap-1.5 items-center justify-center"
               >
-                <a href="tel:1800000000">
-                  <Phone className="size-3.5" /> 1800-000-000
+                <a href="tel:18001027474">
+                  <Phone className="size-3.5" /> 1800-102-7474
                 </a>
               </Button>
             </div>

@@ -588,7 +588,12 @@ export function ApplicationFlow() {
                 <button
                   key={item.type}
                   type="button"
-                  onClick={() => setLoanType(item.type as any)}
+                  onClick={() => {
+                    setLoanType(item.type as any);
+                    if (item.type === "business") {
+                      setOccupationType("self_employed_business");
+                    }
+                  }}
                   className={cn(
                     "flex flex-col p-4 rounded-lg border text-left transition-all",
                     loanType === item.type

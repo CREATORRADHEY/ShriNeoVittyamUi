@@ -109,11 +109,43 @@ function BorrowerDashboard() {
         </Button>
       }
     >
-      {account === "restricted" || account === "suspended" ? (
+      {account === "restricted" ? (
         <RestrictedState
           borrowerVoice
-          reason="Your account is temporarily restricted under review. New applications and payment processing are paused. You can still view statements, previous documents, and contact support."
+          reason="Your account is temporarily restricted while compliance verification is completed. New applications and payment processing are paused. You can still view statements, previous documents, and contact support."
           reviewWindow="within 3 working days"
+          actions={[
+            {
+              label: "Submit Verification Documents",
+              to: "/app/borrower/documents",
+              variant: "default",
+            },
+            { label: "Contact Compliance Desk", to: "/app/borrower/support", variant: "outline" },
+          ]}
+        />
+      ) : account === "suspended" ? (
+        <RestrictedState
+          borrowerVoice
+          reason="Your account has been suspended following a security policy review. Access to active loan disbursements and new requests is locked."
+          reviewWindow="under active investigation"
+          actions={[
+            { label: "File Grievance Appeal", to: "/app/borrower/support", variant: "default" },
+            { label: "View Safety Notice", to: "/trust-center/security", variant: "outline" },
+          ]}
+        />
+      ) : account === "archived" ? (
+        <RestrictedState
+          borrowerVoice
+          reason="This ShriNeo Capital borrower account has been archived. All active facilities are closed and personal data processing is restricted under regulatory retention rules."
+          reviewWindow="archived record"
+          actions={[
+            {
+              label: "Request Account Reactivation",
+              to: "/app/borrower/support",
+              variant: "default",
+            },
+            { label: "View Data Ledger", to: "/trust-center/privacy-and-data", variant: "outline" },
+          ]}
         />
       ) : data === "failed" ? (
         <RetryPanel

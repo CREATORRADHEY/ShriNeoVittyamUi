@@ -259,10 +259,10 @@ export function PortalShell({
                 </div>
               </SheetContent>
             </Sheet>
-            <Link to="/" className="flex items-center gap-2 lg:hidden shrink-0">
+            <Link to="/" className="flex items-center gap-2 shrink-0">
               <img
                 src={logo}
-                alt="ShriNeo Capital"
+                alt="ShriNeo Capital logo"
                 className="h-7 w-auto object-contain shrink-0"
               />
             </Link>

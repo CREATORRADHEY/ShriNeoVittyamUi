@@ -110,8 +110,8 @@ function AgentSupportPage() {
           <SectionCard title="Agent Call Helpdesk">
             <p className="text-muted-foreground">Mon-Sat, 9AM-7PM IST. Hotline for active cases.</p>
             <Button asChild size="sm" variant="outline" className="w-full mt-3">
-              <a href="tel:1800000111">
-                <Phone className="size-3.5 mr-1" /> 1800-000-111
+              <a href="tel:18001027474">
+                <Phone className="size-3.5 mr-1" /> 1800-102-7474
               </a>
             </Button>
           </SectionCard>

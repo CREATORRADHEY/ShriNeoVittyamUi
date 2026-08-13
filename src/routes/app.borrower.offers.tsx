@@ -36,29 +36,29 @@ export const Route = createFileRoute("/app/borrower/offers")({
 
 const OFFERS = [
   {
+    lender: "SBI Digital Finance",
+    apr: "12.8%",
+    emi: 11540,
+    total: 415440,
+    fee: 3500,
+    expiry: "22 Aug, 18:00",
+    best: true,
+  },
+  {
     lender: "Kaveri Bank",
     apr: "13.4%",
-    emi: 21460,
-    total: 515040,
+    emi: 11640,
+    total: 419040,
     fee: 4500,
-    expiry: "14 Mar, 18:00",
-    best: true,
+    expiry: "23 Aug, 12:00",
   },
   {
     lender: "Meridian NBFC",
     apr: "14.1%",
-    emi: 21690,
-    total: 520560,
+    emi: 11790,
+    total: 424440,
     fee: 2500,
-    expiry: "15 Mar, 12:00",
-  },
-  {
-    lender: "Sahyadri Finance",
-    apr: "15.8%",
-    emi: 22140,
-    total: 531360,
-    fee: 0,
-    expiry: "16 Mar, 09:00",
+    expiry: "24 Aug, 09:00",
   },
 ];
 
@@ -137,9 +137,15 @@ function OffersPage() {
                   </dl>
                   <p className="num mt-3 text-xs text-warning">Valid until {o.expiry}</p>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    <Button size="sm">Accept this offer</Button>
-                    <Button size="sm" variant="outline">
-                      Key Fact Statement
+                    <Button size="sm" aria-label={`Accept ${o.lender} offer`}>
+                      Accept {o.lender} Offer
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      aria-label={`View ${o.lender} Key Fact Statement (KFS)`}
+                    >
+                      View {o.lender} KFS
                     </Button>
                   </div>
                 </article>

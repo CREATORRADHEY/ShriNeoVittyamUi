@@ -37,7 +37,7 @@ const spec: PortalPageSpec = {
     columns: ["Segment", "Exposure", "Share", "Limit", "Status"],
     rows: [
       [
-        "Personal, MP",
+        "Personal, Rajasthan (RJ)",
         "₹41.2 Cr",
         "22.4%",
         "25%",
@@ -47,7 +47,7 @@ const spec: PortalPageSpec = {
         },
       ],
       [
-        "Business, MP",
+        "Business, Uttar Pradesh (UP)",
         "₹28.9 Cr",
         "15.7%",
         "15%",
