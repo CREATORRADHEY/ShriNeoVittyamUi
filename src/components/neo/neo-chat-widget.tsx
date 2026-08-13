@@ -20,13 +20,9 @@ export function NeoChatWidget() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const prototypeState = usePrototype();
 
-  // Lifecycle states:
-  // idle: initial delay state (nothing visible)
-  // minimized: launcher visible
-  // greeting: greeting card visible
-  // open: chat panel open
-  const [view, setView] = useState<"idle" | "minimized" | "greeting" | "open">("idle");
-  const [hasDismissedGreeting, setHasDismissedGreeting] = useState(false);
+  // Initialize state based on localStorage to avoid artificial delays
+  const [view, setView] = useState<"minimized" | "greeting" | "open">("minimized");
+  const [hasDismissedGreeting, setHasDismissedGreeting] = useState(true);
 
   const [messages, setMessages] = useState<Msg[]>([]);
   const [typing, setTyping] = useState(false);
@@ -54,9 +50,19 @@ export function NeoChatWidget() {
     location.pathname.includes("/admin") ||
     location.pathname.includes("/lender");
 
+  // Read greeting seen status synchronously on mount without delay
   useEffect(() => {
     setMounted(true);
-  }, []);
+    if (isLenderOrAdmin) return;
+    try {
+      const greetingSeen = window.localStorage.getItem(STORAGE_KEY) === "true";
+      setHasDismissedGreeting(greetingSeen);
+      setView(greetingSeen ? "minimized" : "greeting");
+    } catch {
+      setHasDismissedGreeting(true);
+      setView("minimized");
+    }
+  }, [isLenderOrAdmin]);
 
   // Set up prototype navigator dock offset to avoid overlapping toolbar
   useEffect(() => {
@@ -73,21 +79,6 @@ export function NeoChatWidget() {
       window.clearTimeout(id);
     };
   }, []);
-
-  // Onboarding Greeting Card trigger logic (First eligible visit on EVERY reload)
-  useEffect(() => {
-    if (isLenderOrAdmin || !mounted) return;
-
-    if (!hasDismissedGreeting && view === "idle") {
-      // First session on load: show greeting card 2 seconds after page is visually stable.
-      // During these 2 seconds, view is "idle", meaning launcher is completely hidden.
-      const id = window.setTimeout(() => {
-        setView("greeting");
-      }, 2000);
-      timers.current.push(id);
-      return () => window.clearTimeout(id);
-    }
-  }, [mounted, isLenderOrAdmin, hasDismissedGreeting, view]);
 
   // Handle message sending and responses
   const getContextualAnswer = (lowerText: string): string => {
@@ -229,6 +220,11 @@ export function NeoChatWidget() {
   const handleOpenPanel = () => {
     setView("open");
     setHasDismissedGreeting(true);
+    try {
+      window.localStorage.setItem(STORAGE_KEY, "true");
+    } catch {
+      /* ignore */
+    }
     // Seed initial welcome message if empty
     if (messages.length === 0) {
       setMessages([
@@ -244,6 +240,11 @@ export function NeoChatWidget() {
   const handleGreetingAccept = () => {
     setHasDismissedGreeting(true);
     setView("open");
+    try {
+      window.localStorage.setItem(STORAGE_KEY, "true");
+    } catch {
+      /* ignore */
+    }
     if (messages.length === 0) {
       setMessages([
         {
@@ -258,6 +259,11 @@ export function NeoChatWidget() {
   const handleGreetingDismiss = () => {
     setHasDismissedGreeting(true);
     setView("minimized");
+    try {
+      window.localStorage.setItem(STORAGE_KEY, "true");
+    } catch {
+      /* ignore */
+    }
   };
 
   if (!mounted || isLenderOrAdmin) return null;
@@ -285,7 +291,14 @@ export function NeoChatWidget() {
       {/* State 3: Full Banking Concierge Assistant Panel */}
       {view === "open" && (
         <NeoPanel
-          onClose={() => setView("minimized")}
+          onClose={() => {
+            setView("minimized");
+            try {
+              window.localStorage.setItem(STORAGE_KEY, "true");
+            } catch {
+              /* ignore */
+            }
+          }}
           messages={messages}
           onSendMessage={onSendMessage}
           typing={typing}
