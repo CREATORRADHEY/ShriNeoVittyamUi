@@ -19,16 +19,33 @@ export const Route = createFileRoute("/app/borrower/action-centre")({
 });
 
 function ActionCentrePage() {
-  const { activeRequest } = usePrototype();
+  const { activeRequest, requests, auditLogs: prototypeAuditLogs, set } = usePrototype();
   const [uploadState, setUploadState] = useState<"idle" | "uploading" | "success">("idle");
   const [method, setMethod] = useState<"aa" | "upload" | null>(null);
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+  const [receiptRef] = useState(() => `RCP-${Math.floor(100000 + Math.random() * 900000)}`);
+  const [submitTime] = useState(() => new Date().toLocaleString("en-IN"));
 
   const handleUploadSim = () => {
+    if (!activeRequest) return;
     setUploadState("uploading");
     setTimeout(() => {
       setUploadState("success");
+      const updated = requests.map(r => r.id === activeRequest.id ? { ...r, status: "Submitted" as const } : r);
+      set("requests", updated);
+      set("application", "submitted"); // Auto advance borrower application status to submitted
+
+      // Log in audit ledger
+      const newAuditLog = {
+        id: `AUD-${Math.floor(1000 + Math.random() * 9000)}`,
+        timestamp: new Date().toLocaleString("en-IN", { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        actor: "Rohit Sharma (Borrower)",
+        action: "Doc Submitted",
+        details: `Uploaded statements for ${activeRequest.id} (${activeRequest.requiredItem})`
+      };
+      set("auditLogs", [newAuditLog, ...prototypeAuditLogs]);
+
       toast.success("Statements uploaded and sent for OCR validation.");
     }, 2000);
   };
@@ -38,9 +55,24 @@ function ActionCentrePage() {
       toast.error("Please enter a valid 4-digit OTP.");
       return;
     }
+    if (!activeRequest) return;
     setUploadState("uploading");
     setTimeout(() => {
       setUploadState("success");
+      const updated = requests.map(r => r.id === activeRequest.id ? { ...r, status: "Submitted" as const } : r);
+      set("requests", updated);
+      set("application", "submitted"); // Auto advance borrower application status to submitted
+
+      // Log in audit ledger
+      const newAuditLog = {
+        id: `AUD-${Math.floor(1000 + Math.random() * 9000)}`,
+        timestamp: new Date().toLocaleString("en-IN", { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        actor: "Rohit Sharma (Borrower)",
+        action: "Doc Submitted",
+        details: `Submitted statements via AA for ${activeRequest.id} (${activeRequest.requiredItem})`
+      };
+      set("auditLogs", [newAuditLog, ...prototypeAuditLogs]);
+
       toast.success("Bank statements successfully retrieved via Account Aggregator.");
     }, 2000);
   };
@@ -51,7 +83,27 @@ function ActionCentrePage() {
       title="Action Centre"
       subtitle="Complete outstanding items to advance your application"
     >
-      {!activeRequest || uploadState === "success" ? (
+      {uploadState === "success" ? (
+        <div className="flex flex-col items-center justify-center rounded-xl border border-border bg-card p-12 text-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+            <CheckCircle2 className="size-8" />
+          </div>
+          <h2 className="mt-4 text-lg font-semibold text-foreground">Clarification Submitted Successfully!</h2>
+          <div className="mt-4 w-full max-w-sm rounded-lg bg-surface border border-border p-4 text-left text-xs mx-auto space-y-2">
+            <p className="font-semibold text-foreground border-b border-border pb-1">Receipt Summary</p>
+            <p><span className="text-muted-foreground">Receipt Ref:</span> <span className="font-mono text-foreground font-semibold">{receiptRef}</span></p>
+            <p><span className="text-muted-foreground">Timestamp:</span> <span className="text-foreground">{submitTime}</span></p>
+            <p><span className="text-muted-foreground">Current Status:</span> <span className="inline-flex rounded-full bg-blue-50 border border-blue-200 px-2 py-0.5 text-[10px] font-semibold text-blue-700">SUBMITTED</span></p>
+            <p><span className="text-muted-foreground">Audit Code:</span> <span className="text-foreground">Auditable record updated in platform timeline</span></p>
+          </div>
+          <p className="mt-4 max-w-[45ch] text-xs text-muted-foreground">
+            Your document has been sent to the lender underwriting team. We will notify you when they complete the review.
+          </p>
+          <Button asChild className="mt-6" variant="outline">
+            <Link to="/app/borrower">Back to Dashboard</Link>
+          </Button>
+        </div>
+      ) : !activeRequest ? (
         <div className="flex flex-col items-center justify-center rounded-xl border border-border bg-card p-12 text-center">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
             <CheckCircle2 className="size-8" />

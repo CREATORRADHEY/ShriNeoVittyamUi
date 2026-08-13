@@ -74,10 +74,9 @@ function LoansIndex() {
           </>
         }
         panels={
-          <HeroPanel label="Products live today" meta="Phase 1">
+          <HeroPanel label="Products live today" meta="Active Support">
             <ul className="space-y-2">
               {products
-                .filter((p) => !p.phase2)
                 .map((p) => (
                   <li
                     key={p.slug}

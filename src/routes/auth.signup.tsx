@@ -44,13 +44,6 @@ const schema = z.object({
 
 type Errors = Partial<Record<"name" | "phone" | "terms", string>>;
 
-const LANGUAGES = [
-  { value: "en", label: "English" },
-  { value: "hi", label: "हिन्दी (Hindi)" },
-  { value: "mr", label: "मराठी (Marathi)" },
-  { value: "gu", label: "ગુજરાતી (Gujarati)" },
-] as const;
-
 function SignUpPage() {
   const [errors, setErrors] = useState<Errors>({});
   const [submitted, setSubmitted] = useState(false);
@@ -58,7 +51,6 @@ function SignUpPage() {
   const [showOtpInput, setShowOtpInput] = useState(false);
   const [otpValue, setOtpValue] = useState("");
   const [otpError, setOtpError] = useState("");
-  const [selectedLang, setSelectedLang] = useState("en");
   const [formData, setFormData] = useState<any>(null);
 
   const navigate = useNavigate();
@@ -132,24 +124,6 @@ function SignUpPage() {
     >
       {!showOtpInput ? (
         <form noValidate onSubmit={onSendOtp} className="grid gap-5">
-          <div>
-            <Label htmlFor="language" className="mb-1.5 block text-sm font-medium">
-              Preferred Language
-            </Label>
-            <select
-              id="language"
-              value={selectedLang}
-              onChange={(e) => setSelectedLang(e.target.value)}
-              className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:ring-2 focus:ring-primary focus:outline-none"
-            >
-              {LANGUAGES.map((l) => (
-                <option key={l.value} value={l.value}>
-                  {l.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
           <div>
             <Label htmlFor="name" className="mb-1.5 block text-sm font-medium">
               Full name

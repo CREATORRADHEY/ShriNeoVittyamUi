@@ -307,6 +307,41 @@ function ActiveBorrower({
 
   return (
     <>
+      {/* QUICK SHORTCUTS ROW */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <Link to="/app/borrower/cibil-score" className="flex items-center gap-2.5 p-3 rounded-xl border border-border bg-card hover:bg-neutral-50 transition-colors">
+          <span className="text-lg">📊</span>
+          <div className="text-left">
+            <p className="font-semibold text-xs text-foreground">Check CIBIL</p>
+            <p className="text-[10px] text-muted-foreground">Bureau details</p>
+          </div>
+        </Link>
+
+        <Link to="/app/borrower/snv-trust-score" className="flex items-center gap-2.5 p-3 rounded-xl border border-border bg-card hover:bg-neutral-50 transition-colors">
+          <span className="text-lg">📈</span>
+          <div className="text-left">
+            <p className="font-semibold text-xs text-foreground">SNV Trust Score</p>
+            <p className="text-[10px] text-muted-foreground">Advisory score</p>
+          </div>
+        </Link>
+
+        <Link to="/app/borrower/agents" className="flex items-center gap-2.5 p-3 rounded-xl border border-border bg-card hover:bg-neutral-50 transition-colors">
+          <span className="text-lg">👨‍💼</span>
+          <div className="text-left">
+            <p className="font-semibold text-xs text-foreground">Find Agent</p>
+            <p className="text-[10px] text-muted-foreground">Local assistance</p>
+          </div>
+        </Link>
+
+        <Link to="/app/borrower/action-centre" className="flex items-center gap-2.5 p-3 rounded-xl border border-border bg-card hover:bg-neutral-50 transition-colors">
+          <span className="text-lg">🔔</span>
+          <div className="text-left">
+            <p className="font-semibold text-xs text-foreground">Action Centre</p>
+            <p className="text-[10px] text-muted-foreground">Pending tasks</p>
+          </div>
+        </Link>
+      </div>
+
       <div className="grid gap-4 sm:grid-cols-3">
         <KpiCard
           label="Next EMI"

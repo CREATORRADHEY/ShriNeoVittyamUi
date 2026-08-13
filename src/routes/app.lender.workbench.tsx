@@ -8,7 +8,16 @@ import { usePrototype } from "@/prototype/state";
 import { formatINR } from "@/lib/format";
 import { toast } from "sonner";
 
+type WorkbenchSearch = {
+  id?: string | undefined;
+};
+
 export const Route = createFileRoute("/app/lender/workbench")({
+  validateSearch: (search: Record<string, unknown>): WorkbenchSearch => {
+    return {
+      id: search.id ? String(search.id) : undefined,
+    };
+  },
   head: () => ({
     meta: [
       { title: "Underwriter Workbench — ShriNeo Capital" },
@@ -20,10 +29,11 @@ export const Route = createFileRoute("/app/lender/workbench")({
 });
 
 function LenderWorkbenchPage() {
-  const { data } = usePrototype();
+  const { data, requests, auditLogs: prototypeAuditLogs, set } = usePrototype();
+  const search = Route.useSearch();
 
   // Search parameters or active file selection
-  const [activeFileId, setActiveFileId] = useState("SNV-24-118198");
+  const [activeFileId, setActiveFileId] = useState(search.id || "SNV-24-118198");
   
   // PII masking state
   const [piiMasked, setPiiMasked] = useState(true);
@@ -72,21 +82,48 @@ function LenderWorkbenchPage() {
   const handleSendInfoRequest = (e: React.FormEvent) => {
     e.preventDefault();
     if (!infoReqText.trim()) return;
+    const newReqId = `REQ-${Math.floor(800000 + Math.random() * 199999)}`;
     const newReq = {
-      id: `REQ-${Math.floor(800000 + Math.random() * 199999)}`,
+      id: newReqId,
       detail: `${infoReqField} request: "${infoReqText}" (Due: ${infoReqDueDate})`,
       status: "Sent"
     };
     setOutwardRequests(prev => [newReq, ...prev]);
     
     // Also log this query in audit ledger
-    const auditMsg = `Clarification raised (${newReq.id}) for item "${infoReqField}". Reason: "${infoReqText}". Internal notes: "${infoReqInternalNotes || 'None'}"`;
+    const auditMsg = `Clarification raised (${newReqId}) for item "${infoReqField}". Reason: "${infoReqText}". Internal notes: "${infoReqInternalNotes || 'None'}"`;
     setAuditLogs(prev => [auditMsg, ...prev]);
+
+    // Push canonical request to shared state
+    const canonicalReq = {
+      id: newReqId,
+      appId: "APP-2026-001284",
+      lenderId: "L-904",
+      requiredItem: infoReqField,
+      reason: infoReqText,
+      requestDate: new Date().toLocaleDateString("en-IN", { day: 'numeric', month: 'short', year: 'numeric' }),
+      dueDate: infoReqDueDate,
+      acceptedFormat: "Clear decrypted PDF / Account Aggregator consent",
+      status: "New" as const,
+      recipientVisibility: "SBI Underwriting Team only"
+    };
+    set("requests", [canonicalReq, ...requests]);
+    set("application", "documents-required"); // Switch application stage to documents-required so it updates borrower view
+
+    // Push audit event to shared audit logs
+    const canonicalAudit = {
+      id: `AUD-${Math.floor(1000 + Math.random() * 9000)}`,
+      timestamp: new Date().toLocaleString("en-IN", { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+      actor: "L-904 (SBI)",
+      action: "Info Requested",
+      details: `Requested re-upload of ${infoReqField} (${newReqId})`
+    };
+    set("auditLogs", [canonicalAudit, ...prototypeAuditLogs]);
 
     setInfoRequestOpen(false);
     setInfoReqText("");
     setInfoReqInternalNotes("");
-    toast.success(`Info request ${newReq.id} pushed to borrower Action Centre.`);
+    toast.success(`Info request ${newReqId} pushed to borrower Action Centre.`);
   };
 
   const handleDecisionSubmit = (type: "Approved" | "Rejected" | "Fraud Review") => {
@@ -95,6 +132,40 @@ function LenderWorkbenchPage() {
       return;
     }
     setDecisionDone(type);
+
+    // Push decision audit logs and update shared application status
+    if (type === "Approved") {
+      set("application", "approved");
+      const canonicalAudit = {
+        id: `AUD-${Math.floor(1000 + Math.random() * 9000)}`,
+        timestamp: new Date().toLocaleString("en-IN", { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        actor: "L-904 (SBI Underwriter)",
+        action: "Sanction Approved",
+        details: `Application approved for disbursement. Offered Loan: ₹${formatINR(customAmount)} at ${customRate}% APR for ${customTenure}M.`
+      };
+      set("auditLogs", [canonicalAudit, ...prototypeAuditLogs]);
+    } else if (type === "Rejected") {
+      set("application", "rejected");
+      const canonicalAudit = {
+        id: `AUD-${Math.floor(1000 + Math.random() * 9000)}`,
+        timestamp: new Date().toLocaleString("en-IN", { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        actor: "L-904 (SBI Underwriter)",
+        action: "Decline Confirmed",
+        details: `Application declined. Declination Reason Code: ${declineReason}.`
+      };
+      set("auditLogs", [canonicalAudit, ...prototypeAuditLogs]);
+    } else if (type === "Fraud Review") {
+      set("application", "manual-review");
+      const canonicalAudit = {
+        id: `AUD-${Math.floor(1000 + Math.random() * 9000)}`,
+        timestamp: new Date().toLocaleString("en-IN", { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        actor: "L-904 (SBI Underwriter)",
+        action: "Risk Escalate",
+        details: `Application escalated to specialized Fraud & Anti-Money Laundering review team.`
+      };
+      set("auditLogs", [canonicalAudit, ...prototypeAuditLogs]);
+    }
+
     toast.success(`Application credit status updated: ${type}`);
     setDecisionMode("none");
   };

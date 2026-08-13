@@ -52,7 +52,7 @@ export const APPLICATION_SCENARIOS = [
 ] as const;
 export type ApplicationScenario = (typeof APPLICATION_SCENARIOS)[number];
 
-export const DEVICES = ["desktop", "tablet", "mobile"] as const;
+export const DEVICES = ["desktop", "desktop-tablet", "tablet", "mobile"] as const;
 export type Device = (typeof DEVICES)[number];
 
 export type PrototypeState = {
@@ -62,6 +62,8 @@ export type PrototypeState = {
   application: ApplicationScenario;
   device: Device;
   toolbarOpen: boolean;
+  requests: fixtures.RequestEntity[];
+  auditLogs: fixtures.AuditEventEntity[];
 };
 
 const DEFAULT_STATE: PrototypeState = {
@@ -71,6 +73,8 @@ const DEFAULT_STATE: PrototypeState = {
   application: "lender-review",
   device: "desktop",
   toolbarOpen: true,
+  requests: [fixtures.CANONICAL_REQUEST],
+  auditLogs: fixtures.CANONICAL_AUDIT_LOGS,
 };
 
 type Ctx = PrototypeState & {
@@ -148,9 +152,7 @@ export function PrototypeProvider({ children }: { children: ReactNode }) {
     }
 
     // Derive active document requests
-    const activeRequest = (!isNew && (state.application === "documents-required" || state.account === "action-required"))
-      ? fixtures.CANONICAL_REQUEST
-      : null;
+    const activeRequest = isNew ? null : (state.requests.find(r => r.status !== "Accepted" && r.status !== "Rejected") || null);
 
     // Derive document checklist
     const activeDocuments = isNew ? [] : fixtures.CANONICAL_DOCUMENTS;
@@ -176,9 +178,9 @@ export function PrototypeProvider({ children }: { children: ReactNode }) {
       activeOffers,
       activePayment,
       activeGrievance: fixtures.CANONICAL_GRIEVANCE,
-      activeAuditLogs: fixtures.CANONICAL_AUDIT_LOGS,
+      activeAuditLogs: isNew ? [] : state.auditLogs,
     };
-  }, [state.account, state.data, state.application]);
+  }, [state.account, state.data, state.application, state.requests, state.auditLogs]);
 
   const value = useMemo<Ctx>(() => ({
     ...state,
@@ -247,14 +249,16 @@ export const APPLICATION_LABEL: Record<ApplicationScenario, string> = {
 };
 
 export const DEVICE_LABEL: Record<Device, string> = {
-  desktop: "Desktop",
-  tablet: "Tablet",
-  mobile: "Mobile",
+  desktop: "Desktop (1440px)",
+  "desktop-tablet": "Desktop/Tablet (1024px)",
+  tablet: "Tablet (768px)",
+  mobile: "Mobile (390px)",
 };
 
 /** Frame width used to simulate a device inside the portal shell. */
 export const DEVICE_WIDTH: Record<Device, string> = {
-  desktop: "100%",
-  tablet: "834px",
+  desktop: "1440px",
+  "desktop-tablet": "1024px",
+  tablet: "768px",
   mobile: "390px",
 };

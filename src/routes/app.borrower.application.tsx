@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { formatINR } from "@/lib/format";
 import { usePrototype } from "@/prototype/state";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/app/borrower/application")({
   head: () => ({
@@ -157,6 +158,15 @@ export function ApplicationFlow() {
   const [constructionStage, setConstructionStage] = useState("");
   const [coApplicantRole, setCoApplicantRole] = useState("None");
   const [coApplicantName, setCoApplicantName] = useState("");
+  const [coApplicantDob, setCoApplicantDob] = useState("");
+  const [coApplicantPan, setCoApplicantPan] = useState("");
+  const [coApplicantAadhaar, setCoApplicantAadhaar] = useState("");
+  const [coApplicantIncome, setCoApplicantIncome] = useState("");
+  const [coApplicantOccupation, setCoApplicantOccupation] = useState("Salaried");
+  const [coApplicantConsent, setCoApplicantConsent] = useState(false);
+  const [coApplicantAadhaarFile, setCoApplicantAadhaarFile] = useState<string | null>(null);
+  const [coApplicantPanFile, setCoApplicantPanFile] = useState<string | null>(null);
+  const [coApplicantIncomeFile, setCoApplicantIncomeFile] = useState<string | null>(null);
 
   // Mortgage / LAP
   const [lapEndUse, setLapEndUse] = useState("Business Expansion");
@@ -562,24 +572,46 @@ export function ApplicationFlow() {
               </div>
 
               {/* Conditionally Mandatory: Subtype for Home Loans */}
-              {(loanType === "home" || loanType === "mortgage") && (
+              {loanType === "home" && (
                 <div className="grid gap-1.5 p-3 rounded-lg border border-[#DDE7F5] bg-neutral-50 animate-in fade-in slide-in-from-top-1 duration-200">
                   <span className="text-[10px] font-bold text-amber-600 tracking-wider uppercase">
                     Conditionally Mandatory alert
                   </span>
-                  <Label htmlFor="product-subtype">Property/Home Loan Subtype</Label>
+                  <Label htmlFor="product-subtype-home">Home Loan Subtype</Label>
                   <select
-                    id="product-subtype"
+                    id="product-subtype-home"
                     value={productSubtype}
                     onChange={(e) => setProductSubtype(e.target.value)}
                     className="flex h-10 w-full rounded-md border border-[#DDE7F5] bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   >
                     <option value="Ready Property Purchase">Ready Property Purchase</option>
-                    <option value="Self-construction">Self-construction</option>
+                    <option value="Self-Construction">Self-Construction</option>
                     <option value="Plot Purchase + Construction">Plot Purchase + Construction</option>
                   </select>
                   <p className="text-[11px] text-muted-foreground">
-                    * Required because you selected Home or Mortgage loan type.
+                    * Required because you selected Home Loan type.
+                  </p>
+                </div>
+              )}
+
+              {loanType === "mortgage" && (
+                <div className="grid gap-1.5 p-3 rounded-lg border border-[#DDE7F5] bg-neutral-50 animate-in fade-in slide-in-from-top-1 duration-200">
+                  <span className="text-[10px] font-bold text-amber-600 tracking-wider uppercase">
+                    Conditionally Mandatory alert
+                  </span>
+                  <Label htmlFor="product-subtype-lap">Mortgage / LAP Subtype</Label>
+                  <select
+                    id="product-subtype-lap"
+                    value={productSubtype}
+                    onChange={(e) => setProductSubtype(e.target.value)}
+                    className="flex h-10 w-full rounded-md border border-[#DDE7F5] bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  >
+                    <option value="Commercial Property LAP">Commercial Property LAP</option>
+                    <option value="Residential Property LAP">Residential Property LAP</option>
+                    <option value="Plot LAP">Plot LAP</option>
+                  </select>
+                  <p className="text-[11px] text-muted-foreground">
+                    * Required because you selected Mortgage / LAP loan type.
                   </p>
                 </div>
               )}
@@ -929,8 +961,10 @@ export function ApplicationFlow() {
                   {/* Branch PAN vs Form 60 */}
                   {panAvailable ? (
                     <div className="grid gap-1.5 p-3 rounded-lg border border-[#DDE7F5] bg-neutral-50 animate-in fade-in duration-200">
-                      <span className="text-[10px] font-bold text-[#002B98] tracking-wider uppercase">
-                        Conditionally Mandatory Alert
+                      <span className="text-[10px] font-bold text-red-600 tracking-wider uppercase">
+                        {Number(loanAmount) > 50000 
+                          ? "Mandatory because: loan amount > 50,000" 
+                          : "Mandatory"}
                       </span>
                       <Label htmlFor="pan-number">Permanent Account Number (PAN)</Label>
                       <Input
@@ -942,7 +976,9 @@ export function ApplicationFlow() {
                         aria-invalid={Boolean(errors.pan)}
                       />
                       <p className="text-[11px] text-muted-foreground">
-                        * Required because PAN is available.
+                        {Number(loanAmount) > 50000 
+                          ? "* Required under RBI tax compliance guidelines for loans above ₹50,000." 
+                          : "* Required for KYC verification."}
                       </p>
                       {errors.pan && <p className="text-xs text-rose-600 font-semibold">{errors.pan}</p>}
                     </div>
@@ -1428,10 +1464,9 @@ export function ApplicationFlow() {
                         onChange={(e) => setHomeSubtype(e.target.value)}
                         className="flex h-10 w-full rounded-md border border-[#DDE7F5] bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                       >
-                        <option value="Ready Property Purchase">Ready Built Flat / House Purchase</option>
-                        <option value="Under Construction Purchase">Under Construction Property Purchase</option>
-                        <option value="Plot Purchase + Construction">Plot Purchase & Construction</option>
-                        <option value="Home Renovation">Home Renovation / Extension</option>
+                        <option value="Ready Property Purchase">Ready Property Purchase</option>
+                        <option value="Self-Construction">Self-Construction</option>
+                        <option value="Plot Purchase + Construction">Plot Purchase + Construction</option>
                       </select>
                     </div>
 
@@ -1573,17 +1608,162 @@ export function ApplicationFlow() {
                     </div>
 
                     {coApplicantRole !== "None" && (
-                      <div className="grid gap-1.5 p-3 rounded-lg border border-amber-200 bg-amber-50 animate-in fade-in duration-200">
-                        <Label htmlFor="co-applicant-name">Co-Applicant Legal Name</Label>
-                        <Input
-                          id="co-applicant-name"
-                          value={coApplicantName}
-                          onChange={(e) => setCoApplicantName(e.target.value)}
-                          placeholder="Enter co-applicant's full legal name"
-                        />
-                        <p className="text-[10px] text-amber-800">
-                          * Co-applicant will sign the mortgage charge deed.
-                        </p>
+                      <div className="grid gap-4 p-4 rounded-xl border border-amber-200 bg-amber-50/80 shadow-sm animate-in fade-in duration-200">
+                        <div className="flex items-center justify-between border-b border-amber-200 pb-2">
+                          <h5 className="font-bold text-[#002B98] text-xs uppercase tracking-wider">Co-Applicant Details</h5>
+                          <span className="text-[10px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded font-semibold">REQUIRED</span>
+                        </div>
+
+                        {/* Profile Details */}
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          <div className="grid gap-1.5">
+                            <Label htmlFor="co-applicant-name">Co-Applicant Legal Name</Label>
+                            <Input
+                              id="co-applicant-name"
+                              value={coApplicantName}
+                              onChange={(e) => setCoApplicantName(e.target.value)}
+                              placeholder="Full name as in PAN"
+                              required
+                            />
+                          </div>
+
+                          <div className="grid gap-1.5">
+                            <Label htmlFor="co-applicant-dob">Date of Birth</Label>
+                            <Input
+                              id="co-applicant-dob"
+                              type="date"
+                              value={coApplicantDob}
+                              onChange={(e) => setCoApplicantDob(e.target.value)}
+                              required
+                            />
+                          </div>
+                        </div>
+
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          <div className="grid gap-1.5">
+                            <Label htmlFor="co-applicant-pan">PAN Number</Label>
+                            <Input
+                              id="co-applicant-pan"
+                              value={coApplicantPan}
+                              onChange={(e) => setCoApplicantPan(e.target.value.toUpperCase())}
+                              placeholder="ABCDE1234F"
+                              maxLength={10}
+                              required
+                            />
+                          </div>
+
+                          <div className="grid gap-1.5">
+                            <Label htmlFor="co-applicant-aadhaar">Aadhaar Card (Last 4 digits)</Label>
+                            <Input
+                              id="co-applicant-aadhaar"
+                              value={coApplicantAadhaar}
+                              onChange={(e) => setCoApplicantAadhaar(e.target.value.replace(/\D/g, ""))}
+                              placeholder="1234"
+                              maxLength={4}
+                              required
+                            />
+                          </div>
+                        </div>
+
+                        {/* Income Parameters */}
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          <div className="grid gap-1.5">
+                            <Label htmlFor="co-applicant-income">Net Monthly Income (INR)</Label>
+                            <Input
+                              id="co-applicant-income"
+                              inputMode="numeric"
+                              value={coApplicantIncome}
+                              onChange={(e) => setCoApplicantIncome(e.target.value.replace(/\D/g, ""))}
+                              placeholder="E.g. 50000"
+                              required
+                            />
+                            {coApplicantIncome && (
+                              <p className="text-[10px] text-amber-800">
+                                Formatted: {formatINR(Number(coApplicantIncome))}
+                              </p>
+                            )}
+                          </div>
+
+                          <div className="grid gap-1.5">
+                            <Label htmlFor="co-applicant-occupation">Occupation Type</Label>
+                            <select
+                              id="co-applicant-occupation"
+                              value={coApplicantOccupation}
+                              onChange={(e) => setCoApplicantOccupation(e.target.value)}
+                              className="flex h-10 w-full rounded-md border border-[#DDE7F5] bg-white px-3 py-2 text-sm"
+                            >
+                              <option value="Salaried">Salaried</option>
+                              <option value="Self-Employed Professional">Self-Employed Professional</option>
+                              <option value="Self-Employed Business">Self-Employed Business</option>
+                              <option value="Retired">Retired/Other</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        {/* File Uploads */}
+                        <div className="grid gap-3 border-t border-amber-200/50 pt-3">
+                          <Label className="text-xs font-semibold text-amber-900">Required Documents</Label>
+                          <div className="grid gap-2 sm:grid-cols-3">
+                            <div className="rounded border border-dashed border-amber-300 bg-amber-50/40 p-2.5 text-center text-[10px]">
+                              <p className="font-semibold mb-1">PAN Card Proof</p>
+                              {coApplicantPanFile ? (
+                                <span className="text-emerald-700 font-semibold">✓ {coApplicantPanFile}</span>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => setCoApplicantPanFile("co_applicant_pan.pdf")}
+                                  className="text-primary underline font-medium hover:text-primary-hover"
+                                >
+                                  Upload PAN PDF
+                                </button>
+                              )}
+                            </div>
+
+                            <div className="rounded border border-dashed border-amber-300 bg-amber-50/40 p-2.5 text-center text-[10px]">
+                              <p className="font-semibold mb-1">Aadhaar Proof</p>
+                              {coApplicantAadhaarFile ? (
+                                <span className="text-emerald-700 font-semibold">✓ {coApplicantAadhaarFile}</span>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => setCoApplicantAadhaarFile("co_applicant_aadhaar.pdf")}
+                                  className="text-primary underline font-medium hover:text-primary-hover"
+                                >
+                                  Upload Aadhaar PDF
+                                </button>
+                              )}
+                            </div>
+
+                            <div className="rounded border border-dashed border-amber-300 bg-amber-50/40 p-2.5 text-center text-[10px]">
+                              <p className="font-semibold mb-1">Income Proof (Form 16/ITR)</p>
+                              {coApplicantIncomeFile ? (
+                                <span className="text-emerald-700 font-semibold">✓ {coApplicantIncomeFile}</span>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => setCoApplicantIncomeFile("co_applicant_income.pdf")}
+                                  className="text-primary underline font-medium hover:text-primary-hover"
+                                >
+                                  Upload Income PDF
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Mandatory Consent */}
+                        <div className="flex items-start gap-2 border-t border-amber-200/50 pt-3">
+                          <input
+                            type="checkbox"
+                            id="co-applicant-consent"
+                            checked={coApplicantConsent}
+                            onChange={(e) => setCoApplicantConsent(e.target.checked)}
+                            className="mt-0.5 size-4 rounded border-amber-300 text-primary focus:ring-primary"
+                          />
+                          <label htmlFor="co-applicant-consent" className="text-[11px] text-amber-900 leading-tight select-none cursor-pointer">
+                            I hereby authorize ShriNeo Capital to perform soft credit queries and verify bureau footprints for the co-applicant in compliance with TransUnion CIBIL credit score retrieval parameters.
+                          </label>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -1597,6 +1777,20 @@ export function ApplicationFlow() {
                 <div>
                   <h4 className="font-bold text-[#002B98] text-sm mb-4">Collateral Property Profile</h4>
                   <div className="grid gap-4">
+                    <div className="grid gap-1.5">
+                      <Label htmlFor="lap-subtype-select">Mortgage / LAP Subtype</Label>
+                      <select
+                        id="lap-subtype-select"
+                        value={productSubtype}
+                        onChange={(e) => setProductSubtype(e.target.value)}
+                        className="flex h-10 w-full rounded-md border border-[#DDE7F5] bg-background px-3 py-2 text-sm"
+                      >
+                        <option value="Commercial Property LAP">Commercial Property LAP</option>
+                        <option value="Residential Property LAP">Residential Property LAP</option>
+                        <option value="Plot LAP">Plot LAP</option>
+                      </select>
+                    </div>
+
                     <div className="grid gap-1.5">
                       <Label htmlFor="lap-purpose">End-Use of Funds</Label>
                       <select
@@ -1976,7 +2170,7 @@ export function ApplicationFlow() {
                         />
                         <div>
                           <Label htmlFor="liability-auto" className="font-semibold text-xs cursor-pointer">Auto Loan (ICICI Bank)</Label>
-                          <span className="text-[10px] text-muted-foreground block">Oustanding: ₹3,20,000 | EMI: ₹8,500</span>
+                          <span className="text-[10px] text-muted-foreground block">Outstanding: ₹3,20,000 | EMI: ₹8,500</span>
                         </div>
                       </div>
                       <span className="text-xs font-bold text-neutral-700">₹8,500/mo</span>
@@ -2362,8 +2556,59 @@ export function ApplicationFlow() {
         {/* STEP 7: Documents & Identity Verification */}
         {step === 7 && (
           <div>
-            <h3 className="text-lg font-bold text-[#002B98] mb-4">Verification & Document Uploads</h3>
-            
+            <h3 className="text-lg font-bold text-[#002B98] mb-2">Verification & Document Uploads</h3>
+            <p className="text-xs text-muted-foreground mb-6">
+              Complete your KYC and verification checks. You can choose your preferred OVD (Officially Valid Document) verification channel below.
+            </p>
+
+            {/* Choose-Your-Own KYC selector */}
+            <div className="mb-6 rounded-xl border border-[#DDE7F5] bg-neutral-50 p-4">
+              <h4 className="font-bold text-[#002B98] text-xs uppercase tracking-wider mb-3">OVD Verification Selector</h4>
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setOvdMethod("digilocker")}
+                  className={cn(
+                    "flex flex-col items-center justify-center p-3 rounded-lg border text-center transition-colors text-xs font-semibold",
+                    ovdMethod === "digilocker" 
+                      ? "border-primary bg-[#E6F1FB] text-primary" 
+                      : "border-border bg-white text-muted-foreground hover:bg-neutral-100"
+                  )}
+                >
+                  <span className="text-base mb-1">🔗</span>
+                  <span>DigiLocker KYC</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setOvdMethod("camera")}
+                  className={cn(
+                    "flex flex-col items-center justify-center p-3 rounded-lg border text-center transition-colors text-xs font-semibold",
+                    ovdMethod === "camera" 
+                      ? "border-primary bg-[#E6F1FB] text-primary" 
+                      : "border-border bg-white text-muted-foreground hover:bg-neutral-100"
+                  )}
+                >
+                  <span className="text-base mb-1">📷</span>
+                  <span>Liveness Camera</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setOvdMethod("upload")}
+                  className={cn(
+                    "flex flex-col items-center justify-center p-3 rounded-lg border text-center transition-colors text-xs font-semibold",
+                    ovdMethod === "upload" 
+                      ? "border-primary bg-[#E6F1FB] text-primary" 
+                      : "border-border bg-white text-muted-foreground hover:bg-neutral-100"
+                  )}
+                >
+                  <span className="text-base mb-1">📁</span>
+                  <span>File Upload</span>
+                </button>
+              </div>
+            </div>
+
             <div className="grid gap-6 md:grid-cols-[1.5fr_1fr]">
               <div className="grid gap-4">
                 <p className="text-sm text-muted-foreground">
@@ -2414,16 +2659,44 @@ export function ApplicationFlow() {
                             </span>
                             
                             {(status === "Required" || status === "Rejected" || status === "Uploaded") && (
-                              <Button 
-                                variant="outline" 
-                                size="sm"
-                                className="h-8 text-xs bg-white hover:bg-neutral-50"
-                                onClick={() => {
-                                  setDocList(prev => ({ ...prev, [doc.name]: "Uploaded" }));
-                                }}
-                              >
-                                {status === "Required" ? "Upload File" : status === "Rejected" ? "Re-upload" : "Replace"}
-                              </Button>
+                              <>
+                                {(doc.name === "PAN / Form 60" || doc.name === "Aadhaar Card") && ovdMethod === "digilocker" ? (
+                                  <Button
+                                    variant="default"
+                                    size="sm"
+                                    className="h-8 text-xs font-semibold"
+                                    onClick={() => {
+                                      toast.success(`Retrieved ${doc.name} from DigiLocker registry.`);
+                                      setDocList(prev => ({ ...prev, [doc.name]: "Accepted" }));
+                                    }}
+                                  >
+                                    Pull DigiLocker
+                                  </Button>
+                                ) : (doc.name === "PAN / Form 60" || doc.name === "Aadhaar Card") && ovdMethod === "camera" ? (
+                                  <Button
+                                    variant="secondary"
+                                    size="sm"
+                                    className="h-8 text-xs font-semibold"
+                                    onClick={() => {
+                                      toast.success(`Live photo of ${doc.name} captured.`);
+                                      setDocList(prev => ({ ...prev, [doc.name]: "Under review" }));
+                                    }}
+                                  >
+                                    Snap Photo
+                                  </Button>
+                                ) : (
+                                  <Button 
+                                    variant="outline" 
+                                    size="sm"
+                                    className="h-8 text-xs bg-white hover:bg-neutral-50"
+                                    onClick={() => {
+                                      setDocList(prev => ({ ...prev, [doc.name]: "Uploaded" }));
+                                    }}
+                                  >
+                                    {status === "Required" ? "Upload File" : status === "Rejected" ? "Re-upload" : "Replace"}
+                                  </Button>
+                                )}
+                              </>
                             )}
                           </div>
                         </div>
@@ -2659,7 +2932,7 @@ export function ApplicationFlow() {
                 {!cibilConsent ? (
                   <div className="grid gap-2 border-t pt-3">
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      We require your explicit consent before checking bureau records. This will not trigger a hard enquiry footprints.
+                      We require your explicit consent before checking bureau records. This will not trigger a hard inquiry footprint.
                     </p>
                     <button
                       type="button"
@@ -2862,7 +3135,7 @@ export function ApplicationFlow() {
                 </div>
                 <div>
                   <span className="text-xs text-muted-foreground">Requested Loan</span>
-                  <p className="text-sm font-semibold text-foreground">₹{formatINR(Number(loanAmount || 350000))} ({loanType ? loanType.toUpperCase() : "PERSONAL"} Loan)</p>
+                  <p className="text-sm font-semibold text-foreground">{formatINR(Number(loanAmount || 350000))} ({loanType ? loanType.toUpperCase() : "PERSONAL"} Loan)</p>
                 </div>
                 <div>
                   <StatusBadge tone="success">Processing Matched Offers</StatusBadge>
@@ -2894,10 +3167,10 @@ export function ApplicationFlow() {
                       ].map((offer) => (
                         <tr key={offer.id} className="hover:bg-neutral-50 transition-colors">
                           <td className="p-3 font-semibold text-foreground">{offer.lender}</td>
-                          <td className="p-3 font-semibold text-[#002B98]">₹{formatINR(offer.amount)}</td>
+                          <td className="p-3 font-semibold text-[#002B98]">{formatINR(offer.amount)}</td>
                           <td className="p-3">{offer.tenure} Months</td>
                           <td className="p-3">{offer.apr}% APR</td>
-                          <td className="p-3 font-semibold">₹{formatINR(offer.emi)}/mo</td>
+                          <td className="p-3 font-semibold">{formatINR(offer.emi)}/mo</td>
                           <td className="p-3 text-center">
                             <button 
                               type="button"
@@ -2991,15 +3264,15 @@ export function ApplicationFlow() {
                           </tr>
                           <tr>
                             <td className="p-2.5 font-semibold">Sanctioned Loan Amount</td>
-                            <td className="p-2.5 text-right font-bold">₹{formatINR(activeKfsOffer.amount)}</td>
+                            <td className="p-2.5 text-right font-bold">{formatINR(activeKfsOffer.amount)}</td>
                           </tr>
                           <tr>
                             <td className="p-2.5 font-semibold text-rose-800">Processing Fees (Deducted upfront)</td>
-                            <td className="p-2.5 text-right text-rose-800 font-semibold">- ₹{formatINR(activeKfsOffer.fee)}</td>
+                            <td className="p-2.5 text-right text-rose-800 font-semibold">- {formatINR(activeKfsOffer.fee)}</td>
                           </tr>
                           <tr className="bg-emerald-50/50">
                             <td className="p-2.5 font-bold text-emerald-900">Net Disbursed Amount</td>
-                            <td className="p-2.5 text-right text-emerald-800 font-extrabold">₹{formatINR(activeKfsOffer.amount - activeKfsOffer.fee)}</td>
+                            <td className="p-2.5 text-right text-emerald-800 font-extrabold">{formatINR(activeKfsOffer.amount - activeKfsOffer.fee)}</td>
                           </tr>
                           <tr>
                             <td className="p-2.5 font-semibold">Rate of Interest type</td>
@@ -3015,15 +3288,15 @@ export function ApplicationFlow() {
                           </tr>
                           <tr>
                             <td className="p-2.5 font-semibold text-foreground">Monthly Installment (EMI)</td>
-                            <td className="p-2.5 text-right font-extrabold text-[#002B98]">₹{formatINR(activeKfsOffer.emi)}/mo</td>
+                            <td className="p-2.5 text-right font-extrabold text-[#002B98]">{formatINR(activeKfsOffer.emi)}/mo</td>
                           </tr>
                           <tr>
                             <td className="p-2.5 font-semibold text-muted-foreground">Total Interest Payable</td>
-                            <td className="p-2.5 text-right font-semibold">₹{formatINR((activeKfsOffer.emi * activeKfsOffer.tenure) - activeKfsOffer.amount)}</td>
+                            <td className="p-2.5 text-right font-semibold">{formatINR((activeKfsOffer.emi * activeKfsOffer.tenure) - activeKfsOffer.amount)}</td>
                           </tr>
                           <tr className="bg-neutral-50 font-bold">
                             <td className="p-2.5">Total Repayment Amount</td>
-                            <td className="p-2.5 text-right">₹{formatINR(activeKfsOffer.emi * activeKfsOffer.tenure)}</td>
+                            <td className="p-2.5 text-right">{formatINR(activeKfsOffer.emi * activeKfsOffer.tenure)}</td>
                           </tr>
                         </tbody>
                       </table>

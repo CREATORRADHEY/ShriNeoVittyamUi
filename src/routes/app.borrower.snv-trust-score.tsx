@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Activity, ShieldAlert, RefreshCw, Eye, EyeOff, CheckCircle2 } from "lucide-react";
 
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { usePrototype } from "@/prototype/state";
 
 export const Route = createFileRoute("/app/borrower/snv-trust-score")({
   head: () => ({
@@ -18,8 +19,17 @@ export const Route = createFileRoute("/app/borrower/snv-trust-score")({
 });
 
 function SnvTrustScorePage() {
+  const { application, account } = usePrototype();
   const [scoreState, setScoreState] = useState<"not-generated" | "processing" | "available" | "insufficient-data" | "recalculation-required" | "consent-withdrawn">("available");
   const [sharingConsent, setSharingConsent] = useState(true);
+
+  useEffect(() => {
+    if (application === "draft" || account === "new") {
+      setScoreState("not-generated");
+    } else {
+      setScoreState("available");
+    }
+  }, [application, account]);
 
   const handleGenerateScore = (targetState: "available" | "insufficient-data") => {
     setScoreState("processing");

@@ -48,6 +48,7 @@ const LEADS = [
 function AgentDashboard() {
   const { account, data } = usePrototype();
   const [payoutSkipped, setPayoutSkipped] = useState(false);
+  const [claimedLeads, setClaimedLeads] = useState<string[]>([]);
 
   // Persistent payout alert banner if skipped
   const banner =
@@ -55,7 +56,7 @@ function AgentDashboard() {
       <InlineState
         tone="warning"
         title="Complete payout setup to release commission payouts"
-        explanation="You skipped bank account registration. s and TDS payouts will be held until details are confirmed."
+        explanation="You skipped bank account registration. Commission payouts will be held until details are confirmed."
         safety="Earned commission is locked. It will release to your ledger automatically once verification succeeds."
         actions={[{ label: "Complete Bank Details", variant: "default", onClick: () => { setPayoutSkipped(false); toast.info("Launch bank settings."); } }]}
       />
@@ -141,27 +142,47 @@ function AgentDashboard() {
                     <th scope="col" className="p-3 font-semibold">Requested</th>
                     <th scope="col" className="p-3 font-semibold">Consent Status</th>
                     <th scope="col" className="p-3 font-semibold">Assigned Time</th>
+                    <th scope="col" className="p-3 font-semibold">Action / Lock Status</th>
                   </tr>
                 </thead>
                 {data === "empty" ? (
-                  <TableState kind="empty" columns={5} entity="leads" />
+                  <TableState kind="empty" columns={6} entity="leads" />
                 ) : (
                   <tbody>
                     {LEADS.map((l) => (
                       <tr key={l.name} className="border-b border-border last:border-0 hover:bg-neutral-50">
                         <td className="p-3 font-semibold text-foreground">
-                          {l.name}
+                          {l.consent === "Approved" || claimedLeads.includes(l.name)
+                            ? l.name 
+                            : `REQ-2026-${1000 + l.name.charCodeAt(0) + l.name.charCodeAt(1)} (Pre-acceptance Lock)`}
                         </td>
                         <td className="p-3 text-muted-foreground">{l.product}</td>
                         <td className="num p-3 text-foreground font-semibold">{formatINR(l.amount)}</td>
                         <td className="p-3">
                           <StatusBadge
-                            tone={l.consent === "Approved" ? "success" : l.consent === "Pending" ? "warning" : "error"}
+                            tone={claimedLeads.includes(l.name) || l.consent === "Approved" ? "success" : l.consent === "Pending" ? "warning" : "error"}
                           >
-                            {l.consent}
+                            {claimedLeads.includes(l.name) ? "Approved & Active" : l.consent}
                           </StatusBadge>
                         </td>
                         <td className="num p-3 text-muted-foreground">{l.age}</td>
+                        <td className="p-3">
+                          {l.consent === "Pending" && !claimedLeads.includes(l.name) ? (
+                            <Button
+                              size="xs"
+                              onClick={() => {
+                                setClaimedLeads(prev => [...prev, l.name]);
+                                toast.success(`Lead successfully claimed and locked under First-Valid-Accept protocol.`);
+                              }}
+                            >
+                              Claim & Lock Lead
+                            </Button>
+                          ) : l.consent === "Expired" ? (
+                            <span className="text-[10px] text-rose-600 font-semibold">Consent Expired</span>
+                          ) : (
+                            <span className="text-[10px] text-emerald-600 font-semibold">✓ Claimed & Locked</span>
+                          )}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -221,6 +242,25 @@ function AgentDashboard() {
                   <Button asChild size="sm" variant="outline">
                     <Link to="/app/agent/commissions">Open commission ledger</Link>
                   </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant={payoutSkipped ? "secondary" : "default"}
+                    onClick={() => {
+                      if (payoutSkipped) {
+                        toast.error("Payout blocked: bank credentials setup was skipped during onboarding.");
+                      } else {
+                        toast.success("Payout withdrawal request of ₹43,425 queued successfully.");
+                      }
+                    }}
+                  >
+                    Request Payout Withdrawal
+                  </Button>
+                  {payoutSkipped && (
+                    <span className="text-[10px] text-rose-600 font-semibold flex items-center gap-1">
+                      ⚠️ Payouts blocked (Bank setup skipped)
+                    </span>
+                  )}
                 </div>
               </SectionCard>
             </div>
@@ -369,7 +409,7 @@ function AgentOnboardingDashboard({ payoutSkipped, setPayoutSkipped }: Onboardin
             <SectionCard title="Step 1 · Mobile and Email Verification" description="RBI-mandated security check">
               <div className="space-y-4 text-xs">
                 <div>
-                  <Label htmlFor="lang" className="mb-1 block font-medium">Onboarding Language</Label>
+                  <Label htmlFor="lang" className="mb-1 block font-medium">Preferred Communication Language</Label>
                   <select
                     id="lang"
                     value={selectedLang}

@@ -240,6 +240,7 @@ export function PrototypeToolbar() {
                   onClick={() => {
                     // Clear persistent memory to allow designers to re-trigger onboarding greeting card
                     window.localStorage.removeItem("shrineo.neoGreetingSeen");
+                    window.sessionStorage.removeItem("shrineo.neoGreetingSeen");
                     window.dispatchEvent(
                       new CustomEvent("shrineo:neo-override", {
                         detail: { state: "greeting", voiceState: "idle" }

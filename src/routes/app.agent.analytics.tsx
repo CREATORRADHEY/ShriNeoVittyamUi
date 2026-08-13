@@ -36,7 +36,7 @@ const spec: PortalPageSpec = {
       },
       {
         "title": "Coverage",
-        "body": "Indore, Dewas and Ujjain. Adding one more district would raise your assigned lead volume."
+        "body": "Jaipur, Jodhpur and Kota. Adding one more district would raise your assigned lead volume."
       },
       {
         "title": "Quality score",

@@ -27,7 +27,7 @@ const spec: PortalPageSpec = {
         ],
         [
           "11 Mar 2026, 09:02",
-          "New lead assigned in Dewas",
+          "New lead assigned in Jaipur",
           "LD-92014",
           {
             "text": "Unread",

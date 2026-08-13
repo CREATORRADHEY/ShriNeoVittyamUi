@@ -25,11 +25,10 @@ interface ConsentRecord {
   recipient: string;
   expiryDate: string;
   status: "Granted" | "Expired" | "Withdrawn";
-}
-
-function AdminConsentPage() {
+}function AdminConsentPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
+  const [selectedConsentId, setSelectedConsentId] = useState<string>("CNS-88401");
 
   const [consents, setConsents] = useState<ConsentRecord[]>([
     { id: "CNS-88401", borrowerName: "Sunita Rao", purpose: "TransUnion CIBIL soft pull", source: "Aadhaar Match API", recipient: "SBI Digital Finance", expiryDate: "12 Sep 2026", status: "Granted" },
@@ -54,6 +53,8 @@ function AdminConsentPage() {
     const matchesStatus = filterStatus === "All" || c.status === filterStatus;
     return matchesSearch && matchesStatus;
   });
+
+  const selectedConsent = consents.find(c => c.id === selectedConsentId);
 
   return (
     <PortalShell
@@ -117,7 +118,11 @@ function AdminConsentPage() {
                   </thead>
                   <tbody>
                     {filteredConsents.map((c) => (
-                      <tr key={c.id} className="border-b border-border hover:bg-neutral-50">
+                      <tr 
+                        key={c.id} 
+                        className={`border-b border-border hover:bg-neutral-50 cursor-pointer ${selectedConsentId === c.id ? "bg-primary/5 font-semibold" : ""}`}
+                        onClick={() => setSelectedConsentId(c.id)}
+                      >
                         <td className="p-3 font-semibold text-foreground">{c.id}</td>
                         <td className="p-3 font-semibold text-foreground">{c.borrowerName}</td>
                         <td className="p-3 text-muted-foreground">{c.purpose}</td>
@@ -138,6 +143,53 @@ function AdminConsentPage() {
 
           {/* Details Sidebar */}
           <div className="space-y-6">
+            {selectedConsent && (
+              <SectionCard title="Consent Record Detail">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono font-bold text-foreground">{selectedConsent.id}</span>
+                    <StatusBadge tone={selectedConsent.status === "Granted" ? "success" : selectedConsent.status === "Withdrawn" ? "error" : "neutral"}>
+                      {selectedConsent.status}
+                    </StatusBadge>
+                  </div>
+
+                  <dl className="grid gap-2 border-t border-b border-[#DDE7F5] py-3">
+                    <div className="flex justify-between">
+                      <dt className="text-muted-foreground">Borrower</dt>
+                      <dd className="font-semibold text-foreground">{selectedConsent.borrowerName}</dd>
+                    </div>
+                    <div className="flex flex-col gap-0.5 pt-1">
+                      <dt className="text-muted-foreground">Purpose</dt>
+                      <dd className="font-semibold text-foreground">{selectedConsent.purpose}</dd>
+                    </div>
+                    <div className="flex justify-between pt-1">
+                      <dt className="text-muted-foreground">Recipient</dt>
+                      <dd className="font-semibold text-[#002B98]">{selectedConsent.recipient}</dd>
+                    </div>
+                    <div className="flex justify-between pt-1">
+                      <dt className="text-muted-foreground">Source Channel</dt>
+                      <dd className="font-semibold text-foreground">{selectedConsent.source}</dd>
+                    </div>
+                    <div className="flex justify-between pt-1">
+                      <dt className="text-muted-foreground">Expires On</dt>
+                      <dd className="font-mono text-foreground font-semibold">{selectedConsent.expiryDate}</dd>
+                    </div>
+                  </dl>
+
+                  {selectedConsent.status === "Granted" && (
+                    <Button 
+                      variant="destructive" 
+                      size="sm" 
+                      className="w-full flex items-center justify-center gap-1.5"
+                      onClick={() => handleWithdrawConsent(selectedConsent.id)}
+                    >
+                      <Trash2 className="size-4" /> Revoke Consent (Immediate Purge)
+                    </Button>
+                  )}
+                </div>
+              </SectionCard>
+            )}
+
             <SectionCard title="Data Retention Policies">
               <div className="space-y-3">
                 <div className="rounded-lg bg-surface border border-border p-3 space-y-2">

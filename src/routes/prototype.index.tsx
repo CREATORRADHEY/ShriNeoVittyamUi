@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, FlaskConical, Monitor, Smartphone, Tablet } from "lucide-react";
+import logo from "@/assets/shrineo-logo.png";
 
 import { Button } from "@/components/ui/button";
 import { org } from "@/config/org";
@@ -106,7 +107,7 @@ const GLOBAL_PAGES = [
 
 const BORROWER_FLOW = [
   { label: "Apply for a loan", to: "/app/borrower/apply" },
-  { label: "Application — 5 steps", to: "/app/borrower/application" },
+  { label: "Application — 10 steps", to: "/app/borrower/application" },
   { label: "Application tracking", to: "/app/borrower/applications" },
   { label: "Offer comparison states", to: "/app/borrower/offers" },
   { label: "Document upload states", to: "/app/borrower/documents" },
@@ -123,9 +124,12 @@ function PrototypeNavigator() {
           <FlaskConical aria-hidden className="size-3.5" />
           Development only — not part of the production product
         </span>
-        <h1 className="editorial mt-4 text-3xl text-foreground sm:text-4xl">
-          ShriNeo Prototype Navigator
-        </h1>
+        <div className="flex items-center gap-3 mt-4">
+          <img src={logo} alt="ShriNeo Capital" className="h-9 w-auto object-contain" />
+          <h1 className="editorial text-3xl text-foreground sm:text-4xl">
+            ShriNeo Prototype Navigator
+          </h1>
+        </div>
         <p className="mt-3 max-w-[70ch] text-base text-muted-foreground">
           Enter any portal directly, switch account and data scenarios, and inspect every designed
           state without authentication. Nothing here connects to a live service — all figures are
@@ -385,6 +389,7 @@ function PrototypeNavigator() {
                   type="button"
                   onClick={() => {
                     window.localStorage.removeItem("shrineo.neoGreetingSeen");
+                    window.sessionStorage.removeItem("shrineo.neoGreetingSeen");
                     window.dispatchEvent(
                       new CustomEvent("shrineo:neo-override", {
                         detail: { state: "greeting", voiceState: "idle" }

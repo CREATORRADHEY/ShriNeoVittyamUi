@@ -55,8 +55,14 @@ export function NeoChatWidget() {
     setMounted(true);
     if (isLenderOrAdmin) return;
     try {
-      const greetingSeen = window.localStorage.getItem(STORAGE_KEY) === "true";
-      if (greetingSeen) {
+      const greetingSeen = window.sessionStorage.getItem(STORAGE_KEY) === "true";
+      const isSuppressed =
+        location.pathname.startsWith("/auth") ||
+        location.pathname.startsWith("/app") ||
+        location.pathname.startsWith("/errors") ||
+        location.pathname.startsWith("/prototype");
+
+      if (greetingSeen || isSuppressed) {
         setHasDismissedGreeting(true);
         setView("minimized");
       } else {
@@ -64,7 +70,18 @@ export function NeoChatWidget() {
         setHasDismissedGreeting(false);
         setView("minimized");
         const greetingTimeout = window.setTimeout(() => {
-          setView("greeting");
+          const currentPath = window.location.pathname;
+          const currentSuppressed =
+            currentPath.startsWith("/auth") ||
+            currentPath.startsWith("/app") ||
+            currentPath.startsWith("/errors") ||
+            currentPath.startsWith("/prototype");
+          if (!currentSuppressed) {
+            setView("greeting");
+          } else {
+            setHasDismissedGreeting(true);
+            setView("minimized");
+          }
         }, 1000);
         timers.current.push(greetingTimeout);
       }
@@ -72,7 +89,7 @@ export function NeoChatWidget() {
       setHasDismissedGreeting(true);
       setView("minimized");
     }
-  }, [isLenderOrAdmin]);
+  }, [location.pathname, isLenderOrAdmin]);
 
   // Set up prototype navigator dock offset to avoid overlapping toolbar
   useEffect(() => {
@@ -231,7 +248,7 @@ export function NeoChatWidget() {
     setView("open");
     setHasDismissedGreeting(true);
     try {
-      window.localStorage.setItem(STORAGE_KEY, "true");
+      window.sessionStorage.setItem(STORAGE_KEY, "true");
     } catch {
       /* ignore */
     }
@@ -251,7 +268,7 @@ export function NeoChatWidget() {
     setHasDismissedGreeting(true);
     setView("open");
     try {
-      window.localStorage.setItem(STORAGE_KEY, "true");
+      window.sessionStorage.setItem(STORAGE_KEY, "true");
     } catch {
       /* ignore */
     }
@@ -270,7 +287,7 @@ export function NeoChatWidget() {
     setHasDismissedGreeting(true);
     setView("minimized");
     try {
-      window.localStorage.setItem(STORAGE_KEY, "true");
+      window.sessionStorage.setItem(STORAGE_KEY, "true");
     } catch {
       /* ignore */
     }
@@ -304,7 +321,7 @@ export function NeoChatWidget() {
           onClose={() => {
             setView("minimized");
             try {
-              window.localStorage.setItem(STORAGE_KEY, "true");
+              window.sessionStorage.setItem(STORAGE_KEY, "true");
             } catch {
               /* ignore */
             }

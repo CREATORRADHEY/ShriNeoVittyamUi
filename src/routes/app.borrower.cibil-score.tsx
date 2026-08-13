@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BarChart3, AlertCircle, RefreshCw, CheckCircle2, HelpCircle } from "lucide-react";
 
 import { PortalShell, SectionCard } from "@/components/portal/portal-shell";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { usePrototype } from "@/prototype/state";
 
 export const Route = createFileRoute("/app/borrower/cibil-score")({
   head: () => ({
@@ -18,8 +19,17 @@ export const Route = createFileRoute("/app/borrower/cibil-score")({
 });
 
 function CibilScorePage() {
+  const { application, account } = usePrototype();
   const [bureauState, setBureauState] = useState<"not-checked" | "checking" | "available" | "NH" | "failed">("available");
   const [consent, setConsent] = useState(false);
+
+  useEffect(() => {
+    if (application === "draft" || account === "new") {
+      setBureauState("not-checked");
+    } else {
+      setBureauState("available");
+    }
+  }, [application, account]);
 
   const handleCheckScore = (targetState: "available" | "NH" | "failed") => {
     if (!consent) {
@@ -144,6 +154,16 @@ function CibilScorePage() {
                     <HelpCircle className="size-4" /> Download Dispute Checklist
                   </Button>
                 </div>
+              </SectionCard>
+
+              <SectionCard title="Inquiry Ledger">
+                <div className="rounded border border-border bg-surface p-3 text-xs flex justify-between items-center text-muted-foreground">
+                  <span>Inquiry ID: <span className="font-mono text-foreground font-semibold">TU-2026-993821</span></span>
+                  <span className="font-semibold text-foreground">Soft Query</span>
+                </div>
+                <p className="mt-2.5 text-[11px] text-muted-foreground italic">
+                  “Information query footprint logged as required by credit guidelines.”
+                </p>
               </SectionCard>
             </div>
           </div>

@@ -37,9 +37,10 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { org } from "@/config/org";
 import { cn } from "@/lib/utils";
-import { DEVICE_WIDTH, ROLE_LABEL, usePrototype, type Role } from "@/prototype/state";
+import { DEVICE_LABEL, DEVICE_WIDTH, ROLE_LABEL, usePrototype, type Role } from "@/prototype/state";
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { useI18n } from "@/i18n";
+import logo from "@/assets/shrineo-logo.png";
 
 export type NavItem = { label: string; to: string; icon: ComponentType<{ className?: string }>; primary?: boolean };
 
@@ -160,21 +161,22 @@ export function PortalShell({
   const { device } = usePrototype();
   const { t } = useI18n();
   const d = DENSITY[role];
-  const framed = device !== "desktop";
+  const showSidebar = device === "desktop" || device === "desktop-tablet";
   const primary = PORTAL_NAV[role].filter((i) => i.primary).slice(0, 4);
 
   const shell = (
-    <div className={cn("flex min-h-dvh bg-background", framed && "min-h-[840px]")}>
+    <div className="flex min-h-dvh bg-background">
       {/* desktop navigation */}
       <aside
         className={cn(
-          "sticky top-0 hidden h-dvh shrink-0 flex-col border-r border-border bg-card lg:flex",
+          "sticky top-0 h-dvh shrink-0 flex-col border-r border-border bg-card",
           role === "borrower" ? "w-64 p-4" : "w-60 p-3",
-          framed && "lg:hidden",
+          showSidebar ? "flex" : "hidden",
         )}
       >
-        <Link to="/" className="flex items-center gap-2 px-2 py-2">
-          <span className="editorial text-base text-foreground">{org.brandName}</span>
+        <Link to="/" className="flex items-center gap-2.5 px-2 py-2">
+          <img src={logo} alt="ShriNeo Capital" className="h-7 w-auto object-contain shrink-0" />
+          <span className="text-base font-semibold text-foreground tracking-tight">{org.brandName}</span>
         </Link>
         <p className="px-2 pb-3 text-[11px] uppercase tracking-[0.08em] text-muted-foreground">
           {ROLE_LABEL[role]} portal
@@ -192,7 +194,7 @@ export function PortalShell({
           <div className={cn("flex items-center gap-3", role === "borrower" ? "px-5 py-4" : "px-4 py-3")}>
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className={cn("min-h-11 min-w-11 lg:hidden", framed && "lg:inline-flex")} aria-label="Open navigation">
+                <Button variant="ghost" size="icon" className={cn("min-h-11 min-w-11", showSidebar ? "hidden" : "inline-flex")} aria-label="Open navigation">
                   <Menu aria-hidden className="size-5" />
                 </Button>
               </SheetTrigger>
@@ -205,8 +207,10 @@ export function PortalShell({
                   <NavList role={role} />
                 </div>
               </SheetContent>
-
             </Sheet>
+            <Link to="/" className="flex items-center gap-2 lg:hidden shrink-0">
+              <img src={logo} alt="ShriNeo Capital" className="h-7 w-auto object-contain shrink-0" />
+            </Link>
             <div className="min-w-0 flex-1">
               <h1 className={cn("truncate font-semibold text-foreground", role === "borrower" ? "text-lg" : "text-base")}>
                 {title}
@@ -235,8 +239,8 @@ export function PortalShell({
         <nav
           aria-label="Primary"
           className={cn(
-            "sticky bottom-0 z-20 grid grid-cols-4 border-t border-border bg-card lg:hidden",
-            framed && "lg:grid",
+            "sticky bottom-0 z-20 border-t border-border bg-card",
+            showSidebar ? "hidden" : "grid grid-cols-4",
           )}
         >
           {primary.map((item) => {
@@ -260,16 +264,14 @@ export function PortalShell({
     </div>
   );
 
-  if (!framed) return shell;
-
   return (
-    <div className="min-h-dvh bg-surface-strong p-4 sm:p-8">
+    <div className="min-h-dvh bg-surface-strong p-4 sm:p-8 flex flex-col justify-start items-center">
       <p className="mx-auto mb-3 max-w-fit rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
-        Prototype device preview · {device} ({DEVICE_WIDTH[device]})
+        Prototype device preview · {DEVICE_LABEL[device]} ({DEVICE_WIDTH[device]})
       </p>
       <div
-        className="mx-auto overflow-hidden rounded-2xl border border-border-strong bg-background shadow-[var(--shadow-panel)]"
-        style={{ width: "100%", maxWidth: DEVICE_WIDTH[device] }}
+        className="w-full overflow-hidden rounded-2xl border border-border-strong bg-background shadow-[var(--shadow-panel)]"
+        style={{ maxWidth: DEVICE_WIDTH[device], minHeight: "840px" }}
       >
         {shell}
       </div>
