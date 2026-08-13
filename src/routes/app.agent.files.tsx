@@ -6,8 +6,6 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge, KpiCard } from "@/components/states";
 import { formatINR } from "@/lib/format";
 import { usePrototype } from "@/prototype/state";
-import { formatINR } from "@/lib/format";
-import { usePrototype } from "@/prototype/state";
 
 const FILES_DATA = [
   {
